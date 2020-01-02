@@ -1,36 +1,3 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>BoseLiao&#39;s Blog</title>
-    <link>https://example.com/</link>
-    <description>Recent content on BoseLiao&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Thu, 02 Jan 2020 15:42:57 +0800</lastBuildDate>
-    
-	<atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>About BoseLiao</title>
-      <link>https://example.com/boseliao/</link>
-      <pubDate>Thu, 02 Jan 2020 15:42:57 +0800</pubDate>
-      
-      <guid>https://example.com/boseliao/</guid>
-      <description>EDUCATION
- 2012-2016 Ningbo University,Bachelor 2017-2020 Ningbo University,Master  INTERESTING
- Quantum open system,Quantum simulation Numerical Calculation  </description>
-    </item>
-    
-    <item>
-      <title>First_post</title>
-      <link>https://example.com/posts/first_posts/</link>
-      <pubDate>Thu, 02 Jan 2020 14:51:20 +0800</pubDate>
-      
-      <guid>https://example.com/posts/first_posts/</guid>
-      <description>I am BoseLiao</description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>BoseLiao's Blog</title><link>https://example.com/</link><description>Recent content on BoseLiao's Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 02 Jan 2020 15:42:57 +0800</lastBuildDate><atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml"/><item><title>About BoseLiao</title><link>https://example.com/boseliao/</link><pubDate>Thu, 02 Jan 2020 15:42:57 +0800</pubDate><guid>https://example.com/boseliao/</guid><description>EDUCATION
+2012-2016 Ningbo University,Bachelor 2017-2020 Ningbo University,Master INTERESTING
+Quantum open system,Quantum simulation Numerical Calculation</description></item><item><title>First_post</title><link>https://example.com/posts/first_posts/</link><pubDate>Thu, 02 Jan 2020 14:51:20 +0800</pubDate><guid>https://example.com/posts/first_posts/</guid><description>I am BoseLiao</description></item></channel></rss>
