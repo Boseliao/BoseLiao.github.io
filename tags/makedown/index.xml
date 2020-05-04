@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>BoseLiao&#39;s Blog</title>
-    <link>https://boseliao.github.io/</link>
-    <description>Recent content on BoseLiao&#39;s Blog</description>
+    <title>Makedown on BoseLiao&#39;s Blog</title>
+    <link>https://boseliao.github.io/tags/makedown/</link>
+    <description>Recent content in Makedown on BoseLiao&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
     <lastBuildDate>Sun, 03 May 2020 20:50:10 +0800</lastBuildDate>
     
-	<atom:link href="https://boseliao.github.io/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://boseliao.github.io/tags/makedown/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -29,26 +29,6 @@ program main implicit none int x x=1 write(*,*) end program 表格与图片 1.�
 | 表头 | 表头 | | ---- | ---- | | 单元格 | 单元格 | | 单元格 | 单元格 |  2.图片
 代码：
 ![Boseliao 图标](图片网址 &amp;quot;Boseliao&amp;quot;)  3.</description>
-    </item>
-    
-    <item>
-      <title>About BoseLiao</title>
-      <link>https://boseliao.github.io/boseliao/</link>
-      <pubDate>Thu, 02 Jan 2020 15:42:57 +0800</pubDate>
-      
-      <guid>https://boseliao.github.io/boseliao/</guid>
-      <description>EDUCATION
- 2012-2016 Ningbo University,Bachelor 2017-2020 Ningbo University,Master  INTERESTING
- Quantum open system,Quantum simulation Numerical Calculation  </description>
-    </item>
-    
-    <item>
-      <title>First_post</title>
-      <link>https://boseliao.github.io/posts/first_posts/</link>
-      <pubDate>Thu, 02 Jan 2020 14:51:20 +0800</pubDate>
-      
-      <guid>https://boseliao.github.io/posts/first_posts/</guid>
-      <description>I am BoseLiao</description>
     </item>
     
   </channel>

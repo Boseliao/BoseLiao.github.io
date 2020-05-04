@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on BoseLiao&#39;s Blog</title>
@@ -7,9 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Sun, 03 May 2020 20:50:10 +0800</lastBuildDate>
     
 	<atom:link href="https://boseliao.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Makedown</title>
+      <link>https://boseliao.github.io/tags/makedown/</link>
+      <pubDate>Sun, 03 May 2020 20:50:10 +0800</pubDate>
+      
+      <guid>https://boseliao.github.io/tags/makedown/</guid>
+      <description></description>
+    </item>
     
   </channel>
 </rss>

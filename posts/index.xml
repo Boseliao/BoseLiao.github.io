@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title>Posts on BoseLiao&#39;s Blog</title>
@@ -6,8 +7,316 @@
 		<generator>Hugo -- gohugo.io</generator>
 		<language>en-us</language>
 		<copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-		<lastBuildDate>Thu, 02 Jan 2020 14:51:20 +0800</lastBuildDate>
+		<lastBuildDate>Sun, 03 May 2020 20:50:10 +0800</lastBuildDate>
 		<atom:link href="https://boseliao.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>20200503</title>
+			<link>https://boseliao.github.io/posts/20200503/</link>
+			<pubDate>Sun, 03 May 2020 20:50:10 +0800</pubDate>
+			
+			<guid>https://boseliao.github.io/posts/20200503/</guid>
+			<description>makedown 语句的学习 标题的设置 1.使用使用“#”进行标题设置，“#+空格”表示一级标题，“##+空格”表示二级标题&amp;hellip;以此类推；
+2.在标题下方画横短线，“===”表示一级标题，“&amp;mdash;”表示二级标题。
+段落 1.使用空行来分行
+2.斜体1，粗体2，下划线3
+区块 1.段落区块使用符号&amp;gt;,类似的可以嵌套&amp;gt;&amp;gt;表示二级区块&amp;hellip;
+2.代码区块，若是在段落中可以用反引号，例如prinf()函数4;整段的代码可以使用4个空格或者一个制表符（Tab键）或是三个反引号输入语言类型，例如
+program main implicit none int x x=1 write(*,*) end program 表格与图片 1.表格
+   表头 表头     单元格 单元格   单元格 单元格    代码：
+| 表头 | 表头 | | ---- | ---- | | 单元格 | 单元格 | | 单元格 | 单元格 |  2.图片
+代码：
+![Boseliao 图标](图片网址 &amp;quot;Boseliao&amp;quot;)  3.</description>
+			<content type="html"><![CDATA[
+
+<h1 id="makedown-语句的学习">makedown 语句的学习</h1>
+
+<h2 id="标题的设置">标题的设置</h2>
+
+<p>1.使用使用“#”进行标题设置，“#+空格”表示一级标题，“##+空格”表示二级标题&hellip;以此类推；</p>
+
+<p>2.在标题下方画横短线，“===”表示一级标题，“&mdash;”表示二级标题。</p>
+
+<h2 id="段落">段落</h2>
+
+<p>1.使用空行来分行</p>
+
+<p>2.<em>斜体</em><sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup>，<strong>粗体</strong><sup class="footnote-ref" id="fnref:2"><a href="#fn:2">2</a></sup>，<u>下划线</u><sup class="footnote-ref" id="fnref:3"><a href="#fn:3">3</a></sup></p>
+
+<h2 id="区块">区块</h2>
+
+<p>1.段落区块使用符号&gt;,类似的可以嵌套&gt;&gt;表示二级区块&hellip;</p>
+
+<p>2.代码区块，若是在段落中可以用反引号，例如<code>prinf()</code>函数<sup class="footnote-ref" id="fnref:4"><a href="#fn:4">4</a></sup>;整段的代码可以使用4个空格或者一个制表符（Tab键）或是三个反引号输入语言类型，例如</p>
+<div class="highlight"><pre class="chroma"><code class="language-fortran" data-lang="fortran"><span class="k">program </span><span class="n">main</span>
+<span class="k">implicit none
+</span><span class="k"></span><span class="nb">int </span><span class="n">x</span>
+<span class="n">x</span><span class="o">=</span><span class="mi">1</span>
+<span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span>
+<span class="k">end program</span></code></pre></div>
+<h2 id="表格与图片">表格与图片</h2>
+
+<p>1.表格</p>
+
+<table>
+<thead>
+<tr>
+<th>表头</th>
+<th>表头</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>单元格</td>
+<td>单元格</td>
+</tr>
+
+<tr>
+<td>单元格</td>
+<td>单元格</td>
+</tr>
+</tbody>
+</table>
+
+<p>代码：</p>
+
+<pre><code>|  表头   | 表头  |
+|  ----  | ----  |
+| 单元格  | 单元格 |
+| 单元格  | 单元格 |
+</code></pre>
+
+<p>2.图片</p>
+
+<p>代码：</p>
+
+<pre><code>![Boseliao 图标](图片网址 &quot;Boseliao&quot;)
+</code></pre>
+
+<p>3.链接</p>
+
+<p>这是我的网址<a href="https://boseliao.github.io/">Boseliao&rsquo;Blog</a></p>
+
+<p>代码：</p>
+
+<pre><code>[链接名称](链接地址)
+or
+&lt;链接地址&gt;
+</code></pre>
+
+<h2 id="数学公式">数学公式</h2>
+
+<p>可以使用<code>$$</code>包裹latex格式的数学代码，需要浏览器安装MathJax插件</p>
+
+<p>$$
+\hat{\sigma}_z
+$$</p>
+
+<h2 id="流程图">流程图</h2>
+
+<p>1.使用mermaid画流程图，先画三个反引号，再输入流程类型mermaid，横向</p>
+<div class="highlight"><pre class="chroma"><code class="language-mermaid" data-lang="mermaid">graph LR
+A[方形]--&gt;B(圆角)
+	B--&gt;C{条件}
+	C --&gt;|a=1| D[结果1]
+	C --&gt;|a=2| E[结果2]
+	F[横向流程图]</code></pre></div>
+<p>代码</p>
+
+<pre><code>graph LR
+A[方形]--&gt;B(圆角)
+	B--&gt;C{条件}
+	C --&gt;|a=1| D[结果1]
+	C --&gt;|a=2| E[结果2]
+	F[横向流程图]
+</code></pre>
+
+<p>2.竖向流程</p>
+<div class="highlight"><pre class="chroma"><code class="language-mermaid" data-lang="mermaid">graph TD
+A[方形] --&gt; B(圆角)
+    B --&gt; C{条件a}
+    C --&gt; |a=1| D[结果1]
+    C --&gt; |a=2| E[结果2]
+    F[竖向流程图]</code></pre></div>
+<pre><code>graph TD
+A[方形] --&gt; B(圆角)
+    B --&gt; C{条件a}
+    C --&gt; |a=1| D[结果1]
+    C --&gt; |a=2| E[结果2]
+    F[竖向流程图
+</code></pre>
+
+<p>3.标准流程图</p>
+<div class="highlight"><pre class="chroma"><code class="language-flow" data-lang="flow">st=&gt;start: 开始框
+op=&gt;operation: 处理框
+cond=&gt;condition: 判断框(是或否?)
+sub1=&gt;subroutine: 子流程
+io=&gt;inputoutput: 输入输出框
+e=&gt;end: 结束框
+st-&gt;op-&gt;cond
+cond(yes)-&gt;io-&gt;e
+cond(no)-&gt;sub1(right)-&gt;op</code></pre></div>
+<pre><code>st=&gt;start: 开始框
+op=&gt;operation: 处理框
+cond=&gt;condition: 判断框(是或否?)
+sub1=&gt;subroutine: 子流程
+io=&gt;inputoutput: 输入输出框
+e=&gt;end: 结束框
+st-&gt;op-&gt;cond
+cond(yes)-&gt;io-&gt;e
+cond(no)-&gt;sub1(right)-&gt;op
+</code></pre>
+
+<p>4.标准流程图（横向）</p>
+<div class="highlight"><pre class="chroma"><code class="language-flow" data-lang="flow">st=&gt;start: 开始框
+op=&gt;operation: 处理框
+cond=&gt;condition: 判断框(是或否?)
+sub1=&gt;subroutine: 子流程
+io=&gt;inputoutput: 输入输出框
+e=&gt;end: 结束框
+st(right)-&gt;op(right)-&gt;cond
+cond(yes)-&gt;io(bottom)-&gt;e
+cond(no)-&gt;sub1(right)-&gt;op</code></pre></div>
+<pre><code>st=&gt;start: 开始框
+op=&gt;operation: 处理框
+cond=&gt;condition: 判断框(是或否?)
+sub1=&gt;subroutine: 子流程
+io=&gt;inputoutput: 输入输出框
+e=&gt;end: 结束框
+st(right)-&gt;op(right)-&gt;cond
+cond(yes)-&gt;io(bottom)-&gt;e
+cond(no)-&gt;sub1(right)-&gt;op
+</code></pre>
+
+<p>5.UML时序图</p>
+<div class="highlight"><pre class="chroma"><code class="language-sequence" data-lang="sequence">对象A-&gt;对象B: 对象B你好吗?（请求）
+Note right of 对象B: 对象B的描述
+Note left of 对象A: 对象A的描述(提示)
+对象B--&gt;对象A: 我很好(响应)
+对象A-&gt;对象B: 你真的好吗？</code></pre></div>
+<pre><code>对象A-&gt;对象B: 对象B你好吗?（请求）
+Note right of 对象B: 对象B的描述
+Note left of 对象A: 对象A的描述(提示)
+对象B--&gt;对象A: 我很好(响应)
+对象A-&gt;对象B: 你真的好吗？
+</code></pre>
+
+<p>6.UML时序图(复杂)</p>
+<div class="highlight"><pre class="chroma"><code class="language-sequence" data-lang="sequence">Title: 标题：复杂使用
+对象A-&gt;对象B: 对象B你好吗?（请求）
+Note right of 对象B: 对象B的描述
+Note left of 对象A: 对象A的描述(提示)
+对象B--&gt;对象A: 我很好(响应)
+对象B-&gt;小三: 你好吗
+小三--&gt;&gt;对象A: 对象B找我了
+对象A-&gt;对象B: 你真的好吗？
+Note over 小三,对象B: 我们是朋友
+participant C
+Note right of C: 没人陪我玩</code></pre></div>
+<pre><code>Title: 标题：复杂使用
+对象A-&gt;对象B: 对象B你好吗?（请求）
+Note right of 对象B: 对象B的描述
+Note left of 对象A: 对象A的描述(提示)
+对象B--&gt;对象A: 我很好(响应)
+对象B-&gt;小三: 你好吗
+小三--&gt;&gt;对象A: 对象B找我了
+对象A-&gt;对象B: 你真的好吗？
+Note over 小三,对象B: 我们是朋友
+participant C
+Note right of C: 没人陪我玩
+</code></pre>
+
+<p>7.UML标准时序图</p>
+<div class="highlight"><pre class="chroma"><code class="language-mermaid" data-lang="mermaid">%% 时序图例子,-&gt; 直线，--&gt;虚线，-&gt;&gt;实线箭头
+  sequenceDiagram
+    participant 张三
+    participant 李四
+    张三-&gt;王五: 王五你好吗？
+    loop 健康检查
+        王五-&gt;王五: 与疾病战斗
+    end
+    Note right of 王五: 合理 食物 &lt;br/&gt;看医生...
+    李四--&gt;&gt;张三: 很好!
+    王五-&gt;李四: 你怎么样?
+    李四--&gt;王五: 很好!</code></pre></div>
+<pre><code>%% 时序图例子,-&gt; 直线，--&gt;虚线，-&gt;&gt;实线箭头
+  sequenceDiagram
+    participant 张三
+    participant 李四
+    张三-&gt;王五: 王五你好吗？
+    loop 健康检查
+        王五-&gt;王五: 与疾病战斗
+    end
+    Note right of 王五: 合理 食物 &lt;br/&gt;看医生...
+    李四--&gt;&gt;张三: 很好!
+    王五-&gt;李四: 你怎么样?
+    李四--&gt;王五: 很好!
+</code></pre>
+
+<p>8.甘特图</p>
+<div class="highlight"><pre class="chroma"><code class="language-mermaid" data-lang="mermaid">%% 语法示例
+        gantt
+        dateFormat  YYYY-MM-DD
+        title 软件开发甘特图
+        section 设计
+        需求                      :done,    des1, 2014-01-06,2014-01-08
+        原型                      :active,  des2, 2014-01-09, 3d
+        UI设计                     :         des3, after des2, 5d
+    未来任务                     :         des4, after des3, 5d
+        section 开发
+        学习准备理解需求                      :crit, done, 2014-01-06,24h
+        设计框架                             :crit, done, after des2, 2d
+        开发                                 :crit, active, 3d
+        未来任务                              :crit, 5d
+        耍                                   :2d
+        section 测试
+        功能测试                              :active, a1, after des3, 3d
+        压力测试                               :after a1  , 20h
+        测试报告                               : 48h</code></pre></div>
+<pre><code>%% 语法示例
+        gantt
+        dateFormat  YYYY-MM-DD
+        title 软件开发甘特图
+        section 设计
+        需求                      :done,    des1, 2014-01-06,2014-01-08
+        原型                      :active,  des2, 2014-01-09, 3d
+        UI设计                     :         des3, after des2, 5d
+    未来任务                     :         des4, after des3, 5d
+        section 开发
+        学习准备理解需求                      :crit, done, 2014-01-06,24h
+        设计框架                             :crit, done, after des2, 2d
+        开发                                 :crit, active, 3d
+        未来任务                              :crit, 5d
+        耍                                   :2d
+        section 测试
+        功能测试                              :active, a1, after des3, 3d
+        压力测试                               :after a1  , 20h
+        测试报告                               : 48h
+</code></pre>
+
+<h2 id="总结">总结</h2>
+
+<p>以上使用typora编译，参考资料<a href="https://www.runoob.com/markdown/md-tutorial.html">菜鸟编程</a></p>
+
+<p>😙😙😙</p>
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:1">*文字*
+ <a class="footnote-return" href="#fnref:1"><sup>[return]</sup></a></li>
+<li id="fn:2">**文字**
+ <a class="footnote-return" href="#fnref:2"><sup>[return]</sup></a></li>
+<li id="fn:3">&lt;u&gt;文字&lt;/u&gt;
+ <a class="footnote-return" href="#fnref:3"><sup>[return]</sup></a></li>
+<li id="fn:4">``
+ <a class="footnote-return" href="#fnref:4"><sup>[return]</sup></a></li>
+</ol>
+</div>
+]]></content>
+		</item>
 		
 		<item>
 			<title>First_post</title>

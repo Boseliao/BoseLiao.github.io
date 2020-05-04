@@ -1,14 +1,14 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://boseliao.github.io/boseliao/</loc>
-    <lastmod>2020-01-02T15:42:57+08:00</lastmod>
+    <loc>https://boseliao.github.io/posts/20200503/</loc>
+    <lastmod>2020-05-03T20:50:10+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://boseliao.github.io/</loc>
+    <loc>https://boseliao.github.io/boseliao/</loc>
     <lastmod>2020-01-02T15:42:57+08:00</lastmod>
   </url>
   
@@ -18,12 +18,27 @@
   </url>
   
   <url>
+    <loc>https://boseliao.github.io/</loc>
+    <lastmod>2020-05-03T20:50:10+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://boseliao.github.io/tags/makedown/</loc>
+    <lastmod>2020-05-03T20:50:10+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://boseliao.github.io/posts/</loc>
-    <lastmod>2020-01-02T14:51:20+08:00</lastmod>
+    <lastmod>2020-05-03T20:50:10+08:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://boseliao.github.io/tags/</loc>
+    <lastmod>2020-05-03T20:50:10+08:00</lastmod>
+    <priority>0</priority>
   </url>
   
 </urlset>
