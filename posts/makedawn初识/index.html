@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="theme-color" content="#494f5c">
+	<meta name="msapplication-TileColor" content="#494f5c">
+
+<meta itemprop="name" content="MakeDown初识">
+<meta itemprop="description" content="标题的设置  使用“#”进行标题设置，“#&#43;空格”表示一级标题，“##&#43;空格”表示二级标题…以此类推； 在标题下方画横短线，“===”表示一级标题，“—”表示二级标题。  段落  使用空行来分行 斜体*txt*，粗体**txt**，下划线&lt;u&gt;txt&lt;/u&gt;  区块  段落区块使用&gt;
+ 使用&gt;&gt;可以嵌套
+  代码区块，若是在段落中可以用反引号将代码块包含，整段的代码可以使用4个空格或者一个制表符（Tab键）或是三个反引号输入语言类型，例如
+program main implicit none int x x=1 write(*,*) end program 表格与图片  表格     表头 表头 表头     单元格 单元格 单元格   单元格 单元格 单元格    代码
+| 表头 | 表头 | | ---- | ---- | | 单元格 | 单元格 | | 单元格 | 单元格 |  图片  代码">
+
+
+<meta itemprop="datePublished" content="2020-05-11T17:49:12&#43;08:00" />
+<meta itemprop="dateModified" content="2020-05-11T17:49:12&#43;08:00" />
+<meta itemprop="wordCount" content="294">
+
+
+
+<meta itemprop="keywords" content="MakeDown," />
+<meta property="og:title" content="MakeDown初识" />
+<meta property="og:description" content="标题的设置  使用“#”进行标题设置，“#&#43;空格”表示一级标题，“##&#43;空格”表示二级标题…以此类推； 在标题下方画横短线，“===”表示一级标题，“—”表示二级标题。  段落  使用空行来分行 斜体*txt*，粗体**txt**，下划线&lt;u&gt;txt&lt;/u&gt;  区块  段落区块使用&gt;
+ 使用&gt;&gt;可以嵌套
+  代码区块，若是在段落中可以用反引号将代码块包含，整段的代码可以使用4个空格或者一个制表符（Tab键）或是三个反引号输入语言类型，例如
+program main implicit none int x x=1 write(*,*) end program 表格与图片  表格     表头 表头 表头     单元格 单元格 单元格   单元格 单元格 单元格    代码
+| 表头 | 表头 | | ---- | ---- | | 单元格 | 单元格 | | 单元格 | 单元格 |  图片  代码" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://boseliao.github.io/posts/makedawn%E5%88%9D%E8%AF%86/" />
+<meta property="article:published_time" content="2020-05-11T17:49:12&#43;08:00"/>
+<meta property="article:modified_time" content="2020-05-11T17:49:12&#43;08:00"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="MakeDown初识"/>
+<meta name="twitter:description" content="标题的设置  使用“#”进行标题设置，“#&#43;空格”表示一级标题，“##&#43;空格”表示二级标题…以此类推； 在标题下方画横短线，“===”表示一级标题，“—”表示二级标题。  段落  使用空行来分行 斜体*txt*，粗体**txt**，下划线&lt;u&gt;txt&lt;/u&gt;  区块  段落区块使用&gt;
+ 使用&gt;&gt;可以嵌套
+  代码区块，若是在段落中可以用反引号将代码块包含，整段的代码可以使用4个空格或者一个制表符（Tab键）或是三个反引号输入语言类型，例如
+program main implicit none int x x=1 write(*,*) end program 表格与图片  表格     表头 表头 表头     单元格 单元格 单元格   单元格 单元格 单元格    代码
+| 表头 | 表头 | | ---- | ---- | | 单元格 | 单元格 | | 单元格 | 单元格 |  图片  代码"/>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="">
+	<link rel="shortcut icon" href="/favicon.ico">
+
+	<title>MakeDown初识</title>
+	<link rel="stylesheet" href="https://boseliao.github.io/css/style.min.657bcb7af31123e4156b1a3d2ff60a636717e54ead74f882136b5114cf72b55e.css" integrity="sha256-ZXvLevMRI+QVaxo9L/YKY2cX5U6tdPiCE2tRFM9ytV4=" crossorigin="anonymous">
+	
+</head>
+
+<body id="page">
+	
+	<header id="site-header" class="animated slideInUp faster">
+		<div class="hdr-wrapper section-inner">
+			<div class="hdr-left">
+				<div class="site-branding">
+					<a href="https://boseliao.github.io">BoseLiao&#39;s Blog</a>
+				</div>
+				<nav class="site-nav hide-in-mobile">
+					
+				<a href="https://boseliao.github.io/posts/">Posts</a>
+				<a href="https://boseliao.github.io/boseliao">About</a>
+
+				</nav>
+			</div>
+			<div class="hdr-right hdr-icons">
+				<button id="menu-btn" class="hdr-btn" title="Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+			</div>
+		</div>
+	</header>
+	<div id="mobile-menu" class="animated fast">
+		<ul>
+			<li><a href="https://boseliao.github.io/posts/">Posts</a></li>
+			<li><a href="https://boseliao.github.io/boseliao">About</a></li>
+		</ul>
+	</div>
+
+
+	<main class="site-main section-inner animated fadeIn faster">
+		<article class="thin">
+			<header class="post-header">
+				<div class="post-meta"><span>May 11, 2020</span></div>
+				<h1>MakeDown初识</h1>
+			</header>
+			<div class="content">
+				
+
+<h2 id="标题的设置">标题的设置<a href="#标题的设置" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+
+<ol>
+<li>使用“#”进行标题设置，“#+空格”表示一级标题，“##+空格”表示二级标题…以此类推；</li>
+<li>在标题下方画横短线，“===”表示一级标题，“—”表示二级标题。</li>
+</ol>
+
+<h2 id="段落">段落<a href="#段落" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+
+<ol>
+<li>使用空行来分行</li>
+<li><em>斜体</em><code>*txt*</code>，<strong>粗体</strong><code>**txt**</code>，<u>下划线</u><code>&lt;u&gt;txt&lt;/u&gt;</code></li>
+</ol>
+
+<h2 id="区块">区块<a href="#区块" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+
+<blockquote>
+<p>段落区块使用<code>&gt;</code></p>
+
+<blockquote>
+<p>使用<code>&gt;&gt;</code>可以嵌套</p>
+</blockquote>
+</blockquote>
+
+<p>代码区块，若是在段落中可以用反引号将代码块包含，整段的代码可以使用4个空格或者一个制表符（Tab键）或是三个反引号输入语言类型，例如</p>
+<div class="highlight"><pre class="chroma"><code class="language-fortran" data-lang="fortran"><span class="k">program </span><span class="n">main</span>
+<span class="k">implicit none
+</span><span class="k"></span><span class="nb">int </span><span class="n">x</span>
+<span class="n">x</span><span class="o">=</span><span class="mi">1</span>
+<span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span>
+<span class="k">end program</span></code></pre></div>
+<h2 id="表格与图片">表格与图片<a href="#表格与图片" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+
+<ol>
+<li>表格</li>
+</ol>
+
+<table>
+<thead>
+<tr>
+<th align="center">表头</th>
+<th align="center">表头</th>
+<th align="center">表头</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center">单元格</td>
+<td align="center">单元格</td>
+<td align="center">单元格</td>
+</tr>
+
+<tr>
+<td align="center">单元格</td>
+<td align="center">单元格</td>
+<td align="center">单元格</td>
+</tr>
+</tbody>
+</table>
+
+<p>代码</p>
+<div class="highlight"><pre class="chroma"><code class="language-makedown" data-lang="makedown">|  表头   | 表头  |
+|  ----  | ----  |
+| 单元格  | 单元格 |
+| 单元格  | 单元格 |</code></pre></div>
+<ol>
+<li>图片</li>
+</ol>
+
+<p>代码</p>
+<div class="highlight"><pre class="chroma"><code class="language-makedown" data-lang="makedown">![Boseliao 图标](图片网址 &#34;Boseliao&#34;)</code></pre></div>
+<ol>
+<li>链接</li>
+</ol>
+
+<ul>
+<li><p>网站外链接，使用代码<code>[链接名称](链接地址)</code>或<code>&lt;链接地址&gt;</code>，这是我的网址<a href="https://boseliao.github.io">Boseliao&rsquo;Blog</a></p></li>
+
+<li><p>多次链接</p></li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-makedown" data-lang="makedown">  [链接文字][name]
+  
+  [name]: link &#34;Title&#34;</code></pre></div>
+<ul>
+<li>网站外链接<code>[显示的内容](#标题标号-标题文本)</code><a href="#表格与图片">跳转到表格与图片</a></li>
+</ul>
+
+<h2 id="数学公式">数学公式<a href="#数学公式" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+
+<p>可以使用<code>$$</code>包裹latex格式的数学代码，需要浏览器安装MathJax插件
+$$
+\hat{\sigma}_z
+$$</p>
+
+<h2 id="流程图">流程图<a href="#流程图" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+
+<ol>
+<li>使用mermaid画流程图，先画三个反引号，再输入流程类型mermaid，横向</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-mermaid" data-lang="mermaid">graph LR
+A[方形]--&gt;B(圆角)
+	B--&gt;C{条件}
+	C --&gt;|a=1| D[结果1]
+	C --&gt;|a=2| E[结果2]
+	F[横向流程图]</code></pre></div>
+<p>代码</p>
+<div class="highlight"><pre class="chroma"><code class="language-makedown" data-lang="makedown">graph LR
+A[方形]--&gt;B(圆角)
+	B--&gt;C{条件}
+	C --&gt;|a=1| D[结果1]
+	C --&gt;|a=2| E[结果2]
+	F[横向流程图]</code></pre></div>
+<ol>
+<li>竖向流程</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-mermaid" data-lang="mermaid">graph TD
+A[方形] --&gt; B(圆角)
+    B --&gt; C{条件a}
+    C --&gt; |a=1| D[结果1]
+    C --&gt; |a=2| E[结果2]
+    F[竖向流程图]</code></pre></div>
+<ol>
+<li>标准流程图<code>flow</code></li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-flow" data-lang="flow">st=&gt;start: 开始框
+op=&gt;operation: 处理框
+cond=&gt;condition: 判断框(是或否?)
+sub1=&gt;subroutine: 子流程
+io=&gt;inputoutput: 输入输出框
+e=&gt;end: 结束框
+st-&gt;op-&gt;cond
+cond(yes)-&gt;io-&gt;e
+cond(no)-&gt;sub1(right)-&gt;op</code></pre></div>
+<ol>
+<li>标准流程图（横向）<code>flow</code></li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-flow" data-lang="flow">st=&gt;start: 开始框
+op=&gt;operation: 处理框
+cond=&gt;condition: 判断框(是或否?)
+sub1=&gt;subroutine: 子流程
+io=&gt;inputoutput: 输入输出框
+e=&gt;end: 结束框
+st(right)-&gt;op(right)-&gt;cond
+cond(yes)-&gt;io(bottom)-&gt;e
+cond(no)-&gt;sub1(right)-&gt;op</code></pre></div>
+<ol>
+<li>UML时序图源<code>sequence</code></li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-sequence" data-lang="sequence">对象A-&gt;对象B: 对象B你好吗?（请求）
+Note right of 对象B: 对象B的描述
+Note left of 对象A: 对象A的描述(提示)
+对象B--&gt;对象A: 我很好(响应)
+对象A-&gt;对象B: 你真的好吗？</code></pre></div>
+<ol>
+<li>UML时序图(复杂)<code>sequence</code></li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-sequence" data-lang="sequence">Title: 标题：复杂使用
+对象A-&gt;对象B: 对象B你好吗?（请求）
+Note right of 对象B: 对象B的描述
+Note left of 对象A: 对象A的描述(提示)
+对象B--&gt;对象A: 我很好(响应)
+对象B-&gt;小三: 你好吗
+小三--&gt;&gt;对象A: 对象B找我了
+对象A-&gt;对象B: 你真的好吗？
+Note over 小三,对象B: 我们是朋友
+participant C
+Note right of C: 没人陪我玩</code></pre></div>
+<ol>
+<li>UML标准时序图<code>mermaid</code></li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-mermaid" data-lang="mermaid">%% 时序图例子,-&gt; 直线，--&gt;虚线，-&gt;&gt;实线箭头
+  sequenceDiagram
+    participant 张三
+    participant 李四
+    张三-&gt;王五: 王五你好吗？
+    loop 健康检查
+        王五-&gt;王五: 与疾病战斗
+    end
+    Note right of 王五: 合理 食物 &lt;br/&gt;看医生...
+    李四--&gt;&gt;张三: 很好!
+    王五-&gt;李四: 你怎么样?
+    李四--&gt;王五: 很好!</code></pre></div>
+<ol>
+<li>甘特图<code>mermaid</code></li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-mermaid" data-lang="mermaid">%% 语法示例
+        gantt
+        dateFormat  YYYY-MM-DD
+        title 软件开发甘特图
+        section 设计
+        需求                      :done,    des1, 2014-01-06,2014-01-08
+        原型                      :active,  des2, 2014-01-09, 3d
+        UI设计                     :         des3, after des2, 5d
+    未来任务                     :         des4, after des3, 5d
+        section 开发
+        学习准备理解需求                      :crit, done, 2014-01-06,24h
+        设计框架                             :crit, done, after des2, 2d
+        开发                                 :crit, active, 3d
+        未来任务                              :crit, 5d
+        耍                                   :2d
+        section 测试
+        功能测试                              :active, a1, after des3, 3d
+        压力测试                               :after a1  , 20h
+        测试报告                               : 48h</code></pre></div>
+<p>以上使用typora编译，参考资料<a href="https://www.runoob.com/markdown/md-tutorial.html">菜鸟编程</a></p>
+
+			</div>
+			<hr class="post-end">
+			<footer class="post-info">
+				<p>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://boseliao.github.io/tags/makedown">MakeDown</a></span>
+				</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>294 Words</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2020-05-11 17:49 &#43;0800</p>
+			</footer>
+		</article>
+		<div class="post-nav thin">
+			<a class="prev-post" href="https://boseliao.github.io/posts/first_posts/">
+				<span class="post-nav-label">Older&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span><br><span>First_post</span>
+			</a>
+		</div>
+		<div id="comments" class="thin">
+</div>
+	</main>
+
+	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
+		<p>&copy; 2020 <a href="https://boseliao.github.io">BoseLiao</a></p>
+	</footer>
+
+
+
+	<script src="https://boseliao.github.io/js/bundle.min.490e43e5af6db5906f28afa49a4e16bf9f626b758e3fca92f146b870eb94bb37.js" integrity="sha256-SQ5D5a9ttZBvKK+kmk4Wv59ia3WOP8qS8Ua4cOuUuzc=" crossorigin="anonymous"></script>
+	
+
+</body>
+
+</html>
