@@ -7,8 +7,78 @@
 		<generator>Hugo -- gohugo.io</generator>
 		<language>en-us</language>
 		<copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-		<lastBuildDate>Mon, 11 May 2020 17:49:12 +0800</lastBuildDate>
+		<lastBuildDate>Wed, 13 May 2020 10:17:14 +0800</lastBuildDate>
 		<atom:link href="https://boseliao.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>QuTip的安装与配置</title>
+			<link>https://boseliao.github.io/posts/qutip%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/</link>
+			<pubDate>Wed, 13 May 2020 10:17:14 +0800</pubDate>
+			
+			<guid>https://boseliao.github.io/posts/qutip%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/</guid>
+			<description>Qutip(Quantum Toolbox in Python)是用于研究量子系统的有力工具，这是python下的一个模块，我们需要下载，安装他。
+ 推荐使用conda进行python环境的管理，对于python环境的基本配置可在参考书目1，以及对于Python语句的学习使用参考书目2。QuTip的安装参考指导手册。需要注意的是，在安装完miniconda或者Anaconda之后，需要更新conda使用命令。
+conda update conda  conda的配置   首先使用conda list查看安装的包以及python版本，特别的，模块QuTip的安装依赖以下的包numpy，scipy，cython，pytest并且python的版本必须在3.0以上，需要确认以上包已经被安装在conda环境中。如果没有上述包，则使用如下语句进行包的安装。类似的，Python的IDE也可以用如下命令选择安装skyder。
+conda install package_name 添加conda的频道并更新
+conda config --append channels conda-forge conda config --add channels conda-forge conda update  创建配置python3环境   如果发现Python不是3.0以上版本，可以利用conda创建新的python3环境，并在python3环境中重新配置QuTip。首先使用命令
+conda env list 查看环境列表，在前面带有*表示当前环境，一般处于base环境中。接下来我们创建python3环境，
+conda create -n python3 python=3 这里我们创建了名称为python3，并且安装了python3最新版本的环境。使用命令
+source activate python3 可以激活环境python3。首先，在该环境下查看是否安装了python3以上的版本使用python --version，如果没有使用命令
+conda install python 就可以安装Python3版本。并在环境python3中，重复二步骤检查QuTip的依赖包。
+依旧在python3环境中，使用conda install qutip安装qutip，如果无法搜索到则可以到QuTip官网下载安装包，在python3环境中使用pip安装
+pip install QuTip.* 最后QuTip的测试代码，如果能显示无误，那么就安装成功了。
+import qutip.testing as qt qt.run()  Python物理学高效计算 [return] Python物理建模初学者指南 [return]   </description>
+			<content type="html"><![CDATA[<p>Qutip(Quantum Toolbox in Python)是用于研究量子系统的有力工具，这是python下的一个模块，我们需要下载，安装他。</p>
+
+<blockquote>
+<p>推荐使用conda进行python环境的管理，对于python环境的基本配置可在参考书目<sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup>，以及对于Python语句的学习使用参考书目<sup class="footnote-ref" id="fnref:2"><a href="#fn:2">2</a></sup>。QuTip的安装参考<a href="http://qutip.org/docs/latest/installation.html">指导手册</a>。需要注意的是，在安装完miniconda或者Anaconda之后，需要更新conda使用命令。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">conda update conda</code></pre></div></blockquote>
+
+<ul>
+<li>conda的配置</li>
+</ul>
+
+<blockquote>
+<p>首先使用<code>conda list</code>查看安装的包以及python版本，特别的，模块QuTip的安装依赖以下的包<code>numpy</code>，<code>scipy</code>，<code>cython</code>，<code>pytest</code>并且python的版本必须在3.0以上，需要确认以上包已经被安装在conda环境中。如果没有上述包，则使用如下语句进行包的安装。类似的，Python的IDE也可以用如下命令选择安装skyder。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">conda install package_name</code></pre></div>
+<p>添加conda的频道并更新</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">conda config --append channels conda-forge
+conda config --add channels conda-forge
+conda update</code></pre></div></blockquote>
+
+<ul>
+<li>创建配置python3环境</li>
+</ul>
+
+<blockquote>
+<p>如果发现Python不是3.0以上版本，可以利用conda创建新的python3环境，并在python3环境中重新配置QuTip。首先使用命令</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">conda env list</code></pre></div>
+<p>查看环境列表，在前面带有<code>*</code>表示当前环境，一般处于<code>base</code>环境中。接下来我们创建python3环境，</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">conda create -n python3 <span class="nv">python</span><span class="o">=</span><span class="m">3</span></code></pre></div>
+<p>这里我们创建了名称为<code>python3</code>，并且安装了python3最新版本的环境。使用命令</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">source</span> activate python3</code></pre></div>
+<p>可以激活环境python3。首先，在该环境下查看是否安装了python3以上的版本使用<code>python --version</code>，如果没有使用命令</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">conda install python</code></pre></div>
+<p>就可以安装Python3版本。并在环境python3中，重复二步骤检查QuTip的依赖包。</p>
+
+<p>依旧在python3环境中，使用<code>conda install qutip</code>安装qutip，如果无法搜索到则可以到<a href="http://qutip.org/download.html">QuTip官网</a>下载安装包，在python3环境中使用pip安装</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">pip install QuTip.*</code></pre></div>
+<p>最后QuTip的测试代码，如果能显示无误，那么就安装成功了。</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">qutip.testing</span> <span class="kn">as</span> <span class="nn">qt</span>
+<span class="n">qt</span><span class="o">.</span><span class="n">run</span><span class="p">()</span></code></pre></div></blockquote>
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:1">Python物理学高效计算
+ <a class="footnote-return" href="#fnref:1"><sup>[return]</sup></a></li>
+<li id="fn:2">Python物理建模初学者指南
+ <a class="footnote-return" href="#fnref:2"><sup>[return]</sup></a></li>
+</ol>
+</div>
+]]></content>
+		</item>
 		
 		<item>
 			<title>MakeDown初识</title>
