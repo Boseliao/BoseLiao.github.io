@@ -7,10 +7,27 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Wed, 13 May 2020 10:17:14 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 15 May 2020 13:21:41 +0800</lastBuildDate>
     
 	<atom:link href="https://boseliao.github.io/tags/qutip/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>QuTip的基本运算</title>
+      <link>https://boseliao.github.io/posts/qutip%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%BF%90%E7%AE%97/</link>
+      <pubDate>Fri, 15 May 2020 13:21:41 +0800</pubDate>
+      
+      <guid>https://boseliao.github.io/posts/qutip%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%BF%90%E7%AE%97/</guid>
+      <description>QuTip (Quantum Toolbox in Python) 是在开源的Python程序语音的框架下，用来模拟量子系统的动力学。其中，定义了一般的量子力学对象，运算算符，以及量子力学方程的求解方法。使用下列代码时，请调用QuTip模块，并使用如下语句
+import numpy as np import matplotlib.pyplot as plt import qutip as qt 首先，QuTip 定义了量子对象类(The quantum object class)，可以通过输入命令Qobj(),创建一个空的量子对象。Qobj()类中拥有5个属性，
+ Type：ket，bra，operator，superoperator，operator-ket，operator-bra Data：数组 Hermitian：false，ture Dimensions：算符的维度 Shape：数组的形状  具体对象，态的定义 量子态的定义可以通过phi=Qobj([[1],[2],[3]])来得到ket或者bra的态失，也可以通过rho=ket2dm(phi)得到密度矩阵。这里也定义了一些特殊态，Fock state，basis(N,m)或者fock(N,m);相干态，coherence(N,alpha)。具体函数的输入以及参数的使用，可以利用help(basis)查看。
+算符的定义 量子算符按照是否可观测可分为Hermitian算符与non-Hermitian算符，可以定义
+r=np.array([[1,2],[3,4]]) Qobj(r) 其中也定义了一些常用的算符：
+   operator command     Commutator commutator(A,B,kind)   sigma-X sigmax()   Lowing operator destroy(N)    等等。。。
+超算符 在Liouville空间中，算符在处理时被视为向量，可以通过
+vec_rho=operator_to_vector(rho) rho=vector_to_operator(vec_rho) 超算符
+X=sigmax() S=spre(X) #I tensor X S1=spost(X) # X tensor I S2=spre(X)*spost(X.</description>
+    </item>
     
     <item>
       <title>QuTip的安装与配置</title>
