@@ -7,10 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Fri, 15 May 2020 13:21:41 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 18 May 2020 15:10:50 +0800</lastBuildDate>
     
 	<atom:link href="https://boseliao.github.io/tags/qutip/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>QuTip:含时系统</title>
+      <link>https://boseliao.github.io/posts/qutip%E5%90%AB%E6%97%B6%E7%B3%BB%E7%BB%9F/</link>
+      <pubDate>Mon, 18 May 2020 15:10:50 +0800</pubDate>
+      
+      <guid>https://boseliao.github.io/posts/qutip%E5%90%AB%E6%97%B6%E7%B3%BB%E7%BB%9F/</guid>
+      <description>前面已经简单的介绍过关于含时Lindblad主方程的求解，以及含时的哈密顿量和跃迁算符的表示。相应的，Bloch-Redfield含时的主方程也可以做类似求解，
+kappe=0.5 def co1_coeff(t,args): return np.sqrt(kappe*np.exp(-t)) N=10 a=qt.destroy(N) H0=a.dag()*a H1=a+a.dag() def H1_coeff(t,args): return 9*np.exp(-(t/5.0)**2) H=[H0,[H1,H1_coeff]] psi0=qt.basis(N,9) c_ops=[a,[a,co1_coeff]] times=np.linspace(0.0,10.0,100) output=qt.mesolve(H,psi0,times,c_ops,[a.dag()*a]) #time-dependt Lindblad equation a_ops=[[(a,a.dag()),(&amp;#39;{0}*(w&amp;gt;0)&amp;#39;.format(kappe),&amp;#39;exp(1j*t)&amp;#39;,&amp;#39;exp(-1j*t)&amp;#39;)]] out2=qt.brmesolve(H0,psi0,times,a_ops,e_ops=[a.dag()*a]) #time-dependt Redfield equation 除此之外，当含时的参数是非解析的函数或者由实验得到的数据点时，需要将数据点变成函数。
+t=np.linspace(-15,15,100) func=lambda t: 9*np.exp(-(t/5)**2) #anonymous functions noisy_func=lambda t: func(t)+(0.05*func(t))*np.random.randn(t.shape[0]) #generary a random array shape like t,Standard normal distribution noisy_data=noisy_func(t) S=qt.interpolate.Cubic_Spline(t[0],t[-1],noisy_data) H=[[H1,S]] 含时算符的指数级数表示$\hat{A}=\sum_i\hat{a}e^{r_it}$，
+&amp;#34;&amp;#34;&amp;#34; Exponential-series representation &amp;#34;&amp;#34;&amp;#34; es1=qt.eseries(qt.sigmax(),1j) #sigma_x*exp(jt) es2=qt.eseries([qt.sigmax(),qt.sigmax()],[1j,-1j])#sigms_x*exp(jt)+sigma_xexp(-jt) &amp;#34;&amp;#34;&amp;#34; evaluate it at time t=2 &amp;#34;&amp;#34;&amp;#34; qt.esval(es2,2.0) Floquet理论 在Lindblad和Bloch-Redfield主方程的标准推导中，所考虑的系统是不显含时时间的。因此，严格地说，这些主方程形式不应盲目地应用于含时哈密顿量的系统。然而，在许多特定的情况下，特别是对于弱驱动的情况，标准主方程仍然适用于许多含时的问题。但更严格的方法是从含时的哈密顿量开始重新推导主方程。Floquet-Markov主方程是这样一种形式的主方程，它在强驱动系统中有着重要的应用。
+封闭系统的Floquet计算方法$\psi(t)=\sum{\alpha}c{\alpha}\psi{\alpha}(t)=\sum{\alpha}c{\alpha}e^{-i\epsilon{\alpha}t}\phi{\alpha}(t)$，其中$\psi{\alpha}$表示“Floquet state”，$\phi{\alpha}$表示周期的“Floquet mode”，$\phi{\alpha}(t+T)=\phi{\alpha}(t)$，$\epsilon{\alpha}$表示常数“quasienergy”</description>
+    </item>
     
     <item>
       <title>QuTip的基本运算</title>

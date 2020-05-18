@@ -123,9 +123,9 @@ program main implicit none int x x=1 write(*,*) end program 表格与图片  表
 <span class="k">end program</span></code></pre></div>
 <h2 id="表格与图片">表格与图片<a href="#表格与图片" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
 
-<ol>
+<ul>
 <li>表格</li>
-</ol>
+</ul>
 
 <table>
 <thead>
@@ -156,26 +156,25 @@ program main implicit none int x x=1 write(*,*) end program 表格与图片  表
 |  ----  | ----  |
 | 单元格  | 单元格 |
 | 单元格  | 单元格 |</code></pre></div>
-<ol>
+<ul>
 <li>图片</li>
-</ol>
+</ul>
 
 <p>代码</p>
 <div class="highlight"><pre class="chroma"><code class="language-makedown" data-lang="makedown">![Boseliao 图标](图片网址 &#34;Boseliao&#34;)</code></pre></div>
-<ol>
-<li>链接</li>
-</ol>
+<ul>
+<li>链接
 
 <ul>
-<li><p>网站外链接，使用代码<code>[链接名称](链接地址)</code>或<code>&lt;链接地址&gt;</code>，这是我的网址<a href="https://boseliao.github.io">Boseliao&rsquo;Blog</a></p></li>
-
-<li><p>多次链接</p></li>
+<li>网站外链接，使用代码<code>[链接名称](链接地址)</code>或<code>&lt;链接地址&gt;</code>，这是我的网址<a href="https://boseliao.github.io">Boseliao&rsquo;Blog</a></li>
+<li>多次链接</li>
+</ul></li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-makedown" data-lang="makedown">  [链接文字][name]
-  
-  [name]: link &#34;Title&#34;</code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-makedown" data-lang="makedown">[链接文字][name]
+
+[name]: link &#34;Title&#34;</code></pre></div>
 <ul>
-<li>网站外链接<code>[显示的内容](#标题标号-标题文本)</code><a href="#表格与图片">跳转到表格与图片</a></li>
+<li>网站内链接<code>[显示的内容](#标题标号-标题文本)</code><a href="#表格与图片">跳转到表格与图片</a></li>
 </ul>
 
 <h2 id="数学公式">数学公式<a href="#数学公式" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
@@ -187,9 +186,9 @@ $$</p>
 
 <h2 id="流程图">流程图<a href="#流程图" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
 
-<ol>
+<ul>
 <li>使用mermaid画流程图，先画三个反引号，再输入流程类型mermaid，横向</li>
-</ol>
+</ul>
 <div class="highlight"><pre class="chroma"><code class="language-mermaid" data-lang="mermaid">graph LR
 A[方形]--&gt;B(圆角)
 	B--&gt;C{条件}
@@ -203,18 +202,18 @@ A[方形]--&gt;B(圆角)
 	C --&gt;|a=1| D[结果1]
 	C --&gt;|a=2| E[结果2]
 	F[横向流程图]</code></pre></div>
-<ol>
+<ul>
 <li>竖向流程</li>
-</ol>
+</ul>
 <div class="highlight"><pre class="chroma"><code class="language-mermaid" data-lang="mermaid">graph TD
 A[方形] --&gt; B(圆角)
     B --&gt; C{条件a}
     C --&gt; |a=1| D[结果1]
     C --&gt; |a=2| E[结果2]
     F[竖向流程图]</code></pre></div>
-<ol>
+<ul>
 <li>标准流程图<code>flow</code></li>
-</ol>
+</ul>
 <div class="highlight"><pre class="chroma"><code class="language-flow" data-lang="flow">st=&gt;start: 开始框
 op=&gt;operation: 处理框
 cond=&gt;condition: 判断框(是或否?)
@@ -224,9 +223,9 @@ e=&gt;end: 结束框
 st-&gt;op-&gt;cond
 cond(yes)-&gt;io-&gt;e
 cond(no)-&gt;sub1(right)-&gt;op</code></pre></div>
-<ol>
+<ul>
 <li>标准流程图（横向）<code>flow</code></li>
-</ol>
+</ul>
 <div class="highlight"><pre class="chroma"><code class="language-flow" data-lang="flow">st=&gt;start: 开始框
 op=&gt;operation: 处理框
 cond=&gt;condition: 判断框(是或否?)
@@ -236,17 +235,17 @@ e=&gt;end: 结束框
 st(right)-&gt;op(right)-&gt;cond
 cond(yes)-&gt;io(bottom)-&gt;e
 cond(no)-&gt;sub1(right)-&gt;op</code></pre></div>
-<ol>
+<ul>
 <li>UML时序图源<code>sequence</code></li>
-</ol>
+</ul>
 <div class="highlight"><pre class="chroma"><code class="language-sequence" data-lang="sequence">对象A-&gt;对象B: 对象B你好吗?（请求）
 Note right of 对象B: 对象B的描述
 Note left of 对象A: 对象A的描述(提示)
 对象B--&gt;对象A: 我很好(响应)
 对象A-&gt;对象B: 你真的好吗？</code></pre></div>
-<ol>
+<ul>
 <li>UML时序图(复杂)<code>sequence</code></li>
-</ol>
+</ul>
 <div class="highlight"><pre class="chroma"><code class="language-sequence" data-lang="sequence">Title: 标题：复杂使用
 对象A-&gt;对象B: 对象B你好吗?（请求）
 Note right of 对象B: 对象B的描述
@@ -258,9 +257,9 @@ Note left of 对象A: 对象A的描述(提示)
 Note over 小三,对象B: 我们是朋友
 participant C
 Note right of C: 没人陪我玩</code></pre></div>
-<ol>
+<ul>
 <li>UML标准时序图<code>mermaid</code></li>
-</ol>
+</ul>
 <div class="highlight"><pre class="chroma"><code class="language-mermaid" data-lang="mermaid">%% 时序图例子,-&gt; 直线，--&gt;虚线，-&gt;&gt;实线箭头
   sequenceDiagram
     participant 张三
@@ -273,9 +272,9 @@ Note right of C: 没人陪我玩</code></pre></div>
     李四--&gt;&gt;张三: 很好!
     王五-&gt;李四: 你怎么样?
     李四--&gt;王五: 很好!</code></pre></div>
-<ol>
+<ul>
 <li>甘特图<code>mermaid</code></li>
-</ol>
+</ul>
 <div class="highlight"><pre class="chroma"><code class="language-mermaid" data-lang="mermaid">%% 语法示例
         gantt
         dateFormat  YYYY-MM-DD

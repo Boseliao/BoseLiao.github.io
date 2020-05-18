@@ -7,8 +7,197 @@
 		<generator>Hugo -- gohugo.io</generator>
 		<language>en-us</language>
 		<copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-		<lastBuildDate>Fri, 15 May 2020 13:21:41 +0800</lastBuildDate>
+		<lastBuildDate>Mon, 18 May 2020 15:10:50 +0800</lastBuildDate>
 		<atom:link href="https://boseliao.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>QuTip:含时系统</title>
+			<link>https://boseliao.github.io/posts/qutip%E5%90%AB%E6%97%B6%E7%B3%BB%E7%BB%9F/</link>
+			<pubDate>Mon, 18 May 2020 15:10:50 +0800</pubDate>
+			
+			<guid>https://boseliao.github.io/posts/qutip%E5%90%AB%E6%97%B6%E7%B3%BB%E7%BB%9F/</guid>
+			<description>前面已经简单的介绍过关于含时Lindblad主方程的求解，以及含时的哈密顿量和跃迁算符的表示。相应的，Bloch-Redfield含时的主方程也可以做类似求解，
+kappe=0.5 def co1_coeff(t,args): return np.sqrt(kappe*np.exp(-t)) N=10 a=qt.destroy(N) H0=a.dag()*a H1=a+a.dag() def H1_coeff(t,args): return 9*np.exp(-(t/5.0)**2) H=[H0,[H1,H1_coeff]] psi0=qt.basis(N,9) c_ops=[a,[a,co1_coeff]] times=np.linspace(0.0,10.0,100) output=qt.mesolve(H,psi0,times,c_ops,[a.dag()*a]) #time-dependt Lindblad equation a_ops=[[(a,a.dag()),(&amp;#39;{0}*(w&amp;gt;0)&amp;#39;.format(kappe),&amp;#39;exp(1j*t)&amp;#39;,&amp;#39;exp(-1j*t)&amp;#39;)]] out2=qt.brmesolve(H0,psi0,times,a_ops,e_ops=[a.dag()*a]) #time-dependt Redfield equation 除此之外，当含时的参数是非解析的函数或者由实验得到的数据点时，需要将数据点变成函数。
+t=np.linspace(-15,15,100) func=lambda t: 9*np.exp(-(t/5)**2) #anonymous functions noisy_func=lambda t: func(t)+(0.05*func(t))*np.random.randn(t.shape[0]) #generary a random array shape like t,Standard normal distribution noisy_data=noisy_func(t) S=qt.interpolate.Cubic_Spline(t[0],t[-1],noisy_data) H=[[H1,S]] 含时算符的指数级数表示$\hat{A}=\sum_i\hat{a}e^{r_it}$，
+&amp;#34;&amp;#34;&amp;#34; Exponential-series representation &amp;#34;&amp;#34;&amp;#34; es1=qt.eseries(qt.sigmax(),1j) #sigma_x*exp(jt) es2=qt.eseries([qt.sigmax(),qt.sigmax()],[1j,-1j])#sigms_x*exp(jt)+sigma_xexp(-jt) &amp;#34;&amp;#34;&amp;#34; evaluate it at time t=2 &amp;#34;&amp;#34;&amp;#34; qt.esval(es2,2.0) Floquet理论 在Lindblad和Bloch-Redfield主方程的标准推导中，所考虑的系统是不显含时时间的。因此，严格地说，这些主方程形式不应盲目地应用于含时哈密顿量的系统。然而，在许多特定的情况下，特别是对于弱驱动的情况，标准主方程仍然适用于许多含时的问题。但更严格的方法是从含时的哈密顿量开始重新推导主方程。Floquet-Markov主方程是这样一种形式的主方程，它在强驱动系统中有着重要的应用。
+封闭系统的Floquet计算方法$\psi(t)=\sum{\alpha}c{\alpha}\psi{\alpha}(t)=\sum{\alpha}c{\alpha}e^{-i\epsilon{\alpha}t}\phi{\alpha}(t)$，其中$\psi{\alpha}$表示“Floquet state”，$\phi{\alpha}$表示周期的“Floquet mode”，$\phi{\alpha}(t+T)=\phi{\alpha}(t)$，$\epsilon{\alpha}$表示常数“quasienergy”</description>
+			<content type="html"><![CDATA[
+
+<p>前面已经简单的介绍过关于含时Lindblad主方程的求解，以及含时的哈密顿量和跃迁算符的表示。相应的，Bloch-Redfield含时的主方程也可以做类似求解，</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">kappe</span><span class="o">=</span><span class="mf">0.5</span>
+<span class="k">def</span> <span class="nf">co1_coeff</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">args</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">kappe</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">t</span><span class="p">))</span>
+<span class="n">N</span><span class="o">=</span><span class="mi">10</span>
+<span class="n">a</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">destroy</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="n">H0</span><span class="o">=</span><span class="n">a</span><span class="o">.</span><span class="n">dag</span><span class="p">()</span><span class="o">*</span><span class="n">a</span>
+<span class="n">H1</span><span class="o">=</span><span class="n">a</span><span class="o">+</span><span class="n">a</span><span class="o">.</span><span class="n">dag</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">H1_coeff</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">args</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">9</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">t</span><span class="o">/</span><span class="mf">5.0</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">H</span><span class="o">=</span><span class="p">[</span><span class="n">H0</span><span class="p">,[</span><span class="n">H1</span><span class="p">,</span><span class="n">H1_coeff</span><span class="p">]]</span>
+<span class="n">psi0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="mi">9</span><span class="p">)</span>
+<span class="n">c_ops</span><span class="o">=</span><span class="p">[</span><span class="n">a</span><span class="p">,[</span><span class="n">a</span><span class="p">,</span><span class="n">co1_coeff</span><span class="p">]]</span>
+<span class="n">times</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">10.0</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">output</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">mesolve</span><span class="p">(</span><span class="n">H</span><span class="p">,</span><span class="n">psi0</span><span class="p">,</span><span class="n">times</span><span class="p">,</span><span class="n">c_ops</span><span class="p">,[</span><span class="n">a</span><span class="o">.</span><span class="n">dag</span><span class="p">()</span><span class="o">*</span><span class="n">a</span><span class="p">])</span> <span class="c1">#time-dependt Lindblad equation</span>
+<span class="n">a_ops</span><span class="o">=</span><span class="p">[[(</span><span class="n">a</span><span class="p">,</span><span class="n">a</span><span class="o">.</span><span class="n">dag</span><span class="p">()),(</span><span class="s1">&#39;{0}*(w&gt;0)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">kappe</span><span class="p">),</span><span class="s1">&#39;exp(1j*t)&#39;</span><span class="p">,</span><span class="s1">&#39;exp(-1j*t)&#39;</span><span class="p">)]]</span>
+<span class="n">out2</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">brmesolve</span><span class="p">(</span><span class="n">H0</span><span class="p">,</span><span class="n">psi0</span><span class="p">,</span><span class="n">times</span><span class="p">,</span><span class="n">a_ops</span><span class="p">,</span><span class="n">e_ops</span><span class="o">=</span><span class="p">[</span><span class="n">a</span><span class="o">.</span><span class="n">dag</span><span class="p">()</span><span class="o">*</span><span class="n">a</span><span class="p">])</span> 
+<span class="c1">#time-dependt Redfield equation</span></code></pre></div>
+<p>除此之外，当含时的参数是非解析的函数或者由实验得到的数据点时，需要将数据点变成函数。</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">t</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">15</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">func</span><span class="o">=</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="mi">9</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">t</span><span class="o">/</span><span class="mi">5</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="c1">#anonymous functions</span>
+<span class="n">noisy_func</span><span class="o">=</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">func</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="mf">0.05</span><span class="o">*</span><span class="n">func</span><span class="p">(</span><span class="n">t</span><span class="p">))</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> 
+<span class="c1">#generary a random array shape like t,Standard normal distribution</span>
+<span class="n">noisy_data</span><span class="o">=</span><span class="n">noisy_func</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="n">S</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">interpolate</span><span class="o">.</span><span class="n">Cubic_Spline</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">t</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">noisy_data</span><span class="p">)</span>
+<span class="n">H</span><span class="o">=</span><span class="p">[[</span><span class="n">H1</span><span class="p">,</span><span class="n">S</span><span class="p">]]</span></code></pre></div>
+<p>含时算符的指数级数表示$\hat{A}=\sum_i\hat{a}e^{r_it}$，</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="s2">&#34;&#34;&#34;
+</span><span class="s2">Exponential-series representation
+</span><span class="s2">&#34;&#34;&#34;</span>
+<span class="n">es1</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">eseries</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">sigmax</span><span class="p">(),</span><span class="mi">1j</span><span class="p">)</span> <span class="c1">#sigma_x*exp(jt)</span>
+<span class="n">es2</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">eseries</span><span class="p">([</span><span class="n">qt</span><span class="o">.</span><span class="n">sigmax</span><span class="p">(),</span><span class="n">qt</span><span class="o">.</span><span class="n">sigmax</span><span class="p">()],[</span><span class="mi">1j</span><span class="p">,</span><span class="o">-</span><span class="mi">1j</span><span class="p">])</span><span class="c1">#sigms_x*exp(jt)+sigma_xexp(-jt)</span>
+<span class="s2">&#34;&#34;&#34;
+</span><span class="s2">evaluate it at time t=2
+</span><span class="s2">&#34;&#34;&#34;</span>
+<span class="n">qt</span><span class="o">.</span><span class="n">esval</span><span class="p">(</span><span class="n">es2</span><span class="p">,</span><span class="mf">2.0</span><span class="p">)</span></code></pre></div>
+<h2 id="floquet理论">Floquet理论</h2>
+
+<p>在Lindblad和Bloch-Redfield主方程的标准推导中，所考虑的系统是不显含时时间的。因此，严格地说，这些主方程形式不应盲目地应用于含时哈密顿量的系统。然而，在许多特定的情况下，特别是对于弱驱动的情况，标准主方程仍然适用于许多含时的问题。但更严格的方法是从含时的哈密顿量开始重新推导主方程。Floquet-Markov主方程是这样一种形式的主方程，它在强驱动系统中有着重要的应用。</p>
+
+<p>封闭系统的Floquet计算方法$\psi(t)=\sum<em>{\alpha}c</em>{\alpha}\psi<em>{\alpha}(t)=\sum</em>{\alpha}c<em>{\alpha}e^{-i\epsilon</em>{\alpha}t}\phi<em>{\alpha}(t)$，其中$\psi</em>{\alpha}$表示“Floquet state”，$\phi<em>{\alpha}$表示周期的“Floquet mode”，$\phi</em>{\alpha}(t+T)=\phi<em>{\alpha}(t)$，$\epsilon</em>{\alpha}$表示常数“quasienergy”</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="s2">&#34;&#34;&#34;
+</span><span class="s2">Floquat thoery
+</span><span class="s2">&#34;&#34;&#34;</span>
+<span class="n">delta</span><span class="o">=</span><span class="mf">0.2</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">;</span><span class="n">eps0</span><span class="o">=</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">;</span><span class="n">A</span><span class="o">=</span><span class="mf">2.5</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">;</span><span class="n">omega</span><span class="o">=</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+<span class="n">H0</span><span class="o">=-</span><span class="mf">0.5</span><span class="o">*</span><span class="n">delta</span><span class="o">*</span><span class="n">qt</span><span class="o">.</span><span class="n">sigmax</span><span class="p">()</span><span class="o">-</span><span class="mf">0.5</span><span class="o">*</span><span class="n">eps0</span><span class="o">*</span><span class="n">qt</span><span class="o">.</span><span class="n">sigmaz</span><span class="p">()</span>
+<span class="n">H1</span><span class="o">=</span><span class="mf">0.5</span><span class="o">*</span><span class="n">A</span><span class="o">*</span><span class="n">qt</span><span class="o">.</span><span class="n">sigmaz</span><span class="p">()</span>
+<span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;w&#39;</span><span class="p">:</span><span class="n">omega</span><span class="p">}</span>
+<span class="n">H</span><span class="o">=</span><span class="p">[</span><span class="n">H0</span><span class="p">,[</span><span class="n">H1</span><span class="p">,</span><span class="s1">&#39;sin(w*t)&#39;</span><span class="p">]]</span>
+<span class="n">T</span><span class="o">=</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="n">omega</span>
+<span class="s2">&#34;&#34;&#34;
+</span><span class="s2">Calculate the initial Floquet modes Phi_alpha(0) for a driven system with period T.
+</span><span class="s2">&#34;&#34;&#34;</span>
+<span class="n">f_modes_0</span><span class="p">,</span><span class="n">f_energies</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">floquet_modes</span><span class="p">(</span><span class="n">H</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="n">args</span><span class="p">)</span> 
+<span class="s2">&#34;&#34;&#34;
+</span><span class="s2">Calculate the Floquet modes at times tlist Phi_alpha(tlist) propagting
+</span><span class="s2">the initial Floquet modes Phi_alpha(0)
+</span><span class="s2">&#34;&#34;&#34;</span>
+<span class="n">t</span><span class="o">=</span><span class="mf">2.5</span>
+<span class="n">f_modes_t</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">floquet_modes_t</span><span class="p">(</span><span class="n">f_modes_0</span><span class="p">,</span><span class="n">f_energies</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">H</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+<span class="s2">&#34;&#34;&#34;
+</span><span class="s2">Decompose the wavefunction `psi` (typically an initial state) in terms of
+</span><span class="s2">the Floquet states, :math:`\psi = \sum_</span><span class="se">\a</span><span class="s2">lpha c_</span><span class="se">\a</span><span class="s2">lpha \psi_</span><span class="se">\a</span><span class="s2">lpha(0)`.
+</span><span class="s2">&#34;&#34;&#34;</span>
+<span class="n">psi0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">f_coeff</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">floquet_state_decomposition</span><span class="p">(</span><span class="n">f_modes_0</span><span class="p">,</span><span class="n">f_energies</span><span class="p">,</span><span class="n">psi0</span><span class="p">)</span>
+<span class="s2">&#34;&#34;&#34;
+</span><span class="s2">Evaluate the wavefunction for a time t using the Floquet state
+</span><span class="s2">decompositon, given the initial Floquet modes.
+</span><span class="s2">f_modes_0:A list of initial Floquet modes
+</span><span class="s2">f_energies:The Floquet energies
+</span><span class="s2">f_coeff:The coefficients for Floquet decomposition of the initial wavefunction
+</span><span class="s2">&#34;&#34;&#34;</span>
+<span class="n">t</span><span class="o">=</span><span class="mi">10</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()</span>
+<span class="n">psi_t</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">floquet_wavefunction_t</span><span class="p">(</span><span class="n">f_modes_0</span><span class="p">,</span><span class="n">f_energies</span><span class="p">,</span><span class="n">f_coeff</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">H</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="n">args</span><span class="p">)</span></code></pre></div>
+<p>耗散系统的Floquet_Markov主方程的计算方法</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="s2">&#34;&#34;&#34;
+</span><span class="s2">floquet_markov master equation
+</span><span class="s2">Note:Currently the qutip.floquet.fmmesolve can only accept a single environment 
+</span><span class="s2">coupling operator and spectral-density function.
+</span><span class="s2">&#34;&#34;&#34;</span>
+<span class="n">delta</span><span class="o">=</span><span class="mf">0.0</span><span class="o">*</span><span class="mf">2.0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">;</span><span class="n">eps0</span><span class="o">=</span><span class="mf">1.0</span><span class="o">*</span><span class="mf">2.0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+<span class="n">A</span><span class="o">=</span><span class="mf">0.25</span><span class="o">*</span><span class="mf">2.0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">;</span><span class="n">omega</span><span class="o">=</span><span class="mf">1.0</span><span class="o">*</span><span class="mf">2.0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+<span class="n">T</span><span class="o">=</span><span class="p">(</span><span class="mf">2.0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span><span class="o">/</span><span class="n">omega</span>
+<span class="n">tlist</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mi">20</span><span class="o">*</span><span class="n">T</span><span class="p">,</span><span class="mi">101</span><span class="p">)</span>
+<span class="n">psi0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">H0</span><span class="o">=-</span><span class="mf">0.5</span><span class="o">*</span><span class="n">delta</span><span class="o">*</span><span class="n">qt</span><span class="o">.</span><span class="n">sigmax</span><span class="p">()</span><span class="o">-</span><span class="mf">0.5</span><span class="o">*</span><span class="n">eps0</span><span class="o">*</span><span class="n">qt</span><span class="o">.</span><span class="n">sigmaz</span><span class="p">()</span>
+<span class="n">H1</span><span class="o">=</span><span class="mf">0.5</span><span class="o">*</span><span class="n">A</span><span class="o">*</span><span class="n">qt</span><span class="o">.</span><span class="n">sigmax</span><span class="p">()</span>
+<span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;w&#39;</span><span class="p">:</span><span class="n">omega</span><span class="p">}</span>
+<span class="n">H</span><span class="o">=</span><span class="p">[</span><span class="n">H0</span><span class="p">,[</span><span class="n">H1</span><span class="p">,</span><span class="k">lambda</span> <span class="n">t</span><span class="p">,</span><span class="n">args</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="s1">&#39;w&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">t</span><span class="p">)]]</span>
+<span class="s2">&#34;&#34;&#34;
+</span><span class="s2">noise power spectrum
+</span><span class="s2">&#34;&#34;&#34;</span>
+<span class="n">gamma1</span><span class="o">=</span><span class="mf">0.1</span>
+<span class="k">def</span> <span class="nf">noise_spectrum</span><span class="p">(</span><span class="n">w</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">gamma1</span><span class="o">*</span><span class="n">omega</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+<span class="s2">&#34;&#34;&#34;
+</span><span class="s2">find the floquet modes for the time-dependent hamiltonian
+</span><span class="s2">&#34;&#34;&#34;</span>
+<span class="n">f_modes_0</span><span class="p">,</span><span class="n">f_energies</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">floquet_modes</span><span class="p">(</span><span class="n">H</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+<span class="s2">&#34;&#34;&#34;
+</span><span class="s2">Pre-calculate the Floquet modes for a range of times spanning the floquet
+</span><span class="s2">period. Can later be used as a table to look up the floquet modes for any time.
+</span><span class="s2">&#34;&#34;&#34;</span>
+<span class="n">f_modes_table_t</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">floquet_modes_table</span><span class="p">(</span><span class="n">f_modes_0</span><span class="p">,</span><span class="n">f_energies</span><span class="p">,</span>\
+                                       <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="mi">501</span><span class="p">),</span><span class="n">H</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+<span class="s2">&#34;&#34;&#34;
+</span><span class="s2">solve floquet_markov master equation
+</span><span class="s2">&#34;&#34;&#34;</span>
+<span class="n">output</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">fmmesolve</span><span class="p">(</span><span class="n">H</span><span class="p">,</span><span class="n">psi0</span><span class="p">,</span><span class="n">tlist</span><span class="p">,[</span><span class="n">qt</span><span class="o">.</span><span class="n">sigmax</span><span class="p">()],[],[</span><span class="n">noise_spectrum</span><span class="p">],</span><span class="n">T</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+<span class="s2">&#34;&#34;&#34;
+</span><span class="s2">calaulate expectation values in the computational baisi
+</span><span class="s2">enumerate:It is useful for obtaining an indexed list:
+</span><span class="s2">    (0, seq[0]), (1, seq[1]), (2, seq[2]), ...
+</span><span class="s2">    
+</span><span class="s2">transform:Input array can be a ``matrix`` defining the transformation,
+</span><span class="s2">or a ``list`` of kets that defines the new basis.
+</span><span class="s2">&#34;&#34;&#34;</span>
+<span class="n">p_ex</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">tlist</span><span class="p">),</span><span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span><span class="n">t</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tlist</span><span class="p">):</span>
+    <span class="n">f_modes_t</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">floquet_modes_t_lookup</span><span class="p">(</span><span class="n">f_modes_table_t</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">T</span><span class="p">)</span>
+    <span class="n">p_ex</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">expect</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">num</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>\
+        <span class="n">output</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">f_modes_t</span><span class="p">,</span><span class="bp">True</span><span class="p">))</span>
+<span class="s2">&#34;&#34;&#34;
+</span><span class="s2">for reference: calculate the same thing with mesolve
+</span><span class="s2">&#34;&#34;&#34;</span>
+<span class="n">output1</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">mesolve</span><span class="p">(</span><span class="n">H</span><span class="p">,</span><span class="n">psi0</span><span class="p">,</span><span class="n">tlist</span><span class="p">,[</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">gamma1</span><span class="p">)</span><span class="o">*</span><span class="n">qt</span><span class="o">.</span><span class="n">sigmax</span><span class="p">()],[</span><span class="n">qt</span><span class="o">.</span><span class="n">num</span><span class="p">(</span><span class="mi">2</span><span class="p">)],</span><span class="n">args</span><span class="p">)</span>
+<span class="n">p_ex_ref</span><span class="o">=</span><span class="n">output1</span><span class="o">.</span><span class="n">expect</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></code></pre></div>
+<h2 id="传播子">传播子</h2>
+
+<p>通过对角化Hamilton或Liouvillian的方法得到含时系统的传播子，并计算其时间演化$e^{iHt}\rho e^{-iHt}$。</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">psi0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">H</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">sigmaz</span><span class="p">()</span>
+<span class="s2">&#34;&#34;&#34;
+</span><span class="s2">Assembles the Liouvillian superoperator from a Hamiltonian
+</span><span class="s2">and a ``list`` of collapse operators.
+</span><span class="s2">&#34;&#34;&#34;</span>
+<span class="n">L</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">liouvillian</span><span class="p">(</span><span class="n">H</span><span class="p">,[</span><span class="n">qt</span><span class="o">.</span><span class="n">destroy</span><span class="p">(</span><span class="mi">2</span><span class="p">)])</span>
+<span class="s2">&#34;&#34;&#34;
+</span><span class="s2">Creates an exponential series that describes the time evolution for the
+</span><span class="s2">initial density matrix (or state vector) `rho0`, given the Liouvillian
+</span><span class="s2">(or Hamiltonian) `L`.
+</span><span class="s2">&#34;&#34;&#34;</span>
+<span class="n">es</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">ode2es</span><span class="p">(</span><span class="n">L</span><span class="p">,</span><span class="n">psi0</span><span class="p">)</span>
+<span class="s2">&#34;&#34;&#34;
+</span><span class="s2">by evaluating it and arbitrary points in time=0.0,1.0
+</span><span class="s2">&#34;&#34;&#34;</span>
+<span class="n">es</span><span class="o">.</span><span class="n">value</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">])</span></code></pre></div>
+<h2 id="平衡态的计算">平衡态的计算</h2>
+
+<p>在QuTip中，可以以很高的效率寻找Lindblad主方程的平衡态</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="s2">&#34;&#34;&#34;
+</span><span class="s2">steady state
+</span><span class="s2">solving for the steady state solution to the Lindblad master equation 
+</span><span class="s2">for a general system
+</span><span class="s2">&#34;&#34;&#34;</span>
+<span class="n">N</span><span class="o">=</span><span class="mi">20</span> <span class="c1">#number of basis state to consider</span>
+<span class="n">a</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">destroy</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="n">H</span><span class="o">=</span><span class="n">a</span><span class="o">.</span><span class="n">dag</span><span class="p">()</span><span class="o">*</span><span class="n">a</span>
+<span class="n">psi0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span> <span class="c1">#initial state</span>
+<span class="n">kappa</span><span class="o">=</span><span class="mf">0.1</span> <span class="c1">#couple to oscillator</span>
+<span class="c1">#callopse operators</span>
+<span class="n">c_op_list</span><span class="o">=</span><span class="p">[]</span>
+<span class="n">n_th_a</span><span class="o">=</span><span class="mi">2</span> <span class="c1">#temperature with average of 2 excitations</span>
+<span class="n">rate</span><span class="o">=</span><span class="n">kappa</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">n_th_a</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">rate</span><span class="o">&gt;</span><span class="mf">0.0</span><span class="p">:</span>
+    <span class="n">c_op_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">rate</span><span class="p">)</span><span class="o">*</span><span class="n">a</span><span class="p">)</span> <span class="c1">#decay operators</span>
+<span class="n">rate</span><span class="o">=</span><span class="n">kappa</span><span class="o">*</span><span class="n">n_th_a</span>
+<span class="k">if</span> <span class="n">rate</span><span class="o">&gt;</span><span class="mf">0.0</span><span class="p">:</span>
+    <span class="n">c_op_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">rate</span><span class="p">)</span><span class="o">*</span><span class="n">a</span><span class="o">.</span><span class="n">dag</span><span class="p">())</span> <span class="c1">#excitation oprators</span>
+<span class="c1">#find final steady-state solution</span>
+<span class="n">final_state</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">steadystate</span><span class="p">(</span><span class="n">H</span><span class="p">,</span><span class="n">c_op_list</span><span class="p">)</span>
+<span class="c1">#find expectation value for partical number in steady state</span>
+<span class="n">fexpt</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">expect</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">dag</span><span class="p">()</span><span class="o">*</span><span class="n">a</span><span class="p">,</span><span class="n">final_state</span><span class="p">)</span></code></pre></div>]]></content>
+		</item>
 		
 		<item>
 			<title>QuTip的基本运算</title>
@@ -159,6 +348,8 @@ X=sigmax() S=spre(X) #I tensor X S1=spost(X) # X tensor I S2=spre(X)*spost(X.</d
 <h2 id="薛定谔方程">薛定谔方程</h2>
 
 <p>在close量子系统中，量子态的时间演化可以通过薛定谔方程求解。<u>以下代码用qt代表qutip</u></p>
+
+<p>$ih\frac{\partial}{\partial t}\psi (t)=H\psi (t)$</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">H</span><span class="o">=</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mf">0.1</span><span class="o">*</span><span class="n">qt</span><span class="o">.</span><span class="n">sigmax</span><span class="p">()</span>
 <span class="n">psi0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">time</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">10.0</span><span class="p">,</span><span class="mi">20</span><span class="p">)</span>
@@ -216,7 +407,9 @@ X=sigmax() S=spre(X) #I tensor X S1=spost(X) # X tensor I S2=spre(X)*spost(X.</d
 
 <h2 id="lindblad主方程">Lindblad主方程</h2>
 
-<p>量子开放系统的动力学常常需要利用主方程描述，其中最重要的形式是Lindblad形式。对于Linblad主方程的求解，</p>
+<p>量子开放系统的动力学常常需要利用主方程描述，其中最重要的形式是Lindblad形式。对于Linblad主方程的求解，其中$C_n$表示跃迁算符(collapse operation)</p>
+
+<p>$\dot{\rho}=-\frac{i}{h}\left[H,\rho \right]+\sum_n\frac{1}{2}\left[2C_n\rho(t)C_n^{\dagger}-\rho(t)C_n^{\dagger}C_n-C_n^{\dagger}C_n\rho(t) \right]$</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="s2">&#34;&#34;&#34;
 </span><span class="s2">Lindblad equation(use mesolve())
 </span><span class="s2">H:Hamiltonian
@@ -269,6 +462,10 @@ X=sigmax() S=spre(X) #I tensor X S1=spost(X) # X tensor I S2=spre(X)*spost(X.</d
 <h2 id="bloch-redfield方程">Bloch-Redfield方程</h2>
 
 <p>Bloch-Redfield方程是主方程的矩阵元表现形式，对其求解可以先求出Redfield张量，再求解方程</p>
+
+<p>$\dot{\rho}<em>{ab}(t)=-i\omega</em>{ab}\rho<em>{ab}\sum</em>{cd}R<em>{abcd}\rho</em>{cd}(t)$</p>
+
+<p>$R<em>{abcd}=-\frac{1}{2}\sum</em>{\alpha\beta}\left[\delta_{bd}\sum<em>nA^{\alpha}</em>{an}A^{\beta}<em>{nc}S</em>{\alpha\beta}(\omega<em>{cn})-A^{\alpha}</em>{ac}A^{\beta}<em>{db}S</em>{\alpha\beta}(\omega<em>{ca})\right.$$\left.+\delta</em>{ac}\sum<em>nA^{\alpha}</em>{dn}A^{\beta}<em>{nb}S</em>{\alpha\beta}(\omega<em>{dn})+A^{\alpha}</em>{ac}A^{\beta}<em>{db}S</em>{\alpha\beta}(\omega_{db}) \right]$</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="s2">&#34;&#34;&#34;
 </span><span class="s2">Bloch redfield
 </span><span class="s2">&#34;&#34;&#34;</span>
@@ -422,9 +619,9 @@ program main implicit none int x x=1 write(*,*) end program 表格与图片  表
 <span class="k">end program</span></code></pre></div>
 <h2 id="表格与图片">表格与图片</h2>
 
-<ol>
+<ul>
 <li>表格</li>
-</ol>
+</ul>
 
 <table>
 <thead>
@@ -455,26 +652,25 @@ program main implicit none int x x=1 write(*,*) end program 表格与图片  表
 |  ----  | ----  |
 | 单元格  | 单元格 |
 | 单元格  | 单元格 |</code></pre></div>
-<ol>
+<ul>
 <li>图片</li>
-</ol>
+</ul>
 
 <p>代码</p>
 <div class="highlight"><pre class="chroma"><code class="language-makedown" data-lang="makedown">![Boseliao 图标](图片网址 &#34;Boseliao&#34;)</code></pre></div>
-<ol>
-<li>链接</li>
-</ol>
+<ul>
+<li>链接
 
 <ul>
-<li><p>网站外链接，使用代码<code>[链接名称](链接地址)</code>或<code>&lt;链接地址&gt;</code>，这是我的网址<a href="https://boseliao.github.io">Boseliao&rsquo;Blog</a></p></li>
-
-<li><p>多次链接</p></li>
+<li>网站外链接，使用代码<code>[链接名称](链接地址)</code>或<code>&lt;链接地址&gt;</code>，这是我的网址<a href="https://boseliao.github.io">Boseliao&rsquo;Blog</a></li>
+<li>多次链接</li>
+</ul></li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-makedown" data-lang="makedown">  [链接文字][name]
-  
-  [name]: link &#34;Title&#34;</code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-makedown" data-lang="makedown">[链接文字][name]
+
+[name]: link &#34;Title&#34;</code></pre></div>
 <ul>
-<li>网站外链接<code>[显示的内容](#标题标号-标题文本)</code><a href="#表格与图片">跳转到表格与图片</a></li>
+<li>网站内链接<code>[显示的内容](#标题标号-标题文本)</code><a href="#表格与图片">跳转到表格与图片</a></li>
 </ul>
 
 <h2 id="数学公式">数学公式</h2>
@@ -486,9 +682,9 @@ $$</p>
 
 <h2 id="流程图">流程图</h2>
 
-<ol>
+<ul>
 <li>使用mermaid画流程图，先画三个反引号，再输入流程类型mermaid，横向</li>
-</ol>
+</ul>
 <div class="highlight"><pre class="chroma"><code class="language-mermaid" data-lang="mermaid">graph LR
 A[方形]--&gt;B(圆角)
 	B--&gt;C{条件}
@@ -502,18 +698,18 @@ A[方形]--&gt;B(圆角)
 	C --&gt;|a=1| D[结果1]
 	C --&gt;|a=2| E[结果2]
 	F[横向流程图]</code></pre></div>
-<ol>
+<ul>
 <li>竖向流程</li>
-</ol>
+</ul>
 <div class="highlight"><pre class="chroma"><code class="language-mermaid" data-lang="mermaid">graph TD
 A[方形] --&gt; B(圆角)
     B --&gt; C{条件a}
     C --&gt; |a=1| D[结果1]
     C --&gt; |a=2| E[结果2]
     F[竖向流程图]</code></pre></div>
-<ol>
+<ul>
 <li>标准流程图<code>flow</code></li>
-</ol>
+</ul>
 <div class="highlight"><pre class="chroma"><code class="language-flow" data-lang="flow">st=&gt;start: 开始框
 op=&gt;operation: 处理框
 cond=&gt;condition: 判断框(是或否?)
@@ -523,9 +719,9 @@ e=&gt;end: 结束框
 st-&gt;op-&gt;cond
 cond(yes)-&gt;io-&gt;e
 cond(no)-&gt;sub1(right)-&gt;op</code></pre></div>
-<ol>
+<ul>
 <li>标准流程图（横向）<code>flow</code></li>
-</ol>
+</ul>
 <div class="highlight"><pre class="chroma"><code class="language-flow" data-lang="flow">st=&gt;start: 开始框
 op=&gt;operation: 处理框
 cond=&gt;condition: 判断框(是或否?)
@@ -535,17 +731,17 @@ e=&gt;end: 结束框
 st(right)-&gt;op(right)-&gt;cond
 cond(yes)-&gt;io(bottom)-&gt;e
 cond(no)-&gt;sub1(right)-&gt;op</code></pre></div>
-<ol>
+<ul>
 <li>UML时序图源<code>sequence</code></li>
-</ol>
+</ul>
 <div class="highlight"><pre class="chroma"><code class="language-sequence" data-lang="sequence">对象A-&gt;对象B: 对象B你好吗?（请求）
 Note right of 对象B: 对象B的描述
 Note left of 对象A: 对象A的描述(提示)
 对象B--&gt;对象A: 我很好(响应)
 对象A-&gt;对象B: 你真的好吗？</code></pre></div>
-<ol>
+<ul>
 <li>UML时序图(复杂)<code>sequence</code></li>
-</ol>
+</ul>
 <div class="highlight"><pre class="chroma"><code class="language-sequence" data-lang="sequence">Title: 标题：复杂使用
 对象A-&gt;对象B: 对象B你好吗?（请求）
 Note right of 对象B: 对象B的描述
@@ -557,9 +753,9 @@ Note left of 对象A: 对象A的描述(提示)
 Note over 小三,对象B: 我们是朋友
 participant C
 Note right of C: 没人陪我玩</code></pre></div>
-<ol>
+<ul>
 <li>UML标准时序图<code>mermaid</code></li>
-</ol>
+</ul>
 <div class="highlight"><pre class="chroma"><code class="language-mermaid" data-lang="mermaid">%% 时序图例子,-&gt; 直线，--&gt;虚线，-&gt;&gt;实线箭头
   sequenceDiagram
     participant 张三
@@ -572,9 +768,9 @@ Note right of C: 没人陪我玩</code></pre></div>
     李四--&gt;&gt;张三: 很好!
     王五-&gt;李四: 你怎么样?
     李四--&gt;王五: 很好!</code></pre></div>
-<ol>
+<ul>
 <li>甘特图<code>mermaid</code></li>
-</ol>
+</ul>
 <div class="highlight"><pre class="chroma"><code class="language-mermaid" data-lang="mermaid">%% 语法示例
         gantt
         dateFormat  YYYY-MM-DD
