@@ -7,10 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Mon, 18 May 2020 15:10:50 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 19 May 2020 19:12:13 +0800</lastBuildDate>
     
 	<atom:link href="https://boseliao.github.io/tags/qutip/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>QuTip:time_correlation</title>
+      <link>https://boseliao.github.io/posts/qutiptime_correlation/</link>
+      <pubDate>Tue, 19 May 2020 19:12:13 +0800</pubDate>
+      
+      <guid>https://boseliao.github.io/posts/qutiptime_correlation/</guid>
+      <description>QuTip计算时间关联函数$\langle A(t+\tau)B(t)\rangle$可以使用以下三种态演化方程：Master-equation, Exponential series， the Monte-Carlo。
+&amp;#34;&amp;#34;&amp;#34; correlation_2op_1t(H, state0, taulist, c_ops, a_op, b_op, solver=&amp;#39;me&amp;#39;, reverse=False, args={}, options=&amp;lt;qutip.solver.Options object at 0xa7eedc2c&amp;gt;) ----- state0 : Initial state density matrix or state vector. If &amp;#39;state0&amp;#39; is &amp;#39;None&amp;#39;, then the steady state will be used as the initial state. c_ops : list of collapse operators, may be time-dependent a_op : operator A b_op : operator B. reverse : bool {False, True} If `True`, calculate :math:`\left&amp;lt;A(t)B(t+\tau)\right&amp;gt;` instead of :math:`\left&amp;lt;A(t+\tau)B(t)\right&amp;gt;`.</description>
+    </item>
     
     <item>
       <title>QuTip:含时系统</title>
