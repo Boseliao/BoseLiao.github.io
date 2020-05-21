@@ -22,7 +22,7 @@ X=sigmax() S=spre(X) #I tensor X S1=spost(X) # X tensor I S2=spre(X)*spost(X.">
 
 <meta itemprop="datePublished" content="2020-05-15T13:21:41&#43;08:00" />
 <meta itemprop="dateModified" content="2020-05-15T13:21:41&#43;08:00" />
-<meta itemprop="wordCount" content="330">
+<meta itemprop="wordCount" content="332">
 
 
 
@@ -84,6 +84,7 @@ X=sigmax() S=spre(X) #I tensor X S1=spost(X) # X tensor I S2=spre(X)*spost(X."/>
 				<button id="menu-btn" class="hdr-btn" title="Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
 			</div>
 		</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
 	</header>
 	<div id="mobile-menu" class="animated fast">
 		<ul>
@@ -235,7 +236,7 @@ X=sigmax() S=spre(X) #I tensor X S1=spost(X) # X tensor I S2=spre(X)*spost(X."/>
 
 <p>在close量子系统中，量子态的时间演化可以通过薛定谔方程求解。<u>以下代码用qt代表qutip</u></p>
 
-<p>$ih\frac{\partial}{\partial t}\psi (t)=H\psi (t)$</p>
+<p>$$ih\frac{\partial}{\partial t}\psi (t)=H\psi (t)$$</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">H</span><span class="o">=</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mf">0.1</span><span class="o">*</span><span class="n">qt</span><span class="o">.</span><span class="n">sigmax</span><span class="p">()</span>
 <span class="n">psi0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">time</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">10.0</span><span class="p">,</span><span class="mi">20</span><span class="p">)</span>
@@ -293,9 +294,9 @@ X=sigmax() S=spre(X) #I tensor X S1=spost(X) # X tensor I S2=spre(X)*spost(X."/>
 
 <h2 id="lindblad主方程">Lindblad主方程<a href="#lindblad主方程" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
 
-<p>量子开放系统的动力学常常需要利用主方程描述，其中最重要的形式是Lindblad形式。对于Linblad主方程的求解，其中$C_n$表示跃迁算符(collapse operation)</p>
+<p>量子开放系统的动力学常常需要利用主方程描述，其中最重要的形式是Lindblad形式。对于Linblad主方程的求解，其中C_n表示跃迁算符(collapse operation)</p>
 
-<p>$\dot{\rho}=-\frac{i}{h}\left[H,\rho \right]+\sum_n\frac{1}{2}\left[2C_n\rho(t)C_n^{\dagger}-\rho(t)C_n^{\dagger}C_n-C_n^{\dagger}C_n\rho(t) \right]$</p>
+<p>$$\dot{\rho}=-\frac{i}{h}\left[H,\rho \right]+\sum_n\frac{1}{2}\left[2C_n\rho(t)C_n^{\dagger}-\rho(t)C_n^{\dagger}C_n-C_n^{\dagger}C_n\rho(t) \right]$$</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="s2">&#34;&#34;&#34;
 </span><span class="s2">Lindblad equation(use mesolve())
 </span><span class="s2">H:Hamiltonian
@@ -349,9 +350,13 @@ X=sigmax() S=spre(X) #I tensor X S1=spost(X) # X tensor I S2=spre(X)*spost(X."/>
 
 <p>Bloch-Redfield方程是主方程的矩阵元表现形式，对其求解可以先求出Redfield张量，再求解方程</p>
 
-<p>$\dot{\rho}<em>{ab}(t)=-i\omega</em>{ab}\rho<em>{ab}\sum</em>{cd}R<em>{abcd}\rho</em>{cd}(t)$</p>
+<p>$$\dot{\rho}_{ab}=-i\omega_{ab}\rho_{ab}+\sum_{cd}R_{abcd}\rho_{cd}$$</p>
 
-<p>$R<em>{abcd}=-\frac{1}{2}\sum</em>{\alpha\beta}\left[\delta_{bd}\sum<em>nA^{\alpha}</em>{an}A^{\beta}<em>{nc}S</em>{\alpha\beta}(\omega<em>{cn})-A^{\alpha}</em>{ac}A^{\beta}<em>{db}S</em>{\alpha\beta}(\omega<em>{ca})\right.$$\left.+\delta</em>{ac}\sum<em>nA^{\alpha}</em>{dn}A^{\beta}<em>{nb}S</em>{\alpha\beta}(\omega<em>{dn})+A^{\alpha}</em>{ac}A^{\beta}<em>{db}S</em>{\alpha\beta}(\omega_{db}) \right]$</p>
+<p>其中</p>
+
+<p>$$R_{abcd}=-\frac{1}{2}\sum_{\alpha\beta}\left[\delta_{bd}\sum_nA^{\alpha}_{an}A^{\beta}_{nc}S_{\alpha\beta}(\omega_{cn})-A^{\alpha}_{ac}A^{\beta}_{db}S_{\alpha\beta}(\omega_{ca})\right.$$</p>
+
+<p>$$\left.+\delta_{ac}\sum_nA^{\alpha}_{dn}A^{\beta}_{nb}S_{\alpha\beta}(\omega_{dn})+A^{\alpha}_{ac}A^{\beta}_{db}S_{\alpha\beta}(\omega_{db}) \right]$$</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="s2">&#34;&#34;&#34;
 </span><span class="s2">Bloch redfield
 </span><span class="s2">&#34;&#34;&#34;</span>
@@ -393,7 +398,7 @@ X=sigmax() S=spre(X) #I tensor X S1=spost(X) # X tensor I S2=spre(X)*spost(X."/>
 				<p>
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://boseliao.github.io/tags/qutip">QuTip</a></span>
 				</p>
-				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>330 Words</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>332 Words</p>
 				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2020-05-15 13:21 &#43;0800</p>
 			</footer>
 		</article>

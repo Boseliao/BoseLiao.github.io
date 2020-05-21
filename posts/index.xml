@@ -17,19 +17,19 @@
 			
 			<guid>https://boseliao.github.io/posts/qutipheom/</guid>
 			<description>级联运动方程是用于计算非马尔科夫动力学的最普遍的工具，
-$\frac{\partial}{\partial t}\rho^n_{j_1\dots j_K}=-\left[iHs^{\times}+n\gamma+\sum{k=1}^Kj_k\nuk-\Xi \right]\rho^n{j_1\dots jK}+V^{\times}\rho^{n+1}{j_i\dots j_K}$
-$V^{\times}\sum{k=1}^K\rho^n{j_1\dots j_k+1\dots JK}+n\Theta\rho^{n-1}{j_1\dots JK}+\sum{k=1}^Kj_k\nu_k\Psik\rho^n{j_1\dots j_k-1\dots j_K }$
+$$\frac{\partial}{\partial t}\rho^n_{j_1\dots j_K}=-\left[iH_s^{\times}+n\gamma+\sum_{k=1}^Kj_k\nu_k-\Xi \right]\rho^n_{j_1\dots j_K}+V^{\times}\rho^{n+1}_{j_1\dots j_K}$$
+$$V^{\times}\sum_{k=1}^K\rho^n_{j_1\dots j_k+1\dots J_K}+n\Theta\rho^{n-1}_{j_1\dots J_K}+\sum_{k=1}^Kj_k\nu_k\Psi_k\rho^n_{j_1\dots j_k-1\dots j_K }$$
 其中$\rho^n_{j_1\dots jK}$表示n阶辅助密度矩阵，对它的求解依赖于n+1，n-1，n阶辅助矩阵，即此方程是不封闭的。而最后要求得的真正的约化密度矩阵是$\rho^0{0\dots 0}$，见图假设（K=2）
 graph TD A[rho_s] --&amp;gt; 21[rho_10] A --&amp;gt;22[rho_01] 21 --&amp;gt; 31[rho_20] 21 --&amp;gt; 32[rho_11] 22 --&amp;gt;32 22 --&amp;gt;33[rho_02] B[order:0] --&amp;gt;C[1] C--&amp;gt;D[2] 由图可知，可以做如下截断N=n=j1+...+jK，截断方程
-$\frac{\partial}{\partial t}\rho^n_{j_1\dots j_K}=-\left[iHs^{\times}-\Xi \right]\rho^n{j_1\dots j_K}$
-这里，目前只能求解洛伦兹谱的谱密度$J(\omega)=\frac{\eta}{2\pi}\frac{\omega\gamma^2}{\gamma^2+\omega^2}$，其中$\eta$是“system-bath coupling strength”，$\gamma$表示&amp;rdquo;Bath spectral density cutoff frequency&amp;rdquo;。
+$$\frac{\partial}{\partial t}\rho^n_{j_1\dots j_K}=-\left[iH_s^{\times}-\Xi \right]\rho^n_{j_1\dots j_K}$$
+这里，目前只能求解洛伦兹谱的谱密度$$J(\omega)=\frac{\eta}{2\pi}\frac{\omega\gamma^2}{\gamma^2+\omega^2}$$其中$\eta$是“system-bath coupling strength”，$\gamma$表示&amp;rdquo;Bath spectral density cutoff frequency&amp;rdquo;。
 这里对文献Non-Markovian and Non-Perturbative Entanglement Dynamics of Biomolecular Excitons进行了follow，
 import numpy as np import matplotlib.pyplot as plt import qutip as qt from qutip.</description>
 			<content type="html"><![CDATA[<p>级联运动方程是用于计算非马尔科夫动力学的最普遍的工具，</p>
 
-<p>$\frac{\partial}{\partial t}\rho^n_{j_1\dots j_K}=-\left[iH<em>s^{\times}+n\gamma+\sum</em>{k=1}^Kj_k\nu<em>k-\Xi \right]\rho^n</em>{j_1\dots j<em>K}+V^{\times}\rho^{n+1}</em>{j_i\dots j_K}$</p>
+<p>$$\frac{\partial}{\partial t}\rho^n_{j_1\dots j_K}=-\left[iH_s^{\times}+n\gamma+\sum_{k=1}^Kj_k\nu_k-\Xi \right]\rho^n_{j_1\dots j_K}+V^{\times}\rho^{n+1}_{j_1\dots j_K}$$</p>
 
-<p>$V^{\times}\sum<em>{k=1}^K\rho^n</em>{j_1\dots j_k+1\dots J<em>K}+n\Theta\rho^{n-1}</em>{j_1\dots J<em>K}+\sum</em>{k=1}^Kj_k\nu_k\Psi<em>k\rho^n</em>{j_1\dots j_k-1\dots j_K }$</p>
+<p>$$V^{\times}\sum_{k=1}^K\rho^n_{j_1\dots j_k+1\dots J_K}+n\Theta\rho^{n-1}_{j_1\dots J_K}+\sum_{k=1}^Kj_k\nu_k\Psi_k\rho^n_{j_1\dots j_k-1\dots j_K }$$</p>
 
 <p>其中$\rho^n_{j_1\dots j<em>K}$表示n阶辅助密度矩阵，对它的求解依赖于n+1，n-1，n阶辅助矩阵，即此方程是不封闭的。而最后要求得的真正的约化密度矩阵是$\rho^0</em>{0\dots 0}$，见图假设（K=2）</p>
 <div class="highlight"><pre class="chroma"><code class="language-mermaid" data-lang="mermaid">graph TD
@@ -43,9 +43,9 @@ import numpy as np import matplotlib.pyplot as plt import qutip as qt from qutip
     C--&gt;D[2]</code></pre></div>
 <p>由图可知，可以做如下截断<code>N=n=j1+...+jK</code>，截断方程</p>
 
-<p>$\frac{\partial}{\partial t}\rho^n_{j_1\dots j_K}=-\left[iH<em>s^{\times}-\Xi \right]\rho^n</em>{j_1\dots j_K}$</p>
+<p>$$\frac{\partial}{\partial t}\rho^n_{j_1\dots j_K}=-\left[iH_s^{\times}-\Xi \right]\rho^n_{j_1\dots j_K}$$</p>
 
-<p>这里，目前只能求解洛伦兹谱的谱密度$J(\omega)=\frac{\eta}{2\pi}\frac{\omega\gamma^2}{\gamma^2+\omega^2}$，其中$\eta$是“system-bath coupling strength”，$\gamma$表示&rdquo;Bath spectral density cutoff frequency&rdquo;。</p>
+<p>这里，目前只能求解洛伦兹谱的谱密度$$J(\omega)=\frac{\eta}{2\pi}\frac{\omega\gamma^2}{\gamma^2+\omega^2}$$其中$\eta$是“system-bath coupling strength”，$\gamma$表示&rdquo;Bath spectral density cutoff frequency&rdquo;。</p>
 
 <p>这里对文献<a href="http://cpl.iphy.ac.cn/10.1088/0256-307X/28/8/089201">Non-Markovian and Non-Perturbative Entanglement Dynamics of
 Biomolecular Excitons</a>进行了follow，</p>
@@ -136,11 +136,11 @@ Biomolecular Excitons</a>进行了follow，</p>
 			<pubDate>Tue, 19 May 2020 19:12:13 +0800</pubDate>
 			
 			<guid>https://boseliao.github.io/posts/qutiptime_correlation/</guid>
-			<description>QuTip计算时间关联函数$\langle A(t+\tau)B(t)\rangle$可以使用以下三种态演化方程：Master-equation, Exponential series， the Monte-Carlo。
+			<description>QuTip计算时间关联函数$$\langle A(t+\tau)B(t)\rangle$$可以使用以下三种态演化方程：Master-equation, Exponential series， the Monte-Carlo。
 &amp;#34;&amp;#34;&amp;#34; correlation_2op_1t(H, state0, taulist, c_ops, a_op, b_op, solver=&amp;#39;me&amp;#39;, reverse=False, args={}, options=&amp;lt;qutip.solver.Options object at 0xa7eedc2c&amp;gt;) ----- state0 : Initial state density matrix or state vector. If &amp;#39;state0&amp;#39; is &amp;#39;None&amp;#39;, then the steady state will be used as the initial state. c_ops : list of collapse operators, may be time-dependent a_op : operator A b_op : operator B. reverse : bool {False, True} If `True`, calculate :math:`\left&amp;lt;A(t)B(t+\tau)\right&amp;gt;` instead of :math:`\left&amp;lt;A(t+\tau)B(t)\right&amp;gt;`.</description>
 			<content type="html"><![CDATA[
 
-<p>QuTip计算时间关联函数$\langle A(t+\tau)B(t)\rangle$可以使用以下三种态演化方程：Master-equation, Exponential series， the Monte-Carlo。</p>
+<p>QuTip计算时间关联函数$$\langle A(t+\tau)B(t)\rangle$$可以使用以下三种态演化方程：Master-equation, Exponential series， the Monte-Carlo。</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="s2">&#34;&#34;&#34;
 </span><span class="s2">correlation_2op_1t(H, state0, taulist, c_ops, a_op, b_op, solver=&#39;me&#39;,
 </span><span class="s2">reverse=False, args={}, options=&lt;qutip.solver.Options object at 0xa7eedc2c&gt;)
@@ -163,7 +163,7 @@ Biomolecular Excitons</a>进行了follow，</p>
 <span class="n">rho0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">coherent_dm</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="n">alpha</span><span class="p">)</span>
 <span class="c1">#no-steadystate correaltion function</span>
 <span class="n">corr2</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">correlation_2op_2t</span><span class="p">(</span><span class="n">H</span><span class="p">,</span><span class="n">rho0</span><span class="p">,</span><span class="n">times</span><span class="p">,</span><span class="n">times</span><span class="p">,[</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span><span class="o">*</span><span class="n">a</span><span class="p">],</span><span class="n">x</span><span class="p">,</span><span class="n">x</span><span class="p">)</span></code></pre></div>
-<p>计算时间关联函数对应的能谱$S(\omega)=\int_{-\infty}^{\infty}\langle A(t+\tau)B(t)\rangle e^{i\omega\tau}d\tau$</p>
+<p>计算时间关联函数对应的能谱$$S(\omega)=\int_{-\infty}^{\infty}\langle A(t+\tau)B(t)\rangle e^{i\omega\tau}d\tau$$</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="s2">&#34;&#34;&#34;
 </span><span class="s2">the emission power spectrum
 </span><span class="s2">&#34;&#34;&#34;</span>
@@ -315,9 +315,10 @@ Biomolecular Excitons</a>进行了follow，</p>
 			<guid>https://boseliao.github.io/posts/qutip%E5%90%AB%E6%97%B6%E7%B3%BB%E7%BB%9F/</guid>
 			<description>前面已经简单的介绍过关于含时Lindblad主方程的求解，以及含时的哈密顿量和跃迁算符的表示。相应的，Bloch-Redfield含时的主方程也可以做类似求解，
 kappe=0.5 def co1_coeff(t,args): return np.sqrt(kappe*np.exp(-t)) N=10 a=qt.destroy(N) H0=a.dag()*a H1=a+a.dag() def H1_coeff(t,args): return 9*np.exp(-(t/5.0)**2) H=[H0,[H1,H1_coeff]] psi0=qt.basis(N,9) c_ops=[a,[a,co1_coeff]] times=np.linspace(0.0,10.0,100) output=qt.mesolve(H,psi0,times,c_ops,[a.dag()*a]) #time-dependt Lindblad equation a_ops=[[(a,a.dag()),(&amp;#39;{0}*(w&amp;gt;0)&amp;#39;.format(kappe),&amp;#39;exp(1j*t)&amp;#39;,&amp;#39;exp(-1j*t)&amp;#39;)]] out2=qt.brmesolve(H0,psi0,times,a_ops,e_ops=[a.dag()*a]) #time-dependt Redfield equation 除此之外，当含时的参数是非解析的函数或者由实验得到的数据点时，需要将数据点变成函数。
-t=np.linspace(-15,15,100) func=lambda t: 9*np.exp(-(t/5)**2) #anonymous functions noisy_func=lambda t: func(t)+(0.05*func(t))*np.random.randn(t.shape[0]) #generary a random array shape like t,Standard normal distribution noisy_data=noisy_func(t) S=qt.interpolate.Cubic_Spline(t[0],t[-1],noisy_data) H=[[H1,S]] 含时算符的指数级数表示$\hat{A}=\sum_i\hat{a}e^{r_it}$，
+t=np.linspace(-15,15,100) func=lambda t: 9*np.exp(-(t/5)**2) #anonymous functions noisy_func=lambda t: func(t)+(0.05*func(t))*np.random.randn(t.shape[0]) #generary a random array shape like t,Standard normal distribution noisy_data=noisy_func(t) S=qt.interpolate.Cubic_Spline(t[0],t[-1],noisy_data) H=[[H1,S]] 含时算符的指数级数表示$$\hat{A}=\sum_i\hat{a}e^{r_it}$$
 &amp;#34;&amp;#34;&amp;#34; Exponential-series representation &amp;#34;&amp;#34;&amp;#34; es1=qt.eseries(qt.sigmax(),1j) #sigma_x*exp(jt) es2=qt.eseries([qt.sigmax(),qt.sigmax()],[1j,-1j])#sigms_x*exp(jt)+sigma_xexp(-jt) &amp;#34;&amp;#34;&amp;#34; evaluate it at time t=2 &amp;#34;&amp;#34;&amp;#34; qt.esval(es2,2.0) Floquet理论 在Lindblad和Bloch-Redfield主方程的标准推导中，所考虑的系统是不显含时时间的。因此，严格地说，这些主方程形式不应盲目地应用于含时哈密顿量的系统。然而，在许多特定的情况下，特别是对于弱驱动的情况，标准主方程仍然适用于许多含时的问题。但更严格的方法是从含时的哈密顿量开始重新推导主方程。Floquet-Markov主方程是这样一种形式的主方程，它在强驱动系统中有着重要的应用。
-封闭系统的Floquet计算方法$\psi(t)=\sum{\alpha}c{\alpha}\psi{\alpha}(t)=\sum{\alpha}c{\alpha}e^{-i\epsilon{\alpha}t}\phi{\alpha}(t)$，其中$\psi{\alpha}$表示“Floquet state”，$\phi{\alpha}$表示周期的“Floquet mode”，$\phi{\alpha}(t+T)=\phi{\alpha}(t)$，$\epsilon{\alpha}$表示常数“quasienergy”</description>
+封闭系统的Floquet计算方法$$\psi(t)=\sum_{\alpha}c_{\alpha}\psi_{\alpha}(t)=\sum_{\alpha}c_{\alpha}e^{-i\epsilon_{\alpha}t}\phi_{\alpha}(t)$$
+其中\psi_{\alpha}​表示“Floquet state”，\phi_{\alpha}表示周期的“Floquet mode”，\phi_{\alpha}(t+T)=\phi_{\alpha}(t)​，\epsilon_{\alpha}表示常数“quasienergy”</description>
 			<content type="html"><![CDATA[
 
 <p>前面已经简单的介绍过关于含时Lindblad主方程的求解，以及含时的哈密顿量和跃迁算符的表示。相应的，Bloch-Redfield含时的主方程也可以做类似求解，</p>
@@ -346,7 +347,7 @@ t=np.linspace(-15,15,100) func=lambda t: 9*np.exp(-(t/5)**2) #anonymous function
 <span class="n">noisy_data</span><span class="o">=</span><span class="n">noisy_func</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
 <span class="n">S</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">interpolate</span><span class="o">.</span><span class="n">Cubic_Spline</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">t</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">noisy_data</span><span class="p">)</span>
 <span class="n">H</span><span class="o">=</span><span class="p">[[</span><span class="n">H1</span><span class="p">,</span><span class="n">S</span><span class="p">]]</span></code></pre></div>
-<p>含时算符的指数级数表示$\hat{A}=\sum_i\hat{a}e^{r_it}$，</p>
+<p>含时算符的指数级数表示$$\hat{A}=\sum_i\hat{a}e^{r_it}$$</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="s2">&#34;&#34;&#34;
 </span><span class="s2">Exponential-series representation
 </span><span class="s2">&#34;&#34;&#34;</span>
@@ -360,7 +361,9 @@ t=np.linspace(-15,15,100) func=lambda t: 9*np.exp(-(t/5)**2) #anonymous function
 
 <p>在Lindblad和Bloch-Redfield主方程的标准推导中，所考虑的系统是不显含时时间的。因此，严格地说，这些主方程形式不应盲目地应用于含时哈密顿量的系统。然而，在许多特定的情况下，特别是对于弱驱动的情况，标准主方程仍然适用于许多含时的问题。但更严格的方法是从含时的哈密顿量开始重新推导主方程。Floquet-Markov主方程是这样一种形式的主方程，它在强驱动系统中有着重要的应用。</p>
 
-<p>封闭系统的Floquet计算方法$\psi(t)=\sum<em>{\alpha}c</em>{\alpha}\psi<em>{\alpha}(t)=\sum</em>{\alpha}c<em>{\alpha}e^{-i\epsilon</em>{\alpha}t}\phi<em>{\alpha}(t)$，其中$\psi</em>{\alpha}$表示“Floquet state”，$\phi<em>{\alpha}$表示周期的“Floquet mode”，$\phi</em>{\alpha}(t+T)=\phi<em>{\alpha}(t)$，$\epsilon</em>{\alpha}$表示常数“quasienergy”</p>
+<p>封闭系统的Floquet计算方法$$\psi(t)=\sum_{\alpha}c_{\alpha}\psi_{\alpha}(t)=\sum_{\alpha}c_{\alpha}e^{-i\epsilon_{\alpha}t}\phi_{\alpha}(t)$$</p>
+
+<p>其中<code>\psi_{\alpha}​</code>表示“Floquet state”，<code>\phi_{\alpha}</code>表示周期的“Floquet mode”，<code>\phi_{\alpha}(t+T)=\phi_{\alpha}(t)​</code>，<code>\epsilon_{\alpha}</code>表示常数“quasienergy”</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="s2">&#34;&#34;&#34;
 </span><span class="s2">Floquat thoery
 </span><span class="s2">&#34;&#34;&#34;</span>
@@ -395,13 +398,13 @@ t=np.linspace(-15,15,100) func=lambda t: 9*np.exp(-(t/5)**2) #anonymous function
 </span><span class="s2">&#34;&#34;&#34;</span>
 <span class="n">t</span><span class="o">=</span><span class="mi">10</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()</span>
 <span class="n">psi_t</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">floquet_wavefunction_t</span><span class="p">(</span><span class="n">f_modes_0</span><span class="p">,</span><span class="n">f_energies</span><span class="p">,</span><span class="n">f_coeff</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">H</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="n">args</span><span class="p">)</span></code></pre></div>
-<p>耗散系统的Floquet<em>Markov主方程的计算方法，$\rho</em>{\alpha\beta} (t)=\langle\psi<em>{\alpha}(t)|\rho (t)|\psi</em>{\beta}\rangle$，$n_{th}(\omega)=\frac{1}{e^{h\omega/k<em>B T}-1}$，$X</em>{\alpha\beta}=\langle\psi<em>{\alpha}|A|\psi</em>{\beta}\rangle$，<code>A</code>表示与环境耦合的算符</p>
+<p>耗散系统的Floquet_Markov主方程的计算方法，$$\rho_{\alpha\beta} (t)=\langle\psi_{\alpha}(t)|\rho (t)|\psi_{\beta}\rangle,n_{th}(\omega)=\frac{1}{e^{h\omega/k_B T}-1},X_{\alpha\beta}=\langle\psi_{\alpha}|A|\psi_{\beta}\rangle$$，<code>A</code>表示与环境耦合的算符</p>
 
-<p>$\dot{\rho}_{\alpha\beta}=\frac{1}{\pi}\int<em>0^{\infty}d\omega J(\omega)n</em>{th}(\omega)\int<em>0^{\infty}d\tau e^{i\omega\tau}R</em>{\alpha\beta}(t-\tau,t)$</p>
+<p>$$\dot{\rho}_{\alpha\beta}=\frac{1}{\pi}\int_0^{\infty}d\omega J(\omega)n_{th}(\omega)\int_0^{\infty}d\tau e^{i\omega\tau}R_{\alpha\beta}(t-\tau,t)$$</p>
 
-<p>$+\frac{1}{\pi}\int<em>0^{\infty}d\omega J(\omega)(1+n</em>{th}(\omega))\int<em>0^{\infty}d\tau e^{-i\omega\tau}R</em>{\alpha\beta}(t-\tau,t)$</p>
+<p>$$+\frac{1}{\pi}\int_0^{\infty}d\omega J(\omega)(1+n_{th}(\omega))\int_0^{\infty}d\tau e^{-i\omega\tau}R_{\alpha\beta}(t-\tau,t)$$</p>
 
-<p>$R<em>{\alpha\beta}(t-\tau,t)=\sum</em>{ij}\left(X<em>{\alpha i}(t-\tau)\rho</em>{ij}(t)X<em>{\beta j}^*+X</em>{i\alpha}^*X<em>{j\beta}(t-\tau)\rho</em>{ij}(t) \right)$</p>
+<p>$$R_{\alpha\beta}(t-\tau,t)=\sum_{ij}\left(X_{\alpha i}(t-\tau)\rho_{ij}(t)X_{\beta j}^*+X_{i\alpha}^*X_{j\beta}(t-\tau)\rho_{ij}(t) \right)$$</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="s2">&#34;&#34;&#34;
 </span><span class="s2">floquet_markov master equation
 </span><span class="s2">Note:Currently the qutip.floquet.fmmesolve can only accept a single environment 
@@ -456,7 +459,7 @@ t=np.linspace(-15,15,100) func=lambda t: 9*np.exp(-(t/5)**2) #anonymous function
 <span class="n">p_ex_ref</span><span class="o">=</span><span class="n">output1</span><span class="o">.</span><span class="n">expect</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></code></pre></div>
 <h2 id="传播子">传播子</h2>
 
-<p>通过对角化Hamilton或Liouvillian的方法得到含时系统的传播子，并计算其时间演化$e^{iHt}\rho e^{-iHt}$。</p>
+<p>通过对角化Hamilton或Liouvillian的方法得到含时系统的传播子，并计算其时间演化$$e^{iHt}\rho e^{-iHt}$$</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">psi0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">H</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">sigmaz</span><span class="p">()</span>
 <span class="s2">&#34;&#34;&#34;
@@ -652,7 +655,7 @@ X=sigmax() S=spre(X) #I tensor X S1=spost(X) # X tensor I S2=spre(X)*spost(X.</d
 
 <p>在close量子系统中，量子态的时间演化可以通过薛定谔方程求解。<u>以下代码用qt代表qutip</u></p>
 
-<p>$ih\frac{\partial}{\partial t}\psi (t)=H\psi (t)$</p>
+<p>$$ih\frac{\partial}{\partial t}\psi (t)=H\psi (t)$$</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">H</span><span class="o">=</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mf">0.1</span><span class="o">*</span><span class="n">qt</span><span class="o">.</span><span class="n">sigmax</span><span class="p">()</span>
 <span class="n">psi0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">time</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">10.0</span><span class="p">,</span><span class="mi">20</span><span class="p">)</span>
@@ -710,9 +713,9 @@ X=sigmax() S=spre(X) #I tensor X S1=spost(X) # X tensor I S2=spre(X)*spost(X.</d
 
 <h2 id="lindblad主方程">Lindblad主方程</h2>
 
-<p>量子开放系统的动力学常常需要利用主方程描述，其中最重要的形式是Lindblad形式。对于Linblad主方程的求解，其中$C_n$表示跃迁算符(collapse operation)</p>
+<p>量子开放系统的动力学常常需要利用主方程描述，其中最重要的形式是Lindblad形式。对于Linblad主方程的求解，其中C_n表示跃迁算符(collapse operation)</p>
 
-<p>$\dot{\rho}=-\frac{i}{h}\left[H,\rho \right]+\sum_n\frac{1}{2}\left[2C_n\rho(t)C_n^{\dagger}-\rho(t)C_n^{\dagger}C_n-C_n^{\dagger}C_n\rho(t) \right]$</p>
+<p>$$\dot{\rho}=-\frac{i}{h}\left[H,\rho \right]+\sum_n\frac{1}{2}\left[2C_n\rho(t)C_n^{\dagger}-\rho(t)C_n^{\dagger}C_n-C_n^{\dagger}C_n\rho(t) \right]$$</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="s2">&#34;&#34;&#34;
 </span><span class="s2">Lindblad equation(use mesolve())
 </span><span class="s2">H:Hamiltonian
@@ -766,9 +769,13 @@ X=sigmax() S=spre(X) #I tensor X S1=spost(X) # X tensor I S2=spre(X)*spost(X.</d
 
 <p>Bloch-Redfield方程是主方程的矩阵元表现形式，对其求解可以先求出Redfield张量，再求解方程</p>
 
-<p>$\dot{\rho}<em>{ab}(t)=-i\omega</em>{ab}\rho<em>{ab}\sum</em>{cd}R<em>{abcd}\rho</em>{cd}(t)$</p>
+<p>$$\dot{\rho}_{ab}=-i\omega_{ab}\rho_{ab}+\sum_{cd}R_{abcd}\rho_{cd}$$</p>
 
-<p>$R<em>{abcd}=-\frac{1}{2}\sum</em>{\alpha\beta}\left[\delta_{bd}\sum<em>nA^{\alpha}</em>{an}A^{\beta}<em>{nc}S</em>{\alpha\beta}(\omega<em>{cn})-A^{\alpha}</em>{ac}A^{\beta}<em>{db}S</em>{\alpha\beta}(\omega<em>{ca})\right.$$\left.+\delta</em>{ac}\sum<em>nA^{\alpha}</em>{dn}A^{\beta}<em>{nb}S</em>{\alpha\beta}(\omega<em>{dn})+A^{\alpha}</em>{ac}A^{\beta}<em>{db}S</em>{\alpha\beta}(\omega_{db}) \right]$</p>
+<p>其中</p>
+
+<p>$$R_{abcd}=-\frac{1}{2}\sum_{\alpha\beta}\left[\delta_{bd}\sum_nA^{\alpha}_{an}A^{\beta}_{nc}S_{\alpha\beta}(\omega_{cn})-A^{\alpha}_{ac}A^{\beta}_{db}S_{\alpha\beta}(\omega_{ca})\right.$$</p>
+
+<p>$$\left.+\delta_{ac}\sum_nA^{\alpha}_{dn}A^{\beta}_{nb}S_{\alpha\beta}(\omega_{dn})+A^{\alpha}_{ac}A^{\beta}_{db}S_{\alpha\beta}(\omega_{db}) \right]$$</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="s2">&#34;&#34;&#34;
 </span><span class="s2">Bloch redfield
 </span><span class="s2">&#34;&#34;&#34;</span>
@@ -978,8 +985,9 @@ program main implicit none int x x=1 write(*,*) end program 表格与图片  表
 
 <h2 id="数学公式">数学公式</h2>
 
-<p>可以使用<code>$$</code>包裹latex格式的数学代码，需要浏览器安装MathJax插件
-$$
+<p>可以使用<code>$$</code>包裹latex格式的数学代码，需要在chrome的扩展程序中，打开chrome网上应用店，然后搜索MathJax Plugin for Github，下载该插件，并且启用，就可以让公式正常显示。</p>
+
+<p>$$
 \hat{\sigma}_z
 $$</p>
 

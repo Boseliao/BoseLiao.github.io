@@ -9,7 +9,7 @@
 	<meta name="msapplication-TileColor" content="#494f5c">
 
 <meta itemprop="name" content="QuTip:time_correlation">
-<meta itemprop="description" content="QuTip计算时间关联函数$\langle A(t&#43;\tau)B(t)\rangle$可以使用以下三种态演化方程：Master-equation, Exponential series， the Monte-Carlo。
+<meta itemprop="description" content="QuTip计算时间关联函数$$\langle A(t&#43;\tau)B(t)\rangle$$可以使用以下三种态演化方程：Master-equation, Exponential series， the Monte-Carlo。
 &#34;&#34;&#34; correlation_2op_1t(H, state0, taulist, c_ops, a_op, b_op, solver=&#39;me&#39;, reverse=False, args={}, options=&lt;qutip.solver.Options object at 0xa7eedc2c&gt;) ----- state0 : Initial state density matrix or state vector. If &#39;state0&#39; is &#39;None&#39;, then the steady state will be used as the initial state. c_ops : list of collapse operators, may be time-dependent a_op : operator A b_op : operator B. reverse : bool {False, True} If `True`, calculate :math:`\left&lt;A(t)B(t&#43;\tau)\right&gt;` instead of :math:`\left&lt;A(t&#43;\tau)B(t)\right&gt;`.">
 
 
@@ -21,7 +21,7 @@
 
 <meta itemprop="keywords" content="QuTip," />
 <meta property="og:title" content="QuTip:time_correlation" />
-<meta property="og:description" content="QuTip计算时间关联函数$\langle A(t&#43;\tau)B(t)\rangle$可以使用以下三种态演化方程：Master-equation, Exponential series， the Monte-Carlo。
+<meta property="og:description" content="QuTip计算时间关联函数$$\langle A(t&#43;\tau)B(t)\rangle$$可以使用以下三种态演化方程：Master-equation, Exponential series， the Monte-Carlo。
 &#34;&#34;&#34; correlation_2op_1t(H, state0, taulist, c_ops, a_op, b_op, solver=&#39;me&#39;, reverse=False, args={}, options=&lt;qutip.solver.Options object at 0xa7eedc2c&gt;) ----- state0 : Initial state density matrix or state vector. If &#39;state0&#39; is &#39;None&#39;, then the steady state will be used as the initial state. c_ops : list of collapse operators, may be time-dependent a_op : operator A b_op : operator B. reverse : bool {False, True} If `True`, calculate :math:`\left&lt;A(t)B(t&#43;\tau)\right&gt;` instead of :math:`\left&lt;A(t&#43;\tau)B(t)\right&gt;`." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://boseliao.github.io/posts/qutiptime_correlation/" />
@@ -29,7 +29,7 @@
 <meta property="article:modified_time" content="2020-05-19T19:12:13&#43;08:00"/>
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="QuTip:time_correlation"/>
-<meta name="twitter:description" content="QuTip计算时间关联函数$\langle A(t&#43;\tau)B(t)\rangle$可以使用以下三种态演化方程：Master-equation, Exponential series， the Monte-Carlo。
+<meta name="twitter:description" content="QuTip计算时间关联函数$$\langle A(t&#43;\tau)B(t)\rangle$$可以使用以下三种态演化方程：Master-equation, Exponential series， the Monte-Carlo。
 &#34;&#34;&#34; correlation_2op_1t(H, state0, taulist, c_ops, a_op, b_op, solver=&#39;me&#39;, reverse=False, args={}, options=&lt;qutip.solver.Options object at 0xa7eedc2c&gt;) ----- state0 : Initial state density matrix or state vector. If &#39;state0&#39; is &#39;None&#39;, then the steady state will be used as the initial state. c_ops : list of collapse operators, may be time-dependent a_op : operator A b_op : operator B. reverse : bool {False, True} If `True`, calculate :math:`\left&lt;A(t)B(t&#43;\tau)\right&gt;` instead of :math:`\left&lt;A(t&#43;\tau)B(t)\right&gt;`."/>
 
 	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -63,6 +63,7 @@
 				<button id="menu-btn" class="hdr-btn" title="Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
 			</div>
 		</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
 	</header>
 	<div id="mobile-menu" class="animated fast">
 		<ul>
@@ -81,7 +82,7 @@
 			<div class="content">
 				
 
-<p>QuTip计算时间关联函数$\langle A(t+\tau)B(t)\rangle$可以使用以下三种态演化方程：Master-equation, Exponential series， the Monte-Carlo。</p>
+<p>QuTip计算时间关联函数$$\langle A(t+\tau)B(t)\rangle$$可以使用以下三种态演化方程：Master-equation, Exponential series， the Monte-Carlo。</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="s2">&#34;&#34;&#34;
 </span><span class="s2">correlation_2op_1t(H, state0, taulist, c_ops, a_op, b_op, solver=&#39;me&#39;,
 </span><span class="s2">reverse=False, args={}, options=&lt;qutip.solver.Options object at 0xa7eedc2c&gt;)
@@ -104,7 +105,7 @@
 <span class="n">rho0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">coherent_dm</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="n">alpha</span><span class="p">)</span>
 <span class="c1">#no-steadystate correaltion function</span>
 <span class="n">corr2</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">correlation_2op_2t</span><span class="p">(</span><span class="n">H</span><span class="p">,</span><span class="n">rho0</span><span class="p">,</span><span class="n">times</span><span class="p">,</span><span class="n">times</span><span class="p">,[</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span><span class="o">*</span><span class="n">a</span><span class="p">],</span><span class="n">x</span><span class="p">,</span><span class="n">x</span><span class="p">)</span></code></pre></div>
-<p>计算时间关联函数对应的能谱$S(\omega)=\int_{-\infty}^{\infty}\langle A(t+\tau)B(t)\rangle e^{i\omega\tau}d\tau$</p>
+<p>计算时间关联函数对应的能谱$$S(\omega)=\int_{-\infty}^{\infty}\langle A(t+\tau)B(t)\rangle e^{i\omega\tau}d\tau$$</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="s2">&#34;&#34;&#34;
 </span><span class="s2">the emission power spectrum
 </span><span class="s2">&#34;&#34;&#34;</span>

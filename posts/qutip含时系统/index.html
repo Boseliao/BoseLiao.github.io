@@ -11,14 +11,15 @@
 <meta itemprop="name" content="QuTip:含时系统">
 <meta itemprop="description" content="前面已经简单的介绍过关于含时Lindblad主方程的求解，以及含时的哈密顿量和跃迁算符的表示。相应的，Bloch-Redfield含时的主方程也可以做类似求解，
 kappe=0.5 def co1_coeff(t,args): return np.sqrt(kappe*np.exp(-t)) N=10 a=qt.destroy(N) H0=a.dag()*a H1=a&#43;a.dag() def H1_coeff(t,args): return 9*np.exp(-(t/5.0)**2) H=[H0,[H1,H1_coeff]] psi0=qt.basis(N,9) c_ops=[a,[a,co1_coeff]] times=np.linspace(0.0,10.0,100) output=qt.mesolve(H,psi0,times,c_ops,[a.dag()*a]) #time-dependt Lindblad equation a_ops=[[(a,a.dag()),(&#39;{0}*(w&gt;0)&#39;.format(kappe),&#39;exp(1j*t)&#39;,&#39;exp(-1j*t)&#39;)]] out2=qt.brmesolve(H0,psi0,times,a_ops,e_ops=[a.dag()*a]) #time-dependt Redfield equation 除此之外，当含时的参数是非解析的函数或者由实验得到的数据点时，需要将数据点变成函数。
-t=np.linspace(-15,15,100) func=lambda t: 9*np.exp(-(t/5)**2) #anonymous functions noisy_func=lambda t: func(t)&#43;(0.05*func(t))*np.random.randn(t.shape[0]) #generary a random array shape like t,Standard normal distribution noisy_data=noisy_func(t) S=qt.interpolate.Cubic_Spline(t[0],t[-1],noisy_data) H=[[H1,S]] 含时算符的指数级数表示$\hat{A}=\sum_i\hat{a}e^{r_it}$，
+t=np.linspace(-15,15,100) func=lambda t: 9*np.exp(-(t/5)**2) #anonymous functions noisy_func=lambda t: func(t)&#43;(0.05*func(t))*np.random.randn(t.shape[0]) #generary a random array shape like t,Standard normal distribution noisy_data=noisy_func(t) S=qt.interpolate.Cubic_Spline(t[0],t[-1],noisy_data) H=[[H1,S]] 含时算符的指数级数表示$$\hat{A}=\sum_i\hat{a}e^{r_it}$$
 &#34;&#34;&#34; Exponential-series representation &#34;&#34;&#34; es1=qt.eseries(qt.sigmax(),1j) #sigma_x*exp(jt) es2=qt.eseries([qt.sigmax(),qt.sigmax()],[1j,-1j])#sigms_x*exp(jt)&#43;sigma_xexp(-jt) &#34;&#34;&#34; evaluate it at time t=2 &#34;&#34;&#34; qt.esval(es2,2.0) Floquet理论 在Lindblad和Bloch-Redfield主方程的标准推导中，所考虑的系统是不显含时时间的。因此，严格地说，这些主方程形式不应盲目地应用于含时哈密顿量的系统。然而，在许多特定的情况下，特别是对于弱驱动的情况，标准主方程仍然适用于许多含时的问题。但更严格的方法是从含时的哈密顿量开始重新推导主方程。Floquet-Markov主方程是这样一种形式的主方程，它在强驱动系统中有着重要的应用。
-封闭系统的Floquet计算方法$\psi(t)=\sum{\alpha}c{\alpha}\psi{\alpha}(t)=\sum{\alpha}c{\alpha}e^{-i\epsilon{\alpha}t}\phi{\alpha}(t)$，其中$\psi{\alpha}$表示“Floquet state”，$\phi{\alpha}$表示周期的“Floquet mode”，$\phi{\alpha}(t&#43;T)=\phi{\alpha}(t)$，$\epsilon{\alpha}$表示常数“quasienergy”">
+封闭系统的Floquet计算方法$$\psi(t)=\sum_{\alpha}c_{\alpha}\psi_{\alpha}(t)=\sum_{\alpha}c_{\alpha}e^{-i\epsilon_{\alpha}t}\phi_{\alpha}(t)$$
+其中\psi_{\alpha}​表示“Floquet state”，\phi_{\alpha}表示周期的“Floquet mode”，\phi_{\alpha}(t&#43;T)=\phi_{\alpha}(t)​，\epsilon_{\alpha}表示常数“quasienergy”">
 
 
 <meta itemprop="datePublished" content="2020-05-18T15:10:50&#43;08:00" />
 <meta itemprop="dateModified" content="2020-05-18T15:10:50&#43;08:00" />
-<meta itemprop="wordCount" content="476">
+<meta itemprop="wordCount" content="477">
 
 
 
@@ -26,9 +27,10 @@ t=np.linspace(-15,15,100) func=lambda t: 9*np.exp(-(t/5)**2) #anonymous function
 <meta property="og:title" content="QuTip:含时系统" />
 <meta property="og:description" content="前面已经简单的介绍过关于含时Lindblad主方程的求解，以及含时的哈密顿量和跃迁算符的表示。相应的，Bloch-Redfield含时的主方程也可以做类似求解，
 kappe=0.5 def co1_coeff(t,args): return np.sqrt(kappe*np.exp(-t)) N=10 a=qt.destroy(N) H0=a.dag()*a H1=a&#43;a.dag() def H1_coeff(t,args): return 9*np.exp(-(t/5.0)**2) H=[H0,[H1,H1_coeff]] psi0=qt.basis(N,9) c_ops=[a,[a,co1_coeff]] times=np.linspace(0.0,10.0,100) output=qt.mesolve(H,psi0,times,c_ops,[a.dag()*a]) #time-dependt Lindblad equation a_ops=[[(a,a.dag()),(&#39;{0}*(w&gt;0)&#39;.format(kappe),&#39;exp(1j*t)&#39;,&#39;exp(-1j*t)&#39;)]] out2=qt.brmesolve(H0,psi0,times,a_ops,e_ops=[a.dag()*a]) #time-dependt Redfield equation 除此之外，当含时的参数是非解析的函数或者由实验得到的数据点时，需要将数据点变成函数。
-t=np.linspace(-15,15,100) func=lambda t: 9*np.exp(-(t/5)**2) #anonymous functions noisy_func=lambda t: func(t)&#43;(0.05*func(t))*np.random.randn(t.shape[0]) #generary a random array shape like t,Standard normal distribution noisy_data=noisy_func(t) S=qt.interpolate.Cubic_Spline(t[0],t[-1],noisy_data) H=[[H1,S]] 含时算符的指数级数表示$\hat{A}=\sum_i\hat{a}e^{r_it}$，
+t=np.linspace(-15,15,100) func=lambda t: 9*np.exp(-(t/5)**2) #anonymous functions noisy_func=lambda t: func(t)&#43;(0.05*func(t))*np.random.randn(t.shape[0]) #generary a random array shape like t,Standard normal distribution noisy_data=noisy_func(t) S=qt.interpolate.Cubic_Spline(t[0],t[-1],noisy_data) H=[[H1,S]] 含时算符的指数级数表示$$\hat{A}=\sum_i\hat{a}e^{r_it}$$
 &#34;&#34;&#34; Exponential-series representation &#34;&#34;&#34; es1=qt.eseries(qt.sigmax(),1j) #sigma_x*exp(jt) es2=qt.eseries([qt.sigmax(),qt.sigmax()],[1j,-1j])#sigms_x*exp(jt)&#43;sigma_xexp(-jt) &#34;&#34;&#34; evaluate it at time t=2 &#34;&#34;&#34; qt.esval(es2,2.0) Floquet理论 在Lindblad和Bloch-Redfield主方程的标准推导中，所考虑的系统是不显含时时间的。因此，严格地说，这些主方程形式不应盲目地应用于含时哈密顿量的系统。然而，在许多特定的情况下，特别是对于弱驱动的情况，标准主方程仍然适用于许多含时的问题。但更严格的方法是从含时的哈密顿量开始重新推导主方程。Floquet-Markov主方程是这样一种形式的主方程，它在强驱动系统中有着重要的应用。
-封闭系统的Floquet计算方法$\psi(t)=\sum{\alpha}c{\alpha}\psi{\alpha}(t)=\sum{\alpha}c{\alpha}e^{-i\epsilon{\alpha}t}\phi{\alpha}(t)$，其中$\psi{\alpha}$表示“Floquet state”，$\phi{\alpha}$表示周期的“Floquet mode”，$\phi{\alpha}(t&#43;T)=\phi{\alpha}(t)$，$\epsilon{\alpha}$表示常数“quasienergy”" />
+封闭系统的Floquet计算方法$$\psi(t)=\sum_{\alpha}c_{\alpha}\psi_{\alpha}(t)=\sum_{\alpha}c_{\alpha}e^{-i\epsilon_{\alpha}t}\phi_{\alpha}(t)$$
+其中\psi_{\alpha}​表示“Floquet state”，\phi_{\alpha}表示周期的“Floquet mode”，\phi_{\alpha}(t&#43;T)=\phi_{\alpha}(t)​，\epsilon_{\alpha}表示常数“quasienergy”" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://boseliao.github.io/posts/qutip%E5%90%AB%E6%97%B6%E7%B3%BB%E7%BB%9F/" />
 <meta property="article:published_time" content="2020-05-18T15:10:50&#43;08:00"/>
@@ -37,9 +39,10 @@ t=np.linspace(-15,15,100) func=lambda t: 9*np.exp(-(t/5)**2) #anonymous function
 <meta name="twitter:title" content="QuTip:含时系统"/>
 <meta name="twitter:description" content="前面已经简单的介绍过关于含时Lindblad主方程的求解，以及含时的哈密顿量和跃迁算符的表示。相应的，Bloch-Redfield含时的主方程也可以做类似求解，
 kappe=0.5 def co1_coeff(t,args): return np.sqrt(kappe*np.exp(-t)) N=10 a=qt.destroy(N) H0=a.dag()*a H1=a&#43;a.dag() def H1_coeff(t,args): return 9*np.exp(-(t/5.0)**2) H=[H0,[H1,H1_coeff]] psi0=qt.basis(N,9) c_ops=[a,[a,co1_coeff]] times=np.linspace(0.0,10.0,100) output=qt.mesolve(H,psi0,times,c_ops,[a.dag()*a]) #time-dependt Lindblad equation a_ops=[[(a,a.dag()),(&#39;{0}*(w&gt;0)&#39;.format(kappe),&#39;exp(1j*t)&#39;,&#39;exp(-1j*t)&#39;)]] out2=qt.brmesolve(H0,psi0,times,a_ops,e_ops=[a.dag()*a]) #time-dependt Redfield equation 除此之外，当含时的参数是非解析的函数或者由实验得到的数据点时，需要将数据点变成函数。
-t=np.linspace(-15,15,100) func=lambda t: 9*np.exp(-(t/5)**2) #anonymous functions noisy_func=lambda t: func(t)&#43;(0.05*func(t))*np.random.randn(t.shape[0]) #generary a random array shape like t,Standard normal distribution noisy_data=noisy_func(t) S=qt.interpolate.Cubic_Spline(t[0],t[-1],noisy_data) H=[[H1,S]] 含时算符的指数级数表示$\hat{A}=\sum_i\hat{a}e^{r_it}$，
+t=np.linspace(-15,15,100) func=lambda t: 9*np.exp(-(t/5)**2) #anonymous functions noisy_func=lambda t: func(t)&#43;(0.05*func(t))*np.random.randn(t.shape[0]) #generary a random array shape like t,Standard normal distribution noisy_data=noisy_func(t) S=qt.interpolate.Cubic_Spline(t[0],t[-1],noisy_data) H=[[H1,S]] 含时算符的指数级数表示$$\hat{A}=\sum_i\hat{a}e^{r_it}$$
 &#34;&#34;&#34; Exponential-series representation &#34;&#34;&#34; es1=qt.eseries(qt.sigmax(),1j) #sigma_x*exp(jt) es2=qt.eseries([qt.sigmax(),qt.sigmax()],[1j,-1j])#sigms_x*exp(jt)&#43;sigma_xexp(-jt) &#34;&#34;&#34; evaluate it at time t=2 &#34;&#34;&#34; qt.esval(es2,2.0) Floquet理论 在Lindblad和Bloch-Redfield主方程的标准推导中，所考虑的系统是不显含时时间的。因此，严格地说，这些主方程形式不应盲目地应用于含时哈密顿量的系统。然而，在许多特定的情况下，特别是对于弱驱动的情况，标准主方程仍然适用于许多含时的问题。但更严格的方法是从含时的哈密顿量开始重新推导主方程。Floquet-Markov主方程是这样一种形式的主方程，它在强驱动系统中有着重要的应用。
-封闭系统的Floquet计算方法$\psi(t)=\sum{\alpha}c{\alpha}\psi{\alpha}(t)=\sum{\alpha}c{\alpha}e^{-i\epsilon{\alpha}t}\phi{\alpha}(t)$，其中$\psi{\alpha}$表示“Floquet state”，$\phi{\alpha}$表示周期的“Floquet mode”，$\phi{\alpha}(t&#43;T)=\phi{\alpha}(t)$，$\epsilon{\alpha}$表示常数“quasienergy”"/>
+封闭系统的Floquet计算方法$$\psi(t)=\sum_{\alpha}c_{\alpha}\psi_{\alpha}(t)=\sum_{\alpha}c_{\alpha}e^{-i\epsilon_{\alpha}t}\phi_{\alpha}(t)$$
+其中\psi_{\alpha}​表示“Floquet state”，\phi_{\alpha}表示周期的“Floquet mode”，\phi_{\alpha}(t&#43;T)=\phi_{\alpha}(t)​，\epsilon_{\alpha}表示常数“quasienergy”"/>
 
 	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -72,6 +75,7 @@ t=np.linspace(-15,15,100) func=lambda t: 9*np.exp(-(t/5)**2) #anonymous function
 				<button id="menu-btn" class="hdr-btn" title="Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
 			</div>
 		</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
 	</header>
 	<div id="mobile-menu" class="animated fast">
 		<ul>
@@ -116,7 +120,7 @@ t=np.linspace(-15,15,100) func=lambda t: 9*np.exp(-(t/5)**2) #anonymous function
 <span class="n">noisy_data</span><span class="o">=</span><span class="n">noisy_func</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
 <span class="n">S</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">interpolate</span><span class="o">.</span><span class="n">Cubic_Spline</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">t</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">noisy_data</span><span class="p">)</span>
 <span class="n">H</span><span class="o">=</span><span class="p">[[</span><span class="n">H1</span><span class="p">,</span><span class="n">S</span><span class="p">]]</span></code></pre></div>
-<p>含时算符的指数级数表示$\hat{A}=\sum_i\hat{a}e^{r_it}$，</p>
+<p>含时算符的指数级数表示$$\hat{A}=\sum_i\hat{a}e^{r_it}$$</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="s2">&#34;&#34;&#34;
 </span><span class="s2">Exponential-series representation
 </span><span class="s2">&#34;&#34;&#34;</span>
@@ -130,7 +134,9 @@ t=np.linspace(-15,15,100) func=lambda t: 9*np.exp(-(t/5)**2) #anonymous function
 
 <p>在Lindblad和Bloch-Redfield主方程的标准推导中，所考虑的系统是不显含时时间的。因此，严格地说，这些主方程形式不应盲目地应用于含时哈密顿量的系统。然而，在许多特定的情况下，特别是对于弱驱动的情况，标准主方程仍然适用于许多含时的问题。但更严格的方法是从含时的哈密顿量开始重新推导主方程。Floquet-Markov主方程是这样一种形式的主方程，它在强驱动系统中有着重要的应用。</p>
 
-<p>封闭系统的Floquet计算方法$\psi(t)=\sum<em>{\alpha}c</em>{\alpha}\psi<em>{\alpha}(t)=\sum</em>{\alpha}c<em>{\alpha}e^{-i\epsilon</em>{\alpha}t}\phi<em>{\alpha}(t)$，其中$\psi</em>{\alpha}$表示“Floquet state”，$\phi<em>{\alpha}$表示周期的“Floquet mode”，$\phi</em>{\alpha}(t+T)=\phi<em>{\alpha}(t)$，$\epsilon</em>{\alpha}$表示常数“quasienergy”</p>
+<p>封闭系统的Floquet计算方法$$\psi(t)=\sum_{\alpha}c_{\alpha}\psi_{\alpha}(t)=\sum_{\alpha}c_{\alpha}e^{-i\epsilon_{\alpha}t}\phi_{\alpha}(t)$$</p>
+
+<p>其中<code>\psi_{\alpha}​</code>表示“Floquet state”，<code>\phi_{\alpha}</code>表示周期的“Floquet mode”，<code>\phi_{\alpha}(t+T)=\phi_{\alpha}(t)​</code>，<code>\epsilon_{\alpha}</code>表示常数“quasienergy”</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="s2">&#34;&#34;&#34;
 </span><span class="s2">Floquat thoery
 </span><span class="s2">&#34;&#34;&#34;</span>
@@ -165,13 +171,13 @@ t=np.linspace(-15,15,100) func=lambda t: 9*np.exp(-(t/5)**2) #anonymous function
 </span><span class="s2">&#34;&#34;&#34;</span>
 <span class="n">t</span><span class="o">=</span><span class="mi">10</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()</span>
 <span class="n">psi_t</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">floquet_wavefunction_t</span><span class="p">(</span><span class="n">f_modes_0</span><span class="p">,</span><span class="n">f_energies</span><span class="p">,</span><span class="n">f_coeff</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">H</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="n">args</span><span class="p">)</span></code></pre></div>
-<p>耗散系统的Floquet<em>Markov主方程的计算方法，$\rho</em>{\alpha\beta} (t)=\langle\psi<em>{\alpha}(t)|\rho (t)|\psi</em>{\beta}\rangle$，$n_{th}(\omega)=\frac{1}{e^{h\omega/k<em>B T}-1}$，$X</em>{\alpha\beta}=\langle\psi<em>{\alpha}|A|\psi</em>{\beta}\rangle$，<code>A</code>表示与环境耦合的算符</p>
+<p>耗散系统的Floquet_Markov主方程的计算方法，$$\rho_{\alpha\beta} (t)=\langle\psi_{\alpha}(t)|\rho (t)|\psi_{\beta}\rangle,n_{th}(\omega)=\frac{1}{e^{h\omega/k_B T}-1},X_{\alpha\beta}=\langle\psi_{\alpha}|A|\psi_{\beta}\rangle$$，<code>A</code>表示与环境耦合的算符</p>
 
-<p>$\dot{\rho}_{\alpha\beta}=\frac{1}{\pi}\int<em>0^{\infty}d\omega J(\omega)n</em>{th}(\omega)\int<em>0^{\infty}d\tau e^{i\omega\tau}R</em>{\alpha\beta}(t-\tau,t)$</p>
+<p>$$\dot{\rho}_{\alpha\beta}=\frac{1}{\pi}\int_0^{\infty}d\omega J(\omega)n_{th}(\omega)\int_0^{\infty}d\tau e^{i\omega\tau}R_{\alpha\beta}(t-\tau,t)$$</p>
 
-<p>$+\frac{1}{\pi}\int<em>0^{\infty}d\omega J(\omega)(1+n</em>{th}(\omega))\int<em>0^{\infty}d\tau e^{-i\omega\tau}R</em>{\alpha\beta}(t-\tau,t)$</p>
+<p>$$+\frac{1}{\pi}\int_0^{\infty}d\omega J(\omega)(1+n_{th}(\omega))\int_0^{\infty}d\tau e^{-i\omega\tau}R_{\alpha\beta}(t-\tau,t)$$</p>
 
-<p>$R<em>{\alpha\beta}(t-\tau,t)=\sum</em>{ij}\left(X<em>{\alpha i}(t-\tau)\rho</em>{ij}(t)X<em>{\beta j}^*+X</em>{i\alpha}^*X<em>{j\beta}(t-\tau)\rho</em>{ij}(t) \right)$</p>
+<p>$$R_{\alpha\beta}(t-\tau,t)=\sum_{ij}\left(X_{\alpha i}(t-\tau)\rho_{ij}(t)X_{\beta j}^*+X_{i\alpha}^*X_{j\beta}(t-\tau)\rho_{ij}(t) \right)$$</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="s2">&#34;&#34;&#34;
 </span><span class="s2">floquet_markov master equation
 </span><span class="s2">Note:Currently the qutip.floquet.fmmesolve can only accept a single environment 
@@ -226,7 +232,7 @@ t=np.linspace(-15,15,100) func=lambda t: 9*np.exp(-(t/5)**2) #anonymous function
 <span class="n">p_ex_ref</span><span class="o">=</span><span class="n">output1</span><span class="o">.</span><span class="n">expect</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></code></pre></div>
 <h2 id="传播子">传播子<a href="#传播子" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
 
-<p>通过对角化Hamilton或Liouvillian的方法得到含时系统的传播子，并计算其时间演化$e^{iHt}\rho e^{-iHt}$。</p>
+<p>通过对角化Hamilton或Liouvillian的方法得到含时系统的传播子，并计算其时间演化$$e^{iHt}\rho e^{-iHt}$$</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">psi0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">H</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">sigmaz</span><span class="p">()</span>
 <span class="s2">&#34;&#34;&#34;
@@ -276,7 +282,7 @@ t=np.linspace(-15,15,100) func=lambda t: 9*np.exp(-(t/5)**2) #anonymous function
 				<p>
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://boseliao.github.io/tags/qutip">QuTip</a></span>
 				</p>
-				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>476 Words</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>477 Words</p>
 				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2020-05-18 15:10 &#43;0800</p>
 			</footer>
 		</article>

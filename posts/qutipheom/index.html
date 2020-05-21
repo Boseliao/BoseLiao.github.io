@@ -10,12 +10,12 @@
 
 <meta itemprop="name" content="QuTip:HEOM">
 <meta itemprop="description" content="级联运动方程是用于计算非马尔科夫动力学的最普遍的工具，
-$\frac{\partial}{\partial t}\rho^n_{j_1\dots j_K}=-\left[iHs^{\times}&#43;n\gamma&#43;\sum{k=1}^Kj_k\nuk-\Xi \right]\rho^n{j_1\dots jK}&#43;V^{\times}\rho^{n&#43;1}{j_i\dots j_K}$
-$V^{\times}\sum{k=1}^K\rho^n{j_1\dots j_k&#43;1\dots JK}&#43;n\Theta\rho^{n-1}{j_1\dots JK}&#43;\sum{k=1}^Kj_k\nu_k\Psik\rho^n{j_1\dots j_k-1\dots j_K }$
+$$\frac{\partial}{\partial t}\rho^n_{j_1\dots j_K}=-\left[iH_s^{\times}&#43;n\gamma&#43;\sum_{k=1}^Kj_k\nu_k-\Xi \right]\rho^n_{j_1\dots j_K}&#43;V^{\times}\rho^{n&#43;1}_{j_1\dots j_K}$$
+$$V^{\times}\sum_{k=1}^K\rho^n_{j_1\dots j_k&#43;1\dots J_K}&#43;n\Theta\rho^{n-1}_{j_1\dots J_K}&#43;\sum_{k=1}^Kj_k\nu_k\Psi_k\rho^n_{j_1\dots j_k-1\dots j_K }$$
 其中$\rho^n_{j_1\dots jK}$表示n阶辅助密度矩阵，对它的求解依赖于n&#43;1，n-1，n阶辅助矩阵，即此方程是不封闭的。而最后要求得的真正的约化密度矩阵是$\rho^0{0\dots 0}$，见图假设（K=2）
 graph TD A[rho_s] --&gt; 21[rho_10] A --&gt;22[rho_01] 21 --&gt; 31[rho_20] 21 --&gt; 32[rho_11] 22 --&gt;32 22 --&gt;33[rho_02] B[order:0] --&gt;C[1] C--&gt;D[2] 由图可知，可以做如下截断N=n=j1&#43;...&#43;jK，截断方程
-$\frac{\partial}{\partial t}\rho^n_{j_1\dots j_K}=-\left[iHs^{\times}-\Xi \right]\rho^n{j_1\dots j_K}$
-这里，目前只能求解洛伦兹谱的谱密度$J(\omega)=\frac{\eta}{2\pi}\frac{\omega\gamma^2}{\gamma^2&#43;\omega^2}$，其中$\eta$是“system-bath coupling strength”，$\gamma$表示&rdquo;Bath spectral density cutoff frequency&rdquo;。
+$$\frac{\partial}{\partial t}\rho^n_{j_1\dots j_K}=-\left[iH_s^{\times}-\Xi \right]\rho^n_{j_1\dots j_K}$$
+这里，目前只能求解洛伦兹谱的谱密度$$J(\omega)=\frac{\eta}{2\pi}\frac{\omega\gamma^2}{\gamma^2&#43;\omega^2}$$其中$\eta$是“system-bath coupling strength”，$\gamma$表示&rdquo;Bath spectral density cutoff frequency&rdquo;。
 这里对文献Non-Markovian and Non-Perturbative Entanglement Dynamics of Biomolecular Excitons进行了follow，
 import numpy as np import matplotlib.pyplot as plt import qutip as qt from qutip.">
 
@@ -29,12 +29,12 @@ import numpy as np import matplotlib.pyplot as plt import qutip as qt from qutip
 <meta itemprop="keywords" content="QuTip," />
 <meta property="og:title" content="QuTip:HEOM" />
 <meta property="og:description" content="级联运动方程是用于计算非马尔科夫动力学的最普遍的工具，
-$\frac{\partial}{\partial t}\rho^n_{j_1\dots j_K}=-\left[iHs^{\times}&#43;n\gamma&#43;\sum{k=1}^Kj_k\nuk-\Xi \right]\rho^n{j_1\dots jK}&#43;V^{\times}\rho^{n&#43;1}{j_i\dots j_K}$
-$V^{\times}\sum{k=1}^K\rho^n{j_1\dots j_k&#43;1\dots JK}&#43;n\Theta\rho^{n-1}{j_1\dots JK}&#43;\sum{k=1}^Kj_k\nu_k\Psik\rho^n{j_1\dots j_k-1\dots j_K }$
+$$\frac{\partial}{\partial t}\rho^n_{j_1\dots j_K}=-\left[iH_s^{\times}&#43;n\gamma&#43;\sum_{k=1}^Kj_k\nu_k-\Xi \right]\rho^n_{j_1\dots j_K}&#43;V^{\times}\rho^{n&#43;1}_{j_1\dots j_K}$$
+$$V^{\times}\sum_{k=1}^K\rho^n_{j_1\dots j_k&#43;1\dots J_K}&#43;n\Theta\rho^{n-1}_{j_1\dots J_K}&#43;\sum_{k=1}^Kj_k\nu_k\Psi_k\rho^n_{j_1\dots j_k-1\dots j_K }$$
 其中$\rho^n_{j_1\dots jK}$表示n阶辅助密度矩阵，对它的求解依赖于n&#43;1，n-1，n阶辅助矩阵，即此方程是不封闭的。而最后要求得的真正的约化密度矩阵是$\rho^0{0\dots 0}$，见图假设（K=2）
 graph TD A[rho_s] --&gt; 21[rho_10] A --&gt;22[rho_01] 21 --&gt; 31[rho_20] 21 --&gt; 32[rho_11] 22 --&gt;32 22 --&gt;33[rho_02] B[order:0] --&gt;C[1] C--&gt;D[2] 由图可知，可以做如下截断N=n=j1&#43;...&#43;jK，截断方程
-$\frac{\partial}{\partial t}\rho^n_{j_1\dots j_K}=-\left[iHs^{\times}-\Xi \right]\rho^n{j_1\dots j_K}$
-这里，目前只能求解洛伦兹谱的谱密度$J(\omega)=\frac{\eta}{2\pi}\frac{\omega\gamma^2}{\gamma^2&#43;\omega^2}$，其中$\eta$是“system-bath coupling strength”，$\gamma$表示&rdquo;Bath spectral density cutoff frequency&rdquo;。
+$$\frac{\partial}{\partial t}\rho^n_{j_1\dots j_K}=-\left[iH_s^{\times}-\Xi \right]\rho^n_{j_1\dots j_K}$$
+这里，目前只能求解洛伦兹谱的谱密度$$J(\omega)=\frac{\eta}{2\pi}\frac{\omega\gamma^2}{\gamma^2&#43;\omega^2}$$其中$\eta$是“system-bath coupling strength”，$\gamma$表示&rdquo;Bath spectral density cutoff frequency&rdquo;。
 这里对文献Non-Markovian and Non-Perturbative Entanglement Dynamics of Biomolecular Excitons进行了follow，
 import numpy as np import matplotlib.pyplot as plt import qutip as qt from qutip." />
 <meta property="og:type" content="article" />
@@ -44,12 +44,12 @@ import numpy as np import matplotlib.pyplot as plt import qutip as qt from qutip
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="QuTip:HEOM"/>
 <meta name="twitter:description" content="级联运动方程是用于计算非马尔科夫动力学的最普遍的工具，
-$\frac{\partial}{\partial t}\rho^n_{j_1\dots j_K}=-\left[iHs^{\times}&#43;n\gamma&#43;\sum{k=1}^Kj_k\nuk-\Xi \right]\rho^n{j_1\dots jK}&#43;V^{\times}\rho^{n&#43;1}{j_i\dots j_K}$
-$V^{\times}\sum{k=1}^K\rho^n{j_1\dots j_k&#43;1\dots JK}&#43;n\Theta\rho^{n-1}{j_1\dots JK}&#43;\sum{k=1}^Kj_k\nu_k\Psik\rho^n{j_1\dots j_k-1\dots j_K }$
+$$\frac{\partial}{\partial t}\rho^n_{j_1\dots j_K}=-\left[iH_s^{\times}&#43;n\gamma&#43;\sum_{k=1}^Kj_k\nu_k-\Xi \right]\rho^n_{j_1\dots j_K}&#43;V^{\times}\rho^{n&#43;1}_{j_1\dots j_K}$$
+$$V^{\times}\sum_{k=1}^K\rho^n_{j_1\dots j_k&#43;1\dots J_K}&#43;n\Theta\rho^{n-1}_{j_1\dots J_K}&#43;\sum_{k=1}^Kj_k\nu_k\Psi_k\rho^n_{j_1\dots j_k-1\dots j_K }$$
 其中$\rho^n_{j_1\dots jK}$表示n阶辅助密度矩阵，对它的求解依赖于n&#43;1，n-1，n阶辅助矩阵，即此方程是不封闭的。而最后要求得的真正的约化密度矩阵是$\rho^0{0\dots 0}$，见图假设（K=2）
 graph TD A[rho_s] --&gt; 21[rho_10] A --&gt;22[rho_01] 21 --&gt; 31[rho_20] 21 --&gt; 32[rho_11] 22 --&gt;32 22 --&gt;33[rho_02] B[order:0] --&gt;C[1] C--&gt;D[2] 由图可知，可以做如下截断N=n=j1&#43;...&#43;jK，截断方程
-$\frac{\partial}{\partial t}\rho^n_{j_1\dots j_K}=-\left[iHs^{\times}-\Xi \right]\rho^n{j_1\dots j_K}$
-这里，目前只能求解洛伦兹谱的谱密度$J(\omega)=\frac{\eta}{2\pi}\frac{\omega\gamma^2}{\gamma^2&#43;\omega^2}$，其中$\eta$是“system-bath coupling strength”，$\gamma$表示&rdquo;Bath spectral density cutoff frequency&rdquo;。
+$$\frac{\partial}{\partial t}\rho^n_{j_1\dots j_K}=-\left[iH_s^{\times}-\Xi \right]\rho^n_{j_1\dots j_K}$$
+这里，目前只能求解洛伦兹谱的谱密度$$J(\omega)=\frac{\eta}{2\pi}\frac{\omega\gamma^2}{\gamma^2&#43;\omega^2}$$其中$\eta$是“system-bath coupling strength”，$\gamma$表示&rdquo;Bath spectral density cutoff frequency&rdquo;。
 这里对文献Non-Markovian and Non-Perturbative Entanglement Dynamics of Biomolecular Excitons进行了follow，
 import numpy as np import matplotlib.pyplot as plt import qutip as qt from qutip."/>
 
@@ -84,6 +84,7 @@ import numpy as np import matplotlib.pyplot as plt import qutip as qt from qutip
 				<button id="menu-btn" class="hdr-btn" title="Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
 			</div>
 		</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
 	</header>
 	<div id="mobile-menu" class="animated fast">
 		<ul>
@@ -102,9 +103,9 @@ import numpy as np import matplotlib.pyplot as plt import qutip as qt from qutip
 			<div class="content">
 				<p>级联运动方程是用于计算非马尔科夫动力学的最普遍的工具，</p>
 
-<p>$\frac{\partial}{\partial t}\rho^n_{j_1\dots j_K}=-\left[iH<em>s^{\times}+n\gamma+\sum</em>{k=1}^Kj_k\nu<em>k-\Xi \right]\rho^n</em>{j_1\dots j<em>K}+V^{\times}\rho^{n+1}</em>{j_i\dots j_K}$</p>
+<p>$$\frac{\partial}{\partial t}\rho^n_{j_1\dots j_K}=-\left[iH_s^{\times}+n\gamma+\sum_{k=1}^Kj_k\nu_k-\Xi \right]\rho^n_{j_1\dots j_K}+V^{\times}\rho^{n+1}_{j_1\dots j_K}$$</p>
 
-<p>$V^{\times}\sum<em>{k=1}^K\rho^n</em>{j_1\dots j_k+1\dots J<em>K}+n\Theta\rho^{n-1}</em>{j_1\dots J<em>K}+\sum</em>{k=1}^Kj_k\nu_k\Psi<em>k\rho^n</em>{j_1\dots j_k-1\dots j_K }$</p>
+<p>$$V^{\times}\sum_{k=1}^K\rho^n_{j_1\dots j_k+1\dots J_K}+n\Theta\rho^{n-1}_{j_1\dots J_K}+\sum_{k=1}^Kj_k\nu_k\Psi_k\rho^n_{j_1\dots j_k-1\dots j_K }$$</p>
 
 <p>其中$\rho^n_{j_1\dots j<em>K}$表示n阶辅助密度矩阵，对它的求解依赖于n+1，n-1，n阶辅助矩阵，即此方程是不封闭的。而最后要求得的真正的约化密度矩阵是$\rho^0</em>{0\dots 0}$，见图假设（K=2）</p>
 <div class="highlight"><pre class="chroma"><code class="language-mermaid" data-lang="mermaid">graph TD
@@ -118,9 +119,9 @@ import numpy as np import matplotlib.pyplot as plt import qutip as qt from qutip
     C--&gt;D[2]</code></pre></div>
 <p>由图可知，可以做如下截断<code>N=n=j1+...+jK</code>，截断方程</p>
 
-<p>$\frac{\partial}{\partial t}\rho^n_{j_1\dots j_K}=-\left[iH<em>s^{\times}-\Xi \right]\rho^n</em>{j_1\dots j_K}$</p>
+<p>$$\frac{\partial}{\partial t}\rho^n_{j_1\dots j_K}=-\left[iH_s^{\times}-\Xi \right]\rho^n_{j_1\dots j_K}$$</p>
 
-<p>这里，目前只能求解洛伦兹谱的谱密度$J(\omega)=\frac{\eta}{2\pi}\frac{\omega\gamma^2}{\gamma^2+\omega^2}$，其中$\eta$是“system-bath coupling strength”，$\gamma$表示&rdquo;Bath spectral density cutoff frequency&rdquo;。</p>
+<p>这里，目前只能求解洛伦兹谱的谱密度$$J(\omega)=\frac{\eta}{2\pi}\frac{\omega\gamma^2}{\gamma^2+\omega^2}$$其中$\eta$是“system-bath coupling strength”，$\gamma$表示&rdquo;Bath spectral density cutoff frequency&rdquo;。</p>
 
 <p>这里对文献<a href="http://cpl.iphy.ac.cn/10.1088/0256-307X/28/8/089201">Non-Markovian and Non-Perturbative Entanglement Dynamics of
 Biomolecular Excitons</a>进行了follow，</p>
