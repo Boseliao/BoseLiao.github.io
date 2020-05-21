@@ -7,10 +7,27 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Tue, 19 May 2020 19:12:13 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 20 May 2020 16:20:42 +0800</lastBuildDate>
     
 	<atom:link href="https://boseliao.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>QuTip:HEOM</title>
+      <link>https://boseliao.github.io/posts/qutipheom/</link>
+      <pubDate>Wed, 20 May 2020 16:20:42 +0800</pubDate>
+      
+      <guid>https://boseliao.github.io/posts/qutipheom/</guid>
+      <description>级联运动方程是用于计算非马尔科夫动力学的最普遍的工具，
+$\frac{\partial}{\partial t}\rho^n_{j_1\dots j_K}=-\left[iHs^{\times}+n\gamma+\sum{k=1}^Kj_k\nuk-\Xi \right]\rho^n{j_1\dots jK}+V^{\times}\rho^{n+1}{j_i\dots j_K}$
+$V^{\times}\sum{k=1}^K\rho^n{j_1\dots j_k+1\dots JK}+n\Theta\rho^{n-1}{j_1\dots JK}+\sum{k=1}^Kj_k\nu_k\Psik\rho^n{j_1\dots j_k-1\dots j_K }$
+其中$\rho^n_{j_1\dots jK}$表示n阶辅助密度矩阵，对它的求解依赖于n+1，n-1，n阶辅助矩阵，即此方程是不封闭的。而最后要求得的真正的约化密度矩阵是$\rho^0{0\dots 0}$，见图假设（K=2）
+graph TD A[rho_s] --&amp;gt; 21[rho_10] A --&amp;gt;22[rho_01] 21 --&amp;gt; 31[rho_20] 21 --&amp;gt; 32[rho_11] 22 --&amp;gt;32 22 --&amp;gt;33[rho_02] B[order:0] --&amp;gt;C[1] C--&amp;gt;D[2] 由图可知，可以做如下截断N=n=j1+...+jK，截断方程
+$\frac{\partial}{\partial t}\rho^n_{j_1\dots j_K}=-\left[iHs^{\times}-\Xi \right]\rho^n{j_1\dots j_K}$
+这里，目前只能求解洛伦兹谱的谱密度$J(\omega)=\frac{\eta}{2\pi}\frac{\omega\gamma^2}{\gamma^2+\omega^2}$，其中$\eta$是“system-bath coupling strength”，$\gamma$表示&amp;rdquo;Bath spectral density cutoff frequency&amp;rdquo;。
+这里对文献Non-Markovian and Non-Perturbative Entanglement Dynamics of Biomolecular Excitons进行了follow，
+import numpy as np import matplotlib.pyplot as plt import qutip as qt from qutip.</description>
+    </item>
     
     <item>
       <title>QuTip:time_correlation</title>

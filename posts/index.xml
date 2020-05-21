@@ -7,8 +7,128 @@
 		<generator>Hugo -- gohugo.io</generator>
 		<language>en-us</language>
 		<copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-		<lastBuildDate>Tue, 19 May 2020 19:12:13 +0800</lastBuildDate>
+		<lastBuildDate>Wed, 20 May 2020 16:20:42 +0800</lastBuildDate>
 		<atom:link href="https://boseliao.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>QuTip:HEOM</title>
+			<link>https://boseliao.github.io/posts/qutipheom/</link>
+			<pubDate>Wed, 20 May 2020 16:20:42 +0800</pubDate>
+			
+			<guid>https://boseliao.github.io/posts/qutipheom/</guid>
+			<description>级联运动方程是用于计算非马尔科夫动力学的最普遍的工具，
+$\frac{\partial}{\partial t}\rho^n_{j_1\dots j_K}=-\left[iHs^{\times}+n\gamma+\sum{k=1}^Kj_k\nuk-\Xi \right]\rho^n{j_1\dots jK}+V^{\times}\rho^{n+1}{j_i\dots j_K}$
+$V^{\times}\sum{k=1}^K\rho^n{j_1\dots j_k+1\dots JK}+n\Theta\rho^{n-1}{j_1\dots JK}+\sum{k=1}^Kj_k\nu_k\Psik\rho^n{j_1\dots j_k-1\dots j_K }$
+其中$\rho^n_{j_1\dots jK}$表示n阶辅助密度矩阵，对它的求解依赖于n+1，n-1，n阶辅助矩阵，即此方程是不封闭的。而最后要求得的真正的约化密度矩阵是$\rho^0{0\dots 0}$，见图假设（K=2）
+graph TD A[rho_s] --&amp;gt; 21[rho_10] A --&amp;gt;22[rho_01] 21 --&amp;gt; 31[rho_20] 21 --&amp;gt; 32[rho_11] 22 --&amp;gt;32 22 --&amp;gt;33[rho_02] B[order:0] --&amp;gt;C[1] C--&amp;gt;D[2] 由图可知，可以做如下截断N=n=j1+...+jK，截断方程
+$\frac{\partial}{\partial t}\rho^n_{j_1\dots j_K}=-\left[iHs^{\times}-\Xi \right]\rho^n{j_1\dots j_K}$
+这里，目前只能求解洛伦兹谱的谱密度$J(\omega)=\frac{\eta}{2\pi}\frac{\omega\gamma^2}{\gamma^2+\omega^2}$，其中$\eta$是“system-bath coupling strength”，$\gamma$表示&amp;rdquo;Bath spectral density cutoff frequency&amp;rdquo;。
+这里对文献Non-Markovian and Non-Perturbative Entanglement Dynamics of Biomolecular Excitons进行了follow，
+import numpy as np import matplotlib.pyplot as plt import qutip as qt from qutip.</description>
+			<content type="html"><![CDATA[<p>级联运动方程是用于计算非马尔科夫动力学的最普遍的工具，</p>
+
+<p>$\frac{\partial}{\partial t}\rho^n_{j_1\dots j_K}=-\left[iH<em>s^{\times}+n\gamma+\sum</em>{k=1}^Kj_k\nu<em>k-\Xi \right]\rho^n</em>{j_1\dots j<em>K}+V^{\times}\rho^{n+1}</em>{j_i\dots j_K}$</p>
+
+<p>$V^{\times}\sum<em>{k=1}^K\rho^n</em>{j_1\dots j_k+1\dots J<em>K}+n\Theta\rho^{n-1}</em>{j_1\dots J<em>K}+\sum</em>{k=1}^Kj_k\nu_k\Psi<em>k\rho^n</em>{j_1\dots j_k-1\dots j_K }$</p>
+
+<p>其中$\rho^n_{j_1\dots j<em>K}$表示n阶辅助密度矩阵，对它的求解依赖于n+1，n-1，n阶辅助矩阵，即此方程是不封闭的。而最后要求得的真正的约化密度矩阵是$\rho^0</em>{0\dots 0}$，见图假设（K=2）</p>
+<div class="highlight"><pre class="chroma"><code class="language-mermaid" data-lang="mermaid">graph TD
+    A[rho_s] --&gt; 21[rho_10]
+    A --&gt;22[rho_01]
+    21 --&gt; 31[rho_20]
+    21 --&gt; 32[rho_11]
+    22 --&gt;32
+    22 --&gt;33[rho_02]
+    B[order:0] --&gt;C[1]
+    C--&gt;D[2]</code></pre></div>
+<p>由图可知，可以做如下截断<code>N=n=j1+...+jK</code>，截断方程</p>
+
+<p>$\frac{\partial}{\partial t}\rho^n_{j_1\dots j_K}=-\left[iH<em>s^{\times}-\Xi \right]\rho^n</em>{j_1\dots j_K}$</p>
+
+<p>这里，目前只能求解洛伦兹谱的谱密度$J(\omega)=\frac{\eta}{2\pi}\frac{\omega\gamma^2}{\gamma^2+\omega^2}$，其中$\eta$是“system-bath coupling strength”，$\gamma$表示&rdquo;Bath spectral density cutoff frequency&rdquo;。</p>
+
+<p>这里对文献<a href="http://cpl.iphy.ac.cn/10.1088/0256-307X/28/8/089201">Non-Markovian and Non-Perturbative Entanglement Dynamics of
+Biomolecular Excitons</a>进行了follow，</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">qutip</span> <span class="kn">as</span> <span class="nn">qt</span>
+<span class="kn">from</span> <span class="nn">qutip.nonmarkov</span> <span class="kn">import</span> <span class="n">heom</span>
+<span class="s2">&#34;&#34;&#34;
+</span><span class="s2">initial attribution
+</span><span class="s2">self.configure(H_sys, coup_op, coup_strength, temperature,
+</span><span class="s2">                     N_cut, N_exp, cut_freq, planck=planck, boltzmann=boltzmann,
+</span><span class="s2">                     renorm=renorm, bnd_cut_approx=bnd_cut_approx, stats=stats)
+</span><span class="s2">H_sys : Qobj
+</span><span class="s2">        System Hamiltonian
+</span><span class="s2">coup_op : Qobj
+</span><span class="s2">        Operator describing the coupling between system and bath.
+</span><span class="s2">coup_strength : float
+</span><span class="s2">        Coupling strength.
+</span><span class="s2">temperature : float
+</span><span class="s2">        Bath temperature, in units corresponding to planck
+</span><span class="s2">N_cut : int
+</span><span class="s2">        Cutoff parameter for the bath
+</span><span class="s2">N_exp : int
+</span><span class="s2">        Number of exponential terms used to approximate the bath correlation
+</span><span class="s2">        functions
+</span><span class="s2">cut_freq : float
+</span><span class="s2">        Bath spectral density cutoff frequency.
+</span><span class="s2">        ---------------------------------------
+</span><span class="s2">        Function
+</span><span class="s2">        HEOMSolver.reset(self) : Reset any attributes to default values
+</span><span class="s2">        run(self, rho0, tlist) :
+</span><span class="s2">rho0 : Qobj
+</span><span class="s2">            Initial state (density matrix) of the system.
+</span><span class="s2">tlist : list
+</span><span class="s2">            Time over which system evolves.
+</span><span class="s2">Returns
+</span><span class="s2">        -------
+</span><span class="s2">        results : :class:`qutip.solver.Result`
+</span><span class="s2">        Object storing all results from the simulation.
+</span><span class="s2">&#34;&#34;&#34;</span>
+<span class="n">delta</span><span class="o">=</span><span class="mi">500</span><span class="p">;</span><span class="n">J</span><span class="o">=</span><span class="mi">50</span>
+<span class="n">H_sys</span><span class="o">=</span><span class="mf">0.5</span><span class="o">*</span><span class="n">delta</span><span class="o">*</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">sigmax</span><span class="p">(),</span><span class="n">qt</span><span class="o">.</span><span class="n">qeye</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span><span class="o">+</span><span class="n">qt</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">qeye</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>\
+<span class="n">qt</span><span class="o">.</span><span class="n">sigmax</span><span class="p">()))</span><span class="o">+</span><span class="n">J</span><span class="o">*</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">sigmax</span><span class="p">(),</span><span class="n">qt</span><span class="o">.</span><span class="n">sigmax</span><span class="p">())</span>\
+<span class="o">+</span><span class="n">qt</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">sigmay</span><span class="p">(),</span><span class="n">qt</span><span class="o">.</span><span class="n">sigmay</span><span class="p">()))</span>
+<span class="n">cou_op</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">sigmaz</span><span class="p">(),</span><span class="n">qt</span><span class="o">.</span><span class="n">qeye</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span><span class="o">+</span><span class="n">qt</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">qeye</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span><span class="n">qt</span><span class="o">.</span><span class="n">sigmaz</span><span class="p">())</span>
+<span class="n">cou_strength</span><span class="o">=</span><span class="mf">0.5</span>
+<span class="n">temperature</span><span class="o">=</span><span class="mf">300.0</span>
+<span class="n">N_cut</span><span class="o">=</span><span class="mi">8</span>
+<span class="n">N_exp</span><span class="o">=</span><span class="mi">3</span>
+<span class="n">planck</span><span class="o">=</span><span class="mf">1.0</span>
+<span class="n">cut_freq</span><span class="o">=</span><span class="mi">1000</span>
+<span class="n">tlist</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">401</span><span class="p">)</span>
+<span class="n">psi0</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>\
+               <span class="o">+</span><span class="n">qt</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)))</span>
+<span class="n">rho0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">ket2dm</span><span class="p">(</span><span class="n">psi0</span><span class="p">)</span>
+<span class="n">num1</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">ket2dm</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)))</span>
+<span class="n">num2</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">ket2dm</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)))</span>
+<span class="n">HEOM1</span><span class="o">=</span><span class="n">heom</span><span class="o">.</span><span class="n">HSolverDL</span><span class="p">(</span><span class="n">H_sys</span><span class="p">,</span><span class="n">cou_op</span><span class="p">,</span><span class="n">cou_strength</span><span class="p">,</span><span class="n">temperature</span><span class="p">,</span><span class="n">N_cut</span><span class="p">,</span><span class="n">N_exp</span><span class="p">,</span><span class="n">cut_freq</span><span class="p">)</span>
+<span class="n">output</span><span class="o">=</span><span class="n">heom</span><span class="o">.</span><span class="n">HSolverDL</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">HEOM1</span><span class="p">,</span><span class="n">rho0</span><span class="p">,</span><span class="n">tlist</span><span class="p">)</span>
+<span class="n">qt</span><span class="o">.</span><span class="n">qsave</span><span class="p">(</span><span class="n">output</span><span class="p">,</span><span class="s1">&#39;HEOM1&#39;</span><span class="p">)</span></code></pre></div>
+<p>由于计算时间较长，一般需要对结果进行保存。可以得到动力学以及纠缠的演化</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">HEOM1</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">qload</span><span class="p">(</span><span class="s1">&#39;HEOM1&#39;</span><span class="p">)</span>
+<span class="n">rho_11</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">expect</span><span class="p">(</span><span class="n">HEOM1</span><span class="o">.</span><span class="n">states</span><span class="p">,</span><span class="n">num1</span><span class="p">)</span>
+<span class="n">rho_22</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">expect</span><span class="p">(</span><span class="n">HEOM1</span><span class="o">.</span><span class="n">states</span><span class="p">,</span><span class="n">num2</span><span class="p">)</span>
+<span class="s2">&#34;&#34;&#34;
+</span><span class="s2">entanglement
+</span><span class="s2">&#34;&#34;&#34;</span>
+<span class="n">en1</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">tlist</span><span class="p">),</span><span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">t</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tlist</span><span class="p">):</span>
+    <span class="n">en1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">concurrence</span><span class="p">(</span><span class="n">HEOM1</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<span class="s2">&#34;&#34;&#34;
+</span><span class="s2">plot the result
+</span><span class="s2">&#34;&#34;&#34;</span>
+<span class="n">fig</span><span class="p">,</span><span class="n">ax</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">HEOM1</span><span class="o">.</span><span class="n">times</span><span class="p">,</span><span class="n">rho_11</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">HEOM1</span><span class="o">.</span><span class="n">times</span><span class="p">,</span><span class="n">rho_22</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">HEOM1</span><span class="o">.</span><span class="n">times</span><span class="p">,</span><span class="n">en1</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Times&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;rho&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">((</span><span class="s2">&#34;rho_11&#34;</span><span class="p">,</span><span class="s2">&#34;rho_22&#34;</span><span class="p">,</span><span class="s2">&#34;entanglement&#34;</span><span class="p">));</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="s2">&#34;rho&#34;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></code></pre></div>]]></content>
+		</item>
 		
 		<item>
 			<title>QuTip:time_correlation</title>
