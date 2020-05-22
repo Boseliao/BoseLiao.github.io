@@ -22,11 +22,11 @@
 $$\frac{\partial}{\partial t}\rho^n_{j_1\dots j_K}=-\left[iH_s^{\times}+n\gamma+\sum_{k=1}^Kj_k\nu_k-\Xi \right]\rho^n_{j_1\dots j_K}+V^{\times}\rho^{n+1}_{j_1\dots j_K}$$
 $$V^{\times}\sum_{k=1}^K\rho^n_{j_1\dots j_k+1\dots J_K}+n\Theta\rho^{n-1}_{j_1\dots J_K}+\sum_{k=1}^Kj_k\nu_k\Psi_k\rho^n_{j_1\dots j_k-1\dots j_K }$$
 其中$\rho^n_{j_1\dots jK}$表示n阶辅助密度矩阵，对它的求解依赖于n+1，n-1，n阶辅助矩阵，即此方程是不封闭的。而最后要求得的真正的约化密度矩阵是$\rho^0{0\dots 0}$，见图假设（K=2）
-graph TD A[rho_s] --&amp;gt; 21[rho_10] A --&amp;gt;22[rho_01] 21 --&amp;gt; 31[rho_20] 21 --&amp;gt; 32[rho_11] 22 --&amp;gt;32 22 --&amp;gt;33[rho_02] B[order:0] --&amp;gt;C[1] C--&amp;gt;D[2] 由图可知，可以做如下截断N=n=j1+...+jK，截断方程
+由图可知，可以做如下截断N=n=j1+...+jK，截断方程
 $$\frac{\partial}{\partial t}\rho^n_{j_1\dots j_K}=-\left[iH_s^{\times}-\Xi \right]\rho^n_{j_1\dots j_K}$$
 这里，目前只能求解洛伦兹谱的谱密度$$J(\omega)=\frac{\eta}{2\pi}\frac{\omega\gamma^2}{\gamma^2+\omega^2}$$其中$\eta$是“system-bath coupling strength”，$\gamma$表示&amp;rdquo;Bath spectral density cutoff frequency&amp;rdquo;。
 这里对文献Non-Markovian and Non-Perturbative Entanglement Dynamics of Biomolecular Excitons进行了follow，
-import numpy as np import matplotlib.pyplot as plt import qutip as qt from qutip.</description>
+import numpy as np import matplotlib.pyplot as plt import qutip as qt from qutip.nonmarkov import heom &amp;#34;&amp;#34;&amp;#34; initial attribution self.configure(H_sys, coup_op, coup_strength, temperature, N_cut, N_exp, cut_freq, planck=planck, boltzmann=boltzmann, renorm=renorm, bnd_cut_approx=bnd_cut_approx, stats=stats) H_sys : Qobj System Hamiltonian coup_op : Qobj Operator describing the coupling between system and bath.</description>
     </item>
     
     <item>

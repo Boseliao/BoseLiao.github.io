@@ -13,16 +13,16 @@
 $$\frac{\partial}{\partial t}\rho^n_{j_1\dots j_K}=-\left[iH_s^{\times}&#43;n\gamma&#43;\sum_{k=1}^Kj_k\nu_k-\Xi \right]\rho^n_{j_1\dots j_K}&#43;V^{\times}\rho^{n&#43;1}_{j_1\dots j_K}$$
 $$V^{\times}\sum_{k=1}^K\rho^n_{j_1\dots j_k&#43;1\dots J_K}&#43;n\Theta\rho^{n-1}_{j_1\dots J_K}&#43;\sum_{k=1}^Kj_k\nu_k\Psi_k\rho^n_{j_1\dots j_k-1\dots j_K }$$
 其中$\rho^n_{j_1\dots jK}$表示n阶辅助密度矩阵，对它的求解依赖于n&#43;1，n-1，n阶辅助矩阵，即此方程是不封闭的。而最后要求得的真正的约化密度矩阵是$\rho^0{0\dots 0}$，见图假设（K=2）
-graph TD A[rho_s] --&gt; 21[rho_10] A --&gt;22[rho_01] 21 --&gt; 31[rho_20] 21 --&gt; 32[rho_11] 22 --&gt;32 22 --&gt;33[rho_02] B[order:0] --&gt;C[1] C--&gt;D[2] 由图可知，可以做如下截断N=n=j1&#43;...&#43;jK，截断方程
+由图可知，可以做如下截断N=n=j1&#43;...&#43;jK，截断方程
 $$\frac{\partial}{\partial t}\rho^n_{j_1\dots j_K}=-\left[iH_s^{\times}-\Xi \right]\rho^n_{j_1\dots j_K}$$
 这里，目前只能求解洛伦兹谱的谱密度$$J(\omega)=\frac{\eta}{2\pi}\frac{\omega\gamma^2}{\gamma^2&#43;\omega^2}$$其中$\eta$是“system-bath coupling strength”，$\gamma$表示&rdquo;Bath spectral density cutoff frequency&rdquo;。
 这里对文献Non-Markovian and Non-Perturbative Entanglement Dynamics of Biomolecular Excitons进行了follow，
-import numpy as np import matplotlib.pyplot as plt import qutip as qt from qutip.">
+import numpy as np import matplotlib.pyplot as plt import qutip as qt from qutip.nonmarkov import heom &#34;&#34;&#34; initial attribution self.configure(H_sys, coup_op, coup_strength, temperature, N_cut, N_exp, cut_freq, planck=planck, boltzmann=boltzmann, renorm=renorm, bnd_cut_approx=bnd_cut_approx, stats=stats) H_sys : Qobj System Hamiltonian coup_op : Qobj Operator describing the coupling between system and bath.">
 
 
 <meta itemprop="datePublished" content="2020-05-20T16:20:42&#43;08:00" />
 <meta itemprop="dateModified" content="2020-05-20T16:20:42&#43;08:00" />
-<meta itemprop="wordCount" content="242">
+<meta itemprop="wordCount" content="222">
 
 
 
@@ -32,11 +32,11 @@ import numpy as np import matplotlib.pyplot as plt import qutip as qt from qutip
 $$\frac{\partial}{\partial t}\rho^n_{j_1\dots j_K}=-\left[iH_s^{\times}&#43;n\gamma&#43;\sum_{k=1}^Kj_k\nu_k-\Xi \right]\rho^n_{j_1\dots j_K}&#43;V^{\times}\rho^{n&#43;1}_{j_1\dots j_K}$$
 $$V^{\times}\sum_{k=1}^K\rho^n_{j_1\dots j_k&#43;1\dots J_K}&#43;n\Theta\rho^{n-1}_{j_1\dots J_K}&#43;\sum_{k=1}^Kj_k\nu_k\Psi_k\rho^n_{j_1\dots j_k-1\dots j_K }$$
 其中$\rho^n_{j_1\dots jK}$表示n阶辅助密度矩阵，对它的求解依赖于n&#43;1，n-1，n阶辅助矩阵，即此方程是不封闭的。而最后要求得的真正的约化密度矩阵是$\rho^0{0\dots 0}$，见图假设（K=2）
-graph TD A[rho_s] --&gt; 21[rho_10] A --&gt;22[rho_01] 21 --&gt; 31[rho_20] 21 --&gt; 32[rho_11] 22 --&gt;32 22 --&gt;33[rho_02] B[order:0] --&gt;C[1] C--&gt;D[2] 由图可知，可以做如下截断N=n=j1&#43;...&#43;jK，截断方程
+由图可知，可以做如下截断N=n=j1&#43;...&#43;jK，截断方程
 $$\frac{\partial}{\partial t}\rho^n_{j_1\dots j_K}=-\left[iH_s^{\times}-\Xi \right]\rho^n_{j_1\dots j_K}$$
 这里，目前只能求解洛伦兹谱的谱密度$$J(\omega)=\frac{\eta}{2\pi}\frac{\omega\gamma^2}{\gamma^2&#43;\omega^2}$$其中$\eta$是“system-bath coupling strength”，$\gamma$表示&rdquo;Bath spectral density cutoff frequency&rdquo;。
 这里对文献Non-Markovian and Non-Perturbative Entanglement Dynamics of Biomolecular Excitons进行了follow，
-import numpy as np import matplotlib.pyplot as plt import qutip as qt from qutip." />
+import numpy as np import matplotlib.pyplot as plt import qutip as qt from qutip.nonmarkov import heom &#34;&#34;&#34; initial attribution self.configure(H_sys, coup_op, coup_strength, temperature, N_cut, N_exp, cut_freq, planck=planck, boltzmann=boltzmann, renorm=renorm, bnd_cut_approx=bnd_cut_approx, stats=stats) H_sys : Qobj System Hamiltonian coup_op : Qobj Operator describing the coupling between system and bath." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://boseliao.github.io/posts/qutipheom/" />
 <meta property="article:published_time" content="2020-05-20T16:20:42&#43;08:00"/>
@@ -47,11 +47,11 @@ import numpy as np import matplotlib.pyplot as plt import qutip as qt from qutip
 $$\frac{\partial}{\partial t}\rho^n_{j_1\dots j_K}=-\left[iH_s^{\times}&#43;n\gamma&#43;\sum_{k=1}^Kj_k\nu_k-\Xi \right]\rho^n_{j_1\dots j_K}&#43;V^{\times}\rho^{n&#43;1}_{j_1\dots j_K}$$
 $$V^{\times}\sum_{k=1}^K\rho^n_{j_1\dots j_k&#43;1\dots J_K}&#43;n\Theta\rho^{n-1}_{j_1\dots J_K}&#43;\sum_{k=1}^Kj_k\nu_k\Psi_k\rho^n_{j_1\dots j_k-1\dots j_K }$$
 其中$\rho^n_{j_1\dots jK}$表示n阶辅助密度矩阵，对它的求解依赖于n&#43;1，n-1，n阶辅助矩阵，即此方程是不封闭的。而最后要求得的真正的约化密度矩阵是$\rho^0{0\dots 0}$，见图假设（K=2）
-graph TD A[rho_s] --&gt; 21[rho_10] A --&gt;22[rho_01] 21 --&gt; 31[rho_20] 21 --&gt; 32[rho_11] 22 --&gt;32 22 --&gt;33[rho_02] B[order:0] --&gt;C[1] C--&gt;D[2] 由图可知，可以做如下截断N=n=j1&#43;...&#43;jK，截断方程
+由图可知，可以做如下截断N=n=j1&#43;...&#43;jK，截断方程
 $$\frac{\partial}{\partial t}\rho^n_{j_1\dots j_K}=-\left[iH_s^{\times}-\Xi \right]\rho^n_{j_1\dots j_K}$$
 这里，目前只能求解洛伦兹谱的谱密度$$J(\omega)=\frac{\eta}{2\pi}\frac{\omega\gamma^2}{\gamma^2&#43;\omega^2}$$其中$\eta$是“system-bath coupling strength”，$\gamma$表示&rdquo;Bath spectral density cutoff frequency&rdquo;。
 这里对文献Non-Markovian and Non-Perturbative Entanglement Dynamics of Biomolecular Excitons进行了follow，
-import numpy as np import matplotlib.pyplot as plt import qutip as qt from qutip."/>
+import numpy as np import matplotlib.pyplot as plt import qutip as qt from qutip.nonmarkov import heom &#34;&#34;&#34; initial attribution self.configure(H_sys, coup_op, coup_strength, temperature, N_cut, N_exp, cut_freq, planck=planck, boltzmann=boltzmann, renorm=renorm, bnd_cut_approx=bnd_cut_approx, stats=stats) H_sys : Qobj System Hamiltonian coup_op : Qobj Operator describing the coupling between system and bath."/>
 
 	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -108,15 +108,9 @@ import numpy as np import matplotlib.pyplot as plt import qutip as qt from qutip
 <p>$$V^{\times}\sum_{k=1}^K\rho^n_{j_1\dots j_k+1\dots J_K}+n\Theta\rho^{n-1}_{j_1\dots J_K}+\sum_{k=1}^Kj_k\nu_k\Psi_k\rho^n_{j_1\dots j_k-1\dots j_K }$$</p>
 
 <p>其中$\rho^n_{j_1\dots j<em>K}$表示n阶辅助密度矩阵，对它的求解依赖于n+1，n-1，n阶辅助矩阵，即此方程是不封闭的。而最后要求得的真正的约化密度矩阵是$\rho^0</em>{0\dots 0}$，见图假设（K=2）</p>
-<div class="highlight"><pre class="chroma"><code class="language-mermaid" data-lang="mermaid">graph TD
-    A[rho_s] --&gt; 21[rho_10]
-    A --&gt;22[rho_01]
-    21 --&gt; 31[rho_20]
-    21 --&gt; 32[rho_11]
-    22 --&gt;32
-    22 --&gt;33[rho_02]
-    B[order:0] --&gt;C[1]
-    C--&gt;D[2]</code></pre></div>
+
+<p><img src="/img/HEOMimg1.png" alt="img1" /></p>
+
 <p>由图可知，可以做如下截断<code>N=n=j1+...+jK</code>，截断方程</p>
 
 <p>$$\frac{\partial}{\partial t}\rho^n_{j_1\dots j_K}=-\left[iH_s^{\times}-\Xi \right]\rho^n_{j_1\dots j_K}$$</p>
@@ -210,7 +204,7 @@ Biomolecular Excitons</a>进行了follow，</p>
 				<p>
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://boseliao.github.io/tags/qutip">QuTip</a></span>
 				</p>
-				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>242 Words</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>222 Words</p>
 				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2020-05-20 16:20 &#43;0800</p>
 			</footer>
 		</article>
@@ -224,7 +218,7 @@ Biomolecular Excitons</a>进行了follow，</p>
 	</main>
 
 	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
-		<p>&copy; 2020 <a href="https://boseliao.github.io">BoseLiao</a></p>
+		<p>&copy; 2020 <a href="https://boseliao.github.io">BoseLiao</a> &#183; <a hr#ef="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">All rights reserved</a></p>
 	</footer>
 
 
