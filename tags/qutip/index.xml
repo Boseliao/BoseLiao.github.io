@@ -7,10 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Wed, 20 May 2020 16:20:42 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 25 May 2020 17:50:07 +0800</lastBuildDate>
     
 	<atom:link href="https://boseliao.github.io/tags/qutip/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>QuTip:spin_chain</title>
+      <link>https://boseliao.github.io/posts/qutipspin_chain/</link>
+      <pubDate>Mon, 25 May 2020 17:50:07 +0800</pubDate>
+      
+      <guid>https://boseliao.github.io/posts/qutipspin_chain/</guid>
+      <description>考虑一维的ISing模型，其哈密顿量， $$ \begin{equation} H=-\frac{1}{2}\sum_n^Nh_n\sigma_z(n)-\frac{1}{2}\sum_n^{N-1}\sum_{i=x,y,z}J_i^{(n)}\sigma_i(n)\sigma_i(n+1) \end{equation} $$ 利用主方程计算其动力学的演化
+def integrate(N,h,Jx,Jy,Jz,psi0,tlist,gamma,solver): si=qt.qeye(2) sx=qt.sigmax() sy=qt.sigmay() sz=qt.sigmaz() sx_list=[] sy_list=[] sz_list=[] #construct sigma_x(n),sigma_y(n),sigma_z(n)  for n in range(N): op_list=[] for m in range(N): op_list.append(si) op_list[n] = sx sx_list.append(qt.tensor(op_list)) op_list[n] = sy sy_list.append(qt.tensor(op_list)) op_list[n] = sz sz_list.append(qt.tensor(op_list)) # construct the hamiltonian H = 0 # energy splitting terms for n in range(N): H += - 0.5 * h[n] * sz_list[n] # interaction terms for n in range(N-1): H += - 0.</description>
+    </item>
     
     <item>
       <title>QuTip:HEOM</title>
