@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://boseliao.github.io/posts/qcspin/</loc>
+    <lastmod>2020-05-26T19:31:24+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://boseliao.github.io/posts/qutipspin_chain/</loc>
     <lastmod>2020-05-25T17:50:07+08:00</lastmod>
   </url>
@@ -49,7 +54,7 @@
   
   <url>
     <loc>https://boseliao.github.io/</loc>
-    <lastmod>2020-05-25T17:50:07+08:00</lastmod>
+    <lastmod>2020-05-26T19:31:24+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -61,7 +66,13 @@
   
   <url>
     <loc>https://boseliao.github.io/posts/</loc>
-    <lastmod>2020-05-25T17:50:07+08:00</lastmod>
+    <lastmod>2020-05-26T19:31:24+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://boseliao.github.io/tags/quantum-compute/</loc>
+    <lastmod>2020-05-26T19:31:24+08:00</lastmod>
     <priority>0</priority>
   </url>
   

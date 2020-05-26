@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Quantum Compute on BoseLiao&#39;s Blog</title>
+    <link>https://boseliao.github.io/tags/quantum-compute/</link>
+    <description>Recent content in Quantum Compute on BoseLiao&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Tue, 26 May 2020 19:31:24 +0800</lastBuildDate>
+    
+	<atom:link href="https://boseliao.github.io/tags/quantum-compute/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>QC:spin</title>
+      <link>https://boseliao.github.io/posts/qcspin/</link>
+      <pubDate>Tue, 26 May 2020 19:31:24 +0800</pubDate>
+      
+      <guid>https://boseliao.github.io/posts/qcspin/</guid>
+      <description>磁偶极子在磁场中的势能 $$ H=U=-\mu B $$ \mu表示磁矩的大小和方向。磁偶极子受到的磁场梯度力为 $$ F=-\nabla U=\nabla (\mu B) $$ 自旋的磁矩可以表示为 $$ \mu =-\frac{1}{2}g\mu_B\sigma $$ 自旋在磁场中哈密顿量 $$ H=-\mu B=\frac{1}{2}g\mu_B\sigma B=\frac{1}{2}\hbar\gamma\sigma B $$ 著名的Stern-Gerlach实验证明了自旋磁矩的量子化
+在图中，电子经过第一个SG装置会分裂成两部分|n+&amp;gt;和|n-&amp;gt;，之后 |n+&amp;gt;经过第二个SG装置继续分成两部分|m+&amp;gt;和|m-&amp;gt;， $$ P(|n+\rangle\to|m+\rangle)=\frac{1}{2}\left(1+nm \right) $$
+$$ P(|n+\rangle\to|m-\rangle)=\frac{1}{2}\left(1-nm \right) $$
+选择Z方向的本征态为基失 $$ |Z+\rangle=|0\rangle ,|Z-\rangle=|1\rangle $$ 则 $$ |n+\rangle=\alpha|0\rangle+\beta|1\rangle $$ 将m设置为Z方向 $$ P(|n+\rangle\to|0\rangle)=\frac{1}{2}\left(1+nZ \right)=|\alpha|^2 $$ 在球坐标中 $$ n=(sin(\theta)cos(\phi),sin(\theta)sin(\phi),cos(\theta)) $$ 任一量子态可以写成 $$ |n+\rangle=cos(\theta/2)|0\rangle+sin(\theta/2)e^{i\phi}|1\rangle $$ 在Bloch球中表示任一量子态
+b=qt.Bloch() pnt = [1/np.sqrt(3),1/np.sqrt(3),1/np.sqrt(3)] b.add_points(pnt) vec = [0,1,0] b.add_vectors(vec) b.show() 不难证明n方向的角动量 $$ S(n)=n\sigma=n_x\sigma_x+n_y\sigma_y+n_z\sigma_z $$ 考虑自旋在磁场中的时间演化，哈密顿量写成 $$ H=\frac{1}{2}\hbar\gamma\sigma_zB_z $$ 设初态处于 $$ |\psi(0)\rangle=\alpha|0\rangle+\beta|1\rangle $$ 时间演化 $$ |\psi(t)\rangle=e^{-i\gamma B_z\sigma_z/2}(\alpha|0\rangle+\beta|1\rangle)=\alpha|0\rangle+\beta e^{i\gamma B_zt}|1\rangle $$ </description>
+    </item>
+    
+  </channel>
+</rss>
