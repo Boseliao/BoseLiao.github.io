@@ -7,10 +7,22 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Tue, 26 May 2020 19:31:24 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 27 May 2020 21:27:15 +0800</lastBuildDate>
     
 	<atom:link href="https://boseliao.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>QC:qubit_gate</title>
+      <link>https://boseliao.github.io/posts/qcqubit_gate/</link>
+      <pubDate>Wed, 27 May 2020 21:27:15 +0800</pubDate>
+      
+      <guid>https://boseliao.github.io/posts/qcqubit_gate/</guid>
+      <description>利用一些装置可以实现对自旋态的操控，例如核磁共振(NMR)
+单量子比特 sigma_x泡利算符X，对应于经典的NOT门 $$ \sigma_x|x\rangle=|1-x\rangle $$
+from qutip.qip.circuit import QubitCircuit, Gate from qutip.qip import gates qc=QubitCircuit(N=1) def user_gate(): #sigma_x mat = np.array([[0.,1.0],[1., 0.]]) return qt.Qobj(mat, dims=[[2], [2]]) qc.user_gates={&amp;#34;sigma_x&amp;#34;:user_gate} qc.add_gate(&amp;#34;sigma_x&amp;#34;,targets=[0]) U_list = qc.propagators() from qutip.qip.operations import gate_sequence_product U = gate_sequence_product(U_list) psi0=qt.basis(2,0) psit=U*psi0 b=qt.Bloch() b.add_states(psi0) b.add_states(psit) b.save(&amp;#34;qc_gate.png&amp;#34;) b.show() sigma_z泡利算符Z $$ \sigma_z|x\rangle=(-1)^x|x\rangle $$
+def user_gate(): #sigma_z mat = np.array([[1.,0.],[0., -1.]]) return qt.Qobj(mat, dims=[[2], [2]]) qc.user_gates={&amp;#34;sigma_z&amp;#34;:user_gate} qc.add_gate(&amp;#34;sigma_z&amp;#34;,targets=[0]) 旋转门(rotation gate) RX沿着X轴旋转 $$ R_x(\theta)(\alpha|0\rangle+\beta|1\rangle)=(\alpha\cos(\frac{\theta}{2})-i\beta\sin(\frac{\theta}{2}))|0\rangle+(\beta\cos(\frac{\theta}{2})-i\alpha\sin(\frac{\theta}{2}))|1\rangle $$</description>
+    </item>
     
     <item>
       <title>QC:spin</title>
@@ -135,15 +147,6 @@ program main implicit none int x x=1 write(*,*) end program 表格与图片  表
       <description>EDUCATION
  2012-2016 Ningbo University,Bachelor 2017-2020 Ningbo University,Master  INTERESTING
  Quantum open system,Quantum simulation Numerical Calculation  </description>
-    </item>
-    
-    <item>
-      <title>First_post</title>
-      <link>https://boseliao.github.io/posts/first_posts/</link>
-      <pubDate>Thu, 02 Jan 2020 14:51:20 +0800</pubDate>
-      
-      <guid>https://boseliao.github.io/posts/first_posts/</guid>
-      <description>I am BoseLiao</description>
     </item>
     
   </channel>

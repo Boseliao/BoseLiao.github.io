@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="theme-color" content="#494f5c">
+	<meta name="msapplication-TileColor" content="#494f5c">
+
+<meta itemprop="name" content="QC:qubit_gate">
+<meta itemprop="description" content="利用一些装置可以实现对自旋态的操控，例如核磁共振(NMR)
+单量子比特 sigma_x泡利算符X，对应于经典的NOT门 $$ \sigma_x|x\rangle=|1-x\rangle $$
+from qutip.qip.circuit import QubitCircuit, Gate from qutip.qip import gates qc=QubitCircuit(N=1) def user_gate(): #sigma_x mat = np.array([[0.,1.0],[1., 0.]]) return qt.Qobj(mat, dims=[[2], [2]]) qc.user_gates={&#34;sigma_x&#34;:user_gate} qc.add_gate(&#34;sigma_x&#34;,targets=[0]) U_list = qc.propagators() from qutip.qip.operations import gate_sequence_product U = gate_sequence_product(U_list) psi0=qt.basis(2,0) psit=U*psi0 b=qt.Bloch() b.add_states(psi0) b.add_states(psit) b.save(&#34;qc_gate.png&#34;) b.show() sigma_z泡利算符Z $$ \sigma_z|x\rangle=(-1)^x|x\rangle $$
+def user_gate(): #sigma_z mat = np.array([[1.,0.],[0., -1.]]) return qt.Qobj(mat, dims=[[2], [2]]) qc.user_gates={&#34;sigma_z&#34;:user_gate} qc.add_gate(&#34;sigma_z&#34;,targets=[0]) 旋转门(rotation gate) RX沿着X轴旋转 $$ R_x(\theta)(\alpha|0\rangle&#43;\beta|1\rangle)=(\alpha\cos(\frac{\theta}{2})-i\beta\sin(\frac{\theta}{2}))|0\rangle&#43;(\beta\cos(\frac{\theta}{2})-i\alpha\sin(\frac{\theta}{2}))|1\rangle $$">
+
+
+<meta itemprop="datePublished" content="2020-05-27T21:27:15&#43;08:00" />
+<meta itemprop="dateModified" content="2020-05-27T21:27:15&#43;08:00" />
+<meta itemprop="wordCount" content="321">
+
+
+
+<meta itemprop="keywords" content="Quantum Compute," />
+<meta property="og:title" content="QC:qubit_gate" />
+<meta property="og:description" content="利用一些装置可以实现对自旋态的操控，例如核磁共振(NMR)
+单量子比特 sigma_x泡利算符X，对应于经典的NOT门 $$ \sigma_x|x\rangle=|1-x\rangle $$
+from qutip.qip.circuit import QubitCircuit, Gate from qutip.qip import gates qc=QubitCircuit(N=1) def user_gate(): #sigma_x mat = np.array([[0.,1.0],[1., 0.]]) return qt.Qobj(mat, dims=[[2], [2]]) qc.user_gates={&#34;sigma_x&#34;:user_gate} qc.add_gate(&#34;sigma_x&#34;,targets=[0]) U_list = qc.propagators() from qutip.qip.operations import gate_sequence_product U = gate_sequence_product(U_list) psi0=qt.basis(2,0) psit=U*psi0 b=qt.Bloch() b.add_states(psi0) b.add_states(psit) b.save(&#34;qc_gate.png&#34;) b.show() sigma_z泡利算符Z $$ \sigma_z|x\rangle=(-1)^x|x\rangle $$
+def user_gate(): #sigma_z mat = np.array([[1.,0.],[0., -1.]]) return qt.Qobj(mat, dims=[[2], [2]]) qc.user_gates={&#34;sigma_z&#34;:user_gate} qc.add_gate(&#34;sigma_z&#34;,targets=[0]) 旋转门(rotation gate) RX沿着X轴旋转 $$ R_x(\theta)(\alpha|0\rangle&#43;\beta|1\rangle)=(\alpha\cos(\frac{\theta}{2})-i\beta\sin(\frac{\theta}{2}))|0\rangle&#43;(\beta\cos(\frac{\theta}{2})-i\alpha\sin(\frac{\theta}{2}))|1\rangle $$" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://boseliao.github.io/posts/qcqubit_gate/" />
+<meta property="article:published_time" content="2020-05-27T21:27:15&#43;08:00"/>
+<meta property="article:modified_time" content="2020-05-27T21:27:15&#43;08:00"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="QC:qubit_gate"/>
+<meta name="twitter:description" content="利用一些装置可以实现对自旋态的操控，例如核磁共振(NMR)
+单量子比特 sigma_x泡利算符X，对应于经典的NOT门 $$ \sigma_x|x\rangle=|1-x\rangle $$
+from qutip.qip.circuit import QubitCircuit, Gate from qutip.qip import gates qc=QubitCircuit(N=1) def user_gate(): #sigma_x mat = np.array([[0.,1.0],[1., 0.]]) return qt.Qobj(mat, dims=[[2], [2]]) qc.user_gates={&#34;sigma_x&#34;:user_gate} qc.add_gate(&#34;sigma_x&#34;,targets=[0]) U_list = qc.propagators() from qutip.qip.operations import gate_sequence_product U = gate_sequence_product(U_list) psi0=qt.basis(2,0) psit=U*psi0 b=qt.Bloch() b.add_states(psi0) b.add_states(psit) b.save(&#34;qc_gate.png&#34;) b.show() sigma_z泡利算符Z $$ \sigma_z|x\rangle=(-1)^x|x\rangle $$
+def user_gate(): #sigma_z mat = np.array([[1.,0.],[0., -1.]]) return qt.Qobj(mat, dims=[[2], [2]]) qc.user_gates={&#34;sigma_z&#34;:user_gate} qc.add_gate(&#34;sigma_z&#34;,targets=[0]) 旋转门(rotation gate) RX沿着X轴旋转 $$ R_x(\theta)(\alpha|0\rangle&#43;\beta|1\rangle)=(\alpha\cos(\frac{\theta}{2})-i\beta\sin(\frac{\theta}{2}))|0\rangle&#43;(\beta\cos(\frac{\theta}{2})-i\alpha\sin(\frac{\theta}{2}))|1\rangle $$"/>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="">
+	<link rel="shortcut icon" href="/favicon.ico">
+
+	<title>QC:qubit_gate</title>
+	<link rel="stylesheet" href="https://boseliao.github.io/css/style.min.657bcb7af31123e4156b1a3d2ff60a636717e54ead74f882136b5114cf72b55e.css" integrity="sha256-ZXvLevMRI+QVaxo9L/YKY2cX5U6tdPiCE2tRFM9ytV4=" crossorigin="anonymous">
+	
+</head>
+
+<body id="page">
+	
+	<header id="site-header" class="animated slideInUp faster">
+		<div class="hdr-wrapper section-inner">
+			<div class="hdr-left">
+				<div class="site-branding">
+					<a href="https://boseliao.github.io">BoseLiao&#39;s Blog</a>
+				</div>
+				<nav class="site-nav hide-in-mobile">
+					
+				<a href="https://boseliao.github.io/posts/">Posts</a>
+				<a href="https://boseliao.github.io/boseliao">About</a>
+
+				</nav>
+			</div>
+			<div class="hdr-right hdr-icons">
+				<button id="menu-btn" class="hdr-btn" title="Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+			</div>
+		</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+	</header>
+	<div id="mobile-menu" class="animated fast">
+		<ul>
+			<li><a href="https://boseliao.github.io/posts/">Posts</a></li>
+			<li><a href="https://boseliao.github.io/boseliao">About</a></li>
+		</ul>
+	</div>
+
+
+	<main class="site-main section-inner animated fadeIn faster">
+		<article class="thin">
+			<header class="post-header">
+				<div class="post-meta"><span>May 27, 2020</span></div>
+				<h1>QC:qubit_gate</h1>
+			</header>
+			<div class="content">
+				
+
+<p>利用一些装置可以实现对自旋态的操控，例如核磁共振(NMR)</p>
+
+<h2 id="单量子比特">单量子比特<a href="#单量子比特" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+
+<p><code>sigma_x</code>泡利算符X，对应于经典的<code>NOT</code>门
+$$
+\sigma_x|x\rangle=|1-x\rangle
+$$</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">qutip.qip.circuit</span> <span class="kn">import</span> <span class="n">QubitCircuit</span><span class="p">,</span> <span class="n">Gate</span>
+<span class="kn">from</span> <span class="nn">qutip.qip</span> <span class="kn">import</span> <span class="n">gates</span>
+<span class="n">qc</span><span class="o">=</span><span class="n">QubitCircuit</span><span class="p">(</span><span class="n">N</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">user_gate</span><span class="p">():</span>
+    <span class="c1">#sigma_x</span>
+    <span class="n">mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.</span><span class="p">,</span><span class="mf">1.0</span><span class="p">],[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">]])</span>
+    <span class="k">return</span> <span class="n">qt</span><span class="o">.</span><span class="n">Qobj</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">[[</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">]])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">user_gates</span><span class="o">=</span><span class="p">{</span><span class="s2">&#34;sigma_x&#34;</span><span class="p">:</span><span class="n">user_gate</span><span class="p">}</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;sigma_x&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">U_list</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">propagators</span><span class="p">()</span>
+<span class="kn">from</span> <span class="nn">qutip.qip.operations</span> <span class="kn">import</span> <span class="n">gate_sequence_product</span>
+<span class="n">U</span> <span class="o">=</span> <span class="n">gate_sequence_product</span><span class="p">(</span><span class="n">U_list</span><span class="p">)</span>
+<span class="n">psi0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">psit</span><span class="o">=</span><span class="n">U</span><span class="o">*</span><span class="n">psi0</span>
+<span class="n">b</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">Bloch</span><span class="p">()</span>
+<span class="n">b</span><span class="o">.</span><span class="n">add_states</span><span class="p">(</span><span class="n">psi0</span><span class="p">)</span>
+<span class="n">b</span><span class="o">.</span><span class="n">add_states</span><span class="p">(</span><span class="n">psit</span><span class="p">)</span>
+<span class="n">b</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&#34;qc_gate.png&#34;</span><span class="p">)</span>
+<span class="n">b</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></code></pre></div>
+<p><img src="/img/qc_gate_img1.png" alt="img1" /></p>
+
+<p><code>sigma_z</code>泡利算符Z
+$$
+\sigma_z|x\rangle=(-1)^x|x\rangle
+$$</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">user_gate</span><span class="p">():</span>
+    <span class="c1">#sigma_z</span>
+    <span class="n">mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.</span><span class="p">,</span><span class="mf">0.</span><span class="p">],[</span><span class="mf">0.</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.</span><span class="p">]])</span>
+    <span class="k">return</span> <span class="n">qt</span><span class="o">.</span><span class="n">Qobj</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">[[</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">]])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">user_gates</span><span class="o">=</span><span class="p">{</span><span class="s2">&#34;sigma_z&#34;</span><span class="p">:</span><span class="n">user_gate</span><span class="p">}</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;sigma_z&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></code></pre></div>
+<p><img src="/img/qc_gate_img2.png" alt="img2" /></p>
+
+<h3 id="旋转门-rotation-gate">旋转门(rotation gate)<a href="#旋转门-rotation-gate" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p><code>RX</code>沿着X轴旋转
+$$
+R_x(\theta)(\alpha|0\rangle+\beta|1\rangle)=(\alpha\cos(\frac{\theta}{2})-i\beta\sin(\frac{\theta}{2}))|0\rangle+(\beta\cos(\frac{\theta}{2})-i\alpha\sin(\frac{\theta}{2}))|1\rangle
+$$</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">qc</span><span class="o">=</span><span class="n">QubitCircuit</span><span class="p">(</span><span class="n">N</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;RX&#34;</span><span class="p">,</span><span class="n">arg_value</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mf">4.</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">U_list</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">propagators</span><span class="p">()</span>
+<span class="kn">from</span> <span class="nn">qutip.qip.operations</span> <span class="kn">import</span> <span class="n">gate_sequence_product</span>
+<span class="n">U</span> <span class="o">=</span> <span class="n">gate_sequence_product</span><span class="p">(</span><span class="n">U_list</span><span class="p">)</span>
+<span class="n">psi0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">psit</span><span class="o">=</span><span class="n">U</span><span class="o">*</span><span class="n">psi0</span>
+<span class="n">b</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">Bloch</span><span class="p">()</span>
+<span class="n">b</span><span class="o">.</span><span class="n">add_states</span><span class="p">(</span><span class="n">psi0</span><span class="p">)</span>
+<span class="n">b</span><span class="o">.</span><span class="n">add_states</span><span class="p">(</span><span class="n">psit</span><span class="p">)</span>
+<span class="n">b</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&#34;qc_gate_img4.png&#34;</span><span class="p">)</span>
+<span class="n">b</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></code></pre></div>
+<p><img src="/img/qc_gate_img4.png" alt="img4" /></p>
+
+<p>同理，<code>RY</code>，<code>RZ</code>表示沿着X，Z轴旋转
+$$
+R_y(\theta)(\alpha|0\rangle+\beta|1\rangle)=(\alpha\cos(\frac{\theta}{2})-\beta\sin(\frac{\theta}{2}))|0\rangle+(\beta\cos(\frac{\theta}{2})+\alpha\sin(\frac{\theta}{2}))|1\rangle
+$$</p>
+
+<p>$$
+R_z(\theta)(\alpha|0\rangle+\beta|1\rangle)=\alpha e^{-i\theta/2}|0\rangle+\beta e^{i\theta/2}|1\rangle
+$$</p>
+
+<p>沿任意轴的旋转可以表示为
+$$
+R_n(\theta)=e^{-i\theta n\sigma}=\cos(\frac{\theta}{2})I-i\sin(\frac{\theta}{2})n\sigma
+$$
+<code>Hadamard</code>
+$$
+H|x\rangle=\frac{1}{\sqrt{2}}\left(|0\rangle+(-1)^x|1\rangle\right)
+$$</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;SNOT&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">psi0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span></code></pre></div>
+<p><img src="/img/qc_gate_img3.png" alt="img3" /></p>
+
+<p>任意态的制备，这里忽略了整体相位，对量子态不影响
+$$
+|0\rangle\to|\psi\rangle=R_z(\frac{\pi}{2}+\phi)HR_z(\theta)H|0\rangle=\cos(\frac{\theta}{2})|0\rangle+e^{i\phi}\sin(\frac{\theta}{2})|1\rangle
+$$</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">qc</span><span class="o">=</span><span class="n">QubitCircuit</span><span class="p">(</span><span class="n">N</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;SNOT&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;RZ&#34;</span><span class="p">,</span><span class="n">arg_value</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mf">4.</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;SNOT&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;RZ&#34;</span><span class="p">,</span><span class="n">arg_value</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mf">2.</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mf">4.</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">U_list</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">propagators</span><span class="p">()</span>
+<span class="kn">from</span> <span class="nn">qutip.qip.operations</span> <span class="kn">import</span> <span class="n">gate_sequence_product</span>
+<span class="n">U</span> <span class="o">=</span> <span class="n">gate_sequence_product</span><span class="p">(</span><span class="n">U_list</span><span class="p">)</span>
+<span class="n">psi0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">psit</span><span class="o">=</span><span class="n">U</span><span class="o">*</span><span class="n">psi0</span>
+<span class="n">b</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">Bloch</span><span class="p">()</span>
+<span class="n">b</span><span class="o">.</span><span class="n">add_states</span><span class="p">(</span><span class="n">psi0</span><span class="p">)</span>
+<span class="n">b</span><span class="o">.</span><span class="n">add_states</span><span class="p">(</span><span class="n">psit</span><span class="p">)</span>
+<span class="c1">#b.save(&#34;qc_gate_img4.png&#34;)</span>
+<span class="n">b</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></code></pre></div>
+<p><img src="/img/qc_gate_img5.png" alt="img5" /></p>
+
+<h3 id="相移门-phase-gate">相移门(phase gate)<a href="#相移门-phase-gate" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p><code>PHASEGATE</code>，当target qubit为1态时才发生相移
+$$
+P(\theta)|x\rangle=xe^{i\theta}|x\rangle
+$$</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">qc</span><span class="o">=</span><span class="n">QubitCircuit</span><span class="p">(</span><span class="n">N</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;PHASEGATE&#34;</span><span class="p">,</span><span class="n">arg_value</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mf">4.</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">U_list</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">propagators</span><span class="p">()</span>
+<span class="kn">from</span> <span class="nn">qutip.qip.operations</span> <span class="kn">import</span> <span class="n">gate_sequence_product</span>
+<span class="n">U</span> <span class="o">=</span> <span class="n">gate_sequence_product</span><span class="p">(</span><span class="n">U_list</span><span class="p">)</span>
+<span class="n">psi0</span><span class="o">=</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="o">+</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">psit</span><span class="o">=</span><span class="n">U</span><span class="o">*</span><span class="n">psi0</span>
+<span class="n">b</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">Bloch</span><span class="p">()</span>
+<span class="n">b</span><span class="o">.</span><span class="n">add_states</span><span class="p">(</span><span class="n">psi0</span><span class="p">)</span>
+<span class="n">b</span><span class="o">.</span><span class="n">add_states</span><span class="p">(</span><span class="n">psit</span><span class="p">)</span>
+<span class="c1">#b.save(&#34;qc_gate_img6.png&#34;)</span>
+<span class="n">b</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></code></pre></div>
+<p><img src="/img/qc_gate_img6.png" alt="img6" /></p>
+
+<h2 id="双量子比特">双量子比特<a href="#双量子比特" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+
+<p>控制算符，即“If A is true, then do B”。输入分别为”control qubit“以及”target qubit“，输出只会改变”target qubit“的状态。</p>
+
+<p><code>CNOT</code>，即”control-NOT“，受控非门
+$$
+C_1|c\rangle|t\rangle=|c\rangle|c\otimes t\rangle
+$$</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">gates</span><span class="o">.</span><span class="n">cnot</span><span class="p">(</span><span class="n">control</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">target</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="s2">&#34;&#34;&#34;
+</span><span class="s2">Quantum object: dims = [[2, 2], [2, 2]], shape = (4, 4), type = oper, isherm = True
+</span><span class="s2">Qobj data =
+</span><span class="s2">[[1. 0. 0. 0.]
+</span><span class="s2"> [0. 1. 0. 0.]
+</span><span class="s2"> [0. 0. 0. 1.]
+</span><span class="s2"> [0. 0. 1. 0.]]
+</span><span class="s2">&#34;&#34;&#34;</span></code></pre></div>
+<p>广义<code>CNOT</code>门，
+$$
+C_2|t\rangle|c\rangle=|t\otimes c\rangle|c\rangle
+$$</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">gates</span><span class="o">.</span><span class="n">cnot</span><span class="p">(</span><span class="n">control</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">target</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="s2">&#34;&#34;&#34;
+</span><span class="s2">=
+</span><span class="s2">&#34;&#34;&#34;</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;SNOT&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;SNOT&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CNOT&#34;</span><span class="p">,</span><span class="n">control</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;SNOT&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;SNOT&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span></code></pre></div>
+<p>产生两对贝尔基
+$$
+|\phi^{\pm}\rangle=\frac{1}{\sqrt{2}}\left(|00\rangle\pm|11\rangle \right)\quad|\psi^{\pm}\rangle=\frac{1}{\sqrt{2}}\left(|01\rangle\pm|10\rangle \right)
+$$</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;SNOT&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CNOT&#34;</span><span class="p">,</span><span class="n">control</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span></code></pre></div>
+<p>输入与对应输出，
+$$
+|00\rangle\to|\phi^+\rangle,|10\rangle\to|\phi^-\rangle,|01\rangle\to|\psi^+\rangle,|11\rangle\to|\psi^-\rangle
+$$
+<code>CPHASE</code>，即受控相移门，当control qubit和target qubit 都为1态时发生相移</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">gates</span><span class="o">.</span><span class="n">cphase</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span><span class="n">N</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">control</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">target</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="s2">&#34;&#34;&#34;
+</span><span class="s2">=
+</span><span class="s2">&#34;&#34;&#34;</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;PHASEGATE&#34;</span><span class="p">,</span><span class="n">arg_value</span><span class="o">=</span><span class="n">theta</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CNOT&#34;</span><span class="p">,</span><span class="n">control</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;PHASEGATE&#34;</span><span class="p">,</span><span class="n">arg_value</span><span class="o">=-</span><span class="n">theta</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CNOT&#34;</span><span class="p">,</span><span class="n">control</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;PHASEGATE&#34;</span><span class="p">,</span><span class="n">arg_value</span><span class="o">=</span><span class="n">theta</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></code></pre></div>
+<p><code>SWAP</code>，即交换门
+$$
+SWAP|x\rangle|y\rangle=C_1C_2C_1|x\rangle|y\rangle=|y\rangle|x\rangle
+$$</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">gates</span><span class="o">.</span><span class="n">swap</span><span class="p">(</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="s2">&#34;&#34;&#34;
+</span><span class="s2">=
+</span><span class="s2">&#34;&#34;&#34;</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CNOT&#34;</span><span class="p">,</span><span class="n">control</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CNOT&#34;</span><span class="p">,</span><span class="n">control</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CNOT&#34;</span><span class="p">,</span><span class="n">control</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span></code></pre></div>
+<p>事实上任意两比特的受控U门(C-U)都可以由单比特门以及<code>CNOT</code>门构成。
+$$
+|c\rangle|t\rangle\to|c\rangle U^{c}|t\rangle
+$$
+任意的单比特操作可以写成
+$$
+U=\phi(\delta)R_z(\alpha)R_y(\theta)R_z(\beta)=\begin{bmatrix}
+   e^{i(\delta-\frac{\alpha+\beta}{2})}\cos\frac{\theta}{2} &amp; -e^{i(\delta-\frac{\alpha-\beta}{2})}\sin\frac{\theta}{2} \newline
+   e^{i(\delta+\frac{\alpha-\beta}{2})}\sin\frac{\theta}{2} &amp; e^{i(\delta+\frac{\alpha+\beta}{2})}\cos\frac{\theta}{2}<br />
+  \end{bmatrix}
+$$
+设
+$$
+I=ABC,U=\phi(\delta)A\sigma_xB\sigma_xC
+$$
+则
+$$
+A=R_z(\alpha)R_y(\theta/2),B=R_y(-\theta/2)R_z(-\frac{\alpha+\beta}{2}),C=R_z(\frac{\beta-\alpha}{2})
+$$
+所以受控U门(C-U)可以写成，上标表示control qubit，下标表示target qubit。
+$$
+CU=\phi^0_1(\delta)A_1C^0_1B_1C^0_1C_1=P_0(\delta)A_1C^0_1B_1C^0_1C_1
+$$
+相位的控制算符</p>
+
+<p><img src="/img/qc_gate_img7.png" alt="img7" /></p>
+
+<p>电路可以表示为</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;RZ&#34;</span><span class="p">,</span><span class="n">arg_value</span><span class="o">=</span><span class="p">(</span><span class="n">beta</span><span class="o">-</span><span class="n">alpha</span><span class="p">)</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CNOT&#34;</span><span class="p">,</span><span class="n">control</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;RZ&#34;</span><span class="p">,</span><span class="n">arg_value</span><span class="o">=-</span><span class="p">(</span><span class="n">beta</span><span class="o">+</span><span class="n">alpha</span><span class="p">)</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;RY&#34;</span><span class="p">,</span><span class="n">arg_value</span><span class="o">=-</span><span class="n">theta</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CNOT&#34;</span><span class="p">,</span><span class="n">control</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;RY&#34;</span><span class="p">,</span><span class="n">arg_value</span><span class="o">=</span><span class="n">theta</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;RZ&#34;</span><span class="p">,</span><span class="n">arg_value</span><span class="o">=</span><span class="n">alpha</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;PHASEGATE&#34;</span><span class="p">,</span><span class="n">arg_value</span><span class="o">=</span><span class="n">delta</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></code></pre></div>
+<h2 id="三量子比特">三量子比特<a href="#三量子比特" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+
+<p><code>toffoli</code>，即<code>C2-NOT</code>门。如果两个control qubit都处于|1&gt;态，则对target qubit作用NOT算符。</p>
+
+<p><img src="/img/qc_gate_img8.png" alt="img8" /></p>
+
+<p>这里
+$$
+U=\sigma_x,V=\sqrt{U}=(1-i)(1+i\sigma_x)/2
+$$
+对于一般的算符U，此电路都是成立的。</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">gates</span><span class="o">.</span><span class="n">toffoli</span><span class="p">(</span><span class="n">controls</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span><span class="n">target</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span></code></pre></div>
+<p><code>fredkin</code>如果control的目标量子比特处于|1&gt;态，则对targets的目标量子比特作用SWAP算符</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">gates</span><span class="o">.</span><span class="n">fredkin</span><span class="p">(</span><span class="n">control</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span></code></pre></div>
+<p>特别的，当control qubit大于等于三时，即<code>Cn-U,n&gt;2</code>，控制电路</p>
+
+<p><img src="/img/qc_gate_img9.png" alt="img9" /></p>
+
+			</div>
+			<hr class="post-end">
+			<footer class="post-info">
+				<p>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://boseliao.github.io/tags/quantum-compute">Quantum Compute</a></span>
+				</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>321 Words</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2020-05-27 21:27 &#43;0800</p>
+			</footer>
+		</article>
+		<div class="post-nav thin">
+			<a class="prev-post" href="https://boseliao.github.io/posts/qcspin/">
+				<span class="post-nav-label">Older&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span><br><span>QC:spin</span>
+			</a>
+		</div>
+		<div id="comments" class="thin">
+</div>
+	</main>
+
+	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
+		<p>&copy; 2020 <a href="https://boseliao.github.io">BoseLiao</a> &#183; <a hr#ef="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">All rights reserved</a></p>
+	</footer>
+
+
+
+	<script src="https://boseliao.github.io/js/bundle.min.490e43e5af6db5906f28afa49a4e16bf9f626b758e3fca92f146b870eb94bb37.js" integrity="sha256-SQ5D5a9ttZBvKK+kmk4Wv59ia3WOP8qS8Ua4cOuUuzc=" crossorigin="anonymous"></script>
+	
+
+</body>
+
+</html>
