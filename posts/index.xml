@@ -7,8 +7,218 @@
 		<generator>Hugo -- gohugo.io</generator>
 		<language>en-us</language>
 		<copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-		<lastBuildDate>Wed, 27 May 2020 21:27:15 +0800</lastBuildDate>
+		<lastBuildDate>Tue, 02 Jun 2020 07:46:20 +0800</lastBuildDate>
 		<atom:link href="https://boseliao.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>QC:quantum_algorithm</title>
+			<link>https://boseliao.github.io/posts/qcquantum_algorithm/</link>
+			<pubDate>Tue, 02 Jun 2020 07:46:20 +0800</pubDate>
+			
+			<guid>https://boseliao.github.io/posts/qcquantum_algorithm/</guid>
+			<description>量子并行运算是一些量子算法中最基本的属性。它允许量子计算机对于不同的x能够同时计算f(x)。首先，考虑两个量子比特的幺正操作。 $$ U_f|x,y\rangle=|x,y\oplus f(x)\rangle $$ 其中，第一个qubit储存自变量的数据，而第二个qubit储存函数值。容易证明Uf操作总是一个幺正算符。 $$ \langle x\prime,y\prime|U_f|x,y\rangle=\langle x\prime,y\prime|x,y\oplus f(x)\rangle=\delta_{x\prime,x}\delta_{y\prime,y\oplus f(x)}=\delta_{x,x\prime}\delta_{y,y\prime\oplus f(x\prime)} $$
+$$ =(\delta_{x,x\prime}\delta_{y,y\prime\oplus f(x\prime)})^*=(\langle x,y|U_f|x\prime,y\prime\rangle)^* $$
+所以， $$ U_f=U_f^{\dagger} $$ 而 $$ U_f^2|x\rangle|y\rangle=|x\rangle|y\oplus f(x)\oplus f(x)\rangle=|x\rangle|y\rangle $$ 即 $$ U_f^2=1 $$ 任一二进制数可以表示为 $$ x=(x_{n-1},\cdots,x_0) $$ 对应的任一函数可以表示 $$ f(x^{(i)})=1,i=0,\cdots,m;f(x^{(i)})=0,i=m+1,\cdots,n-1 $$ 定义小项函数 $$ f^{(i)}(x)= \left[\begin{array}{lr} 1 \quad (x=x^{(i)}) \newline \newline 0 \quad (x \ne x^{(i)}) \end{array}\right. $$
+则任一函数可以用小项函数来表示 $$ f(x)=f^{(1)}(x)\vee f^{(2)}(x)\vee\cdots f^{(m)}(x) $$ 每个小项函数对应于Cn-NOT操作。
+量子加法器 对量子信息a和b进行加法，其进位储存在c $$ a=(a_{n-1},\cdots,a_0);b=(b_{n-1},\cdots,b_0);c=(c_{n},\cdots,c_0) $$ 量子加法器由两个模块组成，加法模块SUM(ai,bi,ci)和CARRY(ai,bi,ci)， $$ SUM(a_i,b_i,c_i):s_i=a_i\oplus b_i\oplus c_i $$</description>
+			<content type="html"><![CDATA[
+
+<p>量子并行运算是一些量子算法中最基本的属性。它允许量子计算机对于不同的x能够同时计算f(x)。首先，考虑两个量子比特的幺正操作。
+$$
+U_f|x,y\rangle=|x,y\oplus f(x)\rangle
+$$
+其中，第一个qubit储存自变量的数据，而第二个qubit储存函数值。容易证明Uf操作总是一个幺正算符。
+$$
+\langle x\prime,y\prime|U_f|x,y\rangle=\langle x\prime,y\prime|x,y\oplus f(x)\rangle=\delta_{x\prime,x}\delta_{y\prime,y\oplus f(x)}=\delta_{x,x\prime}\delta_{y,y\prime\oplus f(x\prime)}
+$$</p>
+
+<p>$$
+=(\delta_{x,x\prime}\delta_{y,y\prime\oplus f(x\prime)})^*=(\langle x,y|U_f|x\prime,y\prime\rangle)^*
+$$</p>
+
+<p>所以，
+$$
+U_f=U_f^{\dagger}
+$$
+而
+$$
+U_f^2|x\rangle|y\rangle=|x\rangle|y\oplus f(x)\oplus f(x)\rangle=|x\rangle|y\rangle
+$$
+即
+$$
+U_f^2=1
+$$
+任一二进制数可以表示为
+$$
+x=(x_{n-1},\cdots,x_0)
+$$
+对应的任一函数可以表示
+$$
+f(x^{(i)})=1,i=0,\cdots,m;f(x^{(i)})=0,i=m+1,\cdots,n-1
+$$
+定义小项函数
+$$
+f^{(i)}(x)=
+\left[\begin{array}{lr}
+1 \quad (x=x^{(i)})  \newline
+\newline
+0 \quad (x \ne x^{(i)})
+\end{array}\right.
+$$</p>
+
+<p>则任一函数可以用小项函数来表示
+$$
+f(x)=f^{(1)}(x)\vee f^{(2)}(x)\vee\cdots f^{(m)}(x)
+$$
+每个小项函数对应于<code>Cn-NOT</code>操作。</p>
+
+<h2 id="量子加法器">量子加法器</h2>
+
+<p>对量子信息a和b进行加法，其进位储存在c
+$$
+a=(a_{n-1},\cdots,a_0);b=(b_{n-1},\cdots,b_0);c=(c_{n},\cdots,c_0)
+$$
+量子加法器由两个模块组成，加法模块SUM(ai,bi,ci)和CARRY(ai,bi,ci)，
+$$
+SUM(a_i,b_i,c_i):s_i=a_i\oplus b_i\oplus c_i
+$$</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">qutip</span> <span class="kn">as</span> <span class="nn">qt</span>
+<span class="kn">from</span> <span class="nn">qutip.qip.circuit</span> <span class="kn">import</span> <span class="n">QubitCircuit</span><span class="p">,</span> <span class="n">Gate</span>
+<span class="kn">from</span> <span class="nn">qutip.qip</span> <span class="kn">import</span> <span class="n">gates</span>
+<span class="n">qc</span><span class="o">=</span><span class="n">QubitCircuit</span><span class="p">(</span><span class="n">N</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CNOT&#34;</span><span class="p">,</span><span class="n">controls</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CNOT&#34;</span><span class="p">,</span><span class="n">controls</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">U_list</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">propagators</span><span class="p">()</span>
+<span class="kn">from</span> <span class="nn">qutip.qip.operations</span> <span class="kn">import</span> <span class="n">gate_sequence_product</span>
+<span class="n">U</span> <span class="o">=</span> <span class="n">gate_sequence_product</span><span class="p">(</span><span class="n">U_list</span><span class="p">)</span>
+<span class="n">c_i</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">a_i</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">b_i</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">psi0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">c_i</span><span class="p">,</span><span class="n">a_i</span><span class="p">,</span><span class="n">b_i</span><span class="p">)</span>
+<span class="n">psit</span><span class="o">=</span><span class="n">U</span><span class="o">*</span><span class="n">psi0</span>
+<span class="s2">&#34;&#34;&#34;
+</span><span class="s2">output
+</span><span class="s2">&#34;&#34;&#34;</span>
+<span class="n">c_i</span><span class="o">=</span><span class="n">psit</span><span class="o">.</span><span class="n">ptrace</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">a_i</span><span class="o">=</span><span class="n">psit</span><span class="o">.</span><span class="n">ptrace</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">s_i</span><span class="o">=</span><span class="n">psit</span><span class="o">.</span><span class="n">ptrace</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">s_i</span><span class="p">)</span></code></pre></div>
+<p>$$
+CARRY(a_i,b_i,c_i):c_{i+1}=(a_i\wedge b_i)\oplus[c_i\wedge(a_i\oplus b_i)]
+$$</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">qc</span><span class="o">=</span><span class="n">QubitCircuit</span><span class="p">(</span><span class="n">N</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;TOFFOLI&#34;</span><span class="p">,</span><span class="n">controls</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CNOT&#34;</span><span class="p">,</span><span class="n">controls</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;TOFFOLI&#34;</span><span class="p">,</span><span class="n">controls</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">U_list</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">propagators</span><span class="p">()</span>
+<span class="kn">from</span> <span class="nn">qutip.qip.operations</span> <span class="kn">import</span> <span class="n">gate_sequence_product</span>
+<span class="n">U</span> <span class="o">=</span> <span class="n">gate_sequence_product</span><span class="p">(</span><span class="n">U_list</span><span class="p">)</span>
+<span class="c1">#psi0=(qt.basis(2,0)+qt.basis(2,1))/np.sqrt(2)</span>
+<span class="c1">#psi0=qt.basis(2,1)</span>
+<span class="n">c_i</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">a_i</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">b_i</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">up</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">psi0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">c_i</span><span class="p">,</span><span class="n">a_i</span><span class="p">,</span><span class="n">b_i</span><span class="p">,</span><span class="n">up</span><span class="p">)</span>
+<span class="n">psit</span><span class="o">=</span><span class="n">U</span><span class="o">*</span><span class="n">psi0</span>
+<span class="s2">&#34;&#34;&#34;
+</span><span class="s2">output
+</span><span class="s2">&#34;&#34;&#34;</span>
+<span class="n">c_i</span><span class="o">=</span><span class="n">psit</span><span class="o">.</span><span class="n">ptrace</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">a_i</span><span class="o">=</span><span class="n">psit</span><span class="o">.</span><span class="n">ptrace</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">s_i</span><span class="o">=</span><span class="n">psit</span><span class="o">.</span><span class="n">ptrace</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">c_iplus1</span><span class="o">=</span><span class="n">psit</span><span class="o">.</span><span class="n">ptrace</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span></code></pre></div>
+<p><code>cplus</code>等价于控制电路的<code>CNOT</code>门操作。<code>(a交b)cplus</code>等价于控制电路的<code>C2-NOT</code>门。整个电路由这两个模块组成</p>
+
+<p><img src="/img/qc_algori_img1.png" alt="img1" /></p>
+
+<h2 id="deutsch算法">Deutsch算法</h2>
+
+<p>Deutsch算法是用于判断一个函数是“constant”(f(x)输出恒为0或1)或“balance”(f(x)输出有一半是0，一半是1)。判断的方法是基于如下的思路，
+$$
+U_f|x,y\rangle=|x,y\oplus f(x)\rangle,U_f|x\rangle(|0\rangle-|1\rangle)=(-1)^{f(x)}|x\rangle(|0\rangle-|1\rangle)
+$$</p>
+
+<p>电路</p>
+
+<p><img src="/img/qc_algori_img2.png" alt="img2" /></p>
+
+<p>输出
+$$
+\left[\begin{array}{lr}
+\pm|0\rangle\otimes\frac{1}{\sqrt{2}}(|0\rangle-|1\rangle) \quad (f(x)=constance)  \newline
+\newline
+\pm|1\rangle\otimes\frac{1}{\sqrt{2}}(|0\rangle-|1\rangle) \quad (f(x)=balance)
+\end{array}\right.
+$$
+可见只要测量<code>psi0</code>，就可以判断f(x)的性质。</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">qutip</span> <span class="kn">as</span> <span class="nn">qt</span>
+<span class="kn">from</span> <span class="nn">qutip.qip.circuit</span> <span class="kn">import</span> <span class="n">QubitCircuit</span><span class="p">,</span> <span class="n">Gate</span>
+<span class="kn">from</span> <span class="nn">qutip.qip</span> <span class="kn">import</span> <span class="n">gates</span>
+<span class="k">def</span> <span class="nf">user_gate1</span><span class="p">():</span>
+    <span class="s2">&#34;&#34;&#34;
+</span><span class="s2">    define U_f(x):f(0)=1,f(1)=0
+</span><span class="s2">    &#34;&#34;&#34;</span>
+    <span class="n">mat_control0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">Qobj</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mf">0.</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]),</span><span class="n">dims</span><span class="o">=</span><span class="p">[[</span><span class="mi">2</span><span class="p">],[</span><span class="mi">2</span><span class="p">]])</span>
+    <span class="n">mat_control1</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">Qobj</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mf">0.</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]),</span><span class="n">dims</span><span class="o">=</span><span class="p">[[</span><span class="mi">2</span><span class="p">],[</span><span class="mi">2</span><span class="p">]])</span>
+    <span class="n">mat_target0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">Qobj</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mf">1.</span><span class="p">],[</span><span class="mf">1.</span><span class="p">,</span><span class="mi">0</span><span class="p">]]),</span><span class="n">dims</span><span class="o">=</span><span class="p">[[</span><span class="mi">2</span><span class="p">],[</span><span class="mi">2</span><span class="p">]])</span>
+    <span class="n">mat_target1</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">Qobj</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.</span><span class="p">],[</span><span class="mf">0.</span><span class="p">,</span><span class="mi">1</span><span class="p">]]),</span><span class="n">dims</span><span class="o">=</span><span class="p">[[</span><span class="mi">2</span><span class="p">],[</span><span class="mi">2</span><span class="p">]])</span>
+    <span class="n">mat</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">mat_control0</span><span class="p">,</span><span class="n">mat_target0</span><span class="p">)</span><span class="o">+</span><span class="n">qt</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">mat_control1</span><span class="p">,</span><span class="n">mat_target1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mat</span>
+<span class="n">qc</span><span class="o">=</span><span class="n">QubitCircuit</span><span class="p">(</span><span class="n">N</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">user_gates</span><span class="o">=</span><span class="p">{</span><span class="s2">&#34;U_f(x)&#34;</span><span class="p">:</span><span class="n">user_gate1</span><span class="p">}</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;SNOT&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;SNOT&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;U_f(x)&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;SNOT&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">U_list</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">propagators</span><span class="p">()</span>
+<span class="kn">from</span> <span class="nn">qutip.qip.operations</span> <span class="kn">import</span> <span class="n">gate_sequence_product</span>
+<span class="n">U</span> <span class="o">=</span> <span class="n">gate_sequence_product</span><span class="p">(</span><span class="n">U_list</span><span class="p">)</span>
+<span class="n">psi0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">psit</span><span class="o">=</span><span class="n">U</span><span class="o">*</span><span class="n">psi0</span>
+<span class="n">psit0</span><span class="o">=</span><span class="n">psit</span><span class="o">.</span><span class="n">ptrace</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">psit0</span><span class="p">)</span></code></pre></div>
+<p>这种方法相对于经典的方法缩短了一半的步骤。</p>
+
+<h2 id="deutsch-jozsa">Deutsch-Jozsa</h2>
+
+<p>对于n个量子态的函数映射
+$$
+f:\left(0,1\right)^n\to\left(0,1\right)
+$$
+输入储存于量子态|x&gt;中
+$$
+x=\left(x_{n-1},\cdots,x_0 \right)
+$$
+同理
+$$
+U_f|x\rangle(|0\rangle-|1\rangle)=\prod_{i=0}^{n-1}(-1)^{f(x_i)}|x\rangle(|0\rangle-|1\rangle)
+$$
+任意态经过Hadamard门
+$$
+H^{\otimes n}|x\rangle=\frac{1}{\sqrt{2^n}}\sum_{y_{n-1}=0}^1\cdots\sum_{y_0=0}^1(-1)^{\sum_ix_iy_i}|y_{n-1}\cdots y_0\rangle=\frac{1}{\sqrt{2^n}}\sum_y(-1)^y|y\rangle
+$$
+电路与单态的<code>Deutsch</code>算法电路相同，但是对第一个量子态的Hadamard门变成上式中n量子态Hadamard门，输出为，
+$$
+\frac{1}{2^n}\sum_x\sum_y(-1)^{f(x)+xy}|y\rangle\frac{1}{\sqrt{2}}\left(|0\rangle-|1\rangle\right)
+$$
+当f=constance时，
+$$
+\frac{1}{2^n}\sum_x(-1)^{f(x)+xy}|y\rangle=\frac{(-1)^{c}}{2^n}\sum_x(-1)^{xy}|y\rangle=\frac{(-1)^{c}}{2^n}\prod_{i=0}^{n-1}\sum_{x_i=0}^{1}(-1)^{x_iy_i}|y\rangle=\frac{(-1)^{c}}{2^n}\prod_{i=0}^{n-1}\left[1+(-1)^{y_i}\right]
+$$
+显然只有当y=|0&hellip;0&gt;时，该系数才不为零，即只能测到该态。</p>
+
+<p>当f=balance时，考虑y=|0&hellip;0&gt;态的系数
+$$
+\frac{1}{2^n}\sum_x(-1)^{f(x)}|y_0\rangle=\frac{1}{2^n}\left[2^{n-1}(-1)^0+2^{n-1}(-1)^1\right]|y_0\rangle=0|y_0\rangle
+$$
+即无法测到该态</p>
+]]></content>
+		</item>
 		
 		<item>
 			<title>QC:qubit_gate</title>
@@ -259,6 +469,24 @@ $$
 <p>特别的，当control qubit大于等于三时，即<code>Cn-U,n&gt;2</code>，控制电路</p>
 
 <p><img src="/img/qc_gate_img9.png" alt="img9" /></p>
+
+<h2 id="通用门-universal-quantum-gates">通用门(Universal quantum gates)</h2>
+
+<p>在经典计算中，任何的函数都可以用一组通用门来描述。相应的，在量子计算中任意的幺正算符也可以用一组通用门描述，<code>Hadamard</code>，<code>CNOT</code>，<code>PHASEGATE（pi/4）</code>，<code>PHASEGATE(pi/8)</code></p>
+
+<h2 id="测量-measurement">测量(Measurement)</h2>
+
+<p>不失一般性的，可以假设在量子电路的末端测量未测量的量子比特</p>
+
+<p><img src="/img/qc_gate_img10.png" alt="img10" /></p>
+
+<p>对bell基的测量</p>
+
+<p><img src="/img/qc_gate_img11.png" alt="img11" /></p>
+
+<p>测量与控制算符的对易关系，单线表示量子信息的传递，双线表示经典信息的传递</p>
+
+<p><img src="/img/qc_gate_ing12.png" alt="img12" /></p>
 ]]></content>
 		</item>
 		
@@ -1583,17 +1811,6 @@ Note right of C: 没人陪我玩</code></pre></div>
         压力测试                               :after a1  , 20h
         测试报告                               : 48h</code></pre></div>
 <p>以上使用typora编译，参考资料<a href="https://www.runoob.com/markdown/md-tutorial.html">菜鸟编程</a></p>
-]]></content>
-		</item>
-		
-		<item>
-			<title>First_post</title>
-			<link>https://boseliao.github.io/posts/first_posts/</link>
-			<pubDate>Thu, 02 Jan 2020 14:51:20 +0800</pubDate>
-			
-			<guid>https://boseliao.github.io/posts/first_posts/</guid>
-			<description>I am BoseLiao</description>
-			<content type="html"><![CDATA[<p>I am BoseLiao</p>
 ]]></content>
 		</item>
 		

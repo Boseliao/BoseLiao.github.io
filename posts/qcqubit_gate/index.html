@@ -17,7 +17,7 @@ def user_gate(): #sigma_z mat = np.array([[1.,0.],[0., -1.]]) return qt.Qobj(mat
 
 <meta itemprop="datePublished" content="2020-05-27T21:27:15&#43;08:00" />
 <meta itemprop="dateModified" content="2020-05-27T21:27:15&#43;08:00" />
-<meta itemprop="wordCount" content="321">
+<meta itemprop="wordCount" content="329">
 
 
 
@@ -326,17 +326,38 @@ $$
 
 <p><img src="/img/qc_gate_img9.png" alt="img9" /></p>
 
+<h2 id="通用门-universal-quantum-gates">通用门(Universal quantum gates)<a href="#通用门-universal-quantum-gates" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+
+<p>在经典计算中，任何的函数都可以用一组通用门来描述。相应的，在量子计算中任意的幺正算符也可以用一组通用门描述，<code>Hadamard</code>，<code>CNOT</code>，<code>PHASEGATE（pi/4）</code>，<code>PHASEGATE(pi/8)</code></p>
+
+<h2 id="测量-measurement">测量(Measurement)<a href="#测量-measurement" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+
+<p>不失一般性的，可以假设在量子电路的末端测量未测量的量子比特</p>
+
+<p><img src="/img/qc_gate_img10.png" alt="img10" /></p>
+
+<p>对bell基的测量</p>
+
+<p><img src="/img/qc_gate_img11.png" alt="img11" /></p>
+
+<p>测量与控制算符的对易关系，单线表示量子信息的传递，双线表示经典信息的传递</p>
+
+<p><img src="/img/qc_gate_ing12.png" alt="img12" /></p>
+
 			</div>
 			<hr class="post-end">
 			<footer class="post-info">
 				<p>
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://boseliao.github.io/tags/quantum-compute">Quantum Compute</a></span>
 				</p>
-				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>321 Words</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>329 Words</p>
 				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2020-05-27 21:27 &#43;0800</p>
 			</footer>
 		</article>
 		<div class="post-nav thin">
+			<a class="next-post" href="https://boseliao.github.io/posts/qcquantum_algorithm/">
+				<span class="post-nav-label"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>&nbsp;Newer</span><br><span>QC:quantum_algorithm</span>
+			</a>
 			<a class="prev-post" href="https://boseliao.github.io/posts/qcspin/">
 				<span class="post-nav-label">Older&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span><br><span>QC:spin</span>
 			</a>

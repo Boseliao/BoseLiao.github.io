@@ -7,10 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Wed, 27 May 2020 21:27:15 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 02 Jun 2020 07:46:20 +0800</lastBuildDate>
     
 	<atom:link href="https://boseliao.github.io/tags/quantum-compute/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>QC:quantum_algorithm</title>
+      <link>https://boseliao.github.io/posts/qcquantum_algorithm/</link>
+      <pubDate>Tue, 02 Jun 2020 07:46:20 +0800</pubDate>
+      
+      <guid>https://boseliao.github.io/posts/qcquantum_algorithm/</guid>
+      <description>量子并行运算是一些量子算法中最基本的属性。它允许量子计算机对于不同的x能够同时计算f(x)。首先，考虑两个量子比特的幺正操作。 $$ U_f|x,y\rangle=|x,y\oplus f(x)\rangle $$ 其中，第一个qubit储存自变量的数据，而第二个qubit储存函数值。容易证明Uf操作总是一个幺正算符。 $$ \langle x\prime,y\prime|U_f|x,y\rangle=\langle x\prime,y\prime|x,y\oplus f(x)\rangle=\delta_{x\prime,x}\delta_{y\prime,y\oplus f(x)}=\delta_{x,x\prime}\delta_{y,y\prime\oplus f(x\prime)} $$
+$$ =(\delta_{x,x\prime}\delta_{y,y\prime\oplus f(x\prime)})^*=(\langle x,y|U_f|x\prime,y\prime\rangle)^* $$
+所以， $$ U_f=U_f^{\dagger} $$ 而 $$ U_f^2|x\rangle|y\rangle=|x\rangle|y\oplus f(x)\oplus f(x)\rangle=|x\rangle|y\rangle $$ 即 $$ U_f^2=1 $$ 任一二进制数可以表示为 $$ x=(x_{n-1},\cdots,x_0) $$ 对应的任一函数可以表示 $$ f(x^{(i)})=1,i=0,\cdots,m;f(x^{(i)})=0,i=m+1,\cdots,n-1 $$ 定义小项函数 $$ f^{(i)}(x)= \left[\begin{array}{lr} 1 \quad (x=x^{(i)}) \newline \newline 0 \quad (x \ne x^{(i)}) \end{array}\right. $$
+则任一函数可以用小项函数来表示 $$ f(x)=f^{(1)}(x)\vee f^{(2)}(x)\vee\cdots f^{(m)}(x) $$ 每个小项函数对应于Cn-NOT操作。
+量子加法器 对量子信息a和b进行加法，其进位储存在c $$ a=(a_{n-1},\cdots,a_0);b=(b_{n-1},\cdots,b_0);c=(c_{n},\cdots,c_0) $$ 量子加法器由两个模块组成，加法模块SUM(ai,bi,ci)和CARRY(ai,bi,ci)， $$ SUM(a_i,b_i,c_i):s_i=a_i\oplus b_i\oplus c_i $$</description>
+    </item>
     
     <item>
       <title>QC:qubit_gate</title>
