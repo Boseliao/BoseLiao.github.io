@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="theme-color" content="#494f5c">
+	<meta name="msapplication-TileColor" content="#494f5c">
+
+<meta itemprop="name" content="QC:quantum_FourierT">
+<meta itemprop="description" content="在一些数学或计算科学问题中，傅里叶变换是一种非常常用的手段，用于将待解决的问题转换成已知的问题。 $$ \tilde{f}(k)=\frac{1}{\sqrt{N}}\sum_{j=0}^{N-1}\exp(2\pi i\frac{jk}{N})f(j) $$ 相应的量子傅里叶变换是将算符作用到某一态|j&gt;上得到由一组正交归一的基|0&gt;,...,|N-1&gt;线性叠加的态， $$ F|j\rangle=\frac{1}{\sqrt{N}}\sum_{k=0}^{N-1}\exp(2\pi i\frac{jk}{N})|k\rangle $$ 结合上面两个式子， $$ F\sum_{j=0}^{N-1}f(j)|j\rangle=\sum_{k=0}^{N-1}\tilde{f}(k)|k\rangle $$ 显然F的矩阵形式 $$ F_{kj}=\frac{1}{\sqrt{2^n}}\exp(2\pi i\frac{jk}{2^n}) $$ 如果有n个量子比特，则N=2^n，量子态可以写成 $$ |j\rangle=|j_{n-1},\cdots,j_0\rangle;j=j_{n-1}2^{n-1}&#43;\cdots&#43;j_02^0 $$
+$$ |k\rangle=|k_{n-1},\cdots,k_0\rangle;k=k_{n-1}2^{n-1}&#43;\cdots&#43;k_02^0 $$
+所以(2)式可以写成 $$ F|j_{n-1},\cdots,j_0\rangle=\frac{1}{\sqrt{2^n}}\sum_{k_{n-1}=0}^{1}\cdots\sum_{k_0=0}^{1}\exp(2\pi ij\sum_l\frac{2^lk_l}{2^n})|k_{n-1}\cdots k_0\rangle $$
+$$ l\to n-l,=\frac{1}{\sqrt{2^n}}\otimes_{l=1}^{n}\sum_{k_{n-l}=0}^1\exp(2\pi ij\sum_l\frac{2^lk_l}{2^n})|k_{n-l}\rangle_{n-l}=\frac{1}{\sqrt{2^n}}\otimes_{l=1}^{n}\left(|0\rangle_{n-l}&#43;e^{2\pi ij/2^l}|1\rangle_{n-l} \right) $$
+由于 $$ e^{2\pi in}=1,e^{2\pi ij/2^l}=e^{2\pi i0.j_{l-1}\cdots j_0} $$
+电路构造 Hadmard门 $$ H|j_{n-1}\rangle=\frac{1}{\sqrt{2}}\left(|0\rangle&#43;(-1)^{j_{n-1}}|1\rangle \right)=\frac{1}{\sqrt{2}}\left(|0\rangle&#43;e^{2\pi ij_{n-1}/2}|1\rangle \right) $$ C-R_k，受控相移门 $$ R_k=\left[\begin{array}{lr} 1 \quad 0 \newline \newline 0 \quad e^{\frac{2\pi i}{2^k}} \end{array}\right] $$ 量子傅里叶变换电路">
+
+
+<meta itemprop="datePublished" content="2020-06-08T17:39:53&#43;08:00" />
+<meta itemprop="dateModified" content="2020-06-08T17:39:53&#43;08:00" />
+<meta itemprop="wordCount" content="174">
+
+
+
+<meta itemprop="keywords" content="Quantum Compute," />
+<meta property="og:title" content="QC:quantum_FourierT" />
+<meta property="og:description" content="在一些数学或计算科学问题中，傅里叶变换是一种非常常用的手段，用于将待解决的问题转换成已知的问题。 $$ \tilde{f}(k)=\frac{1}{\sqrt{N}}\sum_{j=0}^{N-1}\exp(2\pi i\frac{jk}{N})f(j) $$ 相应的量子傅里叶变换是将算符作用到某一态|j&gt;上得到由一组正交归一的基|0&gt;,...,|N-1&gt;线性叠加的态， $$ F|j\rangle=\frac{1}{\sqrt{N}}\sum_{k=0}^{N-1}\exp(2\pi i\frac{jk}{N})|k\rangle $$ 结合上面两个式子， $$ F\sum_{j=0}^{N-1}f(j)|j\rangle=\sum_{k=0}^{N-1}\tilde{f}(k)|k\rangle $$ 显然F的矩阵形式 $$ F_{kj}=\frac{1}{\sqrt{2^n}}\exp(2\pi i\frac{jk}{2^n}) $$ 如果有n个量子比特，则N=2^n，量子态可以写成 $$ |j\rangle=|j_{n-1},\cdots,j_0\rangle;j=j_{n-1}2^{n-1}&#43;\cdots&#43;j_02^0 $$
+$$ |k\rangle=|k_{n-1},\cdots,k_0\rangle;k=k_{n-1}2^{n-1}&#43;\cdots&#43;k_02^0 $$
+所以(2)式可以写成 $$ F|j_{n-1},\cdots,j_0\rangle=\frac{1}{\sqrt{2^n}}\sum_{k_{n-1}=0}^{1}\cdots\sum_{k_0=0}^{1}\exp(2\pi ij\sum_l\frac{2^lk_l}{2^n})|k_{n-1}\cdots k_0\rangle $$
+$$ l\to n-l,=\frac{1}{\sqrt{2^n}}\otimes_{l=1}^{n}\sum_{k_{n-l}=0}^1\exp(2\pi ij\sum_l\frac{2^lk_l}{2^n})|k_{n-l}\rangle_{n-l}=\frac{1}{\sqrt{2^n}}\otimes_{l=1}^{n}\left(|0\rangle_{n-l}&#43;e^{2\pi ij/2^l}|1\rangle_{n-l} \right) $$
+由于 $$ e^{2\pi in}=1,e^{2\pi ij/2^l}=e^{2\pi i0.j_{l-1}\cdots j_0} $$
+电路构造 Hadmard门 $$ H|j_{n-1}\rangle=\frac{1}{\sqrt{2}}\left(|0\rangle&#43;(-1)^{j_{n-1}}|1\rangle \right)=\frac{1}{\sqrt{2}}\left(|0\rangle&#43;e^{2\pi ij_{n-1}/2}|1\rangle \right) $$ C-R_k，受控相移门 $$ R_k=\left[\begin{array}{lr} 1 \quad 0 \newline \newline 0 \quad e^{\frac{2\pi i}{2^k}} \end{array}\right] $$ 量子傅里叶变换电路" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://boseliao.github.io/posts/qcquantum_fouriert/" />
+<meta property="article:published_time" content="2020-06-08T17:39:53&#43;08:00"/>
+<meta property="article:modified_time" content="2020-06-08T17:39:53&#43;08:00"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="QC:quantum_FourierT"/>
+<meta name="twitter:description" content="在一些数学或计算科学问题中，傅里叶变换是一种非常常用的手段，用于将待解决的问题转换成已知的问题。 $$ \tilde{f}(k)=\frac{1}{\sqrt{N}}\sum_{j=0}^{N-1}\exp(2\pi i\frac{jk}{N})f(j) $$ 相应的量子傅里叶变换是将算符作用到某一态|j&gt;上得到由一组正交归一的基|0&gt;,...,|N-1&gt;线性叠加的态， $$ F|j\rangle=\frac{1}{\sqrt{N}}\sum_{k=0}^{N-1}\exp(2\pi i\frac{jk}{N})|k\rangle $$ 结合上面两个式子， $$ F\sum_{j=0}^{N-1}f(j)|j\rangle=\sum_{k=0}^{N-1}\tilde{f}(k)|k\rangle $$ 显然F的矩阵形式 $$ F_{kj}=\frac{1}{\sqrt{2^n}}\exp(2\pi i\frac{jk}{2^n}) $$ 如果有n个量子比特，则N=2^n，量子态可以写成 $$ |j\rangle=|j_{n-1},\cdots,j_0\rangle;j=j_{n-1}2^{n-1}&#43;\cdots&#43;j_02^0 $$
+$$ |k\rangle=|k_{n-1},\cdots,k_0\rangle;k=k_{n-1}2^{n-1}&#43;\cdots&#43;k_02^0 $$
+所以(2)式可以写成 $$ F|j_{n-1},\cdots,j_0\rangle=\frac{1}{\sqrt{2^n}}\sum_{k_{n-1}=0}^{1}\cdots\sum_{k_0=0}^{1}\exp(2\pi ij\sum_l\frac{2^lk_l}{2^n})|k_{n-1}\cdots k_0\rangle $$
+$$ l\to n-l,=\frac{1}{\sqrt{2^n}}\otimes_{l=1}^{n}\sum_{k_{n-l}=0}^1\exp(2\pi ij\sum_l\frac{2^lk_l}{2^n})|k_{n-l}\rangle_{n-l}=\frac{1}{\sqrt{2^n}}\otimes_{l=1}^{n}\left(|0\rangle_{n-l}&#43;e^{2\pi ij/2^l}|1\rangle_{n-l} \right) $$
+由于 $$ e^{2\pi in}=1,e^{2\pi ij/2^l}=e^{2\pi i0.j_{l-1}\cdots j_0} $$
+电路构造 Hadmard门 $$ H|j_{n-1}\rangle=\frac{1}{\sqrt{2}}\left(|0\rangle&#43;(-1)^{j_{n-1}}|1\rangle \right)=\frac{1}{\sqrt{2}}\left(|0\rangle&#43;e^{2\pi ij_{n-1}/2}|1\rangle \right) $$ C-R_k，受控相移门 $$ R_k=\left[\begin{array}{lr} 1 \quad 0 \newline \newline 0 \quad e^{\frac{2\pi i}{2^k}} \end{array}\right] $$ 量子傅里叶变换电路"/>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="">
+	<link rel="shortcut icon" href="/favicon.ico">
+
+	<title>QC:quantum_FourierT</title>
+	<link rel="stylesheet" href="https://boseliao.github.io/css/style.min.657bcb7af31123e4156b1a3d2ff60a636717e54ead74f882136b5114cf72b55e.css" integrity="sha256-ZXvLevMRI+QVaxo9L/YKY2cX5U6tdPiCE2tRFM9ytV4=" crossorigin="anonymous">
+	
+</head>
+
+<body id="page">
+	
+	<header id="site-header" class="animated slideInUp faster">
+		<div class="hdr-wrapper section-inner">
+			<div class="hdr-left">
+				<div class="site-branding">
+					<a href="https://boseliao.github.io">BoseLiao&#39;s Blog</a>
+				</div>
+				<nav class="site-nav hide-in-mobile">
+					
+				<a href="https://boseliao.github.io/posts/">Posts</a>
+				<a href="https://boseliao.github.io/boseliao">About</a>
+
+				</nav>
+			</div>
+			<div class="hdr-right hdr-icons">
+				<button id="menu-btn" class="hdr-btn" title="Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+			</div>
+		</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+	</header>
+	<div id="mobile-menu" class="animated fast">
+		<ul>
+			<li><a href="https://boseliao.github.io/posts/">Posts</a></li>
+			<li><a href="https://boseliao.github.io/boseliao">About</a></li>
+		</ul>
+	</div>
+
+
+	<main class="site-main section-inner animated fadeIn faster">
+		<article class="thin">
+			<header class="post-header">
+				<div class="post-meta"><span>Jun 8, 2020</span></div>
+				<h1>QC:quantum_FourierT</h1>
+			</header>
+			<div class="content">
+				
+
+<p>在一些数学或计算科学问题中，傅里叶变换是一种非常常用的手段，用于将待解决的问题转换成已知的问题。
+$$
+\tilde{f}(k)=\frac{1}{\sqrt{N}}\sum_{j=0}^{N-1}\exp(2\pi i\frac{jk}{N})f(j)
+$$
+相应的量子傅里叶变换是将算符作用到某一态<code>|j&gt;</code>上得到由一组正交归一的基<code>|0&gt;,...,|N-1&gt;</code>线性叠加的态，
+$$
+F|j\rangle=\frac{1}{\sqrt{N}}\sum_{k=0}^{N-1}\exp(2\pi i\frac{jk}{N})|k\rangle
+$$
+结合上面两个式子，
+$$
+F\sum_{j=0}^{N-1}f(j)|j\rangle=\sum_{k=0}^{N-1}\tilde{f}(k)|k\rangle
+$$
+显然F的矩阵形式
+$$
+F_{kj}=\frac{1}{\sqrt{2^n}}\exp(2\pi i\frac{jk}{2^n})
+$$
+如果有n个量子比特，则<code>N=2^n</code>，量子态可以写成
+$$
+|j\rangle=|j_{n-1},\cdots,j_0\rangle;j=j_{n-1}2^{n-1}+\cdots+j_02^0
+$$</p>
+
+<p>$$
+|k\rangle=|k_{n-1},\cdots,k_0\rangle;k=k_{n-1}2^{n-1}+\cdots+k_02^0
+$$</p>
+
+<p>所以(2)式可以写成
+$$
+F|j_{n-1},\cdots,j_0\rangle=\frac{1}{\sqrt{2^n}}\sum_{k_{n-1}=0}^{1}\cdots\sum_{k_0=0}^{1}\exp(2\pi ij\sum_l\frac{2^lk_l}{2^n})|k_{n-1}\cdots k_0\rangle
+$$</p>
+
+<p>$$
+l\to n-l,=\frac{1}{\sqrt{2^n}}\otimes_{l=1}^{n}\sum_{k_{n-l}=0}^1\exp(2\pi ij\sum_l\frac{2^lk_l}{2^n})|k_{n-l}\rangle_{n-l}=\frac{1}{\sqrt{2^n}}\otimes_{l=1}^{n}\left(|0\rangle_{n-l}+e^{2\pi ij/2^l}|1\rangle_{n-l} \right)
+$$</p>
+
+<p>由于
+$$
+e^{2\pi in}=1,e^{2\pi ij/2^l}=e^{2\pi i0.j_{l-1}\cdots j_0}
+$$</p>
+
+<h2 id="电路构造">电路构造<a href="#电路构造" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+
+<p><code>Hadmard</code>门
+$$
+H|j_{n-1}\rangle=\frac{1}{\sqrt{2}}\left(|0\rangle+(-1)^{j_{n-1}}|1\rangle \right)=\frac{1}{\sqrt{2}}\left(|0\rangle+e^{2\pi ij_{n-1}/2}|1\rangle \right)
+$$
+<code>C-R_k</code>，受控相移门
+$$
+R_k=\left[\begin{array}{lr}
+1 \quad 0  \newline
+\newline
+0 \quad e^{\frac{2\pi i}{2^k}}
+\end{array}\right]
+$$
+量子傅里叶变换电路</p>
+
+<p><img src="/img/qc_FT.png" alt="img" /></p>
+
+<p>图中输入，从上到下依次为
+$$
+j_{n-1},j_{n-2},\cdots,j_0
+$$
+输出
+$$
+\frac{1}{\sqrt{2^n}}\left(|0\rangle_{n-1}+e^{2\pi i0.j_{n-1}\cdots j_0}|1\rangle_{n-1} \right)\cdots\left(|0\rangle_0+e^{2\pi i0.j_0}|1\rangle_0 \right)
+$$
+对比我们的结果，需要对第<code>i</code>比特和<code>n-1-i</code>比特作用<code>SWAP</code>门。</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">qutip</span> <span class="kn">as</span> <span class="nn">qt</span>
+<span class="kn">from</span> <span class="nn">qutip.qip.circuit</span> <span class="kn">import</span> <span class="n">QubitCircuit</span><span class="p">,</span> <span class="n">Gate</span>
+<span class="kn">from</span> <span class="nn">qutip.qip</span> <span class="kn">import</span> <span class="n">gates</span>
+<span class="n">qc</span><span class="o">=</span><span class="n">QubitCircuit</span><span class="p">(</span><span class="n">N</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;SNOT&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CPHASE&#34;</span><span class="p">,</span><span class="n">controls</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">arg_value</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CPHASE&#34;</span><span class="p">,</span><span class="n">controls</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">arg_value</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CPHASE&#34;</span><span class="p">,</span><span class="n">controls</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">arg_value</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mf">4.</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;SNOT&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CPHASE&#34;</span><span class="p">,</span><span class="n">controls</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">arg_value</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CPHASE&#34;</span><span class="p">,</span><span class="n">controls</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">arg_value</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;SNOT&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CPHASE&#34;</span><span class="p">,</span><span class="n">controls</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">arg_value</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;SNOT&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">U_list</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">propagators</span><span class="p">()</span>
+<span class="kn">from</span> <span class="nn">qutip.qip.operations</span> <span class="kn">import</span> <span class="n">gate_sequence_product</span>
+<span class="n">U</span> <span class="o">=</span> <span class="n">gate_sequence_product</span><span class="p">(</span><span class="n">U_list</span><span class="p">)</span>
+<span class="n">j_0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">j_1</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">j_2</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">j_3</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">psi0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">j_0</span><span class="p">,</span><span class="n">j_1</span><span class="p">,</span><span class="n">j_2</span><span class="p">,</span><span class="n">j_3</span><span class="p">)</span>
+<span class="n">psit</span><span class="o">=</span><span class="n">U</span><span class="o">*</span><span class="n">psi0</span>
+<span class="s2">&#34;&#34;&#34;
+</span><span class="s2">output
+</span><span class="s2">&#34;&#34;&#34;</span>
+<span class="n">k_3</span><span class="o">=</span><span class="n">psit</span><span class="o">.</span><span class="n">ptrace</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">k_2</span><span class="o">=</span><span class="n">psit</span><span class="o">.</span><span class="n">ptrace</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">k_1</span><span class="o">=</span><span class="n">psit</span><span class="o">.</span><span class="n">ptrace</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">k_0</span><span class="o">=</span><span class="n">psit</span><span class="o">.</span><span class="n">ptrace</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span></code></pre></div>
+<p>逆傅里叶变换</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">qc</span><span class="o">=</span><span class="n">QubitCircuit</span><span class="p">(</span><span class="n">N</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;SNOT&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CPHASE&#34;</span><span class="p">,</span><span class="n">controls</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">arg_value</span><span class="o">=-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;SNOT&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CPHASE&#34;</span><span class="p">,</span><span class="n">controls</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">arg_value</span><span class="o">=-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CPHASE&#34;</span><span class="p">,</span><span class="n">controls</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">arg_value</span><span class="o">=-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;SNOT&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CPHASE&#34;</span><span class="p">,</span><span class="n">controls</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">arg_value</span><span class="o">=-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mf">4.</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CPHASE&#34;</span><span class="p">,</span><span class="n">controls</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">arg_value</span><span class="o">=-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CPHASE&#34;</span><span class="p">,</span><span class="n">controls</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">arg_value</span><span class="o">=-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;SNOT&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">U_list</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">propagators</span><span class="p">()</span>
+<span class="kn">from</span> <span class="nn">qutip.qip.operations</span> <span class="kn">import</span> <span class="n">gate_sequence_product</span>
+<span class="n">U</span> <span class="o">=</span> <span class="n">gate_sequence_product</span><span class="p">(</span><span class="n">U_list</span><span class="p">)</span>
+<span class="n">k_3</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">k_2</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">k_1</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">k_0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">psi0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">j_0</span><span class="p">,</span><span class="n">j_1</span><span class="p">,</span><span class="n">j_2</span><span class="p">,</span><span class="n">j_3</span><span class="p">)</span>
+<span class="n">psit</span><span class="o">=</span><span class="n">U</span><span class="o">*</span><span class="n">psi0</span>
+<span class="s2">&#34;&#34;&#34;
+</span><span class="s2">output
+</span><span class="s2">&#34;&#34;&#34;</span>
+<span class="n">j_0</span><span class="o">=</span><span class="n">psit</span><span class="o">.</span><span class="n">ptrace</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">j_1</span><span class="o">=</span><span class="n">psit</span><span class="o">.</span><span class="n">ptrace</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">j_2</span><span class="o">=</span><span class="n">psit</span><span class="o">.</span><span class="n">ptrace</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">j_3</span><span class="o">=</span><span class="n">psit</span><span class="o">.</span><span class="n">ptrace</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span></code></pre></div>
+			</div>
+			<hr class="post-end">
+			<footer class="post-info">
+				<p>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://boseliao.github.io/tags/quantum-compute">Quantum Compute</a></span>
+				</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>174 Words</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2020-06-08 17:39 &#43;0800</p>
+			</footer>
+		</article>
+		<div class="post-nav thin">
+			<a class="prev-post" href="https://boseliao.github.io/posts/qcquantum_algorithm/">
+				<span class="post-nav-label">Older&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span><br><span>QC:quantum_algorithm</span>
+			</a>
+		</div>
+		<div id="comments" class="thin">
+</div>
+	</main>
+
+	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
+		<p>&copy; 2020 <a href="https://boseliao.github.io">BoseLiao</a> &#183; <a hr#ef="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">All rights reserved</a></p>
+	</footer>
+
+
+
+	<script src="https://boseliao.github.io/js/bundle.min.490e43e5af6db5906f28afa49a4e16bf9f626b758e3fca92f146b870eb94bb37.js" integrity="sha256-SQ5D5a9ttZBvKK+kmk4Wv59ia3WOP8qS8Ua4cOuUuzc=" crossorigin="anonymous"></script>
+	
+
+</body>
+
+</html>

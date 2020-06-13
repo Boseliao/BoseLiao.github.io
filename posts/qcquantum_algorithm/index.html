@@ -9,7 +9,7 @@
 	<meta name="msapplication-TileColor" content="#494f5c">
 
 <meta itemprop="name" content="QC:quantum_algorithm">
-<meta itemprop="description" content="量子并行运算是一些量子算法中最基本的属性。它允许量子计算机对于不同的x能够同时计算f(x)。首先，考虑两个量子比特的幺正操作。 $$ U_f|x,y\rangle=|x,y\oplus f(x)\rangle $$ 其中，第一个qubit储存自变量的数据，而第二个qubit储存函数值。容易证明Uf操作总是一个幺正算符。 $$ \langle x\prime,y\prime|U_f|x,y\rangle=\langle x\prime,y\prime|x,y\oplus f(x)\rangle=\delta_{x\prime,x}\delta_{y\prime,y\oplus f(x)}=\delta_{x,x\prime}\delta_{y,y\prime\oplus f(x\prime)} $$
+<meta itemprop="description" content="量子并行运算是一些量子算法中最基本的属性。它允许量子计算机对于不同的x能够同时计算f(x)。首先，考虑两个量子比特的幺正操作。 $$ U_f|x,y\rangle=|x,y\oplus f(x)\rangle $$ 其中，第一个寄存器储存自变量的数据，而第二个寄存器储存函数值。容易证明Uf操作总是一个幺正算符。 $$ \langle x\prime,y\prime|U_f|x,y\rangle=\langle x\prime,y\prime|x,y\oplus f(x)\rangle=\delta_{x\prime,x}\delta_{y\prime,y\oplus f(x)}=\delta_{x,x\prime}\delta_{y,y\prime\oplus f(x\prime)} $$
 $$ =(\delta_{x,x\prime}\delta_{y,y\prime\oplus f(x\prime)})^*=(\langle x,y|U_f|x\prime,y\prime\rangle)^* $$
 所以， $$ U_f=U_f^{\dagger} $$ 而 $$ U_f^2|x\rangle|y\rangle=|x\rangle|y\oplus f(x)\oplus f(x)\rangle=|x\rangle|y\rangle $$ 即 $$ U_f^2=1 $$ 任一二进制数可以表示为 $$ x=(x_{n-1},\cdots,x_0) $$ 对应的任一函数可以表示 $$ f(x^{(i)})=1,i=0,\cdots,m;f(x^{(i)})=0,i=m&#43;1,\cdots,n-1 $$ 定义小项函数 $$ f^{(i)}(x)= \left[\begin{array}{lr} 1 \quad (x=x^{(i)}) \newline \newline 0 \quad (x \ne x^{(i)}) \end{array}\right. $$
 则任一函数可以用小项函数来表示 $$ f(x)=f^{(1)}(x)\vee f^{(2)}(x)\vee\cdots f^{(m)}(x) $$ 每个小项函数对应于Cn-NOT操作。
@@ -24,7 +24,7 @@ $$ =(\delta_{x,x\prime}\delta_{y,y\prime\oplus f(x\prime)})^*=(\langle x,y|U_f|x
 
 <meta itemprop="keywords" content="Quantum Compute," />
 <meta property="og:title" content="QC:quantum_algorithm" />
-<meta property="og:description" content="量子并行运算是一些量子算法中最基本的属性。它允许量子计算机对于不同的x能够同时计算f(x)。首先，考虑两个量子比特的幺正操作。 $$ U_f|x,y\rangle=|x,y\oplus f(x)\rangle $$ 其中，第一个qubit储存自变量的数据，而第二个qubit储存函数值。容易证明Uf操作总是一个幺正算符。 $$ \langle x\prime,y\prime|U_f|x,y\rangle=\langle x\prime,y\prime|x,y\oplus f(x)\rangle=\delta_{x\prime,x}\delta_{y\prime,y\oplus f(x)}=\delta_{x,x\prime}\delta_{y,y\prime\oplus f(x\prime)} $$
+<meta property="og:description" content="量子并行运算是一些量子算法中最基本的属性。它允许量子计算机对于不同的x能够同时计算f(x)。首先，考虑两个量子比特的幺正操作。 $$ U_f|x,y\rangle=|x,y\oplus f(x)\rangle $$ 其中，第一个寄存器储存自变量的数据，而第二个寄存器储存函数值。容易证明Uf操作总是一个幺正算符。 $$ \langle x\prime,y\prime|U_f|x,y\rangle=\langle x\prime,y\prime|x,y\oplus f(x)\rangle=\delta_{x\prime,x}\delta_{y\prime,y\oplus f(x)}=\delta_{x,x\prime}\delta_{y,y\prime\oplus f(x\prime)} $$
 $$ =(\delta_{x,x\prime}\delta_{y,y\prime\oplus f(x\prime)})^*=(\langle x,y|U_f|x\prime,y\prime\rangle)^* $$
 所以， $$ U_f=U_f^{\dagger} $$ 而 $$ U_f^2|x\rangle|y\rangle=|x\rangle|y\oplus f(x)\oplus f(x)\rangle=|x\rangle|y\rangle $$ 即 $$ U_f^2=1 $$ 任一二进制数可以表示为 $$ x=(x_{n-1},\cdots,x_0) $$ 对应的任一函数可以表示 $$ f(x^{(i)})=1,i=0,\cdots,m;f(x^{(i)})=0,i=m&#43;1,\cdots,n-1 $$ 定义小项函数 $$ f^{(i)}(x)= \left[\begin{array}{lr} 1 \quad (x=x^{(i)}) \newline \newline 0 \quad (x \ne x^{(i)}) \end{array}\right. $$
 则任一函数可以用小项函数来表示 $$ f(x)=f^{(1)}(x)\vee f^{(2)}(x)\vee\cdots f^{(m)}(x) $$ 每个小项函数对应于Cn-NOT操作。
@@ -35,7 +35,7 @@ $$ =(\delta_{x,x\prime}\delta_{y,y\prime\oplus f(x\prime)})^*=(\langle x,y|U_f|x
 <meta property="article:modified_time" content="2020-06-02T07:46:20&#43;08:00"/>
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="QC:quantum_algorithm"/>
-<meta name="twitter:description" content="量子并行运算是一些量子算法中最基本的属性。它允许量子计算机对于不同的x能够同时计算f(x)。首先，考虑两个量子比特的幺正操作。 $$ U_f|x,y\rangle=|x,y\oplus f(x)\rangle $$ 其中，第一个qubit储存自变量的数据，而第二个qubit储存函数值。容易证明Uf操作总是一个幺正算符。 $$ \langle x\prime,y\prime|U_f|x,y\rangle=\langle x\prime,y\prime|x,y\oplus f(x)\rangle=\delta_{x\prime,x}\delta_{y\prime,y\oplus f(x)}=\delta_{x,x\prime}\delta_{y,y\prime\oplus f(x\prime)} $$
+<meta name="twitter:description" content="量子并行运算是一些量子算法中最基本的属性。它允许量子计算机对于不同的x能够同时计算f(x)。首先，考虑两个量子比特的幺正操作。 $$ U_f|x,y\rangle=|x,y\oplus f(x)\rangle $$ 其中，第一个寄存器储存自变量的数据，而第二个寄存器储存函数值。容易证明Uf操作总是一个幺正算符。 $$ \langle x\prime,y\prime|U_f|x,y\rangle=\langle x\prime,y\prime|x,y\oplus f(x)\rangle=\delta_{x\prime,x}\delta_{y\prime,y\oplus f(x)}=\delta_{x,x\prime}\delta_{y,y\prime\oplus f(x\prime)} $$
 $$ =(\delta_{x,x\prime}\delta_{y,y\prime\oplus f(x\prime)})^*=(\langle x,y|U_f|x\prime,y\prime\rangle)^* $$
 所以， $$ U_f=U_f^{\dagger} $$ 而 $$ U_f^2|x\rangle|y\rangle=|x\rangle|y\oplus f(x)\oplus f(x)\rangle=|x\rangle|y\rangle $$ 即 $$ U_f^2=1 $$ 任一二进制数可以表示为 $$ x=(x_{n-1},\cdots,x_0) $$ 对应的任一函数可以表示 $$ f(x^{(i)})=1,i=0,\cdots,m;f(x^{(i)})=0,i=m&#43;1,\cdots,n-1 $$ 定义小项函数 $$ f^{(i)}(x)= \left[\begin{array}{lr} 1 \quad (x=x^{(i)}) \newline \newline 0 \quad (x \ne x^{(i)}) \end{array}\right. $$
 则任一函数可以用小项函数来表示 $$ f(x)=f^{(1)}(x)\vee f^{(2)}(x)\vee\cdots f^{(m)}(x) $$ 每个小项函数对应于Cn-NOT操作。
@@ -95,7 +95,7 @@ $$ =(\delta_{x,x\prime}\delta_{y,y\prime\oplus f(x\prime)})^*=(\langle x,y|U_f|x
 $$
 U_f|x,y\rangle=|x,y\oplus f(x)\rangle
 $$
-其中，第一个qubit储存自变量的数据，而第二个qubit储存函数值。容易证明Uf操作总是一个幺正算符。
+其中，第一个寄存器储存自变量的数据，而第二个寄存器储存函数值。容易证明Uf操作总是一个幺正算符。
 $$
 \langle x\prime,y\prime|U_f|x,y\rangle=\langle x\prime,y\prime|x,y\oplus f(x)\rangle=\delta_{x\prime,x}\delta_{y\prime,y\oplus f(x)}=\delta_{x,x\prime}\delta_{y,y\prime\oplus f(x\prime)}
 $$</p>
@@ -297,6 +297,9 @@ $$
 			</footer>
 		</article>
 		<div class="post-nav thin">
+			<a class="next-post" href="https://boseliao.github.io/posts/qcquantum_fouriert/">
+				<span class="post-nav-label"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>&nbsp;Newer</span><br><span>QC:quantum_FourierT</span>
+			</a>
 			<a class="prev-post" href="https://boseliao.github.io/posts/qcqubit_gate/">
 				<span class="post-nav-label">Older&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span><br><span>QC:qubit_gate</span>
 			</a>
