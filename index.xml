@@ -7,10 +7,24 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Mon, 08 Jun 2020 17:39:53 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 13 Jun 2020 18:16:09 +0800</lastBuildDate>
     
 	<atom:link href="https://boseliao.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>QC:quantum_phase_estimation</title>
+      <link>https://boseliao.github.io/posts/qcquantum_phase_estimation/</link>
+      <pubDate>Sat, 13 Jun 2020 18:16:09 +0800</pubDate>
+      
+      <guid>https://boseliao.github.io/posts/qcquantum_phase_estimation/</guid>
+      <description>quantum phase estimation(QPE) 量子相位估计算法应用了量子傅里叶逆变换，同时作为一个实用的基础量子算法，又被应用在Shor&amp;rsquo;s Algorithm（质因式分解算法），和HHL algorithm（经常用于各种量子机器学习的最优化算法）等等算法中。
+假设有一个幺正算符U，具有本征态|u&amp;gt;，以及对应的本征值为e^(i\phi),(0&amp;lt;\phi的量子比特，你的选取将会影响得到\phi的精度以及得到正确本征值的概率。二，第二组寄存器需要足够量子比特存储态|u&amp;gt;。
+由图可知，第一组寄存器的量子比特经过一个Hadmard门和C-U^{2^j}门 $$ |0\rangle\cdots|0\rangle|u\rangle\to Hadamard\to\frac{1}{\sqrt{2^n}}\left(|0\rangle+|1\rangle \right)\cdots\left(|0\rangle+|1\rangle \right)|u\rangle $$
+$$ \to C-U^{2^j}\to\frac{1}{\sqrt{2^n}}\left(|0\rangle+e^{i2^{n-1}\phi}|1\rangle \right)\cdots\left(|0\rangle+e^{i\phi}|1\rangle \right)|u\rangle=\frac{1}{\sqrt{2^n}}\sum_{y=0}^{2^n-1}e^{i\phi y}|y\rangle |u\rangle $$
+这里输出第一组寄存器中的\phi依赖于测量态的概率，但我们测量到的是态而非概率幅度，利用傅里叶变换可以将概率幅度存储的相位存储到量子态中。量子傅里叶逆变换为 $$ QFT^{-1}|y\rangle=\frac{1}{\sqrt{2^n}}\sum_{x=0}^{2^{n}-1}\exp(-2\pi i\frac{xy}{2^n})|x\rangle $$ 将\phi写成 $$ \phi=2\pi\left(\frac{a}{2^n}+\delta \right),\quad a=a_{n-1}\cdots a_0,0&amp;lt;\delta|u&amp;gt;，可以得到本征值 $$ \phi=\frac{2\pi a}{2^n} $$ 当\delta不等于0时，则测到态|a&amp;gt;|u&amp;gt;的概率幅 $$ C_a=\frac{1}{2^n}\sum_{y=0}^{2^n-1}e^{2\pi i\delta y}&amp;gt;\frac{2}{\pi} $$
+import numpy as np import matplotlib.pyplot as plt import qutip as qt from qutip.qip.circuit import QubitCircuit, Gate from qutip.qip import gates def user_gate1(): &amp;#34;&amp;#34;&amp;#34; define C-U:control-qubit=0,u=1;conrol-qubit=1,u=[[1.,0.],[0.,-1.]] &amp;#34;&amp;#34;&amp;#34; mat_control0=qt.</description>
+    </item>
     
     <item>
       <title>QC:quantum_FourierT</title>
@@ -130,26 +144,6 @@ r=np.array([[1,2],[3,4]]) Qobj(r) 其中也定义了一些常用的算符：
 超算符 在Liouville空间中，算符在处理时被视为向量，可以通过
 vec_rho=operator_to_vector(rho) rho=vector_to_operator(vec_rho) 超算符
 X=sigmax() S=spre(X) #I tensor X S1=spost(X) # X tensor I S2=spre(X)*spost(X.</description>
-    </item>
-    
-    <item>
-      <title>QuTip的安装与配置</title>
-      <link>https://boseliao.github.io/posts/qutip%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/</link>
-      <pubDate>Wed, 13 May 2020 10:17:14 +0800</pubDate>
-      
-      <guid>https://boseliao.github.io/posts/qutip%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/</guid>
-      <description>Qutip(Quantum Toolbox in Python)是用于研究量子系统的有力工具，这是python下的一个模块，我们需要下载，安装他。
- 推荐使用conda进行python环境的管理，对于python环境的基本配置可在参考书目1，以及对于Python语句的学习使用参考书目2。QuTip的安装参考指导手册。需要注意的是，在安装完miniconda或者Anaconda之后，需要更新conda使用命令。
-conda update conda  conda的配置   首先使用conda list查看安装的包以及python版本，特别的，模块QuTip的安装依赖以下的包numpy，scipy，cython，pytest并且python的版本必须在3.0以上，需要确认以上包已经被安装在conda环境中。如果没有上述包，则使用如下语句进行包的安装。类似的，Python的IDE也可以用如下命令选择安装skyder。
-conda install package_name 添加conda的频道并更新
-conda config --append channels conda-forge conda config --add channels conda-forge conda update  创建配置python3环境   如果发现Python不是3.0以上版本，可以利用conda创建新的python3环境，并在python3环境中重新配置QuTip。首先使用命令
-conda env list 查看环境列表，在前面带有*表示当前环境，一般处于base环境中。接下来我们创建python3环境，
-conda create -n python3 python=3 这里我们创建了名称为python3，并且安装了python3最新版本的环境。使用命令
-source activate python3 可以激活环境python3。首先，在该环境下查看是否安装了python3以上的版本使用python --version，如果没有使用命令
-conda install python 就可以安装Python3版本。并在环境python3中，重复二步骤检查QuTip的依赖包。
-依旧在python3环境中，使用conda install qutip安装qutip，如果无法搜索到则可以到QuTip官网下载安装包，在python3环境中使用pip安装
-pip install QuTip.* 最后QuTip的测试代码，如果能显示无误，那么就安装成功了。
-import qutip.testing as qt qt.run()  Python物理学高效计算 [return] Python物理建模初学者指南 [return]   </description>
     </item>
     
   </channel>

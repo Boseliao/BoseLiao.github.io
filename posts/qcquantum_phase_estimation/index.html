@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="theme-color" content="#494f5c">
+	<meta name="msapplication-TileColor" content="#494f5c">
+
+<meta itemprop="name" content="QC:quantum_phase_estimation">
+<meta itemprop="description" content="quantum phase estimation(QPE) 量子相位估计算法应用了量子傅里叶逆变换，同时作为一个实用的基础量子算法，又被应用在Shor&rsquo;s Algorithm（质因式分解算法），和HHL algorithm（经常用于各种量子机器学习的最优化算法）等等算法中。
+假设有一个幺正算符U，具有本征态|u&gt;，以及对应的本征值为e^(i\phi),(0&lt;\phi的量子比特，你的选取将会影响得到\phi的精度以及得到正确本征值的概率。二，第二组寄存器需要足够量子比特存储态|u&gt;。
+由图可知，第一组寄存器的量子比特经过一个Hadmard门和C-U^{2^j}门 $$ |0\rangle\cdots|0\rangle|u\rangle\to Hadamard\to\frac{1}{\sqrt{2^n}}\left(|0\rangle&#43;|1\rangle \right)\cdots\left(|0\rangle&#43;|1\rangle \right)|u\rangle $$
+$$ \to C-U^{2^j}\to\frac{1}{\sqrt{2^n}}\left(|0\rangle&#43;e^{i2^{n-1}\phi}|1\rangle \right)\cdots\left(|0\rangle&#43;e^{i\phi}|1\rangle \right)|u\rangle=\frac{1}{\sqrt{2^n}}\sum_{y=0}^{2^n-1}e^{i\phi y}|y\rangle |u\rangle $$
+这里输出第一组寄存器中的\phi依赖于测量态的概率，但我们测量到的是态而非概率幅度，利用傅里叶变换可以将概率幅度存储的相位存储到量子态中。量子傅里叶逆变换为 $$ QFT^{-1}|y\rangle=\frac{1}{\sqrt{2^n}}\sum_{x=0}^{2^{n}-1}\exp(-2\pi i\frac{xy}{2^n})|x\rangle $$ 将\phi写成 $$ \phi=2\pi\left(\frac{a}{2^n}&#43;\delta \right),\quad a=a_{n-1}\cdots a_0,0&lt;\delta|u&gt;，可以得到本征值 $$ \phi=\frac{2\pi a}{2^n} $$ 当\delta不等于0时，则测到态|a&gt;|u&gt;的概率幅 $$ C_a=\frac{1}{2^n}\sum_{y=0}^{2^n-1}e^{2\pi i\delta y}&gt;\frac{2}{\pi} $$
+import numpy as np import matplotlib.pyplot as plt import qutip as qt from qutip.qip.circuit import QubitCircuit, Gate from qutip.qip import gates def user_gate1(): &#34;&#34;&#34; define C-U:control-qubit=0,u=1;conrol-qubit=1,u=[[1.,0.],[0.,-1.]] &#34;&#34;&#34; mat_control0=qt.">
+
+
+<meta itemprop="datePublished" content="2020-06-13T18:16:09&#43;08:00" />
+<meta itemprop="dateModified" content="2020-06-13T18:16:09&#43;08:00" />
+<meta itemprop="wordCount" content="128">
+
+
+
+<meta itemprop="keywords" content="Quantum Compute," />
+<meta property="og:title" content="QC:quantum_phase_estimation" />
+<meta property="og:description" content="quantum phase estimation(QPE) 量子相位估计算法应用了量子傅里叶逆变换，同时作为一个实用的基础量子算法，又被应用在Shor&rsquo;s Algorithm（质因式分解算法），和HHL algorithm（经常用于各种量子机器学习的最优化算法）等等算法中。
+假设有一个幺正算符U，具有本征态|u&gt;，以及对应的本征值为e^(i\phi),(0&lt;\phi的量子比特，你的选取将会影响得到\phi的精度以及得到正确本征值的概率。二，第二组寄存器需要足够量子比特存储态|u&gt;。
+由图可知，第一组寄存器的量子比特经过一个Hadmard门和C-U^{2^j}门 $$ |0\rangle\cdots|0\rangle|u\rangle\to Hadamard\to\frac{1}{\sqrt{2^n}}\left(|0\rangle&#43;|1\rangle \right)\cdots\left(|0\rangle&#43;|1\rangle \right)|u\rangle $$
+$$ \to C-U^{2^j}\to\frac{1}{\sqrt{2^n}}\left(|0\rangle&#43;e^{i2^{n-1}\phi}|1\rangle \right)\cdots\left(|0\rangle&#43;e^{i\phi}|1\rangle \right)|u\rangle=\frac{1}{\sqrt{2^n}}\sum_{y=0}^{2^n-1}e^{i\phi y}|y\rangle |u\rangle $$
+这里输出第一组寄存器中的\phi依赖于测量态的概率，但我们测量到的是态而非概率幅度，利用傅里叶变换可以将概率幅度存储的相位存储到量子态中。量子傅里叶逆变换为 $$ QFT^{-1}|y\rangle=\frac{1}{\sqrt{2^n}}\sum_{x=0}^{2^{n}-1}\exp(-2\pi i\frac{xy}{2^n})|x\rangle $$ 将\phi写成 $$ \phi=2\pi\left(\frac{a}{2^n}&#43;\delta \right),\quad a=a_{n-1}\cdots a_0,0&lt;\delta|u&gt;，可以得到本征值 $$ \phi=\frac{2\pi a}{2^n} $$ 当\delta不等于0时，则测到态|a&gt;|u&gt;的概率幅 $$ C_a=\frac{1}{2^n}\sum_{y=0}^{2^n-1}e^{2\pi i\delta y}&gt;\frac{2}{\pi} $$
+import numpy as np import matplotlib.pyplot as plt import qutip as qt from qutip.qip.circuit import QubitCircuit, Gate from qutip.qip import gates def user_gate1(): &#34;&#34;&#34; define C-U:control-qubit=0,u=1;conrol-qubit=1,u=[[1.,0.],[0.,-1.]] &#34;&#34;&#34; mat_control0=qt." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://boseliao.github.io/posts/qcquantum_phase_estimation/" />
+<meta property="article:published_time" content="2020-06-13T18:16:09&#43;08:00"/>
+<meta property="article:modified_time" content="2020-06-13T18:16:09&#43;08:00"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="QC:quantum_phase_estimation"/>
+<meta name="twitter:description" content="quantum phase estimation(QPE) 量子相位估计算法应用了量子傅里叶逆变换，同时作为一个实用的基础量子算法，又被应用在Shor&rsquo;s Algorithm（质因式分解算法），和HHL algorithm（经常用于各种量子机器学习的最优化算法）等等算法中。
+假设有一个幺正算符U，具有本征态|u&gt;，以及对应的本征值为e^(i\phi),(0&lt;\phi的量子比特，你的选取将会影响得到\phi的精度以及得到正确本征值的概率。二，第二组寄存器需要足够量子比特存储态|u&gt;。
+由图可知，第一组寄存器的量子比特经过一个Hadmard门和C-U^{2^j}门 $$ |0\rangle\cdots|0\rangle|u\rangle\to Hadamard\to\frac{1}{\sqrt{2^n}}\left(|0\rangle&#43;|1\rangle \right)\cdots\left(|0\rangle&#43;|1\rangle \right)|u\rangle $$
+$$ \to C-U^{2^j}\to\frac{1}{\sqrt{2^n}}\left(|0\rangle&#43;e^{i2^{n-1}\phi}|1\rangle \right)\cdots\left(|0\rangle&#43;e^{i\phi}|1\rangle \right)|u\rangle=\frac{1}{\sqrt{2^n}}\sum_{y=0}^{2^n-1}e^{i\phi y}|y\rangle |u\rangle $$
+这里输出第一组寄存器中的\phi依赖于测量态的概率，但我们测量到的是态而非概率幅度，利用傅里叶变换可以将概率幅度存储的相位存储到量子态中。量子傅里叶逆变换为 $$ QFT^{-1}|y\rangle=\frac{1}{\sqrt{2^n}}\sum_{x=0}^{2^{n}-1}\exp(-2\pi i\frac{xy}{2^n})|x\rangle $$ 将\phi写成 $$ \phi=2\pi\left(\frac{a}{2^n}&#43;\delta \right),\quad a=a_{n-1}\cdots a_0,0&lt;\delta|u&gt;，可以得到本征值 $$ \phi=\frac{2\pi a}{2^n} $$ 当\delta不等于0时，则测到态|a&gt;|u&gt;的概率幅 $$ C_a=\frac{1}{2^n}\sum_{y=0}^{2^n-1}e^{2\pi i\delta y}&gt;\frac{2}{\pi} $$
+import numpy as np import matplotlib.pyplot as plt import qutip as qt from qutip.qip.circuit import QubitCircuit, Gate from qutip.qip import gates def user_gate1(): &#34;&#34;&#34; define C-U:control-qubit=0,u=1;conrol-qubit=1,u=[[1.,0.],[0.,-1.]] &#34;&#34;&#34; mat_control0=qt."/>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="">
+	<link rel="shortcut icon" href="/favicon.ico">
+
+	<title>QC:quantum_phase_estimation</title>
+	<link rel="stylesheet" href="https://boseliao.github.io/css/style.min.657bcb7af31123e4156b1a3d2ff60a636717e54ead74f882136b5114cf72b55e.css" integrity="sha256-ZXvLevMRI+QVaxo9L/YKY2cX5U6tdPiCE2tRFM9ytV4=" crossorigin="anonymous">
+	
+</head>
+
+<body id="page">
+	
+	<header id="site-header" class="animated slideInUp faster">
+		<div class="hdr-wrapper section-inner">
+			<div class="hdr-left">
+				<div class="site-branding">
+					<a href="https://boseliao.github.io">BoseLiao&#39;s Blog</a>
+				</div>
+				<nav class="site-nav hide-in-mobile">
+					
+				<a href="https://boseliao.github.io/posts/">Posts</a>
+				<a href="https://boseliao.github.io/boseliao">About</a>
+
+				</nav>
+			</div>
+			<div class="hdr-right hdr-icons">
+				<button id="menu-btn" class="hdr-btn" title="Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+			</div>
+		</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+	</header>
+	<div id="mobile-menu" class="animated fast">
+		<ul>
+			<li><a href="https://boseliao.github.io/posts/">Posts</a></li>
+			<li><a href="https://boseliao.github.io/boseliao">About</a></li>
+		</ul>
+	</div>
+
+
+	<main class="site-main section-inner animated fadeIn faster">
+		<article class="thin">
+			<header class="post-header">
+				<div class="post-meta"><span>Jun 13, 2020</span></div>
+				<h1>QC:quantum_phase_estimation</h1>
+			</header>
+			<div class="content">
+				<p>quantum phase estimation(QPE) 量子相位估计算法应用了量子傅里叶逆变换，同时作为一个实用的基础量子算法，又被应用在Shor&rsquo;s Algorithm（质因式分解算法），和HHL algorithm（经常用于各种量子机器学习的最优化算法）等等算法中。</p>
+
+<p>假设有一个幺正算符U，具有本征态|u&gt;，以及对应的本征值为e^(i\phi),(0&lt;\phi<2\pi)。
+$$
+U|u\rangle=e^{i\phi}|u\rangle,\quad U^{2j}|u\rangle=e^{i\phi 2^j}|u\rangle
+$$
+我们可以利用QPE算法寻找该算符本征值。QPE算符需要两组寄存器，一，第一组寄存器包含n个初态为|0>的量子比特，你的选取将会影响得到\phi的精度以及得到正确本征值的概率。二，第二组寄存器需要足够量子比特存储态|u&gt;。</p>
+
+<p><img src="/img/QC_QPE_img1.png" alt="img1" /></p>
+
+<p>由图可知，第一组寄存器的量子比特经过一个<code>Hadmard</code>门和<code>C-U^{2^j}</code>门
+$$
+|0\rangle\cdots|0\rangle|u\rangle\to Hadamard\to\frac{1}{\sqrt{2^n}}\left(|0\rangle+|1\rangle \right)\cdots\left(|0\rangle+|1\rangle \right)|u\rangle
+$$</p>
+
+<p>$$
+\to C-U^{2^j}\to\frac{1}{\sqrt{2^n}}\left(|0\rangle+e^{i2^{n-1}\phi}|1\rangle \right)\cdots\left(|0\rangle+e^{i\phi}|1\rangle \right)|u\rangle=\frac{1}{\sqrt{2^n}}\sum_{y=0}^{2^n-1}e^{i\phi y}|y\rangle |u\rangle
+$$</p>
+
+<p>这里输出第一组寄存器中的\phi依赖于测量态的概率，但我们测量到的是态而非概率幅度，利用傅里叶变换可以将概率幅度存储的相位存储到量子态中。量子傅里叶逆变换为
+$$
+QFT^{-1}|y\rangle=\frac{1}{\sqrt{2^n}}\sum_{x=0}^{2^{n}-1}\exp(-2\pi i\frac{xy}{2^n})|x\rangle
+$$
+将\phi写成
+$$
+\phi=2\pi\left(\frac{a}{2^n}+\delta \right),\quad a=a_{n-1}\cdots a_0,0&lt;\delta<1/2^{n+1}
+$$
+将量子傅里叶逆变换作用到第一组寄存器的量子比特中
+$$
+\frac{1}{\sqrt{2^n}}\sum_{y=0}^{2^n-1}e^{i\phi y}|y\rangle |u\rangle\to\frac{1}{2^n}\sum_{x=0}^{2^n-1}\sum_{y=0}^{2^n-1}e^{2\pi i(a-x) y/2^n}e^{2\pi i\delta y}|x\rangle |u\rangle
+$$
+考虑里面的求和
+$$
+\sum_{y=0}^{2^n-1}e^{2\pi i(a-x) y/2^n}e^{2\pi i\delta y}
+$$
+当\delta=0时，
+$$
+a-x\neq 0,\frac{a-x}{2^n}<1,\sum_{y=0}^{n-1}e^{2\pi i(a-x) y/2^n}=\frac{1-q^{2^n}}{1-q}=0,q=e^{2\pi i(a-x) /2^n}
+$$
+所以只能取`a=x`的情况，输出态为|a>|u&gt;，可以得到本征值
+$$
+\phi=\frac{2\pi a}{2^n}
+$$
+当\delta不等于0时，则测到态|a&gt;|u&gt;的概率幅
+$$
+C_a=\frac{1}{2^n}\sum_{y=0}^{2^n-1}e^{2\pi i\delta y}&gt;\frac{2}{\pi}
+$$</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">qutip</span> <span class="kn">as</span> <span class="nn">qt</span>
+<span class="kn">from</span> <span class="nn">qutip.qip.circuit</span> <span class="kn">import</span> <span class="n">QubitCircuit</span><span class="p">,</span> <span class="n">Gate</span>
+<span class="kn">from</span> <span class="nn">qutip.qip</span> <span class="kn">import</span> <span class="n">gates</span>
+<span class="k">def</span> <span class="nf">user_gate1</span><span class="p">():</span>
+    <span class="s2">&#34;&#34;&#34;
+</span><span class="s2">    define C-U:control-qubit=0,u=1;conrol-qubit=1,u=[[1.,0.],[0.,-1.]]
+</span><span class="s2">    &#34;&#34;&#34;</span>
+    <span class="n">mat_control0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">Qobj</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mf">0.</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]),</span><span class="n">dims</span><span class="o">=</span><span class="p">[[</span><span class="mi">2</span><span class="p">],[</span><span class="mi">2</span><span class="p">]])</span>
+    <span class="n">mat_control1</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">Qobj</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mf">0.</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]),</span><span class="n">dims</span><span class="o">=</span><span class="p">[[</span><span class="mi">2</span><span class="p">],[</span><span class="mi">2</span><span class="p">]])</span>
+    <span class="n">mat_target0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">Qobj</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.</span><span class="p">,</span><span class="mf">0.</span><span class="p">],[</span><span class="mf">0.</span><span class="p">,</span><span class="mf">1.</span><span class="p">]]),</span><span class="n">dims</span><span class="o">=</span><span class="p">[[</span><span class="mi">2</span><span class="p">],[</span><span class="mi">2</span><span class="p">]])</span>
+    <span class="n">mat_target1</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">Qobj</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.</span><span class="p">],[</span><span class="mf">0.</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]]),</span><span class="n">dims</span><span class="o">=</span><span class="p">[[</span><span class="mi">2</span><span class="p">],[</span><span class="mi">2</span><span class="p">]])</span>
+    <span class="n">mat</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">mat_control0</span><span class="p">,</span><span class="n">mat_target0</span><span class="p">)</span><span class="o">+</span><span class="n">qt</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">mat_control1</span><span class="p">,</span><span class="n">mat_target1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mat</span>
+<span class="k">def</span> <span class="nf">user_gate2</span><span class="p">():</span>
+    <span class="s2">&#34;&#34;&#34;
+</span><span class="s2">    define C-U2:control-qubit=0,u=1;conrol-qubit=1,u=[[1.,0.],[0.,-1.]]
+</span><span class="s2">    &#34;&#34;&#34;</span>
+    <span class="n">mat_control0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">Qobj</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mf">0.</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]),</span><span class="n">dims</span><span class="o">=</span><span class="p">[[</span><span class="mi">2</span><span class="p">],[</span><span class="mi">2</span><span class="p">]])</span>
+    <span class="n">mat_control1</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">Qobj</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mf">0.</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]),</span><span class="n">dims</span><span class="o">=</span><span class="p">[[</span><span class="mi">2</span><span class="p">],[</span><span class="mi">2</span><span class="p">]])</span>
+    <span class="n">mat_target0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">Qobj</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.</span><span class="p">,</span><span class="mf">0.</span><span class="p">],[</span><span class="mf">0.</span><span class="p">,</span><span class="mf">1.</span><span class="p">]]),</span><span class="n">dims</span><span class="o">=</span><span class="p">[[</span><span class="mi">2</span><span class="p">],[</span><span class="mi">2</span><span class="p">]])</span>
+    <span class="n">a</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.</span><span class="p">,</span><span class="mf">0.</span><span class="p">],[</span><span class="mf">0.</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+    <span class="n">mat_target1</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">Qobj</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">a</span><span class="p">,</span><span class="n">dims</span><span class="o">=</span><span class="p">[[</span><span class="mi">2</span><span class="p">],[</span><span class="mi">2</span><span class="p">]])</span>
+    <span class="n">mat</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">mat_control0</span><span class="p">,</span><span class="n">mat_target0</span><span class="p">)</span><span class="o">+</span><span class="n">qt</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">mat_control1</span><span class="p">,</span><span class="n">mat_target1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mat</span>
+<span class="n">qc</span><span class="o">=</span><span class="n">QubitCircuit</span><span class="p">(</span><span class="n">N</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">user_gates</span><span class="o">=</span><span class="p">{</span><span class="s2">&#34;C_U&#34;</span><span class="p">:</span><span class="n">user_gate1</span><span class="p">,</span><span class="s2">&#34;C_U2&#34;</span><span class="p">:</span><span class="n">user_gate2</span><span class="p">}</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;SNOT&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;SNOT&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;C_U&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;C_U2&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+<span class="s2">&#34;&#34;&#34;
+</span><span class="s2">Fourier-transform,back
+</span><span class="s2">&#34;&#34;&#34;</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;SNOT&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CPHASE&#34;</span><span class="p">,</span><span class="n">controls</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">arg_value</span><span class="o">=-</span><span class="mf">0.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;SNOT&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">U_list</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">propagators</span><span class="p">()</span>
+<span class="kn">from</span> <span class="nn">qutip.qip.operations</span> <span class="kn">import</span> <span class="n">gate_sequence_product</span>
+<span class="n">U</span> <span class="o">=</span> <span class="n">gate_sequence_product</span><span class="p">(</span><span class="n">U_list</span><span class="p">)</span>
+<span class="n">zero</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">input_0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">zero</span><span class="p">,</span><span class="n">zero</span><span class="p">)</span>
+<span class="n">u0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">psi0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">input_0</span><span class="p">,</span><span class="n">u0</span><span class="p">)</span>
+<span class="n">psit</span><span class="o">=</span><span class="n">U</span><span class="o">*</span><span class="n">psi0</span>
+<span class="s2">&#34;&#34;&#34;
+</span><span class="s2">output
+</span><span class="s2">&#34;&#34;&#34;</span>
+<span class="n">a_0</span><span class="o">=</span><span class="n">psit</span><span class="o">.</span><span class="n">ptrace</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">a_1</span><span class="o">=</span><span class="n">psit</span><span class="o">.</span><span class="n">ptrace</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">a_1</span><span class="p">,</span><span class="n">a_0</span><span class="p">,</span><span class="n">psit</span><span class="p">)</span></code></pre></div>
+			</div>
+			<hr class="post-end">
+			<footer class="post-info">
+				<p>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://boseliao.github.io/tags/quantum-compute">Quantum Compute</a></span>
+				</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>128 Words</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2020-06-13 18:16 &#43;0800</p>
+			</footer>
+		</article>
+		<div class="post-nav thin">
+			<a class="prev-post" href="https://boseliao.github.io/posts/qcquantum_fouriert/">
+				<span class="post-nav-label">Older&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span><br><span>QC:quantum_FourierT</span>
+			</a>
+		</div>
+		<div id="comments" class="thin">
+</div>
+	</main>
+
+	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
+		<p>&copy; 2020 <a href="https://boseliao.github.io">BoseLiao</a> &#183; <a hr#ef="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">All rights reserved</a></p>
+	</footer>
+
+
+
+	<script src="https://boseliao.github.io/js/bundle.min.490e43e5af6db5906f28afa49a4e16bf9f626b758e3fca92f146b870eb94bb37.js" integrity="sha256-SQ5D5a9ttZBvKK+kmk4Wv59ia3WOP8qS8Ua4cOuUuzc=" crossorigin="anonymous"></script>
+	
+
+</body>
+
+</html>

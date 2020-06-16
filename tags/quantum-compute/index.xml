@@ -7,10 +7,24 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Mon, 08 Jun 2020 17:39:53 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 13 Jun 2020 18:16:09 +0800</lastBuildDate>
     
 	<atom:link href="https://boseliao.github.io/tags/quantum-compute/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>QC:quantum_phase_estimation</title>
+      <link>https://boseliao.github.io/posts/qcquantum_phase_estimation/</link>
+      <pubDate>Sat, 13 Jun 2020 18:16:09 +0800</pubDate>
+      
+      <guid>https://boseliao.github.io/posts/qcquantum_phase_estimation/</guid>
+      <description>quantum phase estimation(QPE) 量子相位估计算法应用了量子傅里叶逆变换，同时作为一个实用的基础量子算法，又被应用在Shor&amp;rsquo;s Algorithm（质因式分解算法），和HHL algorithm（经常用于各种量子机器学习的最优化算法）等等算法中。
+假设有一个幺正算符U，具有本征态|u&amp;gt;，以及对应的本征值为e^(i\phi),(0&amp;lt;\phi的量子比特，你的选取将会影响得到\phi的精度以及得到正确本征值的概率。二，第二组寄存器需要足够量子比特存储态|u&amp;gt;。
+由图可知，第一组寄存器的量子比特经过一个Hadmard门和C-U^{2^j}门 $$ |0\rangle\cdots|0\rangle|u\rangle\to Hadamard\to\frac{1}{\sqrt{2^n}}\left(|0\rangle+|1\rangle \right)\cdots\left(|0\rangle+|1\rangle \right)|u\rangle $$
+$$ \to C-U^{2^j}\to\frac{1}{\sqrt{2^n}}\left(|0\rangle+e^{i2^{n-1}\phi}|1\rangle \right)\cdots\left(|0\rangle+e^{i\phi}|1\rangle \right)|u\rangle=\frac{1}{\sqrt{2^n}}\sum_{y=0}^{2^n-1}e^{i\phi y}|y\rangle |u\rangle $$
+这里输出第一组寄存器中的\phi依赖于测量态的概率，但我们测量到的是态而非概率幅度，利用傅里叶变换可以将概率幅度存储的相位存储到量子态中。量子傅里叶逆变换为 $$ QFT^{-1}|y\rangle=\frac{1}{\sqrt{2^n}}\sum_{x=0}^{2^{n}-1}\exp(-2\pi i\frac{xy}{2^n})|x\rangle $$ 将\phi写成 $$ \phi=2\pi\left(\frac{a}{2^n}+\delta \right),\quad a=a_{n-1}\cdots a_0,0&amp;lt;\delta|u&amp;gt;，可以得到本征值 $$ \phi=\frac{2\pi a}{2^n} $$ 当\delta不等于0时，则测到态|a&amp;gt;|u&amp;gt;的概率幅 $$ C_a=\frac{1}{2^n}\sum_{y=0}^{2^n-1}e^{2\pi i\delta y}&amp;gt;\frac{2}{\pi} $$
+import numpy as np import matplotlib.pyplot as plt import qutip as qt from qutip.qip.circuit import QubitCircuit, Gate from qutip.qip import gates def user_gate1(): &amp;#34;&amp;#34;&amp;#34; define C-U:control-qubit=0,u=1;conrol-qubit=1,u=[[1.,0.],[0.,-1.]] &amp;#34;&amp;#34;&amp;#34; mat_control0=qt.</description>
+    </item>
     
     <item>
       <title>QC:quantum_FourierT</title>
