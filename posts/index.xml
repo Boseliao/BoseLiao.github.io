@@ -101,6 +101,8 @@ N=2^n
 $$</p></li>
 </ul>
 
+<p><img src="/img/QC_ordfound.png" alt="img1" /></p>
+
 <p>所有寄存器1的初态设为|0&gt;，寄存器2的初态设为|1&gt;，将寄存器1经过<code>Hadmard</code>门
 $$
 (H^{\otimes K}|0\rangle)|1\rangle=\frac{1}{\sqrt{Q}}\sum_{q=0}^{Q-1}|q\rangle|1\rangle
