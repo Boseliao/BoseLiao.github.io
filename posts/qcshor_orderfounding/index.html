@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="theme-color" content="#494f5c">
+	<meta name="msapplication-TileColor" content="#494f5c">
+
+<meta itemprop="name" content="QC:shor_orderfounding">
+<meta itemprop="description" content="算法原理：
+设一大数N，可以分解成N=n1*n2，shor算法概述：
+ 随机取一正整数y，要求y&lt;N，且与N互质，利用order-founding算法求r=ord(y,N)，r是使得 $$ y^r(mod)N=1 $$ 的最小整数。等价的可以得到 $$ \begin{array}{1c} y^r=kN&#43;1\newline y^{r&#43;1}=kNy&#43;y\newline y^{r&#43;1}(mod)N=y(mod)N\newline y^{r&#43;x}(mod)N=y^x(mod)N \end{array} $$ 即函数f(t)的周期为r $$ f(t)=y^t(mod)N $$
+ 若得到的周期r为奇数或者r是偶数但 $$ y^{r/2}(mod)N=-1 $$ 则重新取y值，并重复第一个步骤。
+ r是偶数，且 $$ y^{r/2}(mod)N\neq-1 $$ 取 $$ x(mod)N=y^{r/2},\quad x^2(mod)N=1,\quad (x&#43;1)(x-1)=tN=t*n1*n2 $$ 分别对他们取最大公约数，可以得到n1，n2 $$ n1=gcd(x&#43;1,N),\quad n2=gcd(x-1,N) $$
+ Euclid&rsquo;s algorithm计算gcd(x,N),N&gt;x，
+  $$ r=N(mod)x,\quad r=0,z=x $$
+$$ r\neq 0,\quad z=gcd(N,x)=gcd(x,r)=gcd(r,r_1)=\cdots=gcd(r_m,0)=r_m $$
+order founding 利用量子傅里叶算法以及量子相位估计算法实现r=ord(y,N)。
+需要两组寄存器
+ 寄存器1，包含K个量子比特，存储数字Q $$ Q=2^K,\quad N^2&lt;Q&lt;2N^2 $$
+ 寄存器2，包含n个量子比特，存储数字N $$ N=2^n $$">
+
+
+<meta itemprop="datePublished" content="2020-06-17T12:50:24&#43;08:00" />
+<meta itemprop="dateModified" content="2020-06-17T12:50:24&#43;08:00" />
+<meta itemprop="wordCount" content="126">
+
+
+
+<meta itemprop="keywords" content="Quantum Compute," />
+<meta property="og:title" content="QC:shor_orderfounding" />
+<meta property="og:description" content="算法原理：
+设一大数N，可以分解成N=n1*n2，shor算法概述：
+ 随机取一正整数y，要求y&lt;N，且与N互质，利用order-founding算法求r=ord(y,N)，r是使得 $$ y^r(mod)N=1 $$ 的最小整数。等价的可以得到 $$ \begin{array}{1c} y^r=kN&#43;1\newline y^{r&#43;1}=kNy&#43;y\newline y^{r&#43;1}(mod)N=y(mod)N\newline y^{r&#43;x}(mod)N=y^x(mod)N \end{array} $$ 即函数f(t)的周期为r $$ f(t)=y^t(mod)N $$
+ 若得到的周期r为奇数或者r是偶数但 $$ y^{r/2}(mod)N=-1 $$ 则重新取y值，并重复第一个步骤。
+ r是偶数，且 $$ y^{r/2}(mod)N\neq-1 $$ 取 $$ x(mod)N=y^{r/2},\quad x^2(mod)N=1,\quad (x&#43;1)(x-1)=tN=t*n1*n2 $$ 分别对他们取最大公约数，可以得到n1，n2 $$ n1=gcd(x&#43;1,N),\quad n2=gcd(x-1,N) $$
+ Euclid&rsquo;s algorithm计算gcd(x,N),N&gt;x，
+  $$ r=N(mod)x,\quad r=0,z=x $$
+$$ r\neq 0,\quad z=gcd(N,x)=gcd(x,r)=gcd(r,r_1)=\cdots=gcd(r_m,0)=r_m $$
+order founding 利用量子傅里叶算法以及量子相位估计算法实现r=ord(y,N)。
+需要两组寄存器
+ 寄存器1，包含K个量子比特，存储数字Q $$ Q=2^K,\quad N^2&lt;Q&lt;2N^2 $$
+ 寄存器2，包含n个量子比特，存储数字N $$ N=2^n $$" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://boseliao.github.io/posts/qcshor_orderfounding/" />
+<meta property="article:published_time" content="2020-06-17T12:50:24&#43;08:00"/>
+<meta property="article:modified_time" content="2020-06-17T12:50:24&#43;08:00"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="QC:shor_orderfounding"/>
+<meta name="twitter:description" content="算法原理：
+设一大数N，可以分解成N=n1*n2，shor算法概述：
+ 随机取一正整数y，要求y&lt;N，且与N互质，利用order-founding算法求r=ord(y,N)，r是使得 $$ y^r(mod)N=1 $$ 的最小整数。等价的可以得到 $$ \begin{array}{1c} y^r=kN&#43;1\newline y^{r&#43;1}=kNy&#43;y\newline y^{r&#43;1}(mod)N=y(mod)N\newline y^{r&#43;x}(mod)N=y^x(mod)N \end{array} $$ 即函数f(t)的周期为r $$ f(t)=y^t(mod)N $$
+ 若得到的周期r为奇数或者r是偶数但 $$ y^{r/2}(mod)N=-1 $$ 则重新取y值，并重复第一个步骤。
+ r是偶数，且 $$ y^{r/2}(mod)N\neq-1 $$ 取 $$ x(mod)N=y^{r/2},\quad x^2(mod)N=1,\quad (x&#43;1)(x-1)=tN=t*n1*n2 $$ 分别对他们取最大公约数，可以得到n1，n2 $$ n1=gcd(x&#43;1,N),\quad n2=gcd(x-1,N) $$
+ Euclid&rsquo;s algorithm计算gcd(x,N),N&gt;x，
+  $$ r=N(mod)x,\quad r=0,z=x $$
+$$ r\neq 0,\quad z=gcd(N,x)=gcd(x,r)=gcd(r,r_1)=\cdots=gcd(r_m,0)=r_m $$
+order founding 利用量子傅里叶算法以及量子相位估计算法实现r=ord(y,N)。
+需要两组寄存器
+ 寄存器1，包含K个量子比特，存储数字Q $$ Q=2^K,\quad N^2&lt;Q&lt;2N^2 $$
+ 寄存器2，包含n个量子比特，存储数字N $$ N=2^n $$"/>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="">
+	<link rel="shortcut icon" href="/favicon.ico">
+
+	<title>QC:shor_orderfounding</title>
+	<link rel="stylesheet" href="https://boseliao.github.io/css/style.min.657bcb7af31123e4156b1a3d2ff60a636717e54ead74f882136b5114cf72b55e.css" integrity="sha256-ZXvLevMRI+QVaxo9L/YKY2cX5U6tdPiCE2tRFM9ytV4=" crossorigin="anonymous">
+	
+</head>
+
+<body id="page">
+	
+	<header id="site-header" class="animated slideInUp faster">
+		<div class="hdr-wrapper section-inner">
+			<div class="hdr-left">
+				<div class="site-branding">
+					<a href="https://boseliao.github.io">BoseLiao&#39;s Blog</a>
+				</div>
+				<nav class="site-nav hide-in-mobile">
+					
+				<a href="https://boseliao.github.io/posts/">Posts</a>
+				<a href="https://boseliao.github.io/boseliao">About</a>
+
+				</nav>
+			</div>
+			<div class="hdr-right hdr-icons">
+				<button id="menu-btn" class="hdr-btn" title="Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+			</div>
+		</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+	</header>
+	<div id="mobile-menu" class="animated fast">
+		<ul>
+			<li><a href="https://boseliao.github.io/posts/">Posts</a></li>
+			<li><a href="https://boseliao.github.io/boseliao">About</a></li>
+		</ul>
+	</div>
+
+
+	<main class="site-main section-inner animated fadeIn faster">
+		<article class="thin">
+			<header class="post-header">
+				<div class="post-meta"><span>Jun 17, 2020</span></div>
+				<h1>QC:shor_orderfounding</h1>
+			</header>
+			<div class="content">
+				
+
+<p>算法原理：</p>
+
+<p>设一大数N，可以分解成N=n1*n2，shor算法概述：</p>
+
+<ol>
+<li><p>随机取一正整数y，要求y&lt;N，且与N互质，利用order-founding算法求r=ord(y,N)，r是使得
+$$
+y^r(mod)N=1
+$$
+的最小整数。等价的可以得到
+$$
+\begin{array}{1c}
+y^r=kN+1\newline
+y^{r+1}=kNy+y\newline
+y^{r+1}(mod)N=y(mod)N\newline
+y^{r+x}(mod)N=y^x(mod)N
+\end{array}
+$$
+即函数f(t)的周期为r
+$$
+f(t)=y^t(mod)N
+$$</p></li>
+
+<li><p>若得到的周期r为奇数或者r是偶数但
+$$
+y^{r/2}(mod)N=-1
+$$
+则重新取y值，并重复第一个步骤。</p></li>
+
+<li><p>r是偶数，且
+$$
+y^{r/2}(mod)N\neq-1
+$$
+取
+$$
+x(mod)N=y^{r/2},\quad x^2(mod)N=1,\quad (x+1)(x-1)=tN=t*n1*n2
+$$
+分别对他们取最大公约数，可以得到n1，n2
+$$
+n1=gcd(x+1,N),\quad n2=gcd(x-1,N)
+$$</p></li>
+
+<li><p>Euclid&rsquo;s algorithm计算gcd(x,N),N&gt;x，</p></li>
+</ol>
+
+<p>$$
+r=N(mod)x,\quad r=0,z=x
+$$</p>
+
+<p>$$
+r\neq 0,\quad z=gcd(N,x)=gcd(x,r)=gcd(r,r_1)=\cdots=gcd(r_m,0)=r_m
+$$</p>
+
+<h2 id="order-founding">order founding<a href="#order-founding" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+
+<p>利用量子傅里叶算法以及量子相位估计算法实现r=ord(y,N)。</p>
+
+<p>需要两组寄存器</p>
+
+<ul>
+<li><p>寄存器1，包含K个量子比特，存储数字Q
+$$
+Q=2^K,\quad N^2&lt;Q&lt;2N^2
+$$</p></li>
+
+<li><p>寄存器2，包含n个量子比特，存储数字N
+$$
+N=2^n
+$$</p></li>
+</ul>
+
+<p>所有寄存器1的初态设为|0&gt;，寄存器2的初态设为|1&gt;，将寄存器1经过<code>Hadmard</code>门
+$$
+(H^{\otimes K}|0\rangle)|1\rangle=\frac{1}{\sqrt{Q}}\sum_{q=0}^{Q-1}|q\rangle|1\rangle
+$$
+在经过一个控制电路，
+$$
+U_y(q)\frac{1}{\sqrt{Q}}\sum_{q=0}^{Q-1}|q\rangle|1\rangle=\frac{1}{\sqrt{Q}}\sum_{q=0}^{Q-1}|q\rangle|y^q(mod)N\rangle
+$$</p>
+
+<p>利用Modular exponentiation算法制备以上态，设
+$$
+U|x\rangle=|xy(mod)N\rangle,\quad U^2|x\rangle=|xy^2(mod)N\rangle
+$$
+所以
+$$
+U_y(q)|q\rangle|1\rangle=|q\rangle|y^q(mod)N\rangle=|q\rangle|y^{q_{K-1}2^{K-1}\cdots q_02^0}(mod)N\rangle=|q\rangle U^{q_{K-1}2^{K-1}}\cdots U^{q_02^0}|1\rangle
+$$
+其中
+$$
+U^{2^j}=U^{2^{j-1}}U^{2^{j-1}}
+$$
+测量寄存器2中的量子比特，假设得到f(q0)，Q=mr，则量子态变成
+$$
+\frac{1}{\sqrt{m}}\sum_{j=0}^{m-1}|jr+q_0\rangle |f(q_0)\rangle
+$$
+目前寄存器1的量子比特处于叠加态，直接测量还无法方便的得到周期，这里对其做傅里叶变化，
+$$
+\frac{1}{\sqrt{m}}\sum_{j=0}^{m-1}|jr+q_0\rangle\to\frac{1}{\sqrt{mQ}}\sum_{k=0}^{Q-1}\sum_{j=0}^{m-1}e^{2\pi i\frac{(jr+q_0)k}{Q}}|k\rangle=\frac{1}{\sqrt{mQ}}\sum_{k=0}^{Q-1}\left(\sum_{j=0}^{m-1}e^{2\pi i\frac{jk}{m}}\right)e^{2\pi i\frac{q_0k}{Q}}|k\rangle
+$$
+对于内部的求和
+$$
+\sum_{j=0}^{m-1}e^{2\pi i\frac{jk}{m}}=m\delta_{k,mk\prime}
+$$
+寄存器1中的量子态
+$$
+\frac{m}{\sqrt{mQ}}\sum_{k=0}^{Q-1}e^{2\pi i\frac{q_0k}{Q}}|k\rangle=\frac{1}{\sqrt{r}}\sum_{k\prime=0}^{r-1}e^{2\pi i\frac{q_0k\prime}{r}}|mk\prime\rangle
+$$
+测量得到
+$$
+C=mk\prime=\frac{Q}{r}k\prime,\quad \frac{C}{Q}=\frac{k\prime}{r}
+$$
+当gcd(k\prime,r)=1时，可以唯一确定周期r，测量得到gcd(k\prime,r)=1的概率大于1/log[r]。最后，令
+$$
+x=y^{r/2}\pm 1
+$$
+并计算，
+$$
+z=gcd(N,x)
+$$</p>
+
+			</div>
+			<hr class="post-end">
+			<footer class="post-info">
+				<p>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://boseliao.github.io/tags/quantum-compute">Quantum Compute</a></span>
+				</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>126 Words</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2020-06-17 12:50 &#43;0800</p>
+			</footer>
+		</article>
+		<div class="post-nav thin">
+			<a class="prev-post" href="https://boseliao.github.io/posts/qcquantum_phase_estimation/">
+				<span class="post-nav-label">Older&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span><br><span>QC:quantum_phase_estimation</span>
+			</a>
+		</div>
+		<div id="comments" class="thin">
+</div>
+	</main>
+
+	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
+		<p>&copy; 2020 <a href="https://boseliao.github.io">BoseLiao</a> &#183; <a hr#ef="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">All rights reserved</a></p>
+	</footer>
+
+
+
+	<script src="https://boseliao.github.io/js/bundle.min.490e43e5af6db5906f28afa49a4e16bf9f626b758e3fca92f146b870eb94bb37.js" integrity="sha256-SQ5D5a9ttZBvKK+kmk4Wv59ia3WOP8qS8Ua4cOuUuzc=" crossorigin="anonymous"></script>
+	
+
+</body>
+
+</html>

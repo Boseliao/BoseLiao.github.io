@@ -7,10 +7,30 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Sat, 13 Jun 2020 18:16:09 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 17 Jun 2020 12:50:24 +0800</lastBuildDate>
     
 	<atom:link href="https://boseliao.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>QC:shor_orderfounding</title>
+      <link>https://boseliao.github.io/posts/qcshor_orderfounding/</link>
+      <pubDate>Wed, 17 Jun 2020 12:50:24 +0800</pubDate>
+      
+      <guid>https://boseliao.github.io/posts/qcshor_orderfounding/</guid>
+      <description>算法原理：
+设一大数N，可以分解成N=n1*n2，shor算法概述：
+ 随机取一正整数y，要求y&amp;lt;N，且与N互质，利用order-founding算法求r=ord(y,N)，r是使得 $$ y^r(mod)N=1 $$ 的最小整数。等价的可以得到 $$ \begin{array}{1c} y^r=kN+1\newline y^{r+1}=kNy+y\newline y^{r+1}(mod)N=y(mod)N\newline y^{r+x}(mod)N=y^x(mod)N \end{array} $$ 即函数f(t)的周期为r $$ f(t)=y^t(mod)N $$
+ 若得到的周期r为奇数或者r是偶数但 $$ y^{r/2}(mod)N=-1 $$ 则重新取y值，并重复第一个步骤。
+ r是偶数，且 $$ y^{r/2}(mod)N\neq-1 $$ 取 $$ x(mod)N=y^{r/2},\quad x^2(mod)N=1,\quad (x+1)(x-1)=tN=t*n1*n2 $$ 分别对他们取最大公约数，可以得到n1，n2 $$ n1=gcd(x+1,N),\quad n2=gcd(x-1,N) $$
+ Euclid&amp;rsquo;s algorithm计算gcd(x,N),N&amp;gt;x，
+  $$ r=N(mod)x,\quad r=0,z=x $$
+$$ r\neq 0,\quad z=gcd(N,x)=gcd(x,r)=gcd(r,r_1)=\cdots=gcd(r_m,0)=r_m $$
+order founding 利用量子傅里叶算法以及量子相位估计算法实现r=ord(y,N)。
+需要两组寄存器
+ 寄存器1，包含K个量子比特，存储数字Q $$ Q=2^K,\quad N^2&amp;lt;Q&amp;lt;2N^2 $$
+ 寄存器2，包含n个量子比特，存储数字N $$ N=2^n $$</description>
+    </item>
     
     <item>
       <title>QC:quantum_phase_estimation</title>
@@ -127,23 +147,6 @@ t=np.linspace(-15,15,100) func=lambda t: 9*np.exp(-(t/5)**2) #anonymous function
 &amp;#34;&amp;#34;&amp;#34; Exponential-series representation &amp;#34;&amp;#34;&amp;#34; es1=qt.eseries(qt.sigmax(),1j) #sigma_x*exp(jt) es2=qt.eseries([qt.sigmax(),qt.sigmax()],[1j,-1j])#sigms_x*exp(jt)+sigma_xexp(-jt) &amp;#34;&amp;#34;&amp;#34; evaluate it at time t=2 &amp;#34;&amp;#34;&amp;#34; qt.esval(es2,2.0) Floquet理论 在Lindblad和Bloch-Redfield主方程的标准推导中，所考虑的系统是不显含时时间的。因此，严格地说，这些主方程形式不应盲目地应用于含时哈密顿量的系统。然而，在许多特定的情况下，特别是对于弱驱动的情况，标准主方程仍然适用于许多含时的问题。但更严格的方法是从含时的哈密顿量开始重新推导主方程。Floquet-Markov主方程是这样一种形式的主方程，它在强驱动系统中有着重要的应用。
 封闭系统的Floquet计算方法$$\psi(t)=\sum_{\alpha}c_{\alpha}\psi_{\alpha}(t)=\sum_{\alpha}c_{\alpha}e^{-i\epsilon_{\alpha}t}\phi_{\alpha}(t)$$
 其中\psi_{\alpha}​表示“Floquet state”，\phi_{\alpha}表示周期的“Floquet mode”，\phi_{\alpha}(t+T)=\phi_{\alpha}(t)​，\epsilon_{\alpha}表示常数“quasienergy”</description>
-    </item>
-    
-    <item>
-      <title>QuTip的基本运算</title>
-      <link>https://boseliao.github.io/posts/qutip%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%BF%90%E7%AE%97/</link>
-      <pubDate>Fri, 15 May 2020 13:21:41 +0800</pubDate>
-      
-      <guid>https://boseliao.github.io/posts/qutip%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%BF%90%E7%AE%97/</guid>
-      <description>QuTip (Quantum Toolbox in Python) 是在开源的Python程序语音的框架下，用来模拟量子系统的动力学。其中，定义了一般的量子力学对象，运算算符，以及量子力学方程的求解方法。使用下列代码时，请调用QuTip模块，并使用如下语句
-import numpy as np import matplotlib.pyplot as plt import qutip as qt 首先，QuTip 定义了量子对象类(The quantum object class)，可以通过输入命令Qobj(),创建一个空的量子对象。Qobj()类中拥有5个属性，
- Type：ket，bra，operator，superoperator，operator-ket，operator-bra Data：数组 Hermitian：false，ture Dimensions：算符的维度 Shape：数组的形状  具体对象，态的定义 量子态的定义可以通过phi=Qobj([[1],[2],[3]])来得到ket或者bra的态失，也可以通过rho=ket2dm(phi)得到密度矩阵。这里也定义了一些特殊态，Fock state，basis(N,m)或者fock(N,m);相干态，coherence(N,alpha)。具体函数的输入以及参数的使用，可以利用help(basis)查看。
-算符的定义 量子算符按照是否可观测可分为Hermitian算符与non-Hermitian算符，可以定义
-r=np.array([[1,2],[3,4]]) Qobj(r) 其中也定义了一些常用的算符：
-   operator command     Commutator commutator(A,B,kind)   sigma-X sigmax()   Lowing operator destroy(N)    等等。。。
-超算符 在Liouville空间中，算符在处理时被视为向量，可以通过
-vec_rho=operator_to_vector(rho) rho=vector_to_operator(vec_rho) 超算符
-X=sigmax() S=spre(X) #I tensor X S1=spost(X) # X tensor I S2=spre(X)*spost(X.</description>
     </item>
     
   </channel>

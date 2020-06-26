@@ -7,10 +7,30 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Sat, 13 Jun 2020 18:16:09 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 17 Jun 2020 12:50:24 +0800</lastBuildDate>
     
 	<atom:link href="https://boseliao.github.io/tags/quantum-compute/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>QC:shor_orderfounding</title>
+      <link>https://boseliao.github.io/posts/qcshor_orderfounding/</link>
+      <pubDate>Wed, 17 Jun 2020 12:50:24 +0800</pubDate>
+      
+      <guid>https://boseliao.github.io/posts/qcshor_orderfounding/</guid>
+      <description>算法原理：
+设一大数N，可以分解成N=n1*n2，shor算法概述：
+ 随机取一正整数y，要求y&amp;lt;N，且与N互质，利用order-founding算法求r=ord(y,N)，r是使得 $$ y^r(mod)N=1 $$ 的最小整数。等价的可以得到 $$ \begin{array}{1c} y^r=kN+1\newline y^{r+1}=kNy+y\newline y^{r+1}(mod)N=y(mod)N\newline y^{r+x}(mod)N=y^x(mod)N \end{array} $$ 即函数f(t)的周期为r $$ f(t)=y^t(mod)N $$
+ 若得到的周期r为奇数或者r是偶数但 $$ y^{r/2}(mod)N=-1 $$ 则重新取y值，并重复第一个步骤。
+ r是偶数，且 $$ y^{r/2}(mod)N\neq-1 $$ 取 $$ x(mod)N=y^{r/2},\quad x^2(mod)N=1,\quad (x+1)(x-1)=tN=t*n1*n2 $$ 分别对他们取最大公约数，可以得到n1，n2 $$ n1=gcd(x+1,N),\quad n2=gcd(x-1,N) $$
+ Euclid&amp;rsquo;s algorithm计算gcd(x,N),N&amp;gt;x，
+  $$ r=N(mod)x,\quad r=0,z=x $$
+$$ r\neq 0,\quad z=gcd(N,x)=gcd(x,r)=gcd(r,r_1)=\cdots=gcd(r_m,0)=r_m $$
+order founding 利用量子傅里叶算法以及量子相位估计算法实现r=ord(y,N)。
+需要两组寄存器
+ 寄存器1，包含K个量子比特，存储数字Q $$ Q=2^K,\quad N^2&amp;lt;Q&amp;lt;2N^2 $$
+ 寄存器2，包含n个量子比特，存储数字N $$ N=2^n $$</description>
+    </item>
     
     <item>
       <title>QC:quantum_phase_estimation</title>
