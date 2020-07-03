@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="theme-color" content="#494f5c">
+	<meta name="msapplication-TileColor" content="#494f5c">
+
+<meta itemprop="name" content="QC:search_algorithm">
+<meta itemprop="description" content="使用量子搜索算法(Grover&rsquo;s algorithm)能够大大降低计算的复杂度，这里我们可以利用几何图形分析该算法。
+定义一个算符 $$ O\sum_x\alpha_x|x\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right)=\sum_x(-1)^{f(x)}\alpha_x|x\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right) $$ 其中，a是我门要搜索的目标态 $$ x=a,f(x)=1;\quad x\neq a ,f(x)=0.\quad a\in {1,\cdots,N} $$ 从初态psi每次转动theta角度(相对于做两次投影对称)，需要pi/(2*theta)次转动，
+首先，考虑态相对于alpha的投影对称，这里a=beta $$ O\sum_x\alpha_x|x\rangle=\sum_x(-1)^{f(x)}\alpha_x|x\rangle=\sum_{x\neq a}\left(\alpha_x|x\rangle-\alpha_a|a\rangle\right)=\sum_{x}\left(\alpha_x|x\rangle-2\alpha_a|a\rangle\right) $$ 相当于翻转beta方向的态失 $$ O=I-2|a\rangle\langle a|=R_{\alpha} $$ 然后相对于psi投影翻转 $$ R_{\psi}=-I&#43;2|\psi\rangle\langle\psi|=H^{\otimes n}\left(-I&#43;2|0\rangle\langle 0| \right)H^{\otimes n} $$ 即 $$ \left[\left(|\psi\rangle\langle\psi|-I \right)O \right]^R\frac{1}{\sqrt{N}}\sum_{x=1}^N|x\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right)\approx |a\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right) $$ 其中 $$ R=\frac{\pi\sqrt{N}}{4} $$ 测量第一个寄存器可以得到a。
+其中的Grover算符，">
+
+
+<meta itemprop="datePublished" content="2020-06-27T19:38:17&#43;08:00" />
+<meta itemprop="dateModified" content="2020-06-27T19:38:17&#43;08:00" />
+<meta itemprop="wordCount" content="51">
+
+
+
+<meta itemprop="keywords" content="Quantum Compute," />
+<meta property="og:title" content="QC:search_algorithm" />
+<meta property="og:description" content="使用量子搜索算法(Grover&rsquo;s algorithm)能够大大降低计算的复杂度，这里我们可以利用几何图形分析该算法。
+定义一个算符 $$ O\sum_x\alpha_x|x\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right)=\sum_x(-1)^{f(x)}\alpha_x|x\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right) $$ 其中，a是我门要搜索的目标态 $$ x=a,f(x)=1;\quad x\neq a ,f(x)=0.\quad a\in {1,\cdots,N} $$ 从初态psi每次转动theta角度(相对于做两次投影对称)，需要pi/(2*theta)次转动，
+首先，考虑态相对于alpha的投影对称，这里a=beta $$ O\sum_x\alpha_x|x\rangle=\sum_x(-1)^{f(x)}\alpha_x|x\rangle=\sum_{x\neq a}\left(\alpha_x|x\rangle-\alpha_a|a\rangle\right)=\sum_{x}\left(\alpha_x|x\rangle-2\alpha_a|a\rangle\right) $$ 相当于翻转beta方向的态失 $$ O=I-2|a\rangle\langle a|=R_{\alpha} $$ 然后相对于psi投影翻转 $$ R_{\psi}=-I&#43;2|\psi\rangle\langle\psi|=H^{\otimes n}\left(-I&#43;2|0\rangle\langle 0| \right)H^{\otimes n} $$ 即 $$ \left[\left(|\psi\rangle\langle\psi|-I \right)O \right]^R\frac{1}{\sqrt{N}}\sum_{x=1}^N|x\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right)\approx |a\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right) $$ 其中 $$ R=\frac{\pi\sqrt{N}}{4} $$ 测量第一个寄存器可以得到a。
+其中的Grover算符，" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://boseliao.github.io/posts/qcsearch_algorithm/" />
+<meta property="article:published_time" content="2020-06-27T19:38:17&#43;08:00"/>
+<meta property="article:modified_time" content="2020-06-27T19:38:17&#43;08:00"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="QC:search_algorithm"/>
+<meta name="twitter:description" content="使用量子搜索算法(Grover&rsquo;s algorithm)能够大大降低计算的复杂度，这里我们可以利用几何图形分析该算法。
+定义一个算符 $$ O\sum_x\alpha_x|x\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right)=\sum_x(-1)^{f(x)}\alpha_x|x\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right) $$ 其中，a是我门要搜索的目标态 $$ x=a,f(x)=1;\quad x\neq a ,f(x)=0.\quad a\in {1,\cdots,N} $$ 从初态psi每次转动theta角度(相对于做两次投影对称)，需要pi/(2*theta)次转动，
+首先，考虑态相对于alpha的投影对称，这里a=beta $$ O\sum_x\alpha_x|x\rangle=\sum_x(-1)^{f(x)}\alpha_x|x\rangle=\sum_{x\neq a}\left(\alpha_x|x\rangle-\alpha_a|a\rangle\right)=\sum_{x}\left(\alpha_x|x\rangle-2\alpha_a|a\rangle\right) $$ 相当于翻转beta方向的态失 $$ O=I-2|a\rangle\langle a|=R_{\alpha} $$ 然后相对于psi投影翻转 $$ R_{\psi}=-I&#43;2|\psi\rangle\langle\psi|=H^{\otimes n}\left(-I&#43;2|0\rangle\langle 0| \right)H^{\otimes n} $$ 即 $$ \left[\left(|\psi\rangle\langle\psi|-I \right)O \right]^R\frac{1}{\sqrt{N}}\sum_{x=1}^N|x\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right)\approx |a\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right) $$ 其中 $$ R=\frac{\pi\sqrt{N}}{4} $$ 测量第一个寄存器可以得到a。
+其中的Grover算符，"/>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="">
+	<link rel="shortcut icon" href="/favicon.ico">
+
+	<title>QC:search_algorithm</title>
+	<link rel="stylesheet" href="https://boseliao.github.io/css/style.min.657bcb7af31123e4156b1a3d2ff60a636717e54ead74f882136b5114cf72b55e.css" integrity="sha256-ZXvLevMRI+QVaxo9L/YKY2cX5U6tdPiCE2tRFM9ytV4=" crossorigin="anonymous">
+	
+</head>
+
+<body id="page">
+	
+	<header id="site-header" class="animated slideInUp faster">
+		<div class="hdr-wrapper section-inner">
+			<div class="hdr-left">
+				<div class="site-branding">
+					<a href="https://boseliao.github.io">BoseLiao&#39;s Blog</a>
+				</div>
+				<nav class="site-nav hide-in-mobile">
+					
+				<a href="https://boseliao.github.io/posts/">Posts</a>
+				<a href="https://boseliao.github.io/boseliao">About</a>
+
+				</nav>
+			</div>
+			<div class="hdr-right hdr-icons">
+				<button id="menu-btn" class="hdr-btn" title="Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+			</div>
+		</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+	</header>
+	<div id="mobile-menu" class="animated fast">
+		<ul>
+			<li><a href="https://boseliao.github.io/posts/">Posts</a></li>
+			<li><a href="https://boseliao.github.io/boseliao">About</a></li>
+		</ul>
+	</div>
+
+
+	<main class="site-main section-inner animated fadeIn faster">
+		<article class="thin">
+			<header class="post-header">
+				<div class="post-meta"><span>Jun 27, 2020</span></div>
+				<h1>QC:search_algorithm</h1>
+			</header>
+			<div class="content">
+				<p>使用量子搜索算法(Grover&rsquo;s algorithm)能够大大降低计算的复杂度，这里我们可以利用几何图形分析该算法。</p>
+
+<p>定义一个算符
+$$
+O\sum_x\alpha_x|x\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right)=\sum_x(-1)^{f(x)}\alpha_x|x\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right)
+$$
+其中，a是我门要搜索的目标态
+$$
+x=a,f(x)=1;\quad x\neq a ,f(x)=0.\quad a\in {1,\cdots,N}
+$$
+从初态psi每次转动theta角度(相对于做两次投影对称)，需要pi/(2*theta)次转动，</p>
+
+<p><img src="/img/search.png" alt="img1" /></p>
+
+<p>首先，考虑态相对于alpha的投影对称，这里a=beta
+$$
+O\sum_x\alpha_x|x\rangle=\sum_x(-1)^{f(x)}\alpha_x|x\rangle=\sum_{x\neq a}\left(\alpha_x|x\rangle-\alpha_a|a\rangle\right)=\sum_{x}\left(\alpha_x|x\rangle-2\alpha_a|a\rangle\right)
+$$
+相当于翻转beta方向的态失
+$$
+O=I-2|a\rangle\langle a|=R_{\alpha}
+$$
+然后相对于psi投影翻转
+$$
+R_{\psi}=-I+2|\psi\rangle\langle\psi|=H^{\otimes n}\left(-I+2|0\rangle\langle 0| \right)H^{\otimes n}
+$$
+即
+$$
+\left[\left(|\psi\rangle\langle\psi|-I \right)O \right]^R\frac{1}{\sqrt{N}}\sum_{x=1}^N|x\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right)\approx |a\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right)
+$$
+其中
+$$
+R=\frac{\pi\sqrt{N}}{4}
+$$
+测量第一个寄存器可以得到a。</p>
+
+<p><img src="/img/QC:ordfound_img2.png" alt="img2" /></p>
+
+<p>其中的Grover算符，</p>
+
+<p><img src="/img/QC:ordfound_img3.png" alt="img3" /></p>
+
+			</div>
+			<hr class="post-end">
+			<footer class="post-info">
+				<p>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://boseliao.github.io/tags/quantum-compute">Quantum Compute</a></span>
+				</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>51 Words</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2020-06-27 19:38 &#43;0800</p>
+			</footer>
+		</article>
+		<div class="post-nav thin">
+			<a class="prev-post" href="https://boseliao.github.io/posts/qcshor_orderfounding/">
+				<span class="post-nav-label">Older&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span><br><span>QC:shor_orderfounding</span>
+			</a>
+		</div>
+		<div id="comments" class="thin">
+</div>
+	</main>
+
+	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
+		<p>&copy; 2020 <a href="https://boseliao.github.io">BoseLiao</a> &#183; <a hr#ef="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">All rights reserved</a></p>
+	</footer>
+
+
+
+	<script src="https://boseliao.github.io/js/bundle.min.490e43e5af6db5906f28afa49a4e16bf9f626b758e3fca92f146b870eb94bb37.js" integrity="sha256-SQ5D5a9ttZBvKK+kmk4Wv59ia3WOP8qS8Ua4cOuUuzc=" crossorigin="anonymous"></script>
+	
+
+</body>
+
+</html>
