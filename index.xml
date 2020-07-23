@@ -7,10 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Sat, 27 Jun 2020 19:38:17 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 23 Jul 2020 15:04:19 +0800</lastBuildDate>
     
 	<atom:link href="https://boseliao.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Pygame:framework</title>
+      <link>https://boseliao.github.io/posts/pygameframework/</link>
+      <pubDate>Thu, 23 Jul 2020 15:04:19 +0800</pubDate>
+      
+      <guid>https://boseliao.github.io/posts/pygameframework/</guid>
+      <description>利用Pygame学习一些简单的游戏开发，参考书目《Beginning Game Development with Python and Pygame》，原书的代码是基于python2，所以笔者对代码做了一些修改，测试环境如下，
+ 操作系统：windows 10 python版本：3.7.7 Pygame版本：1.9.6  Pygame编写游戏的基本框架，
+import pygame background_image_filename=&amp;#39;sushiplate.jpg&amp;#39; mouse_image_filename=&amp;#39;fugu.png&amp;#39; from pygame.locals import * from sys import exit #It initializes each of the submodules in the pygame package, #pygame.sound.init() will initialize the sound module pygame.init() #create a display surface screen = pygame.display.set_mode((640,480),0,32) #set the title bar of thePygame window pygame.display.set_caption(&amp;#34;Hello,world!&amp;#34;) backgroound = pygame.image.load(background_image_filename).convert() mouse_cursor = pygame.image.load(mouse_image_filename).convert_alpha() while True: #the close button in the Pygame window for event in pygame.</description>
+    </item>
     
     <item>
       <title>QC:search_algorithm</title>
@@ -19,8 +30,8 @@
       
       <guid>https://boseliao.github.io/posts/qcsearch_algorithm/</guid>
       <description>使用量子搜索算法(Grover&amp;rsquo;s algorithm)能够大大降低计算的复杂度，这里我们可以利用几何图形分析该算法。
-定义一个算符 $$ O\sum_x\alpha_x|x\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right)=\sum_x(-1)^{f(x)}\alpha_x|x\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right) $$ 其中，a是我门要搜索的目标态 $$ x=a,f(x)=1;\quad x\neq a ,f(x)=0.\quad a\in {1,\cdots,N} $$ 从初态psi每次转动theta角度(相对于做两次投影对称)，需要pi/(2*theta)次转动，
-首先，考虑态相对于alpha的投影对称，这里a=beta $$ O\sum_x\alpha_x|x\rangle=\sum_x(-1)^{f(x)}\alpha_x|x\rangle=\sum_{x\neq a}\left(\alpha_x|x\rangle-\alpha_a|a\rangle\right)=\sum_{x}\left(\alpha_x|x\rangle-2\alpha_a|a\rangle\right) $$ 相当于翻转beta方向的态失 $$ O=I-2|a\rangle\langle a|=R_{\alpha} $$ 然后相对于psi投影翻转 $$ R_{\psi}=-I+2|\psi\rangle\langle\psi|=H^{\otimes n}\left(-I+2|0\rangle\langle 0| \right)H^{\otimes n} $$ 即 $$ \left[\left(|\psi\rangle\langle\psi|-I \right)O \right]^R\frac{1}{\sqrt{N}}\sum_{x=1}^N|x\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right)\approx |a\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right) $$ 其中 $$ R=\frac{\pi\sqrt{N}}{4} $$ 测量第一个寄存器可以得到a。
+定义一个算符 $$ O\sum_x\alpha_x|x\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right)=\sum_x(-1)^{f(x)}\alpha_x|x\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right) $$ 其中，a是我门要搜索的目标态，|x&amp;gt;表示数据库， $$ x=a,f(x)=1;\quad x\neq a ,f(x)=0.\quad a\in {1,\cdots,N} $$ 从初态psi每次转动theta角度(相对于做两次投影对称)，需要pi/(2*theta)次转动，
+首先，考虑态相对于alpha的投影对称，这里a=beta $$ O\sum_x\alpha_x|x\rangle=\sum_x(-1)^{f(x)}\alpha_x|x\rangle=\sum_{x\neq a}\left(\alpha_x|x\rangle-\alpha_a|a\rangle\right)=\sum_{x}\left(\alpha_x|x\rangle-2\alpha_a|a\rangle\right) $$ 相当于翻转beta方向的态失 $$ O=I-2|a\rangle\langle a|=R_{\alpha} $$ 然后相对于psi投影翻转 $$ R_{\psi}=-I+2|\psi\rangle\langle\psi|=H^{\otimes n}\left(-I+2|0\rangle\langle 0| \right)H^{\otimes n} $$ 即 $$ \left[\left(|\psi\rangle\langle\psi|-I \right)O \right]^R\frac{1}{\sqrt{N}}\sum_{x=1}^N|x\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right)\approx |a\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right) $$ 其中 $$ R=\frac{\pi\sqrt{N}}{4} $$ 测量第一个寄存器可以得到a。这里搜索1至2^n的数据库，
 其中的Grover算符，</description>
     </item>
     
@@ -135,16 +146,6 @@ $$\frac{\partial}{\partial t}\rho^n_{j_1\dots j_K}=-\left[iH_s^{\times}-\Xi \rig
 这里，目前只能求解洛伦兹谱的谱密度$$J(\omega)=\frac{\eta}{2\pi}\frac{\omega\gamma^2}{\gamma^2+\omega^2}$$其中$\eta$是“system-bath coupling strength”，$\gamma$表示&amp;rdquo;Bath spectral density cutoff frequency&amp;rdquo;。
 这里对文献Non-Markovian and Non-Perturbative Entanglement Dynamics of Biomolecular Excitons进行了follow，
 import numpy as np import matplotlib.pyplot as plt import qutip as qt from qutip.nonmarkov import heom &amp;#34;&amp;#34;&amp;#34; initial attribution self.configure(H_sys, coup_op, coup_strength, temperature, N_cut, N_exp, cut_freq, planck=planck, boltzmann=boltzmann, renorm=renorm, bnd_cut_approx=bnd_cut_approx, stats=stats) H_sys : Qobj System Hamiltonian coup_op : Qobj Operator describing the coupling between system and bath.</description>
-    </item>
-    
-    <item>
-      <title>QuTip:time_correlation</title>
-      <link>https://boseliao.github.io/posts/qutiptime_correlation/</link>
-      <pubDate>Tue, 19 May 2020 19:12:13 +0800</pubDate>
-      
-      <guid>https://boseliao.github.io/posts/qutiptime_correlation/</guid>
-      <description>QuTip计算时间关联函数$$\langle A(t+\tau)B(t)\rangle$$可以使用以下三种态演化方程：Master-equation, Exponential series， the Monte-Carlo。
-&amp;#34;&amp;#34;&amp;#34; correlation_2op_1t(H, state0, taulist, c_ops, a_op, b_op, solver=&amp;#39;me&amp;#39;, reverse=False, args={}, options=&amp;lt;qutip.solver.Options object at 0xa7eedc2c&amp;gt;) ----- state0 : Initial state density matrix or state vector. If &amp;#39;state0&amp;#39; is &amp;#39;None&amp;#39;, then the steady state will be used as the initial state. c_ops : list of collapse operators, may be time-dependent a_op : operator A b_op : operator B. reverse : bool {False, True} If `True`, calculate :math:`\left&amp;lt;A(t)B(t+\tau)\right&amp;gt;` instead of :math:`\left&amp;lt;A(t+\tau)B(t)\right&amp;gt;`.</description>
     </item>
     
   </channel>

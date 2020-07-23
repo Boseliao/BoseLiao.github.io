@@ -10,8 +10,8 @@
 
 <meta itemprop="name" content="QC:search_algorithm">
 <meta itemprop="description" content="使用量子搜索算法(Grover&rsquo;s algorithm)能够大大降低计算的复杂度，这里我们可以利用几何图形分析该算法。
-定义一个算符 $$ O\sum_x\alpha_x|x\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right)=\sum_x(-1)^{f(x)}\alpha_x|x\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right) $$ 其中，a是我门要搜索的目标态 $$ x=a,f(x)=1;\quad x\neq a ,f(x)=0.\quad a\in {1,\cdots,N} $$ 从初态psi每次转动theta角度(相对于做两次投影对称)，需要pi/(2*theta)次转动，
-首先，考虑态相对于alpha的投影对称，这里a=beta $$ O\sum_x\alpha_x|x\rangle=\sum_x(-1)^{f(x)}\alpha_x|x\rangle=\sum_{x\neq a}\left(\alpha_x|x\rangle-\alpha_a|a\rangle\right)=\sum_{x}\left(\alpha_x|x\rangle-2\alpha_a|a\rangle\right) $$ 相当于翻转beta方向的态失 $$ O=I-2|a\rangle\langle a|=R_{\alpha} $$ 然后相对于psi投影翻转 $$ R_{\psi}=-I&#43;2|\psi\rangle\langle\psi|=H^{\otimes n}\left(-I&#43;2|0\rangle\langle 0| \right)H^{\otimes n} $$ 即 $$ \left[\left(|\psi\rangle\langle\psi|-I \right)O \right]^R\frac{1}{\sqrt{N}}\sum_{x=1}^N|x\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right)\approx |a\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right) $$ 其中 $$ R=\frac{\pi\sqrt{N}}{4} $$ 测量第一个寄存器可以得到a。
+定义一个算符 $$ O\sum_x\alpha_x|x\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right)=\sum_x(-1)^{f(x)}\alpha_x|x\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right) $$ 其中，a是我门要搜索的目标态，|x&gt;表示数据库， $$ x=a,f(x)=1;\quad x\neq a ,f(x)=0.\quad a\in {1,\cdots,N} $$ 从初态psi每次转动theta角度(相对于做两次投影对称)，需要pi/(2*theta)次转动，
+首先，考虑态相对于alpha的投影对称，这里a=beta $$ O\sum_x\alpha_x|x\rangle=\sum_x(-1)^{f(x)}\alpha_x|x\rangle=\sum_{x\neq a}\left(\alpha_x|x\rangle-\alpha_a|a\rangle\right)=\sum_{x}\left(\alpha_x|x\rangle-2\alpha_a|a\rangle\right) $$ 相当于翻转beta方向的态失 $$ O=I-2|a\rangle\langle a|=R_{\alpha} $$ 然后相对于psi投影翻转 $$ R_{\psi}=-I&#43;2|\psi\rangle\langle\psi|=H^{\otimes n}\left(-I&#43;2|0\rangle\langle 0| \right)H^{\otimes n} $$ 即 $$ \left[\left(|\psi\rangle\langle\psi|-I \right)O \right]^R\frac{1}{\sqrt{N}}\sum_{x=1}^N|x\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right)\approx |a\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right) $$ 其中 $$ R=\frac{\pi\sqrt{N}}{4} $$ 测量第一个寄存器可以得到a。这里搜索1至2^n的数据库，
 其中的Grover算符，">
 
 
@@ -24,8 +24,8 @@
 <meta itemprop="keywords" content="Quantum Compute," />
 <meta property="og:title" content="QC:search_algorithm" />
 <meta property="og:description" content="使用量子搜索算法(Grover&rsquo;s algorithm)能够大大降低计算的复杂度，这里我们可以利用几何图形分析该算法。
-定义一个算符 $$ O\sum_x\alpha_x|x\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right)=\sum_x(-1)^{f(x)}\alpha_x|x\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right) $$ 其中，a是我门要搜索的目标态 $$ x=a,f(x)=1;\quad x\neq a ,f(x)=0.\quad a\in {1,\cdots,N} $$ 从初态psi每次转动theta角度(相对于做两次投影对称)，需要pi/(2*theta)次转动，
-首先，考虑态相对于alpha的投影对称，这里a=beta $$ O\sum_x\alpha_x|x\rangle=\sum_x(-1)^{f(x)}\alpha_x|x\rangle=\sum_{x\neq a}\left(\alpha_x|x\rangle-\alpha_a|a\rangle\right)=\sum_{x}\left(\alpha_x|x\rangle-2\alpha_a|a\rangle\right) $$ 相当于翻转beta方向的态失 $$ O=I-2|a\rangle\langle a|=R_{\alpha} $$ 然后相对于psi投影翻转 $$ R_{\psi}=-I&#43;2|\psi\rangle\langle\psi|=H^{\otimes n}\left(-I&#43;2|0\rangle\langle 0| \right)H^{\otimes n} $$ 即 $$ \left[\left(|\psi\rangle\langle\psi|-I \right)O \right]^R\frac{1}{\sqrt{N}}\sum_{x=1}^N|x\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right)\approx |a\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right) $$ 其中 $$ R=\frac{\pi\sqrt{N}}{4} $$ 测量第一个寄存器可以得到a。
+定义一个算符 $$ O\sum_x\alpha_x|x\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right)=\sum_x(-1)^{f(x)}\alpha_x|x\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right) $$ 其中，a是我门要搜索的目标态，|x&gt;表示数据库， $$ x=a,f(x)=1;\quad x\neq a ,f(x)=0.\quad a\in {1,\cdots,N} $$ 从初态psi每次转动theta角度(相对于做两次投影对称)，需要pi/(2*theta)次转动，
+首先，考虑态相对于alpha的投影对称，这里a=beta $$ O\sum_x\alpha_x|x\rangle=\sum_x(-1)^{f(x)}\alpha_x|x\rangle=\sum_{x\neq a}\left(\alpha_x|x\rangle-\alpha_a|a\rangle\right)=\sum_{x}\left(\alpha_x|x\rangle-2\alpha_a|a\rangle\right) $$ 相当于翻转beta方向的态失 $$ O=I-2|a\rangle\langle a|=R_{\alpha} $$ 然后相对于psi投影翻转 $$ R_{\psi}=-I&#43;2|\psi\rangle\langle\psi|=H^{\otimes n}\left(-I&#43;2|0\rangle\langle 0| \right)H^{\otimes n} $$ 即 $$ \left[\left(|\psi\rangle\langle\psi|-I \right)O \right]^R\frac{1}{\sqrt{N}}\sum_{x=1}^N|x\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right)\approx |a\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right) $$ 其中 $$ R=\frac{\pi\sqrt{N}}{4} $$ 测量第一个寄存器可以得到a。这里搜索1至2^n的数据库，
 其中的Grover算符，" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://boseliao.github.io/posts/qcsearch_algorithm/" />
@@ -34,8 +34,8 @@
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="QC:search_algorithm"/>
 <meta name="twitter:description" content="使用量子搜索算法(Grover&rsquo;s algorithm)能够大大降低计算的复杂度，这里我们可以利用几何图形分析该算法。
-定义一个算符 $$ O\sum_x\alpha_x|x\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right)=\sum_x(-1)^{f(x)}\alpha_x|x\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right) $$ 其中，a是我门要搜索的目标态 $$ x=a,f(x)=1;\quad x\neq a ,f(x)=0.\quad a\in {1,\cdots,N} $$ 从初态psi每次转动theta角度(相对于做两次投影对称)，需要pi/(2*theta)次转动，
-首先，考虑态相对于alpha的投影对称，这里a=beta $$ O\sum_x\alpha_x|x\rangle=\sum_x(-1)^{f(x)}\alpha_x|x\rangle=\sum_{x\neq a}\left(\alpha_x|x\rangle-\alpha_a|a\rangle\right)=\sum_{x}\left(\alpha_x|x\rangle-2\alpha_a|a\rangle\right) $$ 相当于翻转beta方向的态失 $$ O=I-2|a\rangle\langle a|=R_{\alpha} $$ 然后相对于psi投影翻转 $$ R_{\psi}=-I&#43;2|\psi\rangle\langle\psi|=H^{\otimes n}\left(-I&#43;2|0\rangle\langle 0| \right)H^{\otimes n} $$ 即 $$ \left[\left(|\psi\rangle\langle\psi|-I \right)O \right]^R\frac{1}{\sqrt{N}}\sum_{x=1}^N|x\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right)\approx |a\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right) $$ 其中 $$ R=\frac{\pi\sqrt{N}}{4} $$ 测量第一个寄存器可以得到a。
+定义一个算符 $$ O\sum_x\alpha_x|x\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right)=\sum_x(-1)^{f(x)}\alpha_x|x\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right) $$ 其中，a是我门要搜索的目标态，|x&gt;表示数据库， $$ x=a,f(x)=1;\quad x\neq a ,f(x)=0.\quad a\in {1,\cdots,N} $$ 从初态psi每次转动theta角度(相对于做两次投影对称)，需要pi/(2*theta)次转动，
+首先，考虑态相对于alpha的投影对称，这里a=beta $$ O\sum_x\alpha_x|x\rangle=\sum_x(-1)^{f(x)}\alpha_x|x\rangle=\sum_{x\neq a}\left(\alpha_x|x\rangle-\alpha_a|a\rangle\right)=\sum_{x}\left(\alpha_x|x\rangle-2\alpha_a|a\rangle\right) $$ 相当于翻转beta方向的态失 $$ O=I-2|a\rangle\langle a|=R_{\alpha} $$ 然后相对于psi投影翻转 $$ R_{\psi}=-I&#43;2|\psi\rangle\langle\psi|=H^{\otimes n}\left(-I&#43;2|0\rangle\langle 0| \right)H^{\otimes n} $$ 即 $$ \left[\left(|\psi\rangle\langle\psi|-I \right)O \right]^R\frac{1}{\sqrt{N}}\sum_{x=1}^N|x\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right)\approx |a\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right) $$ 其中 $$ R=\frac{\pi\sqrt{N}}{4} $$ 测量第一个寄存器可以得到a。这里搜索1至2^n的数据库，
 其中的Grover算符，"/>
 
 	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -92,7 +92,7 @@
 $$
 O\sum_x\alpha_x|x\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right)=\sum_x(-1)^{f(x)}\alpha_x|x\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right)
 $$
-其中，a是我门要搜索的目标态
+其中，a是我门要搜索的目标态，|x&gt;表示数据库，
 $$
 x=a,f(x)=1;\quad x\neq a ,f(x)=0.\quad a\in {1,\cdots,N}
 $$
@@ -120,7 +120,7 @@ $$
 $$
 R=\frac{\pi\sqrt{N}}{4}
 $$
-测量第一个寄存器可以得到a。</p>
+测量第一个寄存器可以得到a。这里搜索1至2^n的数据库，</p>
 
 <p><img src="/img/QC:ordfound_img2.png" alt="img2" /></p>
 
@@ -139,6 +139,9 @@ $$
 			</footer>
 		</article>
 		<div class="post-nav thin">
+			<a class="next-post" href="https://boseliao.github.io/posts/pygameframework/">
+				<span class="post-nav-label"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>&nbsp;Newer</span><br><span>Pygame:framework</span>
+			</a>
 			<a class="prev-post" href="https://boseliao.github.io/posts/qcshor_orderfounding/">
 				<span class="post-nav-label">Older&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span><br><span>QC:shor_orderfounding</span>
 			</a>

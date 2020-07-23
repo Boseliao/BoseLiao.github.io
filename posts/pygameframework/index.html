@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="theme-color" content="#494f5c">
+	<meta name="msapplication-TileColor" content="#494f5c">
+
+<meta itemprop="name" content="Pygame:framework">
+<meta itemprop="description" content="利用Pygame学习一些简单的游戏开发，参考书目《Beginning Game Development with Python and Pygame》，原书的代码是基于python2，所以笔者对代码做了一些修改，测试环境如下，
+ 操作系统：windows 10 python版本：3.7.7 Pygame版本：1.9.6  Pygame编写游戏的基本框架，
+import pygame background_image_filename=&#39;sushiplate.jpg&#39; mouse_image_filename=&#39;fugu.png&#39; from pygame.locals import * from sys import exit #It initializes each of the submodules in the pygame package, #pygame.sound.init() will initialize the sound module pygame.init() #create a display surface screen = pygame.display.set_mode((640,480),0,32) #set the title bar of thePygame window pygame.display.set_caption(&#34;Hello,world!&#34;) backgroound = pygame.image.load(background_image_filename).convert() mouse_cursor = pygame.image.load(mouse_image_filename).convert_alpha() while True: #the close button in the Pygame window for event in pygame.">
+
+
+<meta itemprop="datePublished" content="2020-07-23T15:04:19&#43;08:00" />
+<meta itemprop="dateModified" content="2020-07-23T15:04:19&#43;08:00" />
+<meta itemprop="wordCount" content="118">
+
+
+
+<meta itemprop="keywords" content="Pygame," />
+<meta property="og:title" content="Pygame:framework" />
+<meta property="og:description" content="利用Pygame学习一些简单的游戏开发，参考书目《Beginning Game Development with Python and Pygame》，原书的代码是基于python2，所以笔者对代码做了一些修改，测试环境如下，
+ 操作系统：windows 10 python版本：3.7.7 Pygame版本：1.9.6  Pygame编写游戏的基本框架，
+import pygame background_image_filename=&#39;sushiplate.jpg&#39; mouse_image_filename=&#39;fugu.png&#39; from pygame.locals import * from sys import exit #It initializes each of the submodules in the pygame package, #pygame.sound.init() will initialize the sound module pygame.init() #create a display surface screen = pygame.display.set_mode((640,480),0,32) #set the title bar of thePygame window pygame.display.set_caption(&#34;Hello,world!&#34;) backgroound = pygame.image.load(background_image_filename).convert() mouse_cursor = pygame.image.load(mouse_image_filename).convert_alpha() while True: #the close button in the Pygame window for event in pygame." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://boseliao.github.io/posts/pygameframework/" />
+<meta property="article:published_time" content="2020-07-23T15:04:19&#43;08:00"/>
+<meta property="article:modified_time" content="2020-07-23T15:04:19&#43;08:00"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Pygame:framework"/>
+<meta name="twitter:description" content="利用Pygame学习一些简单的游戏开发，参考书目《Beginning Game Development with Python and Pygame》，原书的代码是基于python2，所以笔者对代码做了一些修改，测试环境如下，
+ 操作系统：windows 10 python版本：3.7.7 Pygame版本：1.9.6  Pygame编写游戏的基本框架，
+import pygame background_image_filename=&#39;sushiplate.jpg&#39; mouse_image_filename=&#39;fugu.png&#39; from pygame.locals import * from sys import exit #It initializes each of the submodules in the pygame package, #pygame.sound.init() will initialize the sound module pygame.init() #create a display surface screen = pygame.display.set_mode((640,480),0,32) #set the title bar of thePygame window pygame.display.set_caption(&#34;Hello,world!&#34;) backgroound = pygame.image.load(background_image_filename).convert() mouse_cursor = pygame.image.load(mouse_image_filename).convert_alpha() while True: #the close button in the Pygame window for event in pygame."/>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="">
+	<link rel="shortcut icon" href="/favicon.ico">
+
+	<title>Pygame:framework</title>
+	<link rel="stylesheet" href="https://boseliao.github.io/css/style.min.657bcb7af31123e4156b1a3d2ff60a636717e54ead74f882136b5114cf72b55e.css" integrity="sha256-ZXvLevMRI+QVaxo9L/YKY2cX5U6tdPiCE2tRFM9ytV4=" crossorigin="anonymous">
+	
+</head>
+
+<body id="page">
+	
+	<header id="site-header" class="animated slideInUp faster">
+		<div class="hdr-wrapper section-inner">
+			<div class="hdr-left">
+				<div class="site-branding">
+					<a href="https://boseliao.github.io">BoseLiao&#39;s Blog</a>
+				</div>
+				<nav class="site-nav hide-in-mobile">
+					
+				<a href="https://boseliao.github.io/posts/">Posts</a>
+				<a href="https://boseliao.github.io/boseliao">About</a>
+
+				</nav>
+			</div>
+			<div class="hdr-right hdr-icons">
+				<button id="menu-btn" class="hdr-btn" title="Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+			</div>
+		</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+	</header>
+	<div id="mobile-menu" class="animated fast">
+		<ul>
+			<li><a href="https://boseliao.github.io/posts/">Posts</a></li>
+			<li><a href="https://boseliao.github.io/boseliao">About</a></li>
+		</ul>
+	</div>
+
+
+	<main class="site-main section-inner animated fadeIn faster">
+		<article class="thin">
+			<header class="post-header">
+				<div class="post-meta"><span>Jul 23, 2020</span></div>
+				<h1>Pygame:framework</h1>
+			</header>
+			<div class="content">
+				<p>利用Pygame学习一些简单的游戏开发，参考书目《Beginning Game Development with Python and Pygame》，原书的代码是基于python2，所以笔者对代码做了一些修改，测试环境如下，</p>
+
+<ul>
+<li>操作系统：windows 10</li>
+<li>python版本：3.7.7</li>
+<li>Pygame版本：1.9.6</li>
+</ul>
+
+<p>Pygame编写游戏的基本框架，</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">pygame</span>
+<span class="n">background_image_filename</span><span class="o">=</span><span class="s1">&#39;sushiplate.jpg&#39;</span>
+<span class="n">mouse_image_filename</span><span class="o">=</span><span class="s1">&#39;fugu.png&#39;</span>
+
+<span class="kn">from</span> <span class="nn">pygame.locals</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="nb">exit</span>
+
+<span class="c1">#It initializes each of the submodules in the pygame package,</span>
+<span class="c1">#pygame.sound.init() will initialize the sound module</span>
+<span class="n">pygame</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+
+<span class="c1">#create a display surface</span>
+<span class="n">screen</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">((</span><span class="mi">640</span><span class="p">,</span><span class="mi">480</span><span class="p">),</span><span class="mi">0</span><span class="p">,</span><span class="mi">32</span><span class="p">)</span>
+<span class="c1">#set the title bar of thePygame window</span>
+<span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_caption</span><span class="p">(</span><span class="s2">&#34;Hello,world!&#34;</span><span class="p">)</span>
+
+<span class="n">backgroound</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">background_image_filename</span><span class="p">)</span><span class="o">.</span><span class="n">convert</span><span class="p">()</span>
+<span class="n">mouse_cursor</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">mouse_image_filename</span><span class="p">)</span><span class="o">.</span><span class="n">convert_alpha</span><span class="p">()</span>
+
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    
+    <span class="c1">#the close button in the Pygame window</span>
+    <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="nb">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">QUIT</span><span class="p">:</span>
+            <span class="n">pygame</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+            <span class="nb">exit</span><span class="p">()</span>
+    
+    <span class="c1">#blits the background image to the screen  </span>
+    <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">backgroound</span><span class="p">,(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+    
+    <span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">mouse</span><span class="o">.</span><span class="n">get_pos</span><span class="p">()</span>
+    <span class="n">x</span><span class="o">-=</span> <span class="n">mouse_cursor</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span><span class="o">/</span><span class="mi">2</span>
+    <span class="n">y</span><span class="o">-=</span> <span class="n">mouse_cursor</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span><span class="o">/</span><span class="mi">2</span>
+    <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">mouse_cursor</span><span class="p">,(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">))</span>
+    
+    <span class="c1">#the image we have created in memory is shown to the user without flicker</span>
+    <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></code></pre></div>
+<p><code>pygame.display.set_mode</code>创建一个窗口，接受三个参数，第一个元组表示窗口的长和高，第二个是flags参数，0表示缺省值，可选“FULLSCREEN(全屏),RESIZABLE(自定义),NOFRAME(无框架)”，第三个参数表示储存颜色的比特数可选“8,15,16,24,32”。</p>
+
+<p><code>pygame.image.load</code>加载图片，convert方法将图片格式转换成展示在窗口的样式，convert.alpha图片接受位置信息。</p>
+
+<p><code>pygame.event.get</code>检测并响应用户输入，在大型游戏的开发中这部分需要重构并单独定义函数来控制。这接受用户退出的命令，退出循环。</p>
+
+<p><code>screen.blit</code>在窗口画出图片，第二个是位置信息（在pygame图片总是以矩形存在的，所以可以用图片的左上角表示位置，坐标轴的原点在窗口左上角）</p>
+
+<p><code>pygame.display.update</code>刷新窗口，刷新的频率表示游戏的帧率。</p>
+
+<p>原中关于鼠标，键盘控制由于涉及其他的知识点我们将在以后的博文提到</p>
+
+			</div>
+			<hr class="post-end">
+			<footer class="post-info">
+				<p>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://boseliao.github.io/tags/pygame">Pygame</a></span>
+				</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>118 Words</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2020-07-23 15:04 &#43;0800</p>
+			</footer>
+		</article>
+		<div class="post-nav thin">
+			<a class="prev-post" href="https://boseliao.github.io/posts/qcsearch_algorithm/">
+				<span class="post-nav-label">Older&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span><br><span>QC:search_algorithm</span>
+			</a>
+		</div>
+		<div id="comments" class="thin">
+</div>
+	</main>
+
+	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
+		<p>&copy; 2020 <a href="https://boseliao.github.io">BoseLiao</a> &#183; <a hr#ef="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">All rights reserved</a></p>
+	</footer>
+
+
+
+	<script src="https://boseliao.github.io/js/bundle.min.490e43e5af6db5906f28afa49a4e16bf9f626b758e3fca92f146b870eb94bb37.js" integrity="sha256-SQ5D5a9ttZBvKK+kmk4Wv59ia3WOP8qS8Ua4cOuUuzc=" crossorigin="anonymous"></script>
+	
+
+</body>
+
+</html>

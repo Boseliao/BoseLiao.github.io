@@ -19,8 +19,8 @@
       
       <guid>https://boseliao.github.io/posts/qcsearch_algorithm/</guid>
       <description>使用量子搜索算法(Grover&amp;rsquo;s algorithm)能够大大降低计算的复杂度，这里我们可以利用几何图形分析该算法。
-定义一个算符 $$ O\sum_x\alpha_x|x\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right)=\sum_x(-1)^{f(x)}\alpha_x|x\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right) $$ 其中，a是我门要搜索的目标态 $$ x=a,f(x)=1;\quad x\neq a ,f(x)=0.\quad a\in {1,\cdots,N} $$ 从初态psi每次转动theta角度(相对于做两次投影对称)，需要pi/(2*theta)次转动，
-首先，考虑态相对于alpha的投影对称，这里a=beta $$ O\sum_x\alpha_x|x\rangle=\sum_x(-1)^{f(x)}\alpha_x|x\rangle=\sum_{x\neq a}\left(\alpha_x|x\rangle-\alpha_a|a\rangle\right)=\sum_{x}\left(\alpha_x|x\rangle-2\alpha_a|a\rangle\right) $$ 相当于翻转beta方向的态失 $$ O=I-2|a\rangle\langle a|=R_{\alpha} $$ 然后相对于psi投影翻转 $$ R_{\psi}=-I+2|\psi\rangle\langle\psi|=H^{\otimes n}\left(-I+2|0\rangle\langle 0| \right)H^{\otimes n} $$ 即 $$ \left[\left(|\psi\rangle\langle\psi|-I \right)O \right]^R\frac{1}{\sqrt{N}}\sum_{x=1}^N|x\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right)\approx |a\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right) $$ 其中 $$ R=\frac{\pi\sqrt{N}}{4} $$ 测量第一个寄存器可以得到a。
+定义一个算符 $$ O\sum_x\alpha_x|x\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right)=\sum_x(-1)^{f(x)}\alpha_x|x\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right) $$ 其中，a是我门要搜索的目标态，|x&amp;gt;表示数据库， $$ x=a,f(x)=1;\quad x\neq a ,f(x)=0.\quad a\in {1,\cdots,N} $$ 从初态psi每次转动theta角度(相对于做两次投影对称)，需要pi/(2*theta)次转动，
+首先，考虑态相对于alpha的投影对称，这里a=beta $$ O\sum_x\alpha_x|x\rangle=\sum_x(-1)^{f(x)}\alpha_x|x\rangle=\sum_{x\neq a}\left(\alpha_x|x\rangle-\alpha_a|a\rangle\right)=\sum_{x}\left(\alpha_x|x\rangle-2\alpha_a|a\rangle\right) $$ 相当于翻转beta方向的态失 $$ O=I-2|a\rangle\langle a|=R_{\alpha} $$ 然后相对于psi投影翻转 $$ R_{\psi}=-I+2|\psi\rangle\langle\psi|=H^{\otimes n}\left(-I+2|0\rangle\langle 0| \right)H^{\otimes n} $$ 即 $$ \left[\left(|\psi\rangle\langle\psi|-I \right)O \right]^R\frac{1}{\sqrt{N}}\sum_{x=1}^N|x\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right)\approx |a\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}} \right) $$ 其中 $$ R=\frac{\pi\sqrt{N}}{4} $$ 测量第一个寄存器可以得到a。这里搜索1至2^n的数据库，
 其中的Grover算符，</description>
     </item>
     

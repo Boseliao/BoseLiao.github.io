@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Pygame on BoseLiao&#39;s Blog</title>
+    <link>https://boseliao.github.io/tags/pygame/</link>
+    <description>Recent content in Pygame on BoseLiao&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Thu, 23 Jul 2020 15:04:19 +0800</lastBuildDate>
+    
+	<atom:link href="https://boseliao.github.io/tags/pygame/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Pygame:framework</title>
+      <link>https://boseliao.github.io/posts/pygameframework/</link>
+      <pubDate>Thu, 23 Jul 2020 15:04:19 +0800</pubDate>
+      
+      <guid>https://boseliao.github.io/posts/pygameframework/</guid>
+      <description>利用Pygame学习一些简单的游戏开发，参考书目《Beginning Game Development with Python and Pygame》，原书的代码是基于python2，所以笔者对代码做了一些修改，测试环境如下，
+ 操作系统：windows 10 python版本：3.7.7 Pygame版本：1.9.6  Pygame编写游戏的基本框架，
+import pygame background_image_filename=&amp;#39;sushiplate.jpg&amp;#39; mouse_image_filename=&amp;#39;fugu.png&amp;#39; from pygame.locals import * from sys import exit #It initializes each of the submodules in the pygame package, #pygame.sound.init() will initialize the sound module pygame.init() #create a display surface screen = pygame.display.set_mode((640,480),0,32) #set the title bar of thePygame window pygame.display.set_caption(&amp;#34;Hello,world!&amp;#34;) backgroound = pygame.image.load(background_image_filename).convert() mouse_cursor = pygame.image.load(mouse_image_filename).convert_alpha() while True: #the close button in the Pygame window for event in pygame.</description>
+    </item>
+    
+  </channel>
+</rss>
