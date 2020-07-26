@@ -7,10 +7,43 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Thu, 23 Jul 2020 15:04:19 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 26 Jul 2020 12:15:43 +0800</lastBuildDate>
     
 	<atom:link href="https://boseliao.github.io/tags/pygame/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Pygame:user_control</title>
+      <link>https://boseliao.github.io/posts/pygameuser_control/</link>
+      <pubDate>Sun, 26 Jul 2020 12:15:43 +0800</pubDate>
+      
+      <guid>https://boseliao.github.io/posts/pygameuser_control/</guid>
+      <description>这里我们主要考虑用户使用键盘与鼠标，与游戏进行交互。
+键盘控制 利用键盘控制物体移动，
+import pygame from pygame.locals import * from sys import exit background_image_filename=&amp;#39;sushiplate.jpg&amp;#39; screen = pygame.display.set_mode((640,480),0,32) background = pygame.image.load(background_image_filename).convert() x,y=0,0 move_x,move_y=0,0 while True: for event in pygame.event.get(): if event.type == pygame.QUIT: pygame.quit() exit() if event.type == KEYDOWN: if event.key == K_LEFT: move_x = -1 elif event.key == K_RIGHT: move_x = 1 elif event.key == K_UP: move_y = 1 elif event.key == K_DOWN: move_y = -1 elif event.type == KEYUP: move_x=0 move_y=0 x+= move_x y+= move_y screen.</description>
+    </item>
+    
+    <item>
+      <title>Pygame:motion</title>
+      <link>https://boseliao.github.io/posts/pygamemotion/</link>
+      <pubDate>Sat, 25 Jul 2020 17:24:29 +0800</pubDate>
+      
+      <guid>https://boseliao.github.io/posts/pygamemotion/</guid>
+      <description>首先，考虑一个简单的直线运动，
+background_image_filename = &amp;#39;sushiplate.jpg&amp;#39; sprite_image_filename = &amp;#39;fugu.png&amp;#39; import pygame from pygame.locals import * from sys import exit pygame.init() screen = pygame.display.set_mode((640, 480), 0, 32) background = pygame.image.load(background_image_filename).convert() sprite = pygame.image.load(sprite_image_filename) # sprite的起始x坐标 x = 0. # Clock对象 clock = pygame.time.Clock() # 速度（像素/秒） speed = 250. while True: for event in pygame.event.get(): if event.type == pygame.QUIT: pygame.quit() exit() screen.blit(background, (0,0)) screen.blit(sprite, (x, 100)) time_passed = clock.tick() time_passed_seconds = time_passed / 1000.0 distance_moved = time_passed_seconds * speed x += distance_moved # 如果移动出屏幕了，就搬到开始位置继续 if x &amp;gt; 640.</description>
+    </item>
+    
+    <item>
+      <title>Pygame:visuals</title>
+      <link>https://boseliao.github.io/posts/pygamevisuals/</link>
+      <pubDate>Thu, 23 Jul 2020 16:56:10 +0800</pubDate>
+      
+      <guid>https://boseliao.github.io/posts/pygamevisuals/</guid>
+      <description>游戏中的视觉效果是由一系列色素构成的，每一个色素点用RGB（Red，Green，Blue）描述。我们可以生成一副包含所有颜色的图片，
+import pygame pygame.init() screen = pygame.display.set_mode((640,480)) all_colors = pygame.Surface((4096,4096),depth=24) for r in range(256): print(r+1,&amp;#34;out of 256&amp;#34;) x = (r&amp;amp;15)*256 y = (r&amp;gt;&amp;gt;4)*256 for g in range(256): for b in range(256): all_colors.set_at((x+g,y+b),(r,g,b)) pygame.image.save(all_colors,&amp;#34;all_colrs.bmp&amp;#34;) pygame.Surface((width, height), flags=0, depth=0, masks=None)创建一个python的Surface图片实例，上文的convert()方法就是将加载的图片装换成Surface类。这里利用了方法set_at()设置像素值。
+接下来我们利用如下程序来呈现如何改变三原色的配比来合成新的颜色，
+import pygame from pygame.locals import * from sys import exit pygame.init() screen = pygame.display.set_mode((640,480),0,32) #create image with smooth gradients def create_scales(height): red_scale_surface = pygame.surface.Surface((640, height)) green_scale_surface = pygame.surface.Surface((640, height)) blue_scale_surface = pygame.</description>
+    </item>
     
     <item>
       <title>Pygame:framework</title>

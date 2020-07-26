@@ -7,10 +7,43 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Thu, 23 Jul 2020 15:04:19 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 26 Jul 2020 12:15:43 +0800</lastBuildDate>
     
 	<atom:link href="https://boseliao.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Pygame:user_control</title>
+      <link>https://boseliao.github.io/posts/pygameuser_control/</link>
+      <pubDate>Sun, 26 Jul 2020 12:15:43 +0800</pubDate>
+      
+      <guid>https://boseliao.github.io/posts/pygameuser_control/</guid>
+      <description>这里我们主要考虑用户使用键盘与鼠标，与游戏进行交互。
+键盘控制 利用键盘控制物体移动，
+import pygame from pygame.locals import * from sys import exit background_image_filename=&amp;#39;sushiplate.jpg&amp;#39; screen = pygame.display.set_mode((640,480),0,32) background = pygame.image.load(background_image_filename).convert() x,y=0,0 move_x,move_y=0,0 while True: for event in pygame.event.get(): if event.type == pygame.QUIT: pygame.quit() exit() if event.type == KEYDOWN: if event.key == K_LEFT: move_x = -1 elif event.key == K_RIGHT: move_x = 1 elif event.key == K_UP: move_y = 1 elif event.key == K_DOWN: move_y = -1 elif event.type == KEYUP: move_x=0 move_y=0 x+= move_x y+= move_y screen.</description>
+    </item>
+    
+    <item>
+      <title>Pygame:motion</title>
+      <link>https://boseliao.github.io/posts/pygamemotion/</link>
+      <pubDate>Sat, 25 Jul 2020 17:24:29 +0800</pubDate>
+      
+      <guid>https://boseliao.github.io/posts/pygamemotion/</guid>
+      <description>首先，考虑一个简单的直线运动，
+background_image_filename = &amp;#39;sushiplate.jpg&amp;#39; sprite_image_filename = &amp;#39;fugu.png&amp;#39; import pygame from pygame.locals import * from sys import exit pygame.init() screen = pygame.display.set_mode((640, 480), 0, 32) background = pygame.image.load(background_image_filename).convert() sprite = pygame.image.load(sprite_image_filename) # sprite的起始x坐标 x = 0. # Clock对象 clock = pygame.time.Clock() # 速度（像素/秒） speed = 250. while True: for event in pygame.event.get(): if event.type == pygame.QUIT: pygame.quit() exit() screen.blit(background, (0,0)) screen.blit(sprite, (x, 100)) time_passed = clock.tick() time_passed_seconds = time_passed / 1000.0 distance_moved = time_passed_seconds * speed x += distance_moved # 如果移动出屏幕了，就搬到开始位置继续 if x &amp;gt; 640.</description>
+    </item>
+    
+    <item>
+      <title>Pygame:visuals</title>
+      <link>https://boseliao.github.io/posts/pygamevisuals/</link>
+      <pubDate>Thu, 23 Jul 2020 16:56:10 +0800</pubDate>
+      
+      <guid>https://boseliao.github.io/posts/pygamevisuals/</guid>
+      <description>游戏中的视觉效果是由一系列色素构成的，每一个色素点用RGB（Red，Green，Blue）描述。我们可以生成一副包含所有颜色的图片，
+import pygame pygame.init() screen = pygame.display.set_mode((640,480)) all_colors = pygame.Surface((4096,4096),depth=24) for r in range(256): print(r+1,&amp;#34;out of 256&amp;#34;) x = (r&amp;amp;15)*256 y = (r&amp;gt;&amp;gt;4)*256 for g in range(256): for b in range(256): all_colors.set_at((x+g,y+b),(r,g,b)) pygame.image.save(all_colors,&amp;#34;all_colrs.bmp&amp;#34;) pygame.Surface((width, height), flags=0, depth=0, masks=None)创建一个python的Surface图片实例，上文的convert()方法就是将加载的图片装换成Surface类。这里利用了方法set_at()设置像素值。
+接下来我们利用如下程序来呈现如何改变三原色的配比来合成新的颜色，
+import pygame from pygame.locals import * from sys import exit pygame.init() screen = pygame.display.set_mode((640,480),0,32) #create image with smooth gradients def create_scales(height): red_scale_surface = pygame.surface.Surface((640, height)) green_scale_surface = pygame.surface.Surface((640, height)) blue_scale_surface = pygame.</description>
+    </item>
     
     <item>
       <title>Pygame:framework</title>
@@ -106,46 +139,6 @@ $$ =(\delta_{x,x\prime}\delta_{y,y\prime\oplus f(x\prime)})^*=(\langle x,y|U_f|x
 单量子比特 sigma_x泡利算符X，对应于经典的NOT门 $$ \sigma_x|x\rangle=|1-x\rangle $$
 from qutip.qip.circuit import QubitCircuit, Gate from qutip.qip import gates qc=QubitCircuit(N=1) def user_gate(): #sigma_x mat = np.array([[0.,1.0],[1., 0.]]) return qt.Qobj(mat, dims=[[2], [2]]) qc.user_gates={&amp;#34;sigma_x&amp;#34;:user_gate} qc.add_gate(&amp;#34;sigma_x&amp;#34;,targets=[0]) U_list = qc.propagators() from qutip.qip.operations import gate_sequence_product U = gate_sequence_product(U_list) psi0=qt.basis(2,0) psit=U*psi0 b=qt.Bloch() b.add_states(psi0) b.add_states(psit) b.save(&amp;#34;qc_gate.png&amp;#34;) b.show() sigma_z泡利算符Z $$ \sigma_z|x\rangle=(-1)^x|x\rangle $$
 def user_gate(): #sigma_z mat = np.array([[1.,0.],[0., -1.]]) return qt.Qobj(mat, dims=[[2], [2]]) qc.user_gates={&amp;#34;sigma_z&amp;#34;:user_gate} qc.add_gate(&amp;#34;sigma_z&amp;#34;,targets=[0]) 旋转门(rotation gate) RX沿着X轴旋转 $$ R_x(\theta)(\alpha|0\rangle+\beta|1\rangle)=(\alpha\cos(\frac{\theta}{2})-i\beta\sin(\frac{\theta}{2}))|0\rangle+(\beta\cos(\frac{\theta}{2})-i\alpha\sin(\frac{\theta}{2}))|1\rangle $$</description>
-    </item>
-    
-    <item>
-      <title>QC:spin</title>
-      <link>https://boseliao.github.io/posts/qcspin/</link>
-      <pubDate>Tue, 26 May 2020 19:31:24 +0800</pubDate>
-      
-      <guid>https://boseliao.github.io/posts/qcspin/</guid>
-      <description>磁偶极子在磁场中的势能 $$ H=U=-\mu B $$ \mu表示磁矩的大小和方向。磁偶极子受到的磁场梯度力为 $$ F=-\nabla U=\nabla (\mu B) $$ 自旋的磁矩可以表示为 $$ \mu =-\frac{1}{2}g\mu_B\sigma $$ 自旋在磁场中哈密顿量 $$ H=-\mu B=\frac{1}{2}g\mu_B\sigma B=\frac{1}{2}\hbar\gamma\sigma B $$ 著名的Stern-Gerlach实验证明了自旋磁矩的量子化
-在图中，电子经过第一个SG装置会分裂成两部分|n+&amp;gt;和|n-&amp;gt;，之后 |n+&amp;gt;经过第二个SG装置继续分成两部分|m+&amp;gt;和|m-&amp;gt;， $$ P(|n+\rangle\to|m+\rangle)=\frac{1}{2}\left(1+nm \right) $$
-$$ P(|n+\rangle\to|m-\rangle)=\frac{1}{2}\left(1-nm \right) $$
-选择Z方向的本征态为基失 $$ |Z+\rangle=|0\rangle ,|Z-\rangle=|1\rangle $$ 则 $$ |n+\rangle=\alpha|0\rangle+\beta|1\rangle $$ 将m设置为Z方向 $$ P(|n+\rangle\to|0\rangle)=\frac{1}{2}\left(1+nZ \right)=|\alpha|^2 $$ 在球坐标中 $$ n=(sin(\theta)cos(\phi),sin(\theta)sin(\phi),cos(\theta)) $$ 任一量子态可以写成 $$ |n+\rangle=cos(\theta/2)|0\rangle+sin(\theta/2)e^{i\phi}|1\rangle $$ 在Bloch球中表示任一量子态
-b=qt.Bloch() pnt = [1/np.sqrt(3),1/np.sqrt(3),1/np.sqrt(3)] b.add_points(pnt) vec = [0,1,0] b.add_vectors(vec) b.show() 不难证明n方向的角动量 $$ S(n)=n\sigma=n_x\sigma_x+n_y\sigma_y+n_z\sigma_z $$ 考虑自旋在磁场中的时间演化，哈密顿量写成 $$ H=\frac{1}{2}\hbar\gamma\sigma_zB_z $$ 设初态处于 $$ |\psi(0)\rangle=\alpha|0\rangle+\beta|1\rangle $$ 时间演化 $$ |\psi(t)\rangle=e^{-i\gamma B_z\sigma_z/2}(\alpha|0\rangle+\beta|1\rangle)=\alpha|0\rangle+\beta e^{i\gamma B_zt}|1\rangle $$ </description>
-    </item>
-    
-    <item>
-      <title>QuTip:spin_chain</title>
-      <link>https://boseliao.github.io/posts/qutipspin_chain/</link>
-      <pubDate>Mon, 25 May 2020 17:50:07 +0800</pubDate>
-      
-      <guid>https://boseliao.github.io/posts/qutipspin_chain/</guid>
-      <description>考虑一维的ISing模型，其哈密顿量， $$ \begin{equation} H=-\frac{1}{2}\sum_n^Nh_n\sigma_z(n)-\frac{1}{2}\sum_n^{N-1}\sum_{i=x,y,z}J_i^{(n)}\sigma_i(n)\sigma_i(n+1) \end{equation} $$ 利用主方程计算其动力学的演化
-def integrate(N,h,Jx,Jy,Jz,psi0,tlist,gamma,solver): si=qt.qeye(2) sx=qt.sigmax() sy=qt.sigmay() sz=qt.sigmaz() sx_list=[] sy_list=[] sz_list=[] #construct sigma_x(n),sigma_y(n),sigma_z(n)  for n in range(N): op_list=[] for m in range(N): op_list.append(si) op_list[n] = sx sx_list.append(qt.tensor(op_list)) op_list[n] = sy sy_list.append(qt.tensor(op_list)) op_list[n] = sz sz_list.append(qt.tensor(op_list)) # construct the hamiltonian H = 0 # energy splitting terms for n in range(N): H += - 0.5 * h[n] * sz_list[n] # interaction terms for n in range(N-1): H += - 0.</description>
-    </item>
-    
-    <item>
-      <title>QuTip:HEOM</title>
-      <link>https://boseliao.github.io/posts/qutipheom/</link>
-      <pubDate>Wed, 20 May 2020 16:20:42 +0800</pubDate>
-      
-      <guid>https://boseliao.github.io/posts/qutipheom/</guid>
-      <description>级联运动方程是用于计算非马尔科夫动力学的最普遍的工具，
-$$\frac{\partial}{\partial t}\rho^n_{j_1\dots j_K}=-\left[iH_s^{\times}+n\gamma+\sum_{k=1}^Kj_k\nu_k-\Xi \right]\rho^n_{j_1\dots j_K}+V^{\times}\rho^{n+1}_{j_1\dots j_K}$$
-$$V^{\times}\sum_{k=1}^K\rho^n_{j_1\dots j_k+1\dots J_K}+n\Theta\rho^{n-1}_{j_1\dots J_K}+\sum_{k=1}^Kj_k\nu_k\Psi_k\rho^n_{j_1\dots j_k-1\dots j_K }$$
-其中$\rho^n_{j_1\dots jK}$表示n阶辅助密度矩阵，对它的求解依赖于n+1，n-1，n阶辅助矩阵，即此方程是不封闭的。而最后要求得的真正的约化密度矩阵是$\rho^0{0\dots 0}$，见图假设（K=2）
-由图可知，可以做如下截断N=n=j1+...+jK，截断方程
-$$\frac{\partial}{\partial t}\rho^n_{j_1\dots j_K}=-\left[iH_s^{\times}-\Xi \right]\rho^n_{j_1\dots j_K}$$
-这里，目前只能求解洛伦兹谱的谱密度$$J(\omega)=\frac{\eta}{2\pi}\frac{\omega\gamma^2}{\gamma^2+\omega^2}$$其中$\eta$是“system-bath coupling strength”，$\gamma$表示&amp;rdquo;Bath spectral density cutoff frequency&amp;rdquo;。
-这里对文献Non-Markovian and Non-Perturbative Entanglement Dynamics of Biomolecular Excitons进行了follow，
-import numpy as np import matplotlib.pyplot as plt import qutip as qt from qutip.nonmarkov import heom &amp;#34;&amp;#34;&amp;#34; initial attribution self.configure(H_sys, coup_op, coup_strength, temperature, N_cut, N_exp, cut_freq, planck=planck, boltzmann=boltzmann, renorm=renorm, bnd_cut_approx=bnd_cut_approx, stats=stats) H_sys : Qobj System Hamiltonian coup_op : Qobj Operator describing the coupling between system and bath.</description>
     </item>
     
   </channel>

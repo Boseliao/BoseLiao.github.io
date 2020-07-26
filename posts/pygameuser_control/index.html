@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="theme-color" content="#494f5c">
+	<meta name="msapplication-TileColor" content="#494f5c">
+
+<meta itemprop="name" content="Pygame:user_control">
+<meta itemprop="description" content="这里我们主要考虑用户使用键盘与鼠标，与游戏进行交互。
+键盘控制 利用键盘控制物体移动，
+import pygame from pygame.locals import * from sys import exit background_image_filename=&#39;sushiplate.jpg&#39; screen = pygame.display.set_mode((640,480),0,32) background = pygame.image.load(background_image_filename).convert() x,y=0,0 move_x,move_y=0,0 while True: for event in pygame.event.get(): if event.type == pygame.QUIT: pygame.quit() exit() if event.type == KEYDOWN: if event.key == K_LEFT: move_x = -1 elif event.key == K_RIGHT: move_x = 1 elif event.key == K_UP: move_y = 1 elif event.key == K_DOWN: move_y = -1 elif event.type == KEYUP: move_x=0 move_y=0 x&#43;= move_x y&#43;= move_y screen.">
+
+
+<meta itemprop="datePublished" content="2020-07-26T12:15:43&#43;08:00" />
+<meta itemprop="dateModified" content="2020-07-26T12:15:43&#43;08:00" />
+<meta itemprop="wordCount" content="596">
+
+
+
+<meta itemprop="keywords" content="Pygame," />
+<meta property="og:title" content="Pygame:user_control" />
+<meta property="og:description" content="这里我们主要考虑用户使用键盘与鼠标，与游戏进行交互。
+键盘控制 利用键盘控制物体移动，
+import pygame from pygame.locals import * from sys import exit background_image_filename=&#39;sushiplate.jpg&#39; screen = pygame.display.set_mode((640,480),0,32) background = pygame.image.load(background_image_filename).convert() x,y=0,0 move_x,move_y=0,0 while True: for event in pygame.event.get(): if event.type == pygame.QUIT: pygame.quit() exit() if event.type == KEYDOWN: if event.key == K_LEFT: move_x = -1 elif event.key == K_RIGHT: move_x = 1 elif event.key == K_UP: move_y = 1 elif event.key == K_DOWN: move_y = -1 elif event.type == KEYUP: move_x=0 move_y=0 x&#43;= move_x y&#43;= move_y screen." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://boseliao.github.io/posts/pygameuser_control/" />
+<meta property="article:published_time" content="2020-07-26T12:15:43&#43;08:00"/>
+<meta property="article:modified_time" content="2020-07-26T12:15:43&#43;08:00"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Pygame:user_control"/>
+<meta name="twitter:description" content="这里我们主要考虑用户使用键盘与鼠标，与游戏进行交互。
+键盘控制 利用键盘控制物体移动，
+import pygame from pygame.locals import * from sys import exit background_image_filename=&#39;sushiplate.jpg&#39; screen = pygame.display.set_mode((640,480),0,32) background = pygame.image.load(background_image_filename).convert() x,y=0,0 move_x,move_y=0,0 while True: for event in pygame.event.get(): if event.type == pygame.QUIT: pygame.quit() exit() if event.type == KEYDOWN: if event.key == K_LEFT: move_x = -1 elif event.key == K_RIGHT: move_x = 1 elif event.key == K_UP: move_y = 1 elif event.key == K_DOWN: move_y = -1 elif event.type == KEYUP: move_x=0 move_y=0 x&#43;= move_x y&#43;= move_y screen."/>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="">
+	<link rel="shortcut icon" href="/favicon.ico">
+
+	<title>Pygame:user_control</title>
+	<link rel="stylesheet" href="https://boseliao.github.io/css/style.min.657bcb7af31123e4156b1a3d2ff60a636717e54ead74f882136b5114cf72b55e.css" integrity="sha256-ZXvLevMRI+QVaxo9L/YKY2cX5U6tdPiCE2tRFM9ytV4=" crossorigin="anonymous">
+	
+</head>
+
+<body id="page">
+	
+	<header id="site-header" class="animated slideInUp faster">
+		<div class="hdr-wrapper section-inner">
+			<div class="hdr-left">
+				<div class="site-branding">
+					<a href="https://boseliao.github.io">BoseLiao&#39;s Blog</a>
+				</div>
+				<nav class="site-nav hide-in-mobile">
+					
+				<a href="https://boseliao.github.io/posts/">Posts</a>
+				<a href="https://boseliao.github.io/boseliao">About</a>
+
+				</nav>
+			</div>
+			<div class="hdr-right hdr-icons">
+				<button id="menu-btn" class="hdr-btn" title="Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+			</div>
+		</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+	</header>
+	<div id="mobile-menu" class="animated fast">
+		<ul>
+			<li><a href="https://boseliao.github.io/posts/">Posts</a></li>
+			<li><a href="https://boseliao.github.io/boseliao">About</a></li>
+		</ul>
+	</div>
+
+
+	<main class="site-main section-inner animated fadeIn faster">
+		<article class="thin">
+			<header class="post-header">
+				<div class="post-meta"><span>Jul 26, 2020</span></div>
+				<h1>Pygame:user_control</h1>
+			</header>
+			<div class="content">
+				
+
+<p>这里我们主要考虑用户使用键盘与鼠标，与游戏进行交互。</p>
+
+<h2 id="键盘控制">键盘控制<a href="#键盘控制" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+
+<p>利用键盘控制物体移动，</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">pygame</span>
+
+<span class="kn">from</span> <span class="nn">pygame.locals</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="nb">exit</span>
+<span class="n">background_image_filename</span><span class="o">=</span><span class="s1">&#39;sushiplate.jpg&#39;</span>
+<span class="n">screen</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">((</span><span class="mi">640</span><span class="p">,</span><span class="mi">480</span><span class="p">),</span><span class="mi">0</span><span class="p">,</span><span class="mi">32</span><span class="p">)</span>
+<span class="n">background</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">background_image_filename</span><span class="p">)</span><span class="o">.</span><span class="n">convert</span><span class="p">()</span>
+
+<span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span>
+<span class="n">move_x</span><span class="p">,</span><span class="n">move_y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span>
+
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    
+    <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="nb">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">QUIT</span><span class="p">:</span>
+            <span class="n">pygame</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+            <span class="nb">exit</span><span class="p">()</span>
+        
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="nb">type</span> <span class="o">==</span> <span class="n">KEYDOWN</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">K_LEFT</span><span class="p">:</span>
+                <span class="n">move_x</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">K_RIGHT</span><span class="p">:</span>
+                <span class="n">move_x</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">K_UP</span><span class="p">:</span>
+                <span class="n">move_y</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">K_DOWN</span><span class="p">:</span>
+                <span class="n">move_y</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="nb">type</span> <span class="o">==</span> <span class="n">KEYUP</span><span class="p">:</span>
+            <span class="n">move_x</span><span class="o">=</span><span class="mi">0</span>
+            <span class="n">move_y</span><span class="o">=</span><span class="mi">0</span>
+            
+    <span class="n">x</span><span class="o">+=</span> <span class="n">move_x</span>
+    <span class="n">y</span><span class="o">+=</span> <span class="n">move_y</span>
+    
+    <span class="n">screen</span><span class="o">.</span><span class="n">fill</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+    <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">background</span><span class="p">,(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">))</span>
+    
+    <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></code></pre></div>
+<p>其中，<code>KEYDOWN</code>和<code>KEYUP</code>分别用来检测来自键盘的是否按下的信号。对于更具体的知道哪个键被按下，可以调用<code>pygame.key</code>模块，用<code>key_a----key_z</code>和<code>key_0---key_9</code>表示字母和数字，类似的也可以表达方向键等。但这个程序里的物体只能一下一下的动，为了使其连续移动</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">background_image_filename</span> <span class="o">=</span> <span class="s1">&#39;sushiplate.jpg&#39;</span>
+<span class="n">sprite_image_filename</span> <span class="o">=</span> <span class="s1">&#39;fugu.png&#39;</span>
+ 
+<span class="kn">import</span> <span class="nn">pygame</span>
+<span class="kn">from</span> <span class="nn">pygame.locals</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="nb">exit</span>
+<span class="kn">from</span> <span class="nn">gameobjects.vector</span> <span class="kn">import</span> <span class="n">Vector2</span>
+ 
+<span class="n">pygame</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+ 
+<span class="n">screen</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">((</span><span class="mi">640</span><span class="p">,</span> <span class="mi">480</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>
+ 
+<span class="n">background</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">background_image_filename</span><span class="p">)</span><span class="o">.</span><span class="n">convert</span><span class="p">()</span>
+<span class="n">sprite</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">sprite_image_filename</span><span class="p">)</span><span class="o">.</span><span class="n">convert_alpha</span><span class="p">()</span>
+ 
+<span class="n">clock</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">Clock</span><span class="p">()</span>
+ 
+<span class="n">sprite_pos</span> <span class="o">=</span> <span class="n">Vector2</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">150</span><span class="p">)</span>
+<span class="n">sprite_speed</span> <span class="o">=</span> <span class="mf">300.</span>
+ 
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+ 
+    <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="nb">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">QUIT</span><span class="p">:</span>
+            <span class="n">pygame</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+            <span class="nb">exit</span><span class="p">()</span>
+ 
+    <span class="n">pressed_keys</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">key</span><span class="o">.</span><span class="n">get_pressed</span><span class="p">()</span>
+ 
+    <span class="n">key_direction</span> <span class="o">=</span> <span class="n">Vector2</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">pressed_keys</span><span class="p">[</span><span class="n">K_LEFT</span><span class="p">]:</span>
+        <span class="n">key_direction</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">elif</span> <span class="n">pressed_keys</span><span class="p">[</span><span class="n">K_RIGHT</span><span class="p">]:</span>
+        <span class="n">key_direction</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="o">+</span><span class="mi">1</span>
+    <span class="k">if</span> <span class="n">pressed_keys</span><span class="p">[</span><span class="n">K_UP</span><span class="p">]:</span>
+        <span class="n">key_direction</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">elif</span> <span class="n">pressed_keys</span><span class="p">[</span><span class="n">K_DOWN</span><span class="p">]:</span>
+        <span class="n">key_direction</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="o">+</span><span class="mi">1</span>
+ 
+    <span class="n">key_direction</span><span class="o">.</span><span class="n">normalize</span><span class="p">()</span>
+ 
+    <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">background</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+    <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">sprite</span><span class="p">,</span> <span class="n">sprite_pos</span><span class="p">)</span>
+ 
+    <span class="n">time_passed</span> <span class="o">=</span> <span class="n">clock</span><span class="o">.</span><span class="n">tick</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+    <span class="n">time_passed_seconds</span> <span class="o">=</span> <span class="n">time_passed</span> <span class="o">/</span> <span class="mf">1000.0</span>
+ 
+    <span class="n">sprite_pos</span><span class="o">+=</span> <span class="n">key_direction</span> <span class="o">*</span> <span class="n">sprite_speed</span> <span class="o">*</span> <span class="n">time_passed_seconds</span>
+ 
+    <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></code></pre></div>
+<p>检测并输出按键，</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">pygame</span>
+
+<span class="kn">from</span> <span class="nn">pygame.locals</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="nb">exit</span>
+
+<span class="n">pygame</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+<span class="n">screen</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">((</span><span class="mi">640</span><span class="p">,</span><span class="mi">480</span><span class="p">),</span><span class="mi">0</span><span class="p">,</span><span class="mi">32</span><span class="p">)</span>
+
+<span class="n">font</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">SysFont</span><span class="p">(</span><span class="s2">&#34;arial&#34;</span><span class="p">,</span> <span class="mi">32</span><span class="p">);</span>
+<span class="n">font_height</span> <span class="o">=</span> <span class="n">font</span><span class="o">.</span><span class="n">get_linesize</span><span class="p">()</span>
+
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    
+    <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="nb">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">QUIT</span><span class="p">:</span>
+            <span class="n">pygame</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+            <span class="nb">exit</span><span class="p">()</span>
+            
+    <span class="n">screen</span><span class="o">.</span><span class="n">fill</span><span class="p">((</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">))</span>
+    
+    <span class="n">pressed_key_text</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">pressed_keys</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">key</span><span class="o">.</span><span class="n">get_pressed</span><span class="p">()</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">font_height</span>
+    
+    <span class="k">for</span> <span class="n">key_constant</span><span class="p">,</span><span class="n">pressed</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">pressed_keys</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">pressed</span><span class="p">:</span>
+            <span class="n">key_name</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">key</span><span class="o">.</span><span class="n">name</span><span class="p">(</span><span class="n">key_constant</span><span class="p">)</span>
+            <span class="n">text_surface</span> <span class="o">=</span> <span class="n">font</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">key_name</span><span class="o">+</span><span class="s2">&#34;pressed&#34;</span><span class="p">,</span><span class="bp">True</span><span class="p">,(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+            <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">text_surface</span><span class="p">,(</span><span class="mi">8</span><span class="p">,</span><span class="n">y</span><span class="p">))</span>
+            <span class="n">y</span><span class="o">+=</span> <span class="n">font_height</span>
+            
+    <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></code></pre></div>
+<p>这里主要用了<code>pygame.key</code>模块的一些方法进行按键的检测，具体可以参考<a href="https://blog.csdn.net/qq_41556318/article/details/86304649">key模块</a></p>
+
+<p>键盘控制旋转</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">background_image_filename</span> <span class="o">=</span> <span class="s1">&#39;sushiplate.jpg&#39;</span>
+<span class="n">sprite_image_filename</span> <span class="o">=</span> <span class="s1">&#39;fugu.png&#39;</span>
+ 
+<span class="kn">import</span> <span class="nn">pygame</span>
+<span class="kn">from</span> <span class="nn">pygame.locals</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="nb">exit</span>
+<span class="kn">from</span> <span class="nn">gameobjects.vector</span> <span class="kn">import</span> <span class="n">Vector2</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="o">*</span>
+ 
+<span class="n">pygame</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+ 
+<span class="n">screen</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">((</span><span class="mi">640</span><span class="p">,</span> <span class="mi">480</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>
+ 
+<span class="n">background</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">background_image_filename</span><span class="p">)</span><span class="o">.</span><span class="n">convert</span><span class="p">()</span>
+<span class="n">sprite</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">sprite_image_filename</span><span class="p">)</span><span class="o">.</span><span class="n">convert_alpha</span><span class="p">()</span>
+ 
+<span class="n">clock</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">Clock</span><span class="p">()</span>
+ 
+<span class="n">sprite_pos</span> <span class="o">=</span> <span class="n">Vector2</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">150</span><span class="p">)</span>   <span class="c1"># 初始位置</span>
+<span class="n">sprite_speed</span> <span class="o">=</span> <span class="mf">300.</span>     <span class="c1"># 每秒前进的像素数（速度）</span>
+<span class="n">sprite_rotation</span> <span class="o">=</span> <span class="mf">0.</span>      <span class="c1"># 初始角度</span>
+<span class="n">sprite_rotation_speed</span> <span class="o">=</span> <span class="mf">360.</span> <span class="c1"># 每秒转动的角度数（转速）</span>
+ 
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+ 
+    <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="nb">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">QUIT</span><span class="p">:</span>
+            <span class="n">pygame</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+            <span class="nb">exit</span><span class="p">()</span>
+ 
+    <span class="n">pressed_keys</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">key</span><span class="o">.</span><span class="n">get_pressed</span><span class="p">()</span>
+ 
+    <span class="n">rotation_direction</span> <span class="o">=</span> <span class="mf">0.</span>
+    <span class="n">movement_direction</span> <span class="o">=</span> <span class="mf">0.</span>
+ 
+    <span class="c1"># 更改角度</span>
+    <span class="k">if</span> <span class="n">pressed_keys</span><span class="p">[</span><span class="n">K_LEFT</span><span class="p">]:</span>
+        <span class="n">rotation_direction</span> <span class="o">=</span> <span class="o">+</span><span class="mf">1.</span>
+    <span class="k">if</span> <span class="n">pressed_keys</span><span class="p">[</span><span class="n">K_RIGHT</span><span class="p">]:</span>
+        <span class="n">rotation_direction</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.</span>
+    <span class="c1"># 前进、后退</span>
+    <span class="k">if</span> <span class="n">pressed_keys</span><span class="p">[</span><span class="n">K_UP</span><span class="p">]:</span>
+        <span class="n">movement_direction</span> <span class="o">=</span> <span class="o">+</span><span class="mf">1.</span>
+    <span class="k">if</span> <span class="n">pressed_keys</span><span class="p">[</span><span class="n">K_DOWN</span><span class="p">]:</span>
+        <span class="n">movement_direction</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.</span>
+ 
+    <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">background</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+ 
+    <span class="c1"># 获得一条转向后的鱼</span>
+    <span class="n">rotated_sprite</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">sprite</span><span class="p">,</span> <span class="n">sprite_rotation</span><span class="p">)</span>
+    <span class="c1"># 转向后，图片的长宽会变化，因为图片永远是矩形，为了放得下一个转向后的矩形，外接的矩形势必会比较大</span>
+    <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">rotated_sprite</span><span class="o">.</span><span class="n">get_size</span><span class="p">()</span>
+    <span class="c1"># 获得绘制图片的左上角</span>
+    <span class="n">sprite_draw_pos</span> <span class="o">=</span> <span class="n">Vector2</span><span class="p">(</span><span class="n">sprite_pos</span><span class="o">.</span><span class="n">x</span><span class="o">-</span><span class="n">w</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">sprite_pos</span><span class="o">.</span><span class="n">y</span><span class="o">-</span><span class="n">h</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">rotated_sprite</span><span class="p">,</span> <span class="n">sprite_draw_pos</span><span class="p">)</span>
+ 
+    <span class="n">time_passed</span> <span class="o">=</span> <span class="n">clock</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span>
+    <span class="n">time_passed_seconds</span> <span class="o">=</span> <span class="n">time_passed</span> <span class="o">/</span> <span class="mf">1000.0</span>
+ 
+    <span class="c1"># 图片的转向速度也需要和行进速度一样，通过时间来控制</span>
+    <span class="n">sprite_rotation</span> <span class="o">+=</span> <span class="n">rotation_direction</span> <span class="o">*</span> <span class="n">sprite_rotation_speed</span> <span class="o">*</span> <span class="n">time_passed_seconds</span>
+ 
+    <span class="c1"># 获得前进（x方向和y方向），这两个需要一点点三角的知识</span>
+    <span class="n">heading_x</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">sprite_rotation</span><span class="o">*</span><span class="n">pi</span><span class="o">/</span><span class="mf">180.</span><span class="p">)</span>
+    <span class="n">heading_y</span> <span class="o">=</span> <span class="n">cos</span><span class="p">(</span><span class="n">sprite_rotation</span><span class="o">*</span><span class="n">pi</span><span class="o">/</span><span class="mf">180.</span><span class="p">)</span>
+    <span class="c1"># 转换为单位速度向量</span>
+    <span class="n">heading</span> <span class="o">=</span> <span class="n">Vector2</span><span class="p">(</span><span class="n">heading_x</span><span class="p">,</span> <span class="n">heading_y</span><span class="p">)</span>
+    <span class="c1"># 转换为速度</span>
+    <span class="n">heading</span> <span class="o">*=</span> <span class="n">movement_direction</span>
+ 
+    <span class="n">sprite_pos</span><span class="o">+=</span> <span class="n">heading</span> <span class="o">*</span> <span class="n">sprite_speed</span> <span class="o">*</span> <span class="n">time_passed_seconds</span>
+ 
+    <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></code></pre></div>
+<p>鼠标控制</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">background_image_filename</span> <span class="o">=</span> <span class="s1">&#39;sushiplate.jpg&#39;</span>
+<span class="n">sprite_image_filename</span> <span class="o">=</span> <span class="s1">&#39;fugu.png&#39;</span>
+ 
+<span class="kn">import</span> <span class="nn">pygame</span>
+<span class="kn">from</span> <span class="nn">pygame.locals</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="nb">exit</span>
+<span class="kn">from</span> <span class="nn">gameobjects.vector</span> <span class="kn">import</span> <span class="n">Vector2</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="o">*</span>
+ 
+<span class="n">pygame</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+<span class="n">screen</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">((</span><span class="mi">640</span><span class="p">,</span> <span class="mi">480</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>
+ 
+<span class="n">background</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">background_image_filename</span><span class="p">)</span><span class="o">.</span><span class="n">convert</span><span class="p">()</span>
+<span class="n">sprite</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">sprite_image_filename</span><span class="p">)</span><span class="o">.</span><span class="n">convert_alpha</span><span class="p">()</span>
+ 
+<span class="n">clock</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">Clock</span><span class="p">()</span>
+ 
+<span class="c1"># 让pygame完全控制鼠标</span>
+<span class="n">pygame</span><span class="o">.</span><span class="n">mouse</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">set_grab</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+ 
+<span class="n">sprite_pos</span> <span class="o">=</span> <span class="n">Vector2</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">150</span><span class="p">)</span>
+<span class="n">sprite_speed</span> <span class="o">=</span> <span class="mf">300.</span>
+<span class="n">sprite_rotation</span> <span class="o">=</span> <span class="mf">0.</span>
+<span class="n">sprite_rotation_speed</span> <span class="o">=</span> <span class="mf">360.</span>
+ 
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+ 
+    <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="nb">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">QUIT</span><span class="p">:</span>
+            <span class="n">pygame</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+            <span class="nb">exit</span><span class="p">()</span>
+        <span class="c1"># 按Esc则退出游戏</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="nb">type</span> <span class="o">==</span> <span class="n">KEYDOWN</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">K_ESCAPE</span><span class="p">:</span>
+                <span class="n">pygame</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+                <span class="nb">exit</span><span class="p">()</span>
+ 
+    <span class="n">pressed_keys</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">key</span><span class="o">.</span><span class="n">get_pressed</span><span class="p">()</span>
+    <span class="c1"># 这里获取鼠标的按键情况</span>
+    <span class="n">pressed_mouse</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">mouse</span><span class="o">.</span><span class="n">get_pressed</span><span class="p">()</span>
+ 
+    <span class="n">rotation_direction</span> <span class="o">=</span> <span class="mf">0.</span>
+    <span class="n">movement_direction</span> <span class="o">=</span> <span class="mf">0.</span>
+ 
+    <span class="c1"># 通过移动偏移量计算转动</span>
+    <span class="n">rotation_direction</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">mouse</span><span class="o">.</span><span class="n">get_rel</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="mf">5.0</span>
+ 
+    <span class="k">if</span> <span class="n">pressed_keys</span><span class="p">[</span><span class="n">K_LEFT</span><span class="p">]:</span>
+        <span class="n">rotation_direction</span> <span class="o">=</span> <span class="o">+</span><span class="mf">1.</span>
+    <span class="k">if</span> <span class="n">pressed_keys</span><span class="p">[</span><span class="n">K_RIGHT</span><span class="p">]:</span>
+        <span class="n">rotation_direction</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.</span>
+    <span class="c1"># 多了一个鼠标左键按下的判断</span>
+    <span class="k">if</span> <span class="n">pressed_keys</span><span class="p">[</span><span class="n">K_UP</span><span class="p">]</span> <span class="ow">or</span> <span class="n">pressed_mouse</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+        <span class="n">movement_direction</span> <span class="o">=</span> <span class="o">+</span><span class="mf">1.</span>
+    <span class="c1"># 多了一个鼠标右键按下的判断</span>
+    <span class="k">if</span> <span class="n">pressed_keys</span><span class="p">[</span><span class="n">K_DOWN</span><span class="p">]</span> <span class="ow">or</span> <span class="n">pressed_mouse</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span>
+        <span class="n">movement_direction</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.</span>
+ 
+    <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">background</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+ 
+    <span class="n">rotated_sprite</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">sprite</span><span class="p">,</span> <span class="n">sprite_rotation</span><span class="p">)</span>
+    <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">rotated_sprite</span><span class="o">.</span><span class="n">get_size</span><span class="p">()</span>
+    <span class="n">sprite_draw_pos</span> <span class="o">=</span> <span class="n">Vector2</span><span class="p">(</span><span class="n">sprite_pos</span><span class="o">.</span><span class="n">x</span><span class="o">-</span><span class="n">w</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">sprite_pos</span><span class="o">.</span><span class="n">y</span><span class="o">-</span><span class="n">h</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">rotated_sprite</span><span class="p">,</span> <span class="n">sprite_draw_pos</span><span class="p">)</span>
+ 
+    <span class="n">time_passed</span> <span class="o">=</span> <span class="n">clock</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span>
+    <span class="n">time_passed_seconds</span> <span class="o">=</span> <span class="n">time_passed</span> <span class="o">/</span> <span class="mf">1000.0</span>
+ 
+    <span class="n">sprite_rotation</span> <span class="o">+=</span> <span class="n">rotation_direction</span> <span class="o">*</span> <span class="n">sprite_rotation_speed</span> <span class="o">*</span> <span class="n">time_passed_seconds</span>
+ 
+    <span class="n">heading_x</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">sprite_rotation</span><span class="o">*</span><span class="n">pi</span><span class="o">/</span><span class="mf">180.</span><span class="p">)</span>
+    <span class="n">heading_y</span> <span class="o">=</span> <span class="n">cos</span><span class="p">(</span><span class="n">sprite_rotation</span><span class="o">*</span><span class="n">pi</span><span class="o">/</span><span class="mf">180.</span><span class="p">)</span>
+    <span class="n">heading</span> <span class="o">=</span> <span class="n">Vector2</span><span class="p">(</span><span class="n">heading_x</span><span class="p">,</span> <span class="n">heading_y</span><span class="p">)</span>
+    <span class="n">heading</span> <span class="o">*=</span> <span class="n">movement_direction</span>
+ 
+    <span class="n">sprite_pos</span><span class="o">+=</span> <span class="n">heading</span> <span class="o">*</span> <span class="n">sprite_speed</span> <span class="o">*</span> <span class="n">time_passed_seconds</span>
+ 
+    <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></code></pre></div>
+<p>类似于键盘控制，用于鼠标控制可以调用<code>pygame.mouse</code>模块，其中具体的方法参考<a href="https://blog.csdn.net/Lingdongtianxia/article/details/86607245">mouse模块</a></p>
+
+			</div>
+			<hr class="post-end">
+			<footer class="post-info">
+				<p>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://boseliao.github.io/tags/pygame">Pygame</a></span>
+				</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>596 Words</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2020-07-26 12:15 &#43;0800</p>
+			</footer>
+		</article>
+		<div class="post-nav thin">
+			<a class="prev-post" href="https://boseliao.github.io/posts/pygamemotion/">
+				<span class="post-nav-label">Older&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span><br><span>Pygame:motion</span>
+			</a>
+		</div>
+		<div id="comments" class="thin">
+</div>
+	</main>
+
+	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
+		<p>&copy; 2020 <a href="https://boseliao.github.io">BoseLiao</a> &#183; <a hr#ef="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">All rights reserved</a></p>
+	</footer>
+
+
+
+	<script src="https://boseliao.github.io/js/bundle.min.490e43e5af6db5906f28afa49a4e16bf9f626b758e3fca92f146b870eb94bb37.js" integrity="sha256-SQ5D5a9ttZBvKK+kmk4Wv59ia3WOP8qS8Ua4cOuUuzc=" crossorigin="anonymous"></script>
+	
+
+</body>
+
+</html>

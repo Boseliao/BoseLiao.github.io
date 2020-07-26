@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="theme-color" content="#494f5c">
+	<meta name="msapplication-TileColor" content="#494f5c">
+
+<meta itemprop="name" content="Pygame:motion">
+<meta itemprop="description" content="首先，考虑一个简单的直线运动，
+background_image_filename = &#39;sushiplate.jpg&#39; sprite_image_filename = &#39;fugu.png&#39; import pygame from pygame.locals import * from sys import exit pygame.init() screen = pygame.display.set_mode((640, 480), 0, 32) background = pygame.image.load(background_image_filename).convert() sprite = pygame.image.load(sprite_image_filename) # sprite的起始x坐标 x = 0. # Clock对象 clock = pygame.time.Clock() # 速度（像素/秒） speed = 250. while True: for event in pygame.event.get(): if event.type == pygame.QUIT: pygame.quit() exit() screen.blit(background, (0,0)) screen.blit(sprite, (x, 100)) time_passed = clock.tick() time_passed_seconds = time_passed / 1000.0 distance_moved = time_passed_seconds * speed x &#43;= distance_moved # 如果移动出屏幕了，就搬到开始位置继续 if x &gt; 640.">
+
+
+<meta itemprop="datePublished" content="2020-07-25T17:24:29&#43;08:00" />
+<meta itemprop="dateModified" content="2020-07-25T17:24:29&#43;08:00" />
+<meta itemprop="wordCount" content="208">
+
+
+
+<meta itemprop="keywords" content="Pygame," />
+<meta property="og:title" content="Pygame:motion" />
+<meta property="og:description" content="首先，考虑一个简单的直线运动，
+background_image_filename = &#39;sushiplate.jpg&#39; sprite_image_filename = &#39;fugu.png&#39; import pygame from pygame.locals import * from sys import exit pygame.init() screen = pygame.display.set_mode((640, 480), 0, 32) background = pygame.image.load(background_image_filename).convert() sprite = pygame.image.load(sprite_image_filename) # sprite的起始x坐标 x = 0. # Clock对象 clock = pygame.time.Clock() # 速度（像素/秒） speed = 250. while True: for event in pygame.event.get(): if event.type == pygame.QUIT: pygame.quit() exit() screen.blit(background, (0,0)) screen.blit(sprite, (x, 100)) time_passed = clock.tick() time_passed_seconds = time_passed / 1000.0 distance_moved = time_passed_seconds * speed x &#43;= distance_moved # 如果移动出屏幕了，就搬到开始位置继续 if x &gt; 640." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://boseliao.github.io/posts/pygamemotion/" />
+<meta property="article:published_time" content="2020-07-25T17:24:29&#43;08:00"/>
+<meta property="article:modified_time" content="2020-07-25T17:24:29&#43;08:00"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Pygame:motion"/>
+<meta name="twitter:description" content="首先，考虑一个简单的直线运动，
+background_image_filename = &#39;sushiplate.jpg&#39; sprite_image_filename = &#39;fugu.png&#39; import pygame from pygame.locals import * from sys import exit pygame.init() screen = pygame.display.set_mode((640, 480), 0, 32) background = pygame.image.load(background_image_filename).convert() sprite = pygame.image.load(sprite_image_filename) # sprite的起始x坐标 x = 0. # Clock对象 clock = pygame.time.Clock() # 速度（像素/秒） speed = 250. while True: for event in pygame.event.get(): if event.type == pygame.QUIT: pygame.quit() exit() screen.blit(background, (0,0)) screen.blit(sprite, (x, 100)) time_passed = clock.tick() time_passed_seconds = time_passed / 1000.0 distance_moved = time_passed_seconds * speed x &#43;= distance_moved # 如果移动出屏幕了，就搬到开始位置继续 if x &gt; 640."/>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="">
+	<link rel="shortcut icon" href="/favicon.ico">
+
+	<title>Pygame:motion</title>
+	<link rel="stylesheet" href="https://boseliao.github.io/css/style.min.657bcb7af31123e4156b1a3d2ff60a636717e54ead74f882136b5114cf72b55e.css" integrity="sha256-ZXvLevMRI+QVaxo9L/YKY2cX5U6tdPiCE2tRFM9ytV4=" crossorigin="anonymous">
+	
+</head>
+
+<body id="page">
+	
+	<header id="site-header" class="animated slideInUp faster">
+		<div class="hdr-wrapper section-inner">
+			<div class="hdr-left">
+				<div class="site-branding">
+					<a href="https://boseliao.github.io">BoseLiao&#39;s Blog</a>
+				</div>
+				<nav class="site-nav hide-in-mobile">
+					
+				<a href="https://boseliao.github.io/posts/">Posts</a>
+				<a href="https://boseliao.github.io/boseliao">About</a>
+
+				</nav>
+			</div>
+			<div class="hdr-right hdr-icons">
+				<button id="menu-btn" class="hdr-btn" title="Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+			</div>
+		</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+	</header>
+	<div id="mobile-menu" class="animated fast">
+		<ul>
+			<li><a href="https://boseliao.github.io/posts/">Posts</a></li>
+			<li><a href="https://boseliao.github.io/boseliao">About</a></li>
+		</ul>
+	</div>
+
+
+	<main class="site-main section-inner animated fadeIn faster">
+		<article class="thin">
+			<header class="post-header">
+				<div class="post-meta"><span>Jul 25, 2020</span></div>
+				<h1>Pygame:motion</h1>
+			</header>
+			<div class="content">
+				<p>首先，考虑一个简单的直线运动，</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">background_image_filename</span> <span class="o">=</span> <span class="s1">&#39;sushiplate.jpg&#39;</span>
+<span class="n">sprite_image_filename</span> <span class="o">=</span> <span class="s1">&#39;fugu.png&#39;</span>
+ 
+<span class="kn">import</span> <span class="nn">pygame</span>
+<span class="kn">from</span> <span class="nn">pygame.locals</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="nb">exit</span>
+ 
+<span class="n">pygame</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+ 
+<span class="n">screen</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">((</span><span class="mi">640</span><span class="p">,</span> <span class="mi">480</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>
+ 
+<span class="n">background</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">background_image_filename</span><span class="p">)</span><span class="o">.</span><span class="n">convert</span><span class="p">()</span>
+<span class="n">sprite</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">sprite_image_filename</span><span class="p">)</span>
+ 
+<span class="c1"># sprite的起始x坐标</span>
+<span class="n">x</span> <span class="o">=</span> <span class="mf">0.</span>
+
+<span class="c1"># Clock对象</span>
+<span class="n">clock</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">Clock</span><span class="p">()</span>
+ 
+<span class="c1"># 速度（像素/秒）</span>
+<span class="n">speed</span> <span class="o">=</span> <span class="mf">250.</span>
+ 
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+ 
+    <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="nb">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">QUIT</span><span class="p">:</span>
+            <span class="n">pygame</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+            <span class="nb">exit</span><span class="p">()</span>
+ 
+    <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">background</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+    <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">sprite</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+    
+    <span class="n">time_passed</span> <span class="o">=</span> <span class="n">clock</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span>
+    <span class="n">time_passed_seconds</span> <span class="o">=</span> <span class="n">time_passed</span> <span class="o">/</span> <span class="mf">1000.0</span>
+    
+    <span class="n">distance_moved</span> <span class="o">=</span> <span class="n">time_passed_seconds</span> <span class="o">*</span> <span class="n">speed</span>
+    <span class="n">x</span> <span class="o">+=</span> <span class="n">distance_moved</span>
+ 
+    <span class="c1"># 如果移动出屏幕了，就搬到开始位置继续</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mf">640.</span><span class="p">:</span>
+        <span class="n">x</span><span class="o">-=</span> <span class="mf">640.</span>    
+ 
+    <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></code></pre></div>
+<p><code>clock.tick(30)</code>返回到上次调用时间间隔，参数限定每秒最大30帧，单位是毫秒</p>
+
+<p>利用向量来控制运动会使得程序的编写更加方便，幸运的是官方的<code>gameobjects</code>模块提供了向量运算的计算模块，我们可以下载使用他。但是目前官方版本只适用于Python2，所以这里提供了适用于Python3的<a href="https://github.com/Boseliao/gameobjects_python3">gameobjects模块</a>。调用这个模块，我们可以利用向量运算控制运动</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="n">background_image_filename</span> <span class="o">=</span> <span class="s1">&#39;sushiplate.jpg&#39;</span>
+<span class="n">sprite_image_filename</span> <span class="o">=</span> <span class="s1">&#39;fugu.png&#39;</span>
+ 
+<span class="kn">import</span> <span class="nn">pygame</span>
+<span class="kn">from</span> <span class="nn">pygame.locals</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="nb">exit</span>
+<span class="kn">from</span> <span class="nn">gameobjects.vector2</span> <span class="kn">import</span> <span class="n">Vector2</span>
+ 
+<span class="n">pygame</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+ 
+<span class="n">screen</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">((</span><span class="mi">640</span><span class="p">,</span> <span class="mi">480</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>
+ 
+<span class="n">background</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">background_image_filename</span><span class="p">)</span><span class="o">.</span><span class="n">convert</span><span class="p">()</span>
+<span class="n">sprite</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">sprite_image_filename</span><span class="p">)</span><span class="o">.</span><span class="n">convert_alpha</span><span class="p">()</span>
+ 
+<span class="n">clock</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">Clock</span><span class="p">()</span>
+ 
+<span class="n">position</span> <span class="o">=</span> <span class="n">Vector2</span><span class="p">(</span><span class="mf">100.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">)</span>
+<span class="n">heading</span> <span class="o">=</span> <span class="n">Vector2</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">)</span>
+<span class="n">distance_move</span><span class="o">=</span><span class="mf">0.0</span>
+<span class="n">distance</span><span class="o">=</span><span class="n">Vector2</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">)</span>
+<span class="n">destination</span><span class="o">=</span><span class="n">Vector2</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">)</span>
+<span class="n">speed</span> <span class="o">=</span> <span class="mf">2.5</span>
+ 
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+ 
+    <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="nb">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">QUIT</span><span class="p">:</span>
+            <span class="n">pygame</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+            <span class="nb">exit</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="nb">type</span> <span class="o">==</span> <span class="n">MOUSEBUTTONDOWN</span><span class="p">:</span>
+            <span class="c1"># 参数前面加*意味着把列表或元组展开</span>
+            <span class="n">destination</span> <span class="o">=</span> <span class="n">Vector2</span><span class="p">(</span> <span class="o">*</span><span class="n">event</span><span class="o">.</span><span class="n">pos</span> <span class="p">)</span> <span class="o">-</span> <span class="n">Vector2</span><span class="p">(</span> <span class="o">*</span><span class="n">sprite</span><span class="o">.</span><span class="n">get_size</span><span class="p">()</span> <span class="p">)</span><span class="o">/</span><span class="mf">2.</span>
+            <span class="n">heading</span> <span class="o">=</span> <span class="n">destination</span><span class="o">-</span><span class="n">position</span>
+            <span class="n">heading</span><span class="o">.</span><span class="n">normalize</span><span class="p">()</span>
+ 
+    <span class="n">distance</span><span class="o">=</span><span class="n">destination</span><span class="o">-</span><span class="n">position</span>
+    <span class="k">if</span> <span class="n">distance</span><span class="o">.</span><span class="n">length</span> <span class="o">&lt;</span> <span class="mf">2.5</span><span class="o">/</span><span class="mf">1000.</span><span class="p">:</span>
+        <span class="n">heading</span><span class="o">=</span><span class="n">Vector2</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">)</span>
+        
+    <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">background</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">position</span><span class="o">.</span><span class="n">x</span>
+    <span class="n">y</span><span class="o">=</span><span class="n">position</span><span class="o">.</span><span class="n">y</span>
+    <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">sprite</span><span class="p">,(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">))</span>
+ 
+    <span class="n">time_passed</span> <span class="o">=</span> <span class="n">clock</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span>
+    <span class="n">time_passed_seconds</span> <span class="o">=</span> <span class="n">time_passed</span> <span class="o">/</span> <span class="mf">1000.0</span>
+
+    <span class="n">distance_moved</span> <span class="o">=</span> <span class="n">time_passed_seconds</span><span class="o">*</span><span class="n">speed</span>   
+ 
+    <span class="n">position</span> <span class="o">=</span> <span class="n">position</span> <span class="o">+</span> <span class="n">heading</span> <span class="o">*</span> <span class="n">distance_moved</span>
+    <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></code></pre></div>
+<p>这个程序用鼠标控制运动的方向，为了避免错误，这里使sprite碰到边界的时候停下来。</p>
+
+			</div>
+			<hr class="post-end">
+			<footer class="post-info">
+				<p>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://boseliao.github.io/tags/pygame">Pygame</a></span>
+				</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>208 Words</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2020-07-25 17:24 &#43;0800</p>
+			</footer>
+		</article>
+		<div class="post-nav thin">
+			<a class="next-post" href="https://boseliao.github.io/posts/pygameuser_control/">
+				<span class="post-nav-label"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>&nbsp;Newer</span><br><span>Pygame:user_control</span>
+			</a>
+			<a class="prev-post" href="https://boseliao.github.io/posts/pygamevisuals/">
+				<span class="post-nav-label">Older&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span><br><span>Pygame:visuals</span>
+			</a>
+		</div>
+		<div id="comments" class="thin">
+</div>
+	</main>
+
+	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
+		<p>&copy; 2020 <a href="https://boseliao.github.io">BoseLiao</a> &#183; <a hr#ef="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">All rights reserved</a></p>
+	</footer>
+
+
+
+	<script src="https://boseliao.github.io/js/bundle.min.490e43e5af6db5906f28afa49a4e16bf9f626b758e3fca92f146b870eb94bb37.js" integrity="sha256-SQ5D5a9ttZBvKK+kmk4Wv59ia3WOP8qS8Ua4cOuUuzc=" crossorigin="anonymous"></script>
+	
+
+</body>
+
+</html>

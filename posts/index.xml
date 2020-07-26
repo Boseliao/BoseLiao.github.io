@@ -7,8 +7,568 @@
 		<generator>Hugo -- gohugo.io</generator>
 		<language>en-us</language>
 		<copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-		<lastBuildDate>Thu, 23 Jul 2020 15:04:19 +0800</lastBuildDate>
+		<lastBuildDate>Sun, 26 Jul 2020 12:15:43 +0800</lastBuildDate>
 		<atom:link href="https://boseliao.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>Pygame:user_control</title>
+			<link>https://boseliao.github.io/posts/pygameuser_control/</link>
+			<pubDate>Sun, 26 Jul 2020 12:15:43 +0800</pubDate>
+			
+			<guid>https://boseliao.github.io/posts/pygameuser_control/</guid>
+			<description>这里我们主要考虑用户使用键盘与鼠标，与游戏进行交互。
+键盘控制 利用键盘控制物体移动，
+import pygame from pygame.locals import * from sys import exit background_image_filename=&amp;#39;sushiplate.jpg&amp;#39; screen = pygame.display.set_mode((640,480),0,32) background = pygame.image.load(background_image_filename).convert() x,y=0,0 move_x,move_y=0,0 while True: for event in pygame.event.get(): if event.type == pygame.QUIT: pygame.quit() exit() if event.type == KEYDOWN: if event.key == K_LEFT: move_x = -1 elif event.key == K_RIGHT: move_x = 1 elif event.key == K_UP: move_y = 1 elif event.key == K_DOWN: move_y = -1 elif event.type == KEYUP: move_x=0 move_y=0 x+= move_x y+= move_y screen.</description>
+			<content type="html"><![CDATA[
+
+<p>这里我们主要考虑用户使用键盘与鼠标，与游戏进行交互。</p>
+
+<h2 id="键盘控制">键盘控制</h2>
+
+<p>利用键盘控制物体移动，</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">pygame</span>
+
+<span class="kn">from</span> <span class="nn">pygame.locals</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="nb">exit</span>
+<span class="n">background_image_filename</span><span class="o">=</span><span class="s1">&#39;sushiplate.jpg&#39;</span>
+<span class="n">screen</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">((</span><span class="mi">640</span><span class="p">,</span><span class="mi">480</span><span class="p">),</span><span class="mi">0</span><span class="p">,</span><span class="mi">32</span><span class="p">)</span>
+<span class="n">background</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">background_image_filename</span><span class="p">)</span><span class="o">.</span><span class="n">convert</span><span class="p">()</span>
+
+<span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span>
+<span class="n">move_x</span><span class="p">,</span><span class="n">move_y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span>
+
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    
+    <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="nb">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">QUIT</span><span class="p">:</span>
+            <span class="n">pygame</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+            <span class="nb">exit</span><span class="p">()</span>
+        
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="nb">type</span> <span class="o">==</span> <span class="n">KEYDOWN</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">K_LEFT</span><span class="p">:</span>
+                <span class="n">move_x</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">K_RIGHT</span><span class="p">:</span>
+                <span class="n">move_x</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">K_UP</span><span class="p">:</span>
+                <span class="n">move_y</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">K_DOWN</span><span class="p">:</span>
+                <span class="n">move_y</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="nb">type</span> <span class="o">==</span> <span class="n">KEYUP</span><span class="p">:</span>
+            <span class="n">move_x</span><span class="o">=</span><span class="mi">0</span>
+            <span class="n">move_y</span><span class="o">=</span><span class="mi">0</span>
+            
+    <span class="n">x</span><span class="o">+=</span> <span class="n">move_x</span>
+    <span class="n">y</span><span class="o">+=</span> <span class="n">move_y</span>
+    
+    <span class="n">screen</span><span class="o">.</span><span class="n">fill</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+    <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">background</span><span class="p">,(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">))</span>
+    
+    <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></code></pre></div>
+<p>其中，<code>KEYDOWN</code>和<code>KEYUP</code>分别用来检测来自键盘的是否按下的信号。对于更具体的知道哪个键被按下，可以调用<code>pygame.key</code>模块，用<code>key_a----key_z</code>和<code>key_0---key_9</code>表示字母和数字，类似的也可以表达方向键等。但这个程序里的物体只能一下一下的动，为了使其连续移动</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">background_image_filename</span> <span class="o">=</span> <span class="s1">&#39;sushiplate.jpg&#39;</span>
+<span class="n">sprite_image_filename</span> <span class="o">=</span> <span class="s1">&#39;fugu.png&#39;</span>
+ 
+<span class="kn">import</span> <span class="nn">pygame</span>
+<span class="kn">from</span> <span class="nn">pygame.locals</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="nb">exit</span>
+<span class="kn">from</span> <span class="nn">gameobjects.vector</span> <span class="kn">import</span> <span class="n">Vector2</span>
+ 
+<span class="n">pygame</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+ 
+<span class="n">screen</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">((</span><span class="mi">640</span><span class="p">,</span> <span class="mi">480</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>
+ 
+<span class="n">background</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">background_image_filename</span><span class="p">)</span><span class="o">.</span><span class="n">convert</span><span class="p">()</span>
+<span class="n">sprite</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">sprite_image_filename</span><span class="p">)</span><span class="o">.</span><span class="n">convert_alpha</span><span class="p">()</span>
+ 
+<span class="n">clock</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">Clock</span><span class="p">()</span>
+ 
+<span class="n">sprite_pos</span> <span class="o">=</span> <span class="n">Vector2</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">150</span><span class="p">)</span>
+<span class="n">sprite_speed</span> <span class="o">=</span> <span class="mf">300.</span>
+ 
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+ 
+    <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="nb">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">QUIT</span><span class="p">:</span>
+            <span class="n">pygame</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+            <span class="nb">exit</span><span class="p">()</span>
+ 
+    <span class="n">pressed_keys</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">key</span><span class="o">.</span><span class="n">get_pressed</span><span class="p">()</span>
+ 
+    <span class="n">key_direction</span> <span class="o">=</span> <span class="n">Vector2</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">pressed_keys</span><span class="p">[</span><span class="n">K_LEFT</span><span class="p">]:</span>
+        <span class="n">key_direction</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">elif</span> <span class="n">pressed_keys</span><span class="p">[</span><span class="n">K_RIGHT</span><span class="p">]:</span>
+        <span class="n">key_direction</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="o">+</span><span class="mi">1</span>
+    <span class="k">if</span> <span class="n">pressed_keys</span><span class="p">[</span><span class="n">K_UP</span><span class="p">]:</span>
+        <span class="n">key_direction</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">elif</span> <span class="n">pressed_keys</span><span class="p">[</span><span class="n">K_DOWN</span><span class="p">]:</span>
+        <span class="n">key_direction</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="o">+</span><span class="mi">1</span>
+ 
+    <span class="n">key_direction</span><span class="o">.</span><span class="n">normalize</span><span class="p">()</span>
+ 
+    <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">background</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+    <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">sprite</span><span class="p">,</span> <span class="n">sprite_pos</span><span class="p">)</span>
+ 
+    <span class="n">time_passed</span> <span class="o">=</span> <span class="n">clock</span><span class="o">.</span><span class="n">tick</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+    <span class="n">time_passed_seconds</span> <span class="o">=</span> <span class="n">time_passed</span> <span class="o">/</span> <span class="mf">1000.0</span>
+ 
+    <span class="n">sprite_pos</span><span class="o">+=</span> <span class="n">key_direction</span> <span class="o">*</span> <span class="n">sprite_speed</span> <span class="o">*</span> <span class="n">time_passed_seconds</span>
+ 
+    <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></code></pre></div>
+<p>检测并输出按键，</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">pygame</span>
+
+<span class="kn">from</span> <span class="nn">pygame.locals</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="nb">exit</span>
+
+<span class="n">pygame</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+<span class="n">screen</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">((</span><span class="mi">640</span><span class="p">,</span><span class="mi">480</span><span class="p">),</span><span class="mi">0</span><span class="p">,</span><span class="mi">32</span><span class="p">)</span>
+
+<span class="n">font</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">SysFont</span><span class="p">(</span><span class="s2">&#34;arial&#34;</span><span class="p">,</span> <span class="mi">32</span><span class="p">);</span>
+<span class="n">font_height</span> <span class="o">=</span> <span class="n">font</span><span class="o">.</span><span class="n">get_linesize</span><span class="p">()</span>
+
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    
+    <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="nb">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">QUIT</span><span class="p">:</span>
+            <span class="n">pygame</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+            <span class="nb">exit</span><span class="p">()</span>
+            
+    <span class="n">screen</span><span class="o">.</span><span class="n">fill</span><span class="p">((</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">))</span>
+    
+    <span class="n">pressed_key_text</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">pressed_keys</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">key</span><span class="o">.</span><span class="n">get_pressed</span><span class="p">()</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">font_height</span>
+    
+    <span class="k">for</span> <span class="n">key_constant</span><span class="p">,</span><span class="n">pressed</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">pressed_keys</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">pressed</span><span class="p">:</span>
+            <span class="n">key_name</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">key</span><span class="o">.</span><span class="n">name</span><span class="p">(</span><span class="n">key_constant</span><span class="p">)</span>
+            <span class="n">text_surface</span> <span class="o">=</span> <span class="n">font</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">key_name</span><span class="o">+</span><span class="s2">&#34;pressed&#34;</span><span class="p">,</span><span class="bp">True</span><span class="p">,(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+            <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">text_surface</span><span class="p">,(</span><span class="mi">8</span><span class="p">,</span><span class="n">y</span><span class="p">))</span>
+            <span class="n">y</span><span class="o">+=</span> <span class="n">font_height</span>
+            
+    <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></code></pre></div>
+<p>这里主要用了<code>pygame.key</code>模块的一些方法进行按键的检测，具体可以参考<a href="https://blog.csdn.net/qq_41556318/article/details/86304649">key模块</a></p>
+
+<p>键盘控制旋转</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">background_image_filename</span> <span class="o">=</span> <span class="s1">&#39;sushiplate.jpg&#39;</span>
+<span class="n">sprite_image_filename</span> <span class="o">=</span> <span class="s1">&#39;fugu.png&#39;</span>
+ 
+<span class="kn">import</span> <span class="nn">pygame</span>
+<span class="kn">from</span> <span class="nn">pygame.locals</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="nb">exit</span>
+<span class="kn">from</span> <span class="nn">gameobjects.vector</span> <span class="kn">import</span> <span class="n">Vector2</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="o">*</span>
+ 
+<span class="n">pygame</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+ 
+<span class="n">screen</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">((</span><span class="mi">640</span><span class="p">,</span> <span class="mi">480</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>
+ 
+<span class="n">background</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">background_image_filename</span><span class="p">)</span><span class="o">.</span><span class="n">convert</span><span class="p">()</span>
+<span class="n">sprite</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">sprite_image_filename</span><span class="p">)</span><span class="o">.</span><span class="n">convert_alpha</span><span class="p">()</span>
+ 
+<span class="n">clock</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">Clock</span><span class="p">()</span>
+ 
+<span class="n">sprite_pos</span> <span class="o">=</span> <span class="n">Vector2</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">150</span><span class="p">)</span>   <span class="c1"># 初始位置</span>
+<span class="n">sprite_speed</span> <span class="o">=</span> <span class="mf">300.</span>     <span class="c1"># 每秒前进的像素数（速度）</span>
+<span class="n">sprite_rotation</span> <span class="o">=</span> <span class="mf">0.</span>      <span class="c1"># 初始角度</span>
+<span class="n">sprite_rotation_speed</span> <span class="o">=</span> <span class="mf">360.</span> <span class="c1"># 每秒转动的角度数（转速）</span>
+ 
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+ 
+    <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="nb">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">QUIT</span><span class="p">:</span>
+            <span class="n">pygame</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+            <span class="nb">exit</span><span class="p">()</span>
+ 
+    <span class="n">pressed_keys</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">key</span><span class="o">.</span><span class="n">get_pressed</span><span class="p">()</span>
+ 
+    <span class="n">rotation_direction</span> <span class="o">=</span> <span class="mf">0.</span>
+    <span class="n">movement_direction</span> <span class="o">=</span> <span class="mf">0.</span>
+ 
+    <span class="c1"># 更改角度</span>
+    <span class="k">if</span> <span class="n">pressed_keys</span><span class="p">[</span><span class="n">K_LEFT</span><span class="p">]:</span>
+        <span class="n">rotation_direction</span> <span class="o">=</span> <span class="o">+</span><span class="mf">1.</span>
+    <span class="k">if</span> <span class="n">pressed_keys</span><span class="p">[</span><span class="n">K_RIGHT</span><span class="p">]:</span>
+        <span class="n">rotation_direction</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.</span>
+    <span class="c1"># 前进、后退</span>
+    <span class="k">if</span> <span class="n">pressed_keys</span><span class="p">[</span><span class="n">K_UP</span><span class="p">]:</span>
+        <span class="n">movement_direction</span> <span class="o">=</span> <span class="o">+</span><span class="mf">1.</span>
+    <span class="k">if</span> <span class="n">pressed_keys</span><span class="p">[</span><span class="n">K_DOWN</span><span class="p">]:</span>
+        <span class="n">movement_direction</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.</span>
+ 
+    <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">background</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+ 
+    <span class="c1"># 获得一条转向后的鱼</span>
+    <span class="n">rotated_sprite</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">sprite</span><span class="p">,</span> <span class="n">sprite_rotation</span><span class="p">)</span>
+    <span class="c1"># 转向后，图片的长宽会变化，因为图片永远是矩形，为了放得下一个转向后的矩形，外接的矩形势必会比较大</span>
+    <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">rotated_sprite</span><span class="o">.</span><span class="n">get_size</span><span class="p">()</span>
+    <span class="c1"># 获得绘制图片的左上角</span>
+    <span class="n">sprite_draw_pos</span> <span class="o">=</span> <span class="n">Vector2</span><span class="p">(</span><span class="n">sprite_pos</span><span class="o">.</span><span class="n">x</span><span class="o">-</span><span class="n">w</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">sprite_pos</span><span class="o">.</span><span class="n">y</span><span class="o">-</span><span class="n">h</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">rotated_sprite</span><span class="p">,</span> <span class="n">sprite_draw_pos</span><span class="p">)</span>
+ 
+    <span class="n">time_passed</span> <span class="o">=</span> <span class="n">clock</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span>
+    <span class="n">time_passed_seconds</span> <span class="o">=</span> <span class="n">time_passed</span> <span class="o">/</span> <span class="mf">1000.0</span>
+ 
+    <span class="c1"># 图片的转向速度也需要和行进速度一样，通过时间来控制</span>
+    <span class="n">sprite_rotation</span> <span class="o">+=</span> <span class="n">rotation_direction</span> <span class="o">*</span> <span class="n">sprite_rotation_speed</span> <span class="o">*</span> <span class="n">time_passed_seconds</span>
+ 
+    <span class="c1"># 获得前进（x方向和y方向），这两个需要一点点三角的知识</span>
+    <span class="n">heading_x</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">sprite_rotation</span><span class="o">*</span><span class="n">pi</span><span class="o">/</span><span class="mf">180.</span><span class="p">)</span>
+    <span class="n">heading_y</span> <span class="o">=</span> <span class="n">cos</span><span class="p">(</span><span class="n">sprite_rotation</span><span class="o">*</span><span class="n">pi</span><span class="o">/</span><span class="mf">180.</span><span class="p">)</span>
+    <span class="c1"># 转换为单位速度向量</span>
+    <span class="n">heading</span> <span class="o">=</span> <span class="n">Vector2</span><span class="p">(</span><span class="n">heading_x</span><span class="p">,</span> <span class="n">heading_y</span><span class="p">)</span>
+    <span class="c1"># 转换为速度</span>
+    <span class="n">heading</span> <span class="o">*=</span> <span class="n">movement_direction</span>
+ 
+    <span class="n">sprite_pos</span><span class="o">+=</span> <span class="n">heading</span> <span class="o">*</span> <span class="n">sprite_speed</span> <span class="o">*</span> <span class="n">time_passed_seconds</span>
+ 
+    <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></code></pre></div>
+<p>鼠标控制</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">background_image_filename</span> <span class="o">=</span> <span class="s1">&#39;sushiplate.jpg&#39;</span>
+<span class="n">sprite_image_filename</span> <span class="o">=</span> <span class="s1">&#39;fugu.png&#39;</span>
+ 
+<span class="kn">import</span> <span class="nn">pygame</span>
+<span class="kn">from</span> <span class="nn">pygame.locals</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="nb">exit</span>
+<span class="kn">from</span> <span class="nn">gameobjects.vector</span> <span class="kn">import</span> <span class="n">Vector2</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="o">*</span>
+ 
+<span class="n">pygame</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+<span class="n">screen</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">((</span><span class="mi">640</span><span class="p">,</span> <span class="mi">480</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>
+ 
+<span class="n">background</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">background_image_filename</span><span class="p">)</span><span class="o">.</span><span class="n">convert</span><span class="p">()</span>
+<span class="n">sprite</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">sprite_image_filename</span><span class="p">)</span><span class="o">.</span><span class="n">convert_alpha</span><span class="p">()</span>
+ 
+<span class="n">clock</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">Clock</span><span class="p">()</span>
+ 
+<span class="c1"># 让pygame完全控制鼠标</span>
+<span class="n">pygame</span><span class="o">.</span><span class="n">mouse</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">set_grab</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+ 
+<span class="n">sprite_pos</span> <span class="o">=</span> <span class="n">Vector2</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">150</span><span class="p">)</span>
+<span class="n">sprite_speed</span> <span class="o">=</span> <span class="mf">300.</span>
+<span class="n">sprite_rotation</span> <span class="o">=</span> <span class="mf">0.</span>
+<span class="n">sprite_rotation_speed</span> <span class="o">=</span> <span class="mf">360.</span>
+ 
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+ 
+    <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="nb">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">QUIT</span><span class="p">:</span>
+            <span class="n">pygame</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+            <span class="nb">exit</span><span class="p">()</span>
+        <span class="c1"># 按Esc则退出游戏</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="nb">type</span> <span class="o">==</span> <span class="n">KEYDOWN</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">K_ESCAPE</span><span class="p">:</span>
+                <span class="n">pygame</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+                <span class="nb">exit</span><span class="p">()</span>
+ 
+    <span class="n">pressed_keys</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">key</span><span class="o">.</span><span class="n">get_pressed</span><span class="p">()</span>
+    <span class="c1"># 这里获取鼠标的按键情况</span>
+    <span class="n">pressed_mouse</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">mouse</span><span class="o">.</span><span class="n">get_pressed</span><span class="p">()</span>
+ 
+    <span class="n">rotation_direction</span> <span class="o">=</span> <span class="mf">0.</span>
+    <span class="n">movement_direction</span> <span class="o">=</span> <span class="mf">0.</span>
+ 
+    <span class="c1"># 通过移动偏移量计算转动</span>
+    <span class="n">rotation_direction</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">mouse</span><span class="o">.</span><span class="n">get_rel</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="mf">5.0</span>
+ 
+    <span class="k">if</span> <span class="n">pressed_keys</span><span class="p">[</span><span class="n">K_LEFT</span><span class="p">]:</span>
+        <span class="n">rotation_direction</span> <span class="o">=</span> <span class="o">+</span><span class="mf">1.</span>
+    <span class="k">if</span> <span class="n">pressed_keys</span><span class="p">[</span><span class="n">K_RIGHT</span><span class="p">]:</span>
+        <span class="n">rotation_direction</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.</span>
+    <span class="c1"># 多了一个鼠标左键按下的判断</span>
+    <span class="k">if</span> <span class="n">pressed_keys</span><span class="p">[</span><span class="n">K_UP</span><span class="p">]</span> <span class="ow">or</span> <span class="n">pressed_mouse</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+        <span class="n">movement_direction</span> <span class="o">=</span> <span class="o">+</span><span class="mf">1.</span>
+    <span class="c1"># 多了一个鼠标右键按下的判断</span>
+    <span class="k">if</span> <span class="n">pressed_keys</span><span class="p">[</span><span class="n">K_DOWN</span><span class="p">]</span> <span class="ow">or</span> <span class="n">pressed_mouse</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span>
+        <span class="n">movement_direction</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.</span>
+ 
+    <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">background</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+ 
+    <span class="n">rotated_sprite</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">sprite</span><span class="p">,</span> <span class="n">sprite_rotation</span><span class="p">)</span>
+    <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">rotated_sprite</span><span class="o">.</span><span class="n">get_size</span><span class="p">()</span>
+    <span class="n">sprite_draw_pos</span> <span class="o">=</span> <span class="n">Vector2</span><span class="p">(</span><span class="n">sprite_pos</span><span class="o">.</span><span class="n">x</span><span class="o">-</span><span class="n">w</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">sprite_pos</span><span class="o">.</span><span class="n">y</span><span class="o">-</span><span class="n">h</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">rotated_sprite</span><span class="p">,</span> <span class="n">sprite_draw_pos</span><span class="p">)</span>
+ 
+    <span class="n">time_passed</span> <span class="o">=</span> <span class="n">clock</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span>
+    <span class="n">time_passed_seconds</span> <span class="o">=</span> <span class="n">time_passed</span> <span class="o">/</span> <span class="mf">1000.0</span>
+ 
+    <span class="n">sprite_rotation</span> <span class="o">+=</span> <span class="n">rotation_direction</span> <span class="o">*</span> <span class="n">sprite_rotation_speed</span> <span class="o">*</span> <span class="n">time_passed_seconds</span>
+ 
+    <span class="n">heading_x</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">sprite_rotation</span><span class="o">*</span><span class="n">pi</span><span class="o">/</span><span class="mf">180.</span><span class="p">)</span>
+    <span class="n">heading_y</span> <span class="o">=</span> <span class="n">cos</span><span class="p">(</span><span class="n">sprite_rotation</span><span class="o">*</span><span class="n">pi</span><span class="o">/</span><span class="mf">180.</span><span class="p">)</span>
+    <span class="n">heading</span> <span class="o">=</span> <span class="n">Vector2</span><span class="p">(</span><span class="n">heading_x</span><span class="p">,</span> <span class="n">heading_y</span><span class="p">)</span>
+    <span class="n">heading</span> <span class="o">*=</span> <span class="n">movement_direction</span>
+ 
+    <span class="n">sprite_pos</span><span class="o">+=</span> <span class="n">heading</span> <span class="o">*</span> <span class="n">sprite_speed</span> <span class="o">*</span> <span class="n">time_passed_seconds</span>
+ 
+    <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></code></pre></div>
+<p>类似于键盘控制，用于鼠标控制可以调用<code>pygame.mouse</code>模块，其中具体的方法参考<a href="https://blog.csdn.net/Lingdongtianxia/article/details/86607245">mouse模块</a></p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Pygame:motion</title>
+			<link>https://boseliao.github.io/posts/pygamemotion/</link>
+			<pubDate>Sat, 25 Jul 2020 17:24:29 +0800</pubDate>
+			
+			<guid>https://boseliao.github.io/posts/pygamemotion/</guid>
+			<description>首先，考虑一个简单的直线运动，
+background_image_filename = &amp;#39;sushiplate.jpg&amp;#39; sprite_image_filename = &amp;#39;fugu.png&amp;#39; import pygame from pygame.locals import * from sys import exit pygame.init() screen = pygame.display.set_mode((640, 480), 0, 32) background = pygame.image.load(background_image_filename).convert() sprite = pygame.image.load(sprite_image_filename) # sprite的起始x坐标 x = 0. # Clock对象 clock = pygame.time.Clock() # 速度（像素/秒） speed = 250. while True: for event in pygame.event.get(): if event.type == pygame.QUIT: pygame.quit() exit() screen.blit(background, (0,0)) screen.blit(sprite, (x, 100)) time_passed = clock.tick() time_passed_seconds = time_passed / 1000.0 distance_moved = time_passed_seconds * speed x += distance_moved # 如果移动出屏幕了，就搬到开始位置继续 if x &amp;gt; 640.</description>
+			<content type="html"><![CDATA[<p>首先，考虑一个简单的直线运动，</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">background_image_filename</span> <span class="o">=</span> <span class="s1">&#39;sushiplate.jpg&#39;</span>
+<span class="n">sprite_image_filename</span> <span class="o">=</span> <span class="s1">&#39;fugu.png&#39;</span>
+ 
+<span class="kn">import</span> <span class="nn">pygame</span>
+<span class="kn">from</span> <span class="nn">pygame.locals</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="nb">exit</span>
+ 
+<span class="n">pygame</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+ 
+<span class="n">screen</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">((</span><span class="mi">640</span><span class="p">,</span> <span class="mi">480</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>
+ 
+<span class="n">background</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">background_image_filename</span><span class="p">)</span><span class="o">.</span><span class="n">convert</span><span class="p">()</span>
+<span class="n">sprite</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">sprite_image_filename</span><span class="p">)</span>
+ 
+<span class="c1"># sprite的起始x坐标</span>
+<span class="n">x</span> <span class="o">=</span> <span class="mf">0.</span>
+
+<span class="c1"># Clock对象</span>
+<span class="n">clock</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">Clock</span><span class="p">()</span>
+ 
+<span class="c1"># 速度（像素/秒）</span>
+<span class="n">speed</span> <span class="o">=</span> <span class="mf">250.</span>
+ 
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+ 
+    <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="nb">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">QUIT</span><span class="p">:</span>
+            <span class="n">pygame</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+            <span class="nb">exit</span><span class="p">()</span>
+ 
+    <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">background</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+    <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">sprite</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+    
+    <span class="n">time_passed</span> <span class="o">=</span> <span class="n">clock</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span>
+    <span class="n">time_passed_seconds</span> <span class="o">=</span> <span class="n">time_passed</span> <span class="o">/</span> <span class="mf">1000.0</span>
+    
+    <span class="n">distance_moved</span> <span class="o">=</span> <span class="n">time_passed_seconds</span> <span class="o">*</span> <span class="n">speed</span>
+    <span class="n">x</span> <span class="o">+=</span> <span class="n">distance_moved</span>
+ 
+    <span class="c1"># 如果移动出屏幕了，就搬到开始位置继续</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mf">640.</span><span class="p">:</span>
+        <span class="n">x</span><span class="o">-=</span> <span class="mf">640.</span>    
+ 
+    <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></code></pre></div>
+<p><code>clock.tick(30)</code>返回到上次调用时间间隔，参数限定每秒最大30帧，单位是毫秒</p>
+
+<p>利用向量来控制运动会使得程序的编写更加方便，幸运的是官方的<code>gameobjects</code>模块提供了向量运算的计算模块，我们可以下载使用他。但是目前官方版本只适用于Python2，所以这里提供了适用于Python3的<a href="https://github.com/Boseliao/gameobjects_python3">gameobjects模块</a>。调用这个模块，我们可以利用向量运算控制运动</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="n">background_image_filename</span> <span class="o">=</span> <span class="s1">&#39;sushiplate.jpg&#39;</span>
+<span class="n">sprite_image_filename</span> <span class="o">=</span> <span class="s1">&#39;fugu.png&#39;</span>
+ 
+<span class="kn">import</span> <span class="nn">pygame</span>
+<span class="kn">from</span> <span class="nn">pygame.locals</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="nb">exit</span>
+<span class="kn">from</span> <span class="nn">gameobjects.vector2</span> <span class="kn">import</span> <span class="n">Vector2</span>
+ 
+<span class="n">pygame</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+ 
+<span class="n">screen</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">((</span><span class="mi">640</span><span class="p">,</span> <span class="mi">480</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>
+ 
+<span class="n">background</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">background_image_filename</span><span class="p">)</span><span class="o">.</span><span class="n">convert</span><span class="p">()</span>
+<span class="n">sprite</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">sprite_image_filename</span><span class="p">)</span><span class="o">.</span><span class="n">convert_alpha</span><span class="p">()</span>
+ 
+<span class="n">clock</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">Clock</span><span class="p">()</span>
+ 
+<span class="n">position</span> <span class="o">=</span> <span class="n">Vector2</span><span class="p">(</span><span class="mf">100.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">)</span>
+<span class="n">heading</span> <span class="o">=</span> <span class="n">Vector2</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">)</span>
+<span class="n">distance_move</span><span class="o">=</span><span class="mf">0.0</span>
+<span class="n">distance</span><span class="o">=</span><span class="n">Vector2</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">)</span>
+<span class="n">destination</span><span class="o">=</span><span class="n">Vector2</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">)</span>
+<span class="n">speed</span> <span class="o">=</span> <span class="mf">2.5</span>
+ 
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+ 
+    <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="nb">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">QUIT</span><span class="p">:</span>
+            <span class="n">pygame</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+            <span class="nb">exit</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="nb">type</span> <span class="o">==</span> <span class="n">MOUSEBUTTONDOWN</span><span class="p">:</span>
+            <span class="c1"># 参数前面加*意味着把列表或元组展开</span>
+            <span class="n">destination</span> <span class="o">=</span> <span class="n">Vector2</span><span class="p">(</span> <span class="o">*</span><span class="n">event</span><span class="o">.</span><span class="n">pos</span> <span class="p">)</span> <span class="o">-</span> <span class="n">Vector2</span><span class="p">(</span> <span class="o">*</span><span class="n">sprite</span><span class="o">.</span><span class="n">get_size</span><span class="p">()</span> <span class="p">)</span><span class="o">/</span><span class="mf">2.</span>
+            <span class="n">heading</span> <span class="o">=</span> <span class="n">destination</span><span class="o">-</span><span class="n">position</span>
+            <span class="n">heading</span><span class="o">.</span><span class="n">normalize</span><span class="p">()</span>
+ 
+    <span class="n">distance</span><span class="o">=</span><span class="n">destination</span><span class="o">-</span><span class="n">position</span>
+    <span class="k">if</span> <span class="n">distance</span><span class="o">.</span><span class="n">length</span> <span class="o">&lt;</span> <span class="mf">2.5</span><span class="o">/</span><span class="mf">1000.</span><span class="p">:</span>
+        <span class="n">heading</span><span class="o">=</span><span class="n">Vector2</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">)</span>
+        
+    <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">background</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">position</span><span class="o">.</span><span class="n">x</span>
+    <span class="n">y</span><span class="o">=</span><span class="n">position</span><span class="o">.</span><span class="n">y</span>
+    <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">sprite</span><span class="p">,(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">))</span>
+ 
+    <span class="n">time_passed</span> <span class="o">=</span> <span class="n">clock</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span>
+    <span class="n">time_passed_seconds</span> <span class="o">=</span> <span class="n">time_passed</span> <span class="o">/</span> <span class="mf">1000.0</span>
+
+    <span class="n">distance_moved</span> <span class="o">=</span> <span class="n">time_passed_seconds</span><span class="o">*</span><span class="n">speed</span>   
+ 
+    <span class="n">position</span> <span class="o">=</span> <span class="n">position</span> <span class="o">+</span> <span class="n">heading</span> <span class="o">*</span> <span class="n">distance_moved</span>
+    <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></code></pre></div>
+<p>这个程序用鼠标控制运动的方向，为了避免错误，这里使sprite碰到边界的时候停下来。</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Pygame:visuals</title>
+			<link>https://boseliao.github.io/posts/pygamevisuals/</link>
+			<pubDate>Thu, 23 Jul 2020 16:56:10 +0800</pubDate>
+			
+			<guid>https://boseliao.github.io/posts/pygamevisuals/</guid>
+			<description>游戏中的视觉效果是由一系列色素构成的，每一个色素点用RGB（Red，Green，Blue）描述。我们可以生成一副包含所有颜色的图片，
+import pygame pygame.init() screen = pygame.display.set_mode((640,480)) all_colors = pygame.Surface((4096,4096),depth=24) for r in range(256): print(r+1,&amp;#34;out of 256&amp;#34;) x = (r&amp;amp;15)*256 y = (r&amp;gt;&amp;gt;4)*256 for g in range(256): for b in range(256): all_colors.set_at((x+g,y+b),(r,g,b)) pygame.image.save(all_colors,&amp;#34;all_colrs.bmp&amp;#34;) pygame.Surface((width, height), flags=0, depth=0, masks=None)创建一个python的Surface图片实例，上文的convert()方法就是将加载的图片装换成Surface类。这里利用了方法set_at()设置像素值。
+接下来我们利用如下程序来呈现如何改变三原色的配比来合成新的颜色，
+import pygame from pygame.locals import * from sys import exit pygame.init() screen = pygame.display.set_mode((640,480),0,32) #create image with smooth gradients def create_scales(height): red_scale_surface = pygame.surface.Surface((640, height)) green_scale_surface = pygame.surface.Surface((640, height)) blue_scale_surface = pygame.</description>
+			<content type="html"><![CDATA[<p>游戏中的视觉效果是由一系列色素构成的，每一个色素点用RGB（Red，Green，Blue）描述。我们可以生成一副包含所有颜色的图片，</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">pygame</span>
+<span class="n">pygame</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+
+<span class="n">screen</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">((</span><span class="mi">640</span><span class="p">,</span><span class="mi">480</span><span class="p">))</span>
+
+<span class="n">all_colors</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">((</span><span class="mi">4096</span><span class="p">,</span><span class="mi">4096</span><span class="p">),</span><span class="n">depth</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">256</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="s2">&#34;out of 256&#34;</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">r</span><span class="o">&amp;</span><span class="mi">15</span><span class="p">)</span><span class="o">*</span><span class="mi">256</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="n">r</span><span class="o">&gt;&gt;</span><span class="mi">4</span><span class="p">)</span><span class="o">*</span><span class="mi">256</span>
+    <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">256</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">256</span><span class="p">):</span>
+            <span class="n">all_colors</span><span class="o">.</span><span class="n">set_at</span><span class="p">((</span><span class="n">x</span><span class="o">+</span><span class="n">g</span><span class="p">,</span><span class="n">y</span><span class="o">+</span><span class="n">b</span><span class="p">),(</span><span class="n">r</span><span class="p">,</span><span class="n">g</span><span class="p">,</span><span class="n">b</span><span class="p">))</span>
+            
+<span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">all_colors</span><span class="p">,</span><span class="s2">&#34;all_colrs.bmp&#34;</span><span class="p">)</span></code></pre></div>
+<p><code>pygame.Surface((width, height), flags=0, depth=0, masks=None)</code>创建一个python的Surface图片实例，上文的convert()方法就是将加载的图片装换成Surface类。这里利用了方法<code>set_at()</code>设置像素值。</p>
+
+<p>接下来我们利用如下程序来呈现如何改变三原色的配比来合成新的颜色，</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">pygame</span>
+
+<span class="kn">from</span> <span class="nn">pygame.locals</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="nb">exit</span>
+
+<span class="n">pygame</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+<span class="n">screen</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">((</span><span class="mi">640</span><span class="p">,</span><span class="mi">480</span><span class="p">),</span><span class="mi">0</span><span class="p">,</span><span class="mi">32</span><span class="p">)</span>
+
+<span class="c1">#create image with smooth gradients</span>
+<span class="k">def</span> <span class="nf">create_scales</span><span class="p">(</span><span class="n">height</span><span class="p">):</span>
+    <span class="n">red_scale_surface</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">surface</span><span class="o">.</span><span class="n">Surface</span><span class="p">((</span><span class="mi">640</span><span class="p">,</span> <span class="n">height</span><span class="p">))</span>
+    <span class="n">green_scale_surface</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">surface</span><span class="o">.</span><span class="n">Surface</span><span class="p">((</span><span class="mi">640</span><span class="p">,</span> <span class="n">height</span><span class="p">))</span>
+    <span class="n">blue_scale_surface</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">surface</span><span class="o">.</span><span class="n">Surface</span><span class="p">((</span><span class="mi">640</span><span class="p">,</span> <span class="n">height</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">640</span><span class="p">):</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">x</span><span class="o">/</span><span class="mf">639.</span><span class="p">)</span><span class="o">*</span><span class="mf">255.</span><span class="p">)</span>
+        <span class="n">red</span> <span class="o">=</span> <span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">green</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">blue</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">c</span><span class="p">)</span>
+        <span class="n">line_rect</span> <span class="o">=</span> <span class="n">Rect</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">height</span><span class="p">)</span>
+        <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="n">red_scale_surface</span><span class="p">,</span><span class="n">red</span><span class="p">,</span><span class="n">line_rect</span><span class="p">)</span>
+        <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="n">green_scale_surface</span><span class="p">,</span><span class="n">green</span><span class="p">,</span><span class="n">line_rect</span><span class="p">)</span>
+        <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="n">blue_scale_surface</span><span class="p">,</span><span class="n">blue</span><span class="p">,</span><span class="n">line_rect</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">red_scale_surface</span><span class="p">,</span><span class="n">green_scale_surface</span><span class="p">,</span><span class="n">blue_scale_surface</span>
+
+<span class="n">red_scale</span><span class="p">,</span><span class="n">green_scale</span><span class="p">,</span><span class="n">blue_scale</span><span class="o">=</span><span class="n">create_scales</span><span class="p">(</span><span class="mi">80</span><span class="p">)</span>
+
+<span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="mi">127</span><span class="p">,</span><span class="mi">127</span><span class="p">,</span><span class="mi">127</span><span class="p">]</span>
+
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    
+    <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="nb">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">QUIT</span><span class="p">:</span>
+            <span class="n">pygame</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+            <span class="nb">exit</span><span class="p">()</span>
+    
+    <span class="n">screen</span><span class="o">.</span><span class="n">fill</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+    
+    <span class="c1">#draw the scales to the screen</span>
+    <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">red_scale</span><span class="p">,(</span><span class="mi">0</span><span class="p">,</span><span class="mo">00</span><span class="p">))</span>
+    <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">green_scale</span><span class="p">,(</span><span class="mi">0</span><span class="p">,</span><span class="mi">80</span><span class="p">))</span>
+    <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">blue_scale</span><span class="p">,(</span><span class="mi">0</span><span class="p">,</span><span class="mi">160</span><span class="p">))</span>
+    
+    <span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">mouse</span><span class="o">.</span><span class="n">get_pos</span><span class="p">()</span>
+    
+    <span class="c1">#if the mouse was pressed on one of the sliders, adjust the color component</span>
+    <span class="k">if</span> <span class="n">pygame</span><span class="o">.</span><span class="n">mouse</span><span class="o">.</span><span class="n">get_pressed</span><span class="p">()[</span><span class="mi">0</span><span class="p">]:</span>
+        <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">y</span><span class="o">&gt;</span><span class="n">component</span><span class="o">*</span><span class="mi">80</span> <span class="ow">and</span> <span class="n">y</span><span class="o">&lt;</span><span class="p">(</span><span class="n">component</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">80</span><span class="p">:</span>
+                <span class="n">color</span><span class="p">[</span><span class="n">component</span><span class="p">]</span><span class="o">=</span><span class="nb">int</span><span class="p">((</span><span class="n">x</span><span class="o">/</span><span class="mf">639.</span><span class="p">)</span><span class="o">*</span><span class="mf">255.</span><span class="p">)</span>
+        <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_caption</span><span class="p">(</span><span class="s2">&#34;pygame color test -&#34;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">color</span><span class="p">)))</span>
+        
+    <span class="c1">#draw a circle for each slider to represent the each current setting</span>
+    <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+        <span class="n">pos</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">((</span><span class="n">color</span><span class="p">[</span><span class="n">component</span><span class="p">]</span><span class="o">/</span><span class="mf">255.</span><span class="p">)</span><span class="o">*</span><span class="mi">639</span><span class="p">),</span><span class="n">component</span><span class="o">*</span><span class="mi">80</span><span class="o">+</span><span class="mi">40</span><span class="p">)</span>
+        <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="n">screen</span><span class="p">,(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span><span class="n">pos</span><span class="p">,</span><span class="mi">20</span><span class="p">)</span>
+        
+    <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span><span class="nb">tuple</span><span class="p">(</span><span class="n">color</span><span class="p">),(</span><span class="mi">0</span><span class="p">,</span><span class="mi">240</span><span class="p">,</span><span class="mi">640</span><span class="p">,</span><span class="mi">240</span><span class="p">))</span>
+    
+    <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></code></pre></div>
+<p><code>pygame.surface.Surface</code>生成一个长为640，高为height的画布</p>
+
+<p><code>Rect(x,y,width,height)</code>类，在位置x，y生成宽为width，高为height的矩形实例。这里取宽为1的小矩形离散化的表示颜色的渐变。</p>
+
+<p><code>pygame.draw</code>用于在Surface上画一些简单的图形，比如点，线，直线，矩形，圆，弧形。一般第一个参数是Surface，第二个是颜色，第三个是一系列坐标，返回值是Rect对象。具体参考<a href="http://www.pygame.org/docs/ref/draw.html">官方文档</a></p>
+
+<p><code>screen.fill</code>为背景填充颜色，除此之外<code>screen.set_clip(x,y,width,height)</code>裁剪一个区域，这样定义了可以被修改的区域。</p>
+
+<p>颜色的渐变，利用线性插值的方法生成颜色渐变的过程，</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">pygame</span>
+<span class="kn">from</span> <span class="nn">pygame.locals</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="nb">exit</span>
+ 
+<span class="n">pygame</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+<span class="n">screen</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">((</span><span class="mi">640</span><span class="p">,</span> <span class="mi">480</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>
+ 
+<span class="n">color1</span> <span class="o">=</span> <span class="p">(</span><span class="mi">221</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">color2</span> <span class="o">=</span> <span class="p">(</span><span class="mi">96</span><span class="p">,</span> <span class="mi">130</span><span class="p">,</span> <span class="mi">51</span><span class="p">)</span>
+<span class="n">factor</span> <span class="o">=</span> <span class="mf">0.</span>
+ 
+<span class="k">def</span> <span class="nf">blend_color</span><span class="p">(</span><span class="n">color1</span><span class="p">,</span> <span class="n">color2</span><span class="p">,</span> <span class="n">blend_factor</span><span class="p">):</span>
+    <span class="n">r1</span><span class="p">,</span> <span class="n">g1</span><span class="p">,</span> <span class="n">b1</span> <span class="o">=</span> <span class="n">color1</span>
+    <span class="n">r2</span><span class="p">,</span> <span class="n">g2</span><span class="p">,</span> <span class="n">b2</span> <span class="o">=</span> <span class="n">color2</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">r1</span> <span class="o">+</span> <span class="p">(</span><span class="n">r2</span> <span class="o">-</span> <span class="n">r1</span><span class="p">)</span> <span class="o">*</span> <span class="n">blend_factor</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="n">g1</span> <span class="o">+</span> <span class="p">(</span><span class="n">g2</span> <span class="o">-</span> <span class="n">g1</span><span class="p">)</span> <span class="o">*</span> <span class="n">blend_factor</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">b1</span> <span class="o">+</span> <span class="p">(</span><span class="n">b2</span> <span class="o">-</span> <span class="n">b1</span><span class="p">)</span> <span class="o">*</span> <span class="n">blend_factor</span>
+    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">r</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">g</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+ 
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+ 
+    <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="nb">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">QUIT</span><span class="p">:</span>
+            <span class="n">pygame</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+            <span class="nb">exit</span><span class="p">()</span>
+ 
+    <span class="n">screen</span><span class="o">.</span><span class="n">fill</span><span class="p">((</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">))</span>
+ 
+    <span class="n">tri</span> <span class="o">=</span> <span class="p">[</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">120</span><span class="p">),</span> <span class="p">(</span><span class="mi">639</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="p">(</span><span class="mi">639</span><span class="p">,</span> <span class="mi">140</span><span class="p">)</span> <span class="p">]</span>
+    <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">polygon</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">tri</span><span class="p">)</span>
+    <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">factor</span> <span class="o">*</span> <span class="mf">639.0</span><span class="p">),</span> <span class="mi">120</span><span class="p">),</span> <span class="mi">10</span><span class="p">)</span>
+ 
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">mouse</span><span class="o">.</span><span class="n">get_pos</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">pygame</span><span class="o">.</span><span class="n">mouse</span><span class="o">.</span><span class="n">get_pressed</span><span class="p">()[</span><span class="mi">0</span><span class="p">]:</span>
+        <span class="n">factor</span> <span class="o">=</span> <span class="n">x</span> <span class="o">/</span> <span class="mf">639.0</span>
+        <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_caption</span><span class="p">(</span><span class="s2">&#34;Pygame Color Blend Test - </span><span class="si">%.3f</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="n">factor</span><span class="p">)</span>
+ 
+    <span class="n">color</span> <span class="o">=</span> <span class="n">blend_color</span><span class="p">(</span><span class="n">color1</span><span class="p">,</span> <span class="n">color2</span> <span class="p">,</span> <span class="n">factor</span><span class="p">)</span>
+    <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">240</span><span class="p">,</span> <span class="mi">640</span><span class="p">,</span> <span class="mi">240</span><span class="p">))</span>
+ 
+    <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></code></pre></div>
+<p>最后简单的介绍一些将字体渲染成图片并画在屏幕的方法</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">font</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">SysFont</span><span class="p">(</span><span class="s2">&#34;arial&#34;</span><span class="p">,</span> <span class="mi">32</span><span class="p">);</span>
+<span class="n">font_height</span> <span class="o">=</span> <span class="n">font</span><span class="o">.</span><span class="n">get_linesize</span><span class="p">()</span>
+<span class="n">text_surface</span> <span class="o">=</span> <span class="n">font</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s2">&#34;Hello,World&#34;</span><span class="p">,</span><span class="bp">True</span><span class="p">,(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">text_surface</span><span class="p">,(</span><span class="mi">8</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span></code></pre></div>
+<p><code>font.SysFont</code>和<code>font.Font</code>分别是调用系统字体与自定义字体的方法，<code>font.render</code>是将文字渲染成Surface类图片，具体方法参考<a href="https://blog.csdn.net/Lingdongtianxia/article/details/86608691">font模块</a></p>
+]]></content>
+		</item>
 		
 		<item>
 			<title>Pygame:framework</title>
@@ -1015,349 +1575,6 @@ $$
 <p>测量与控制算符的对易关系，单线表示量子信息的传递，双线表示经典信息的传递</p>
 
 <p><img src="/img/qc_gate_ing12.png" alt="img12" /></p>
-]]></content>
-		</item>
-		
-		<item>
-			<title>QC:spin</title>
-			<link>https://boseliao.github.io/posts/qcspin/</link>
-			<pubDate>Tue, 26 May 2020 19:31:24 +0800</pubDate>
-			
-			<guid>https://boseliao.github.io/posts/qcspin/</guid>
-			<description>磁偶极子在磁场中的势能 $$ H=U=-\mu B $$ \mu表示磁矩的大小和方向。磁偶极子受到的磁场梯度力为 $$ F=-\nabla U=\nabla (\mu B) $$ 自旋的磁矩可以表示为 $$ \mu =-\frac{1}{2}g\mu_B\sigma $$ 自旋在磁场中哈密顿量 $$ H=-\mu B=\frac{1}{2}g\mu_B\sigma B=\frac{1}{2}\hbar\gamma\sigma B $$ 著名的Stern-Gerlach实验证明了自旋磁矩的量子化
-在图中，电子经过第一个SG装置会分裂成两部分|n+&amp;gt;和|n-&amp;gt;，之后 |n+&amp;gt;经过第二个SG装置继续分成两部分|m+&amp;gt;和|m-&amp;gt;， $$ P(|n+\rangle\to|m+\rangle)=\frac{1}{2}\left(1+nm \right) $$
-$$ P(|n+\rangle\to|m-\rangle)=\frac{1}{2}\left(1-nm \right) $$
-选择Z方向的本征态为基失 $$ |Z+\rangle=|0\rangle ,|Z-\rangle=|1\rangle $$ 则 $$ |n+\rangle=\alpha|0\rangle+\beta|1\rangle $$ 将m设置为Z方向 $$ P(|n+\rangle\to|0\rangle)=\frac{1}{2}\left(1+nZ \right)=|\alpha|^2 $$ 在球坐标中 $$ n=(sin(\theta)cos(\phi),sin(\theta)sin(\phi),cos(\theta)) $$ 任一量子态可以写成 $$ |n+\rangle=cos(\theta/2)|0\rangle+sin(\theta/2)e^{i\phi}|1\rangle $$ 在Bloch球中表示任一量子态
-b=qt.Bloch() pnt = [1/np.sqrt(3),1/np.sqrt(3),1/np.sqrt(3)] b.add_points(pnt) vec = [0,1,0] b.add_vectors(vec) b.show() 不难证明n方向的角动量 $$ S(n)=n\sigma=n_x\sigma_x+n_y\sigma_y+n_z\sigma_z $$ 考虑自旋在磁场中的时间演化，哈密顿量写成 $$ H=\frac{1}{2}\hbar\gamma\sigma_zB_z $$ 设初态处于 $$ |\psi(0)\rangle=\alpha|0\rangle+\beta|1\rangle $$ 时间演化 $$ |\psi(t)\rangle=e^{-i\gamma B_z\sigma_z/2}(\alpha|0\rangle+\beta|1\rangle)=\alpha|0\rangle+\beta e^{i\gamma B_zt}|1\rangle $$ </description>
-			<content type="html"><![CDATA[<p>磁偶极子在磁场中的势能
-$$
-H=U=-\mu B
-$$
-<code>\mu</code>表示磁矩的大小和方向。磁偶极子受到的磁场梯度力为
-$$
-F=-\nabla U=\nabla (\mu B)
-$$
-自旋的磁矩可以表示为
-$$
-\mu =-\frac{1}{2}g\mu_B\sigma
-$$
-自旋在磁场中哈密顿量
-$$
-H=-\mu B=\frac{1}{2}g\mu_B\sigma B=\frac{1}{2}\hbar\gamma\sigma B
-$$
-著名的Stern-Gerlach实验证明了自旋磁矩的量子化</p>
-
-<p><img src="/img/QC:spin_img1.png" alt="img1" /></p>
-
-<p>在图中，电子经过第一个SG装置会分裂成两部分<code>|n+&gt;</code>和<code>|n-&gt;</code>，之后 <code>|n+&gt;</code>经过第二个SG装置继续分成两部分<code>|m+&gt;</code>和<code>|m-&gt;</code>，
-$$
-P(|n+\rangle\to|m+\rangle)=\frac{1}{2}\left(1+nm \right)
-$$</p>
-
-<p>$$
-P(|n+\rangle\to|m-\rangle)=\frac{1}{2}\left(1-nm \right)
-$$</p>
-
-<p>选择Z方向的本征态为基失
-$$
-|Z+\rangle=|0\rangle ,|Z-\rangle=|1\rangle
-$$
-则
-$$
-|n+\rangle=\alpha|0\rangle+\beta|1\rangle
-$$
-将m设置为Z方向
-$$
-P(|n+\rangle\to|0\rangle)=\frac{1}{2}\left(1+nZ \right)=|\alpha|^2
-$$
-在球坐标中
-$$
-n=(sin(\theta)cos(\phi),sin(\theta)sin(\phi),cos(\theta))
-$$
-任一量子态可以写成
-$$
-|n+\rangle=cos(\theta/2)|0\rangle+sin(\theta/2)e^{i\phi}|1\rangle
-$$
-在Bloch球中表示任一量子态</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">b</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">Bloch</span><span class="p">()</span>
-<span class="n">pnt</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span><span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span><span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
-<span class="n">b</span><span class="o">.</span><span class="n">add_points</span><span class="p">(</span><span class="n">pnt</span><span class="p">)</span>
-<span class="n">vec</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">b</span><span class="o">.</span><span class="n">add_vectors</span><span class="p">(</span><span class="n">vec</span><span class="p">)</span>
-<span class="n">b</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></code></pre></div>
-<p><img src="/img/QC:spin_img2.png" alt="img2" /></p>
-
-<p>不难证明n方向的角动量
-$$
-S(n)=n\sigma=n_x\sigma_x+n_y\sigma_y+n_z\sigma_z
-$$
-考虑自旋在磁场中的时间演化，哈密顿量写成
-$$
-H=\frac{1}{2}\hbar\gamma\sigma_zB_z
-$$
-设初态处于
-$$
-|\psi(0)\rangle=\alpha|0\rangle+\beta|1\rangle
-$$
-时间演化
-$$
-|\psi(t)\rangle=e^{-i\gamma B_z\sigma_z/2}(\alpha|0\rangle+\beta|1\rangle)=\alpha|0\rangle+\beta e^{i\gamma B_zt}|1\rangle
-$$
-<img src="/img/QC:spin_img3.png" alt="img3" /></p>
-]]></content>
-		</item>
-		
-		<item>
-			<title>QuTip:spin_chain</title>
-			<link>https://boseliao.github.io/posts/qutipspin_chain/</link>
-			<pubDate>Mon, 25 May 2020 17:50:07 +0800</pubDate>
-			
-			<guid>https://boseliao.github.io/posts/qutipspin_chain/</guid>
-			<description>考虑一维的ISing模型，其哈密顿量， $$ \begin{equation} H=-\frac{1}{2}\sum_n^Nh_n\sigma_z(n)-\frac{1}{2}\sum_n^{N-1}\sum_{i=x,y,z}J_i^{(n)}\sigma_i(n)\sigma_i(n+1) \end{equation} $$ 利用主方程计算其动力学的演化
-def integrate(N,h,Jx,Jy,Jz,psi0,tlist,gamma,solver): si=qt.qeye(2) sx=qt.sigmax() sy=qt.sigmay() sz=qt.sigmaz() sx_list=[] sy_list=[] sz_list=[] #construct sigma_x(n),sigma_y(n),sigma_z(n)  for n in range(N): op_list=[] for m in range(N): op_list.append(si) op_list[n] = sx sx_list.append(qt.tensor(op_list)) op_list[n] = sy sy_list.append(qt.tensor(op_list)) op_list[n] = sz sz_list.append(qt.tensor(op_list)) # construct the hamiltonian H = 0 # energy splitting terms for n in range(N): H += - 0.5 * h[n] * sz_list[n] # interaction terms for n in range(N-1): H += - 0.</description>
-			<content type="html"><![CDATA[<p>考虑一维的ISing模型，其哈密顿量，
-$$
-\begin{equation}
-H=-\frac{1}{2}\sum_n^Nh_n\sigma_z(n)-\frac{1}{2}\sum_n^{N-1}\sum_{i=x,y,z}J_i^{(n)}\sigma_i(n)\sigma_i(n+1)
-\end{equation}
-$$
-利用主方程计算其动力学的演化</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">integrate</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="n">h</span><span class="p">,</span><span class="n">Jx</span><span class="p">,</span><span class="n">Jy</span><span class="p">,</span><span class="n">Jz</span><span class="p">,</span><span class="n">psi0</span><span class="p">,</span><span class="n">tlist</span><span class="p">,</span><span class="n">gamma</span><span class="p">,</span><span class="n">solver</span><span class="p">):</span>
-    <span class="n">si</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">qeye</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">sx</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">sigmax</span><span class="p">()</span>
-    <span class="n">sy</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">sigmay</span><span class="p">()</span>
-    <span class="n">sz</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">sigmaz</span><span class="p">()</span>
-    <span class="n">sx_list</span><span class="o">=</span><span class="p">[]</span>
-    <span class="n">sy_list</span><span class="o">=</span><span class="p">[]</span>
-    <span class="n">sz_list</span><span class="o">=</span><span class="p">[]</span>
-<span class="c1">#construct sigma_x(n),sigma_y(n),sigma_z(n)    </span>
-    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
-        <span class="n">op_list</span><span class="o">=</span><span class="p">[]</span>
-        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
-            <span class="n">op_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">si</span><span class="p">)</span>
-            
-        <span class="n">op_list</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">sx</span>
-        <span class="n">sx_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">op_list</span><span class="p">))</span>
-
-        <span class="n">op_list</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">sy</span>
-        <span class="n">sy_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">op_list</span><span class="p">))</span>
-
-        <span class="n">op_list</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">sz</span>
-        <span class="n">sz_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">op_list</span><span class="p">))</span>
-
-    <span class="c1"># construct the hamiltonian</span>
-    <span class="n">H</span> <span class="o">=</span> <span class="mi">0</span>
-
-    <span class="c1"># energy splitting terms</span>
-    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
-        <span class="n">H</span> <span class="o">+=</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">h</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">*</span> <span class="n">sz_list</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
-
-    <span class="c1"># interaction terms</span>
-    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
-        <span class="n">H</span> <span class="o">+=</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">Jx</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">*</span> <span class="n">sx_list</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">*</span> <span class="n">sx_list</span><span class="p">[</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">H</span> <span class="o">+=</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">Jy</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">*</span> <span class="n">sy_list</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">*</span> <span class="n">sy_list</span><span class="p">[</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">H</span> <span class="o">+=</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">Jz</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">*</span> <span class="n">sz_list</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">*</span> <span class="n">sz_list</span><span class="p">[</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-
-    <span class="c1"># collapse operators</span>
-    <span class="n">c_op_list</span> <span class="o">=</span> <span class="p">[]</span>
-
-    <span class="c1"># spin dephasing</span>
-    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">gamma</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">:</span>
-            <span class="n">c_op_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">gamma</span><span class="p">[</span><span class="n">n</span><span class="p">])</span> <span class="o">*</span> <span class="n">sz_list</span><span class="p">[</span><span class="n">n</span><span class="p">])</span>
-
-    <span class="c1"># evolve and calculate expectation values</span>
-    <span class="k">if</span> <span class="n">solver</span> <span class="o">==</span> <span class="s2">&#34;me&#34;</span><span class="p">:</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="n">qt</span><span class="o">.</span><span class="n">mesolve</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">psi0</span><span class="p">,</span> <span class="n">tlist</span><span class="p">,</span> <span class="n">c_op_list</span><span class="p">,</span> <span class="n">sz_list</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">solver</span> <span class="o">==</span> <span class="s2">&#34;mc&#34;</span><span class="p">:</span>
-        <span class="n">ntraj</span> <span class="o">=</span> <span class="mi">250</span> 
-        <span class="n">result</span> <span class="o">=</span> <span class="n">qt</span><span class="o">.</span><span class="n">mcsolve</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">psi0</span><span class="p">,</span> <span class="n">tlist</span><span class="p">,</span> <span class="n">c_op_list</span><span class="p">,</span> <span class="n">sz_list</span><span class="p">,</span> <span class="n">ntraj</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">expect</span>
-
-<span class="c1">#</span>
-<span class="c1"># set up the calculation</span>
-<span class="c1">#</span>
-<span class="n">solver</span> <span class="o">=</span> <span class="s2">&#34;me&#34;</span>   <span class="c1"># use the ode solver</span>
-<span class="c1">#solver = &#34;mc&#34;   # use the monte-carlo solver</span>
-
-<span class="n">N</span> <span class="o">=</span> <span class="mi">10</span>            <span class="c1"># number of spins</span>
-
-<span class="c1"># array of spin energy splittings and coupling strengths. here we use</span>
-<span class="c1"># uniform parameters, but in general we don&#39;t have too</span>
-<span class="n">h</span>  <span class="o">=</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> 
-<span class="n">Jz</span> <span class="o">=</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
-<span class="n">Jx</span> <span class="o">=</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
-<span class="n">Jy</span> <span class="o">=</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
-<span class="c1"># dephasing rate</span>
-<span class="n">gamma</span> <span class="o">=</span> <span class="mf">0.01</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
-
-<span class="c1"># intial state, first spin in state |1&gt;, the rest in state |0&gt;</span>
-<span class="n">psi_list</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">psi_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
-<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
-    <span class="n">psi_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
-<span class="n">psi0</span> <span class="o">=</span> <span class="n">qt</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">psi_list</span><span class="p">)</span>
-
-<span class="n">tlist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
-
-<span class="n">sz_expt</span> <span class="o">=</span> <span class="n">integrate</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">Jx</span><span class="p">,</span> <span class="n">Jy</span><span class="p">,</span> <span class="n">Jz</span><span class="p">,</span> <span class="n">psi0</span><span class="p">,</span> <span class="n">tlist</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">solver</span><span class="p">)</span>
-<span class="c1">#plot the result</span>
-<span class="n">qt</span><span class="o">.</span><span class="n">qsave</span><span class="p">(</span><span class="n">sz_expt</span><span class="p">,</span><span class="s1">&#39;sz_expet&#39;</span><span class="p">)</span>
-<span class="n">sz_expt_load</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">qload</span><span class="p">(</span><span class="s1">&#39;sz_expet&#39;</span><span class="p">)</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
-
-<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tlist</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">sz_expt_load</span><span class="p">[</span><span class="n">n</span><span class="p">]),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\langle\sigma_z^{(</span><span class="si">%d</span><span class="s1">)}\rangle$&#39;</span><span class="o">%</span><span class="n">n</span><span class="p">)</span>
-
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Time [ns]&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\langle\sigma_z\rangle&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Dynamics of a Heisenberg spin chain&#39;</span><span class="p">);</span></code></pre></div>
-<p><img src="/img/spin_chain_img1.png" alt="img1" /></p>
-
-<p>将<code>collapse operators</code>修改成如下</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"> <span class="c1"># collapse operators</span>
-    <span class="n">c_op_list</span> <span class="o">=</span> <span class="p">[]</span>
-    
-    <span class="n">n_th_a</span><span class="o">=</span><span class="mf">0.0</span> <span class="c1">#temperature with average of excitations</span>
-    <span class="n">rate</span><span class="o">=</span><span class="n">gamma</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">n_th_a</span><span class="p">)</span>
-
-    <span class="c1"># spin dephasing</span>
-    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">gamma</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">:</span>
-            <span class="n">c_op_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">rate</span><span class="p">[</span><span class="n">n</span><span class="p">])</span> <span class="o">*</span> <span class="n">sm_list</span><span class="p">[</span><span class="n">n</span><span class="p">])</span>
-    <span class="n">rate</span><span class="o">=</span><span class="n">gamma</span><span class="o">*</span><span class="n">n_th_a</span>
-    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">gamma</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">:</span>
-            <span class="n">c_op_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">rate</span><span class="p">[</span><span class="n">n</span><span class="p">])</span> <span class="o">*</span> <span class="n">sp_list</span><span class="p">[</span><span class="n">n</span><span class="p">])</span></code></pre></div>
-<p>当<code>n_th_a=100</code>时，即环境温度较高时，系统处于熵最大的状态</p>
-
-<p><img src="/img/spin_chain_img2.png" alt="img2" /></p>
-
-<p>当<code>n_th_a=2</code>时，</p>
-
-<p><img src="/img/spin_chain_img3.png" alt="img3" /></p>
-
-<p>当<code>n_th_a=0</code>时，低温时，系统处于能量最低，最有序的状态（自旋都朝着同一个方向）</p>
-
-<p><img src="/img/spin_chain_img4.png" alt="img4" /></p>
-]]></content>
-		</item>
-		
-		<item>
-			<title>QuTip:HEOM</title>
-			<link>https://boseliao.github.io/posts/qutipheom/</link>
-			<pubDate>Wed, 20 May 2020 16:20:42 +0800</pubDate>
-			
-			<guid>https://boseliao.github.io/posts/qutipheom/</guid>
-			<description>级联运动方程是用于计算非马尔科夫动力学的最普遍的工具，
-$$\frac{\partial}{\partial t}\rho^n_{j_1\dots j_K}=-\left[iH_s^{\times}+n\gamma+\sum_{k=1}^Kj_k\nu_k-\Xi \right]\rho^n_{j_1\dots j_K}+V^{\times}\rho^{n+1}_{j_1\dots j_K}$$
-$$V^{\times}\sum_{k=1}^K\rho^n_{j_1\dots j_k+1\dots J_K}+n\Theta\rho^{n-1}_{j_1\dots J_K}+\sum_{k=1}^Kj_k\nu_k\Psi_k\rho^n_{j_1\dots j_k-1\dots j_K }$$
-其中$\rho^n_{j_1\dots jK}$表示n阶辅助密度矩阵，对它的求解依赖于n+1，n-1，n阶辅助矩阵，即此方程是不封闭的。而最后要求得的真正的约化密度矩阵是$\rho^0{0\dots 0}$，见图假设（K=2）
-由图可知，可以做如下截断N=n=j1+...+jK，截断方程
-$$\frac{\partial}{\partial t}\rho^n_{j_1\dots j_K}=-\left[iH_s^{\times}-\Xi \right]\rho^n_{j_1\dots j_K}$$
-这里，目前只能求解洛伦兹谱的谱密度$$J(\omega)=\frac{\eta}{2\pi}\frac{\omega\gamma^2}{\gamma^2+\omega^2}$$其中$\eta$是“system-bath coupling strength”，$\gamma$表示&amp;rdquo;Bath spectral density cutoff frequency&amp;rdquo;。
-这里对文献Non-Markovian and Non-Perturbative Entanglement Dynamics of Biomolecular Excitons进行了follow，
-import numpy as np import matplotlib.pyplot as plt import qutip as qt from qutip.nonmarkov import heom &amp;#34;&amp;#34;&amp;#34; initial attribution self.configure(H_sys, coup_op, coup_strength, temperature, N_cut, N_exp, cut_freq, planck=planck, boltzmann=boltzmann, renorm=renorm, bnd_cut_approx=bnd_cut_approx, stats=stats) H_sys : Qobj System Hamiltonian coup_op : Qobj Operator describing the coupling between system and bath.</description>
-			<content type="html"><![CDATA[<p>级联运动方程是用于计算非马尔科夫动力学的最普遍的工具，</p>
-
-<p>$$\frac{\partial}{\partial t}\rho^n_{j_1\dots j_K}=-\left[iH_s^{\times}+n\gamma+\sum_{k=1}^Kj_k\nu_k-\Xi \right]\rho^n_{j_1\dots j_K}+V^{\times}\rho^{n+1}_{j_1\dots j_K}$$</p>
-
-<p>$$V^{\times}\sum_{k=1}^K\rho^n_{j_1\dots j_k+1\dots J_K}+n\Theta\rho^{n-1}_{j_1\dots J_K}+\sum_{k=1}^Kj_k\nu_k\Psi_k\rho^n_{j_1\dots j_k-1\dots j_K }$$</p>
-
-<p>其中$\rho^n_{j_1\dots j<em>K}$表示n阶辅助密度矩阵，对它的求解依赖于n+1，n-1，n阶辅助矩阵，即此方程是不封闭的。而最后要求得的真正的约化密度矩阵是$\rho^0</em>{0\dots 0}$，见图假设（K=2）</p>
-
-<p><img src="/img/HEOMimg1.png" alt="img1" /></p>
-
-<p>由图可知，可以做如下截断<code>N=n=j1+...+jK</code>，截断方程</p>
-
-<p>$$\frac{\partial}{\partial t}\rho^n_{j_1\dots j_K}=-\left[iH_s^{\times}-\Xi \right]\rho^n_{j_1\dots j_K}$$</p>
-
-<p>这里，目前只能求解洛伦兹谱的谱密度$$J(\omega)=\frac{\eta}{2\pi}\frac{\omega\gamma^2}{\gamma^2+\omega^2}$$其中$\eta$是“system-bath coupling strength”，$\gamma$表示&rdquo;Bath spectral density cutoff frequency&rdquo;。</p>
-
-<p>这里对文献<a href="http://cpl.iphy.ac.cn/10.1088/0256-307X/28/8/089201">Non-Markovian and Non-Perturbative Entanglement Dynamics of
-Biomolecular Excitons</a>进行了follow，</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">qutip</span> <span class="kn">as</span> <span class="nn">qt</span>
-<span class="kn">from</span> <span class="nn">qutip.nonmarkov</span> <span class="kn">import</span> <span class="n">heom</span>
-<span class="s2">&#34;&#34;&#34;
-</span><span class="s2">initial attribution
-</span><span class="s2">self.configure(H_sys, coup_op, coup_strength, temperature,
-</span><span class="s2">                     N_cut, N_exp, cut_freq, planck=planck, boltzmann=boltzmann,
-</span><span class="s2">                     renorm=renorm, bnd_cut_approx=bnd_cut_approx, stats=stats)
-</span><span class="s2">H_sys : Qobj
-</span><span class="s2">        System Hamiltonian
-</span><span class="s2">coup_op : Qobj
-</span><span class="s2">        Operator describing the coupling between system and bath.
-</span><span class="s2">coup_strength : float
-</span><span class="s2">        Coupling strength.
-</span><span class="s2">temperature : float
-</span><span class="s2">        Bath temperature, in units corresponding to planck
-</span><span class="s2">N_cut : int
-</span><span class="s2">        Cutoff parameter for the bath
-</span><span class="s2">N_exp : int
-</span><span class="s2">        Number of exponential terms used to approximate the bath correlation
-</span><span class="s2">        functions
-</span><span class="s2">cut_freq : float
-</span><span class="s2">        Bath spectral density cutoff frequency.
-</span><span class="s2">        ---------------------------------------
-</span><span class="s2">        Function
-</span><span class="s2">        HEOMSolver.reset(self) : Reset any attributes to default values
-</span><span class="s2">        run(self, rho0, tlist) :
-</span><span class="s2">rho0 : Qobj
-</span><span class="s2">            Initial state (density matrix) of the system.
-</span><span class="s2">tlist : list
-</span><span class="s2">            Time over which system evolves.
-</span><span class="s2">Returns
-</span><span class="s2">        -------
-</span><span class="s2">        results : :class:`qutip.solver.Result`
-</span><span class="s2">        Object storing all results from the simulation.
-</span><span class="s2">&#34;&#34;&#34;</span>
-<span class="n">delta</span><span class="o">=</span><span class="mi">500</span><span class="p">;</span><span class="n">J</span><span class="o">=</span><span class="mi">50</span>
-<span class="n">H_sys</span><span class="o">=</span><span class="mf">0.5</span><span class="o">*</span><span class="n">delta</span><span class="o">*</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">sigmax</span><span class="p">(),</span><span class="n">qt</span><span class="o">.</span><span class="n">qeye</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span><span class="o">+</span><span class="n">qt</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">qeye</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>\
-<span class="n">qt</span><span class="o">.</span><span class="n">sigmax</span><span class="p">()))</span><span class="o">+</span><span class="n">J</span><span class="o">*</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">sigmax</span><span class="p">(),</span><span class="n">qt</span><span class="o">.</span><span class="n">sigmax</span><span class="p">())</span>\
-<span class="o">+</span><span class="n">qt</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">sigmay</span><span class="p">(),</span><span class="n">qt</span><span class="o">.</span><span class="n">sigmay</span><span class="p">()))</span>
-<span class="n">cou_op</span><span class="o">=</span><span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">sigmaz</span><span class="p">(),</span><span class="n">qt</span><span class="o">.</span><span class="n">qeye</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span><span class="o">+</span><span class="n">qt</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">qeye</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span><span class="n">qt</span><span class="o">.</span><span class="n">sigmaz</span><span class="p">()))</span>
-<span class="n">cou_strength</span><span class="o">=</span><span class="mf">1.0</span>
-<span class="n">temperature</span><span class="o">=</span><span class="mf">300.0</span>
-<span class="n">N_cut</span><span class="o">=</span><span class="mi">8</span>
-<span class="n">N_exp</span><span class="o">=</span><span class="mi">3</span>
-<span class="n">planck</span><span class="o">=</span><span class="mf">1.0</span>
-<span class="n">cut_freq</span><span class="o">=</span><span class="mi">500</span>
-<span class="n">tlist</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">401</span><span class="p">)</span>
-<span class="n">psi0</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>\
-               <span class="o">+</span><span class="n">qt</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)))</span>
-<span class="n">rho0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">ket2dm</span><span class="p">(</span><span class="n">psi0</span><span class="p">)</span>
-<span class="n">num1</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">ket2dm</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)))</span>
-<span class="n">num2</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">ket2dm</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)))</span>
-<span class="n">HEOM1</span><span class="o">=</span><span class="n">heom</span><span class="o">.</span><span class="n">HSolverDL</span><span class="p">(</span><span class="n">H_sys</span><span class="p">,</span><span class="n">cou_op</span><span class="p">,</span><span class="n">cou_strength</span><span class="p">,</span><span class="n">temperature</span><span class="p">,</span><span class="n">N_cut</span><span class="p">,</span><span class="n">N_exp</span><span class="p">,</span><span class="n">cut_freq</span><span class="p">)</span>
-<span class="n">output</span><span class="o">=</span><span class="n">heom</span><span class="o">.</span><span class="n">HSolverDL</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">HEOM1</span><span class="p">,</span><span class="n">rho0</span><span class="p">,</span><span class="n">tlist</span><span class="p">)</span>
-<span class="n">qt</span><span class="o">.</span><span class="n">qsave</span><span class="p">(</span><span class="n">output</span><span class="p">,</span><span class="s1">&#39;HEOM1&#39;</span><span class="p">)</span></code></pre></div>
-<p>由于计算时间较长，一般需要对结果进行保存。可以得到动力学以及纠缠的演化</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">HEOM1</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">qload</span><span class="p">(</span><span class="s1">&#39;HEOM1&#39;</span><span class="p">)</span>
-<span class="n">rho_11</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">expect</span><span class="p">(</span><span class="n">HEOM1</span><span class="o">.</span><span class="n">states</span><span class="p">,</span><span class="n">num1</span><span class="p">)</span>
-<span class="n">rho_22</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">expect</span><span class="p">(</span><span class="n">HEOM1</span><span class="o">.</span><span class="n">states</span><span class="p">,</span><span class="n">num2</span><span class="p">)</span>
-<span class="s2">&#34;&#34;&#34;
-</span><span class="s2">entanglement
-</span><span class="s2">&#34;&#34;&#34;</span>
-<span class="n">en1</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">tlist</span><span class="p">),</span><span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">t</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tlist</span><span class="p">):</span>
-    <span class="n">en1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">concurrence</span><span class="p">(</span><span class="n">HEOM1</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-<span class="s2">&#34;&#34;&#34;
-</span><span class="s2">plot the result
-</span><span class="s2">&#34;&#34;&#34;</span>
-<span class="n">fig</span><span class="p">,</span><span class="n">ax</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">HEOM1</span><span class="o">.</span><span class="n">times</span><span class="p">,</span><span class="n">rho_11</span><span class="p">);</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">HEOM1</span><span class="o">.</span><span class="n">times</span><span class="p">,</span><span class="n">rho_22</span><span class="p">);</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">HEOM1</span><span class="o">.</span><span class="n">times</span><span class="p">,</span><span class="n">en1</span><span class="p">);</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Times&#39;</span><span class="p">);</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;rho&#39;</span><span class="p">);</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">((</span><span class="s2">&#34;rho_11&#34;</span><span class="p">,</span><span class="s2">&#34;rho_22&#34;</span><span class="p">,</span><span class="s2">&#34;entanglement&#34;</span><span class="p">));</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="s2">&#34;rho&#34;</span><span class="p">);</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></code></pre></div>
-<p><img src="/img/HEOM_img2.png" alt="img2" /></p>
 ]]></content>
 		</item>
 		
