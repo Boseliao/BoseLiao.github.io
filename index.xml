@@ -7,10 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Sun, 26 Jul 2020 12:15:43 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 27 Jul 2020 10:10:38 +0800</lastBuildDate>
     
 	<atom:link href="https://boseliao.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Pygame:Artificial_Intelligence</title>
+      <link>https://boseliao.github.io/posts/pygameartificial_intelligence/</link>
+      <pubDate>Mon, 27 Jul 2020 10:10:38 +0800</pubDate>
+      
+      <guid>https://boseliao.github.io/posts/pygameartificial_intelligence/</guid>
+      <description>游戏中的人工智能是一种错觉（现实生活中也可能如此）。创建这种错觉的代码与前几章中的代码没有太大区别。我们将使用Python字符串、列表、字典等基本工具来构建类，这些类实际上是NPC(nonplayer characters)的大脑。实际上，Python可能是编写AI的最佳语言之一，因为它有大量的内置对象。
+首先我们构造一个游戏世界
+#建立世界类 class World(object): def __init__(self): self.entities = {} self.entity_id = 0 self.background = pygame.surface.Surface(SCREEN_SIZE).convert() self.background.fill((255, 255, 255)) pygame.draw.circle(self.background, (200, 255, 200), NEST_POSITION, int(NEST_SIZE)) #add and remove entity  def add_entity(self, entity): self.entities[self.entity_id] = entity entity.id = self.entity_id self.entity_id += 1 def remove_entity(self, entity): del self.entities[entity.id] #通过id得到实体 def get(self, entity_id): if entity_id in self.entities: return self.entities[entity_id] else: return None #entity process def process(self, time_passed): time_passed_seconds = time_passed / 1000.</description>
+    </item>
     
     <item>
       <title>Pygame:user_control</title>
@@ -127,18 +138,6 @@ $$ =(\delta_{x,x\prime}\delta_{y,y\prime\oplus f(x\prime)})^*=(\langle x,y|U_f|x
 所以， $$ U_f=U_f^{\dagger} $$ 而 $$ U_f^2|x\rangle|y\rangle=|x\rangle|y\oplus f(x)\oplus f(x)\rangle=|x\rangle|y\rangle $$ 即 $$ U_f^2=1 $$ 任一二进制数可以表示为 $$ x=(x_{n-1},\cdots,x_0) $$ 对应的任一函数可以表示 $$ f(x^{(i)})=1,i=0,\cdots,m;f(x^{(i)})=0,i=m+1,\cdots,n-1 $$ 定义小项函数 $$ f^{(i)}(x)= \left[\begin{array}{lr} 1 \quad (x=x^{(i)}) \newline \newline 0 \quad (x \ne x^{(i)}) \end{array}\right. $$
 则任一函数可以用小项函数来表示 $$ f(x)=f^{(1)}(x)\vee f^{(2)}(x)\vee\cdots f^{(m)}(x) $$ 每个小项函数对应于Cn-NOT操作。
 量子加法器 对量子信息a和b进行加法，其进位储存在c $$ a=(a_{n-1},\cdots,a_0);b=(b_{n-1},\cdots,b_0);c=(c_{n},\cdots,c_0) $$ 量子加法器由两个模块组成，加法模块SUM(ai,bi,ci)和CARRY(ai,bi,ci)， $$ SUM(a_i,b_i,c_i):s_i=a_i\oplus b_i\oplus c_i $$</description>
-    </item>
-    
-    <item>
-      <title>QC:qubit_gate</title>
-      <link>https://boseliao.github.io/posts/qcqubit_gate/</link>
-      <pubDate>Wed, 27 May 2020 21:27:15 +0800</pubDate>
-      
-      <guid>https://boseliao.github.io/posts/qcqubit_gate/</guid>
-      <description>利用一些装置可以实现对自旋态的操控，例如核磁共振(NMR)
-单量子比特 sigma_x泡利算符X，对应于经典的NOT门 $$ \sigma_x|x\rangle=|1-x\rangle $$
-from qutip.qip.circuit import QubitCircuit, Gate from qutip.qip import gates qc=QubitCircuit(N=1) def user_gate(): #sigma_x mat = np.array([[0.,1.0],[1., 0.]]) return qt.Qobj(mat, dims=[[2], [2]]) qc.user_gates={&amp;#34;sigma_x&amp;#34;:user_gate} qc.add_gate(&amp;#34;sigma_x&amp;#34;,targets=[0]) U_list = qc.propagators() from qutip.qip.operations import gate_sequence_product U = gate_sequence_product(U_list) psi0=qt.basis(2,0) psit=U*psi0 b=qt.Bloch() b.add_states(psi0) b.add_states(psit) b.save(&amp;#34;qc_gate.png&amp;#34;) b.show() sigma_z泡利算符Z $$ \sigma_z|x\rangle=(-1)^x|x\rangle $$
-def user_gate(): #sigma_z mat = np.array([[1.,0.],[0., -1.]]) return qt.Qobj(mat, dims=[[2], [2]]) qc.user_gates={&amp;#34;sigma_z&amp;#34;:user_gate} qc.add_gate(&amp;#34;sigma_z&amp;#34;,targets=[0]) 旋转门(rotation gate) RX沿着X轴旋转 $$ R_x(\theta)(\alpha|0\rangle+\beta|1\rangle)=(\alpha\cos(\frac{\theta}{2})-i\beta\sin(\frac{\theta}{2}))|0\rangle+(\beta\cos(\frac{\theta}{2})-i\alpha\sin(\frac{\theta}{2}))|1\rangle $$</description>
     </item>
     
   </channel>

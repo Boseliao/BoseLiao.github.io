@@ -7,8 +7,354 @@
 		<generator>Hugo -- gohugo.io</generator>
 		<language>en-us</language>
 		<copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-		<lastBuildDate>Sun, 26 Jul 2020 12:15:43 +0800</lastBuildDate>
+		<lastBuildDate>Mon, 27 Jul 2020 10:10:38 +0800</lastBuildDate>
 		<atom:link href="https://boseliao.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>Pygame:Artificial_Intelligence</title>
+			<link>https://boseliao.github.io/posts/pygameartificial_intelligence/</link>
+			<pubDate>Mon, 27 Jul 2020 10:10:38 +0800</pubDate>
+			
+			<guid>https://boseliao.github.io/posts/pygameartificial_intelligence/</guid>
+			<description>游戏中的人工智能是一种错觉（现实生活中也可能如此）。创建这种错觉的代码与前几章中的代码没有太大区别。我们将使用Python字符串、列表、字典等基本工具来构建类，这些类实际上是NPC(nonplayer characters)的大脑。实际上，Python可能是编写AI的最佳语言之一，因为它有大量的内置对象。
+首先我们构造一个游戏世界
+#建立世界类 class World(object): def __init__(self): self.entities = {} self.entity_id = 0 self.background = pygame.surface.Surface(SCREEN_SIZE).convert() self.background.fill((255, 255, 255)) pygame.draw.circle(self.background, (200, 255, 200), NEST_POSITION, int(NEST_SIZE)) #add and remove entity  def add_entity(self, entity): self.entities[self.entity_id] = entity entity.id = self.entity_id self.entity_id += 1 def remove_entity(self, entity): del self.entities[entity.id] #通过id得到实体 def get(self, entity_id): if entity_id in self.entities: return self.entities[entity_id] else: return None #entity process def process(self, time_passed): time_passed_seconds = time_passed / 1000.</description>
+			<content type="html"><![CDATA[<p>游戏中的人工智能是一种错觉（现实生活中也可能如此）。创建这种错觉的代码与前几章中的代码没有太大区别。我们将使用Python字符串、列表、字典等基本工具来构建类，这些类实际上是NPC(nonplayer characters)的大脑。实际上，Python可能是编写AI的最佳语言之一，因为它有大量的内置对象。</p>
+
+<p>首先我们构造一个游戏世界</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1">#建立世界类</span>
+<span class="k">class</span> <span class="nc">World</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entities</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entity_id</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">background</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">surface</span><span class="o">.</span><span class="n">Surface</span><span class="p">(</span><span class="n">SCREEN_SIZE</span><span class="p">)</span><span class="o">.</span><span class="n">convert</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">background</span><span class="o">.</span><span class="n">fill</span><span class="p">((</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">))</span>
+        <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">background</span><span class="p">,</span> <span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span> <span class="n">NEST_POSITION</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">NEST_SIZE</span><span class="p">))</span>
+ 	
+    <span class="c1">#add and remove entity </span>
+    <span class="k">def</span> <span class="nf">add_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entity</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entities</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">entity_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">entity</span>
+        <span class="n">entity</span><span class="o">.</span><span class="nb">id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">entity_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entity_id</span> <span class="o">+=</span> <span class="mi">1</span>
+ 
+    <span class="k">def</span> <span class="nf">remove_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entity</span><span class="p">):</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">entities</span><span class="p">[</span><span class="n">entity</span><span class="o">.</span><span class="nb">id</span><span class="p">]</span>
+ 
+    <span class="c1">#通过id得到实体</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entity_id</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">entity_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">entities</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">entities</span><span class="p">[</span><span class="n">entity_id</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span>
+	
+    <span class="c1">#entity process</span>
+    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_passed</span><span class="p">):</span>
+        <span class="n">time_passed_seconds</span> <span class="o">=</span> <span class="n">time_passed</span> <span class="o">/</span> <span class="mf">1000.0</span>
+        <span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">entities</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+            <span class="n">entity</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">time_passed_seconds</span><span class="p">)</span>
+ 
+	<span class="c1">#entity render</span>
+    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">):</span>
+        <span class="n">surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">background</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">entities</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">entity</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span>
+ 
+	<span class="c1">#finds an entity that is within a certain distance of a location in the world</span>
+    <span class="k">def</span> <span class="nf">get_close_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">location</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="mf">100.</span><span class="p">):</span>
+        <span class="n">location</span> <span class="o">=</span> <span class="n">Vector2</span><span class="p">(</span><span class="o">*</span><span class="n">location</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">entities</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">entity</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">name</span><span class="p">:</span>
+                <span class="n">distance</span> <span class="o">=</span> <span class="n">location</span><span class="o">.</span><span class="n">get_distance_to</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">location</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">distance</span> <span class="o">&lt;</span> <span class="nb">range</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">entity</span>
+        <span class="k">return</span> <span class="bp">None</span></code></pre></div>
+<p>可以看到在这个游戏世界里，我们创建了属性游戏实体(entities)和背景(background)，以及创建，删除，游戏进程，并画出实体的方法。最后定义了发现一个实体到某一点的距离，在更加复杂的游戏中，将这重构为一个游戏函数会更加合理。在进程中我们调用了<code>entity.process</code>，所以我们还要创建entity类。</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1">#建立游戏实体类</span>
+<span class="k">class</span> <span class="nc">GameEntity</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+ 
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">world</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">image</span><span class="p">):</span>
+ 
+        <span class="bp">self</span><span class="o">.</span><span class="n">world</span> <span class="o">=</span> <span class="n">world</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">image</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">location</span> <span class="o">=</span> <span class="n">Vector2</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">destination</span> <span class="o">=</span> <span class="n">Vector2</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">speed</span> <span class="o">=</span> <span class="mf">0.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">brain</span> <span class="o">=</span> <span class="n">StateMachine</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="nb">id</span> <span class="o">=</span> <span class="mi">0</span>
+ 
+    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">):</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">location</span>
+        <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">get_size</span><span class="p">()</span>
+        <span class="n">surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">w</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">y</span><span class="o">-</span><span class="n">h</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>   
+ 
+    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_passed</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">brain</span><span class="o">.</span><span class="n">think</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">speed</span> <span class="o">&gt;</span> <span class="mf">0.</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">location</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">destination</span><span class="p">:</span>
+            <span class="n">vec_to_destination</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">destination</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">location</span>
+            <span class="n">distance_to_destination</span> <span class="o">=</span> <span class="n">vec_to_destination</span><span class="o">.</span><span class="n">get_length</span><span class="p">()</span>
+            <span class="n">heading</span> <span class="o">=</span> <span class="n">vec_to_destination</span><span class="o">.</span><span class="n">normalize</span><span class="p">()</span>
+            <span class="n">travel_distance</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">distance_to_destination</span><span class="p">,</span> <span class="n">time_passed</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">speed</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">location</span> <span class="o">+=</span> <span class="n">travel_distance</span> <span class="o">*</span> <span class="n">heading</span></code></pre></div>
+<p>这里定义的游戏实体的总类，包含了实体通用的行为函数，用于被具体的实体类继承。三个游戏实体，ant，leaf和spider</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">Leaf</span><span class="p">(</span><span class="n">GameEntity</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">world</span><span class="p">,</span> <span class="n">image</span><span class="p">):</span>
+        <span class="n">GameEntity</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">world</span><span class="p">,</span> <span class="s2">&#34;leaf&#34;</span><span class="p">,</span> <span class="n">image</span><span class="p">)</span>
+ 
+<span class="k">class</span> <span class="nc">Spider</span><span class="p">(</span><span class="n">GameEntity</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">world</span><span class="p">,</span> <span class="n">image</span><span class="p">):</span>
+        <span class="n">GameEntity</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">world</span><span class="p">,</span> <span class="s2">&#34;spider&#34;</span><span class="p">,</span> <span class="n">image</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dead_image</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">health</span> <span class="o">=</span> <span class="mi">25</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">speed</span> <span class="o">=</span> <span class="mf">50.</span> <span class="o">+</span> <span class="n">randint</span><span class="p">(</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+ 
+    <span class="k">def</span> <span class="nf">bitten</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">health</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">health</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">speed</span> <span class="o">=</span> <span class="mf">0.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dead_image</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">speed</span> <span class="o">=</span> <span class="mf">140.</span>
+ 
+    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">):</span>
+        <span class="n">GameEntity</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">)</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">location</span>
+        <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">get_size</span><span class="p">()</span>
+        <span class="c1">#描绘血条</span>
+        <span class="n">bar_x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="mf">25.</span><span class="o">/</span><span class="mf">2.</span>
+        <span class="n">bar_y</span> <span class="o">=</span> <span class="n">y</span> <span class="o">+</span> <span class="n">h</span><span class="o">/</span><span class="mi">2</span>
+        <span class="n">surface</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">bar_x</span><span class="p">,</span> <span class="n">bar_y</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+        <span class="n">surface</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">bar_x</span><span class="p">,</span> <span class="n">bar_y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">health</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+ 
+    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_passed</span><span class="p">):</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">location</span>
+        <span class="c1">#当spyder移出屏幕，删除；否则前进</span>
+        <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="n">SCREEN_SIZE</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">remove_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="n">GameEntity</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_passed</span><span class="p">)</span>
+ 
+<span class="k">class</span> <span class="nc">Ant</span><span class="p">(</span><span class="n">GameEntity</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">world</span><span class="p">,</span> <span class="n">image</span><span class="p">):</span>
+        <span class="n">GameEntity</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">world</span><span class="p">,</span> <span class="s2">&#34;ant&#34;</span><span class="p">,</span> <span class="n">image</span><span class="p">)</span>
+        <span class="n">exploring_state</span> <span class="o">=</span> <span class="n">AntStateExploring</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">seeking_state</span> <span class="o">=</span> <span class="n">AntStateSeeking</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">delivering_state</span> <span class="o">=</span> <span class="n">AntStateDelivering</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">hunting_state</span> <span class="o">=</span> <span class="n">AntStateHunting</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="c1">#将四个状态添加进ant的状态机</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">brain</span><span class="o">.</span><span class="n">add_state</span><span class="p">(</span><span class="n">exploring_state</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">brain</span><span class="o">.</span><span class="n">add_state</span><span class="p">(</span><span class="n">seeking_state</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">brain</span><span class="o">.</span><span class="n">add_state</span><span class="p">(</span><span class="n">delivering_state</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">brain</span><span class="o">.</span><span class="n">add_state</span><span class="p">(</span><span class="n">hunting_state</span><span class="p">)</span>
+        <span class="c1">#ant背着的东西</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">carry_image</span> <span class="o">=</span> <span class="bp">None</span>
+ 
+    <span class="k">def</span> <span class="nf">carry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">carry_image</span> <span class="o">=</span> <span class="n">image</span>
+ 
+    <span class="c1">#ant丢下东西</span>
+    <span class="k">def</span> <span class="nf">drop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">carry_image</span><span class="p">:</span>
+            <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">location</span>
+            <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">carry_image</span><span class="o">.</span><span class="n">get_size</span><span class="p">()</span>
+            <span class="n">surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">carry_image</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">w</span><span class="p">,</span> <span class="n">y</span><span class="o">-</span><span class="n">h</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">carry_image</span> <span class="o">=</span> <span class="bp">None</span>
+ 
+    <span class="c1">#画ant和叶子或蜘蛛</span>
+    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">):</span>
+        <span class="n">GameEntity</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">carry_image</span><span class="p">:</span>
+            <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">location</span>
+            <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">carry_image</span><span class="o">.</span><span class="n">get_size</span><span class="p">()</span>
+            <span class="n">surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">carry_image</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">w</span><span class="p">,</span> <span class="n">y</span><span class="o">-</span><span class="n">h</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span></code></pre></div>
+<p>考虑一个简单的模型，具有四种状态的ant，&rdquo;exploring&rdquo;(没有检索到玩家)，&rdquo;seeking&rdquo;(检索到玩家)，&rdquo;delivering&rdquo;(运输物资)和&rdquo;hunting&rdquo;(狩猎)。游戏中，通过构造状态机来描述，状态的描述基于以下两个标准</p>
+
+<ul>
+<li>NPC当下在做什么</li>
+<li>在什么情况下，状态将会改变</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1">#建立state类 </span>
+<span class="k">class</span> <span class="nc">State</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+    <span class="k">def</span> <span class="nf">do_actions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+    <span class="k">def</span> <span class="nf">check_conditions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+    <span class="k">def</span> <span class="nf">entry_actions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+    <span class="k">def</span> <span class="nf">exit_actions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>        
+
+<span class="c1">#建立状态机类 </span>
+<span class="k">class</span> <span class="nc">StateMachine</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">states</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_state</span> <span class="o">=</span> <span class="bp">None</span>
+ 
+    <span class="k">def</span> <span class="nf">add_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="n">state</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">state</span>
+ 
+    <span class="k">def</span> <span class="nf">think</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">active_state</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_state</span><span class="o">.</span><span class="n">do_actions</span><span class="p">()</span>
+        <span class="n">new_state_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">active_state</span><span class="o">.</span><span class="n">check_conditions</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">new_state_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_state</span><span class="p">(</span><span class="n">new_state_name</span><span class="p">)</span>
+ 
+    <span class="k">def</span> <span class="nf">set_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_state_name</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">active_state</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">active_state</span><span class="o">.</span><span class="n">exit_actions</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="n">new_state_name</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_state</span><span class="o">.</span><span class="n">entry_actions</span><span class="p">()</span></code></pre></div>
+<p>实体的具体状态类的定义</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">AntStateExploring</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ant</span><span class="p">):</span>
+        <span class="n">State</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&#34;exploring&#34;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ant</span> <span class="o">=</span> <span class="n">ant</span>
+ 
+    <span class="k">def</span> <span class="nf">random_destination</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">SCREEN_SIZE</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ant</span><span class="o">.</span><span class="n">destination</span> <span class="o">=</span> <span class="n">Vector2</span><span class="p">(</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">w</span><span class="p">),</span> <span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">h</span><span class="p">))</span>    
+ 
+    <span class="k">def</span> <span class="nf">do_actions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">random_destination</span><span class="p">()</span>
+ 
+    <span class="k">def</span> <span class="nf">check_conditions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">leaf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ant</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">get_close_entity</span><span class="p">(</span><span class="s2">&#34;leaf&#34;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ant</span><span class="o">.</span><span class="n">location</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">leaf</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ant</span><span class="o">.</span><span class="n">leaf_id</span> <span class="o">=</span> <span class="n">leaf</span><span class="o">.</span><span class="nb">id</span>
+            <span class="k">return</span> <span class="s2">&#34;seeking&#34;</span>
+        <span class="n">spider</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ant</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">get_close_entity</span><span class="p">(</span><span class="s2">&#34;spider&#34;</span><span class="p">,</span> <span class="n">NEST_POSITION</span><span class="p">,</span> <span class="n">NEST_SIZE</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">spider</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ant</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">get_distance</span><span class="p">(</span><span class="n">spider</span><span class="o">.</span><span class="n">location</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">100.</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ant</span><span class="o">.</span><span class="n">spider_id</span> <span class="o">=</span> <span class="n">spider</span><span class="o">.</span><span class="nb">id</span>
+                <span class="k">return</span> <span class="s2">&#34;hunting&#34;</span>
+        <span class="k">return</span> <span class="bp">None</span>
+ 
+    <span class="c1">#进入exploring状态</span>
+    <span class="k">def</span> <span class="nf">entry_actions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ant</span><span class="o">.</span><span class="n">speed</span> <span class="o">=</span> <span class="mf">120.</span> <span class="o">+</span> <span class="n">randint</span><span class="p">(</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">random_destination</span><span class="p">()</span>
+ 
+<span class="k">class</span> <span class="nc">AntStateSeeking</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ant</span><span class="p">):</span>
+        <span class="n">State</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&#34;seeking&#34;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ant</span> <span class="o">=</span> <span class="n">ant</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">leaf_id</span> <span class="o">=</span> <span class="bp">None</span>
+ 
+    <span class="k">def</span> <span class="nf">check_conditions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">leaf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ant</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ant</span><span class="o">.</span><span class="n">leaf_id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">leaf</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&#34;exploring&#34;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ant</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">get_distance_to</span><span class="p">(</span><span class="n">leaf</span><span class="o">.</span><span class="n">location</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ant</span><span class="o">.</span><span class="n">carry</span><span class="p">(</span><span class="n">leaf</span><span class="o">.</span><span class="n">image</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ant</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">remove_entity</span><span class="p">(</span><span class="n">leaf</span><span class="p">)</span>
+            <span class="k">return</span> <span class="s2">&#34;delivering&#34;</span>
+        <span class="k">return</span> <span class="bp">None</span>
+ 
+    <span class="k">def</span> <span class="nf">entry_actions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">leaf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ant</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ant</span><span class="o">.</span><span class="n">leaf_id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">leaf</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ant</span><span class="o">.</span><span class="n">destination</span> <span class="o">=</span> <span class="n">leaf</span><span class="o">.</span><span class="n">location</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ant</span><span class="o">.</span><span class="n">speed</span> <span class="o">=</span> <span class="mf">160.</span> <span class="o">+</span> <span class="n">randint</span><span class="p">(</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+ 
+<span class="k">class</span> <span class="nc">AntStateDelivering</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ant</span><span class="p">):</span>
+        <span class="n">State</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&#34;delivering&#34;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ant</span> <span class="o">=</span> <span class="n">ant</span>
+ 
+    <span class="k">def</span> <span class="nf">check_conditions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">Vector2</span><span class="p">(</span><span class="o">*</span><span class="n">NEST_POSITION</span><span class="p">)</span><span class="o">.</span><span class="n">get_distance_to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ant</span><span class="o">.</span><span class="n">location</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">NEST_SIZE</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ant</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ant</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">background</span><span class="p">)</span>
+                <span class="k">return</span> <span class="s2">&#34;exploring&#34;</span>
+        <span class="k">return</span> <span class="bp">None</span>
+ 
+    <span class="k">def</span> <span class="nf">entry_actions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ant</span><span class="o">.</span><span class="n">speed</span> <span class="o">=</span> <span class="mf">60.</span>
+        <span class="n">random_offset</span> <span class="o">=</span> <span class="n">Vector2</span><span class="p">(</span><span class="n">randint</span><span class="p">(</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">randint</span><span class="p">(</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ant</span><span class="o">.</span><span class="n">destination</span> <span class="o">=</span> <span class="n">Vector2</span><span class="p">(</span><span class="o">*</span><span class="n">NEST_POSITION</span><span class="p">)</span> <span class="o">+</span> <span class="n">random_offset</span>       
+ 
+<span class="k">class</span> <span class="nc">AntStateHunting</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ant</span><span class="p">):</span>
+        <span class="n">State</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&#34;hunting&#34;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ant</span> <span class="o">=</span> <span class="n">ant</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">got_kill</span> <span class="o">=</span> <span class="bp">False</span>
+ 
+    <span class="k">def</span> <span class="nf">do_actions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">spider</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ant</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ant</span><span class="o">.</span><span class="n">spider_id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">spider</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ant</span><span class="o">.</span><span class="n">destination</span> <span class="o">=</span> <span class="n">spider</span><span class="o">.</span><span class="n">location</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ant</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">get_distance_to</span><span class="p">(</span><span class="n">spider</span><span class="o">.</span><span class="n">location</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">15.</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">spider</span><span class="o">.</span><span class="n">bitten</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">spider</span><span class="o">.</span><span class="n">health</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">ant</span><span class="o">.</span><span class="n">carry</span><span class="p">(</span><span class="n">spider</span><span class="o">.</span><span class="n">image</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">ant</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">remove_entity</span><span class="p">(</span><span class="n">spider</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">got_kill</span> <span class="o">=</span> <span class="bp">True</span>
+ 
+    <span class="k">def</span> <span class="nf">check_conditions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">got_kill</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&#34;delivering&#34;</span>
+        <span class="n">spider</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ant</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ant</span><span class="o">.</span><span class="n">spider_id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">spider</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&#34;exploring&#34;</span>
+        <span class="k">if</span> <span class="n">spider</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">get_distance_to</span><span class="p">(</span><span class="n">NEST_POSITION</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">NEST_SIZE</span> <span class="o">*</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&#34;exploring&#34;</span>
+        <span class="k">return</span> <span class="bp">None</span>
+ 
+    <span class="k">def</span> <span class="nf">entry_actions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">speed</span> <span class="o">=</span> <span class="mf">160.</span> <span class="o">+</span> <span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+ 
+    <span class="k">def</span> <span class="nf">exit_actions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">got_kill</span> <span class="o">=</span> <span class="bp">False</span></code></pre></div>
+<p>主程序</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1">#运行主程序</span>
+<span class="k">def</span> <span class="nf">run</span><span class="p">():</span>
+    <span class="n">pygame</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+    <span class="n">screen</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">(</span><span class="n">SCREEN_SIZE</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>
+    <span class="n">world</span> <span class="o">=</span> <span class="n">World</span><span class="p">()</span>
+    <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">SCREEN_SIZE</span>
+    <span class="n">clock</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">Clock</span><span class="p">()</span>
+    <span class="n">ant_image</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&#34;ant.png&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">convert_alpha</span><span class="p">()</span>
+    <span class="n">leaf_image</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&#34;leaf.png&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">convert_alpha</span><span class="p">()</span>
+    <span class="n">spider_image</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&#34;spider.png&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">convert_alpha</span><span class="p">()</span>
+ 
+    <span class="k">for</span> <span class="n">ant_no</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ANT_COUNT</span><span class="p">):</span>
+        <span class="n">ant</span> <span class="o">=</span> <span class="n">Ant</span><span class="p">(</span><span class="n">world</span><span class="p">,</span> <span class="n">ant_image</span><span class="p">)</span>
+        <span class="n">ant</span><span class="o">.</span><span class="n">location</span> <span class="o">=</span> <span class="n">Vec2d</span><span class="p">(</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">w</span><span class="p">),</span> <span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">h</span><span class="p">))</span>
+        <span class="n">ant</span><span class="o">.</span><span class="n">brain</span><span class="o">.</span><span class="n">set_state</span><span class="p">(</span><span class="s2">&#34;exploring&#34;</span><span class="p">)</span>
+        <span class="n">world</span><span class="o">.</span><span class="n">add_entity</span><span class="p">(</span><span class="n">ant</span><span class="p">)</span>
+ 
+    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="nb">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">QUIT</span><span class="p">:</span>
+                <span class="n">pygame</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+                <span class="nb">exit</span><span class="p">()</span>
+        <span class="n">time_passed</span> <span class="o">=</span> <span class="n">clock</span><span class="o">.</span><span class="n">tick</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+ 
+        <span class="k">if</span> <span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">leaf</span> <span class="o">=</span> <span class="n">Leaf</span><span class="p">(</span><span class="n">world</span><span class="p">,</span> <span class="n">leaf_image</span><span class="p">)</span>
+            <span class="n">leaf</span><span class="o">.</span><span class="n">location</span> <span class="o">=</span> <span class="n">Vec2d</span><span class="p">(</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">w</span><span class="p">),</span> <span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">h</span><span class="p">))</span>
+            <span class="n">world</span><span class="o">.</span><span class="n">add_entity</span><span class="p">(</span><span class="n">leaf</span><span class="p">)</span>
+ 
+        <span class="k">if</span> <span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">spider</span> <span class="o">=</span> <span class="n">Spider</span><span class="p">(</span><span class="n">world</span><span class="p">,</span> <span class="n">spider_image</span><span class="p">)</span>
+            <span class="n">spider</span><span class="o">.</span><span class="n">location</span> <span class="o">=</span> <span class="n">Vec2d</span><span class="p">(</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">h</span><span class="p">))</span>
+            <span class="n">spider</span><span class="o">.</span><span class="n">destination</span> <span class="o">=</span> <span class="n">Vec2d</span><span class="p">(</span><span class="n">w</span><span class="o">+</span><span class="mi">50</span><span class="p">,</span> <span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">h</span><span class="p">))</span>
+            <span class="n">world</span><span class="o">.</span><span class="n">add_entity</span><span class="p">(</span><span class="n">spider</span><span class="p">)</span>
+ 
+        <span class="n">world</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">time_passed</span><span class="p">)</span>
+        <span class="n">world</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">screen</span><span class="p">)</span>
+ 
+        <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+ 
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+    <span class="n">run</span><span class="p">()</span></code></pre></div>]]></content>
+		</item>
 		
 		<item>
 			<title>Pygame:user_control</title>
@@ -224,7 +570,7 @@ import pygame from pygame.locals import * from sys import exit background_image_
     <span class="n">sprite_pos</span><span class="o">+=</span> <span class="n">heading</span> <span class="o">*</span> <span class="n">sprite_speed</span> <span class="o">*</span> <span class="n">time_passed_seconds</span>
  
     <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></code></pre></div>
-<p>鼠标控制</p>
+<h3 id="鼠标控制">鼠标控制</h3>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">background_image_filename</span> <span class="o">=</span> <span class="s1">&#39;sushiplate.jpg&#39;</span>
 <span class="n">sprite_image_filename</span> <span class="o">=</span> <span class="s1">&#39;fugu.png&#39;</span>
  
@@ -1305,276 +1651,6 @@ $$
 \frac{1}{2^n}\sum_x(-1)^{f(x)}|y_0\rangle=\frac{1}{2^n}\left[2^{n-1}(-1)^0+2^{n-1}(-1)^1\right]|y_0\rangle=0|y_0\rangle
 $$
 即无法测到该态</p>
-]]></content>
-		</item>
-		
-		<item>
-			<title>QC:qubit_gate</title>
-			<link>https://boseliao.github.io/posts/qcqubit_gate/</link>
-			<pubDate>Wed, 27 May 2020 21:27:15 +0800</pubDate>
-			
-			<guid>https://boseliao.github.io/posts/qcqubit_gate/</guid>
-			<description>利用一些装置可以实现对自旋态的操控，例如核磁共振(NMR)
-单量子比特 sigma_x泡利算符X，对应于经典的NOT门 $$ \sigma_x|x\rangle=|1-x\rangle $$
-from qutip.qip.circuit import QubitCircuit, Gate from qutip.qip import gates qc=QubitCircuit(N=1) def user_gate(): #sigma_x mat = np.array([[0.,1.0],[1., 0.]]) return qt.Qobj(mat, dims=[[2], [2]]) qc.user_gates={&amp;#34;sigma_x&amp;#34;:user_gate} qc.add_gate(&amp;#34;sigma_x&amp;#34;,targets=[0]) U_list = qc.propagators() from qutip.qip.operations import gate_sequence_product U = gate_sequence_product(U_list) psi0=qt.basis(2,0) psit=U*psi0 b=qt.Bloch() b.add_states(psi0) b.add_states(psit) b.save(&amp;#34;qc_gate.png&amp;#34;) b.show() sigma_z泡利算符Z $$ \sigma_z|x\rangle=(-1)^x|x\rangle $$
-def user_gate(): #sigma_z mat = np.array([[1.,0.],[0., -1.]]) return qt.Qobj(mat, dims=[[2], [2]]) qc.user_gates={&amp;#34;sigma_z&amp;#34;:user_gate} qc.add_gate(&amp;#34;sigma_z&amp;#34;,targets=[0]) 旋转门(rotation gate) RX沿着X轴旋转 $$ R_x(\theta)(\alpha|0\rangle+\beta|1\rangle)=(\alpha\cos(\frac{\theta}{2})-i\beta\sin(\frac{\theta}{2}))|0\rangle+(\beta\cos(\frac{\theta}{2})-i\alpha\sin(\frac{\theta}{2}))|1\rangle $$</description>
-			<content type="html"><![CDATA[
-
-<p>利用一些装置可以实现对自旋态的操控，例如核磁共振(NMR)</p>
-
-<h2 id="单量子比特">单量子比特</h2>
-
-<p><code>sigma_x</code>泡利算符X，对应于经典的<code>NOT</code>门
-$$
-\sigma_x|x\rangle=|1-x\rangle
-$$</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">qutip.qip.circuit</span> <span class="kn">import</span> <span class="n">QubitCircuit</span><span class="p">,</span> <span class="n">Gate</span>
-<span class="kn">from</span> <span class="nn">qutip.qip</span> <span class="kn">import</span> <span class="n">gates</span>
-<span class="n">qc</span><span class="o">=</span><span class="n">QubitCircuit</span><span class="p">(</span><span class="n">N</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">user_gate</span><span class="p">():</span>
-    <span class="c1">#sigma_x</span>
-    <span class="n">mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.</span><span class="p">,</span><span class="mf">1.0</span><span class="p">],[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">]])</span>
-    <span class="k">return</span> <span class="n">qt</span><span class="o">.</span><span class="n">Qobj</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">[[</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">]])</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">user_gates</span><span class="o">=</span><span class="p">{</span><span class="s2">&#34;sigma_x&#34;</span><span class="p">:</span><span class="n">user_gate</span><span class="p">}</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;sigma_x&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">U_list</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">propagators</span><span class="p">()</span>
-<span class="kn">from</span> <span class="nn">qutip.qip.operations</span> <span class="kn">import</span> <span class="n">gate_sequence_product</span>
-<span class="n">U</span> <span class="o">=</span> <span class="n">gate_sequence_product</span><span class="p">(</span><span class="n">U_list</span><span class="p">)</span>
-<span class="n">psi0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">psit</span><span class="o">=</span><span class="n">U</span><span class="o">*</span><span class="n">psi0</span>
-<span class="n">b</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">Bloch</span><span class="p">()</span>
-<span class="n">b</span><span class="o">.</span><span class="n">add_states</span><span class="p">(</span><span class="n">psi0</span><span class="p">)</span>
-<span class="n">b</span><span class="o">.</span><span class="n">add_states</span><span class="p">(</span><span class="n">psit</span><span class="p">)</span>
-<span class="n">b</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&#34;qc_gate.png&#34;</span><span class="p">)</span>
-<span class="n">b</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></code></pre></div>
-<p><img src="/img/qc_gate_img1.png" alt="img1" /></p>
-
-<p><code>sigma_z</code>泡利算符Z
-$$
-\sigma_z|x\rangle=(-1)^x|x\rangle
-$$</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">user_gate</span><span class="p">():</span>
-    <span class="c1">#sigma_z</span>
-    <span class="n">mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.</span><span class="p">,</span><span class="mf">0.</span><span class="p">],[</span><span class="mf">0.</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.</span><span class="p">]])</span>
-    <span class="k">return</span> <span class="n">qt</span><span class="o">.</span><span class="n">Qobj</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">[[</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">]])</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">user_gates</span><span class="o">=</span><span class="p">{</span><span class="s2">&#34;sigma_z&#34;</span><span class="p">:</span><span class="n">user_gate</span><span class="p">}</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;sigma_z&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></code></pre></div>
-<p><img src="/img/qc_gate_img2.png" alt="img2" /></p>
-
-<h3 id="旋转门-rotation-gate">旋转门(rotation gate)</h3>
-
-<p><code>RX</code>沿着X轴旋转
-$$
-R_x(\theta)(\alpha|0\rangle+\beta|1\rangle)=(\alpha\cos(\frac{\theta}{2})-i\beta\sin(\frac{\theta}{2}))|0\rangle+(\beta\cos(\frac{\theta}{2})-i\alpha\sin(\frac{\theta}{2}))|1\rangle
-$$</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">qc</span><span class="o">=</span><span class="n">QubitCircuit</span><span class="p">(</span><span class="n">N</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;RX&#34;</span><span class="p">,</span><span class="n">arg_value</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mf">4.</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">U_list</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">propagators</span><span class="p">()</span>
-<span class="kn">from</span> <span class="nn">qutip.qip.operations</span> <span class="kn">import</span> <span class="n">gate_sequence_product</span>
-<span class="n">U</span> <span class="o">=</span> <span class="n">gate_sequence_product</span><span class="p">(</span><span class="n">U_list</span><span class="p">)</span>
-<span class="n">psi0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">psit</span><span class="o">=</span><span class="n">U</span><span class="o">*</span><span class="n">psi0</span>
-<span class="n">b</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">Bloch</span><span class="p">()</span>
-<span class="n">b</span><span class="o">.</span><span class="n">add_states</span><span class="p">(</span><span class="n">psi0</span><span class="p">)</span>
-<span class="n">b</span><span class="o">.</span><span class="n">add_states</span><span class="p">(</span><span class="n">psit</span><span class="p">)</span>
-<span class="n">b</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&#34;qc_gate_img4.png&#34;</span><span class="p">)</span>
-<span class="n">b</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></code></pre></div>
-<p><img src="/img/qc_gate_img4.png" alt="img4" /></p>
-
-<p>同理，<code>RY</code>，<code>RZ</code>表示沿着X，Z轴旋转
-$$
-R_y(\theta)(\alpha|0\rangle+\beta|1\rangle)=(\alpha\cos(\frac{\theta}{2})-\beta\sin(\frac{\theta}{2}))|0\rangle+(\beta\cos(\frac{\theta}{2})+\alpha\sin(\frac{\theta}{2}))|1\rangle
-$$</p>
-
-<p>$$
-R_z(\theta)(\alpha|0\rangle+\beta|1\rangle)=\alpha e^{-i\theta/2}|0\rangle+\beta e^{i\theta/2}|1\rangle
-$$</p>
-
-<p>沿任意轴的旋转可以表示为
-$$
-R_n(\theta)=e^{-i\theta n\sigma}=\cos(\frac{\theta}{2})I-i\sin(\frac{\theta}{2})n\sigma
-$$
-<code>Hadamard</code>
-$$
-H|x\rangle=\frac{1}{\sqrt{2}}\left(|0\rangle+(-1)^x|1\rangle\right)
-$$</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;SNOT&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">psi0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span></code></pre></div>
-<p><img src="/img/qc_gate_img3.png" alt="img3" /></p>
-
-<p>任意态的制备，这里忽略了整体相位，对量子态不影响
-$$
-|0\rangle\to|\psi\rangle=R_z(\frac{\pi}{2}+\phi)HR_z(\theta)H|0\rangle=\cos(\frac{\theta}{2})|0\rangle+e^{i\phi}\sin(\frac{\theta}{2})|1\rangle
-$$</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">qc</span><span class="o">=</span><span class="n">QubitCircuit</span><span class="p">(</span><span class="n">N</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;SNOT&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;RZ&#34;</span><span class="p">,</span><span class="n">arg_value</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mf">4.</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;SNOT&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;RZ&#34;</span><span class="p">,</span><span class="n">arg_value</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mf">2.</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mf">4.</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">U_list</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">propagators</span><span class="p">()</span>
-<span class="kn">from</span> <span class="nn">qutip.qip.operations</span> <span class="kn">import</span> <span class="n">gate_sequence_product</span>
-<span class="n">U</span> <span class="o">=</span> <span class="n">gate_sequence_product</span><span class="p">(</span><span class="n">U_list</span><span class="p">)</span>
-<span class="n">psi0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">psit</span><span class="o">=</span><span class="n">U</span><span class="o">*</span><span class="n">psi0</span>
-<span class="n">b</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">Bloch</span><span class="p">()</span>
-<span class="n">b</span><span class="o">.</span><span class="n">add_states</span><span class="p">(</span><span class="n">psi0</span><span class="p">)</span>
-<span class="n">b</span><span class="o">.</span><span class="n">add_states</span><span class="p">(</span><span class="n">psit</span><span class="p">)</span>
-<span class="c1">#b.save(&#34;qc_gate_img4.png&#34;)</span>
-<span class="n">b</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></code></pre></div>
-<p><img src="/img/qc_gate_img5.png" alt="img5" /></p>
-
-<h3 id="相移门-phase-gate">相移门(phase gate)</h3>
-
-<p><code>PHASEGATE</code>，当target qubit为1态时才发生相移
-$$
-P(\theta)|x\rangle=xe^{i\theta}|x\rangle
-$$</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">qc</span><span class="o">=</span><span class="n">QubitCircuit</span><span class="p">(</span><span class="n">N</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;PHASEGATE&#34;</span><span class="p">,</span><span class="n">arg_value</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mf">4.</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">U_list</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">propagators</span><span class="p">()</span>
-<span class="kn">from</span> <span class="nn">qutip.qip.operations</span> <span class="kn">import</span> <span class="n">gate_sequence_product</span>
-<span class="n">U</span> <span class="o">=</span> <span class="n">gate_sequence_product</span><span class="p">(</span><span class="n">U_list</span><span class="p">)</span>
-<span class="n">psi0</span><span class="o">=</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="o">+</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">psit</span><span class="o">=</span><span class="n">U</span><span class="o">*</span><span class="n">psi0</span>
-<span class="n">b</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">Bloch</span><span class="p">()</span>
-<span class="n">b</span><span class="o">.</span><span class="n">add_states</span><span class="p">(</span><span class="n">psi0</span><span class="p">)</span>
-<span class="n">b</span><span class="o">.</span><span class="n">add_states</span><span class="p">(</span><span class="n">psit</span><span class="p">)</span>
-<span class="c1">#b.save(&#34;qc_gate_img6.png&#34;)</span>
-<span class="n">b</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></code></pre></div>
-<p><img src="/img/qc_gate_img6.png" alt="img6" /></p>
-
-<h2 id="双量子比特">双量子比特</h2>
-
-<p>控制算符，即“If A is true, then do B”。输入分别为”control qubit“以及”target qubit“，输出只会改变”target qubit“的状态。</p>
-
-<p><code>CNOT</code>，即”control-NOT“，受控非门
-$$
-C_1|c\rangle|t\rangle=|c\rangle|c\otimes t\rangle
-$$</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">gates</span><span class="o">.</span><span class="n">cnot</span><span class="p">(</span><span class="n">control</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">target</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="s2">&#34;&#34;&#34;
-</span><span class="s2">Quantum object: dims = [[2, 2], [2, 2]], shape = (4, 4), type = oper, isherm = True
-</span><span class="s2">Qobj data =
-</span><span class="s2">[[1. 0. 0. 0.]
-</span><span class="s2"> [0. 1. 0. 0.]
-</span><span class="s2"> [0. 0. 0. 1.]
-</span><span class="s2"> [0. 0. 1. 0.]]
-</span><span class="s2">&#34;&#34;&#34;</span></code></pre></div>
-<p>广义<code>CNOT</code>门，
-$$
-C_2|t\rangle|c\rangle=|t\otimes c\rangle|c\rangle
-$$</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">gates</span><span class="o">.</span><span class="n">cnot</span><span class="p">(</span><span class="n">control</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">target</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="s2">&#34;&#34;&#34;
-</span><span class="s2">=
-</span><span class="s2">&#34;&#34;&#34;</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;SNOT&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;SNOT&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CNOT&#34;</span><span class="p">,</span><span class="n">control</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;SNOT&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;SNOT&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span></code></pre></div>
-<p>产生两对贝尔基
-$$
-|\phi^{\pm}\rangle=\frac{1}{\sqrt{2}}\left(|00\rangle\pm|11\rangle \right)\quad|\psi^{\pm}\rangle=\frac{1}{\sqrt{2}}\left(|01\rangle\pm|10\rangle \right)
-$$</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;SNOT&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CNOT&#34;</span><span class="p">,</span><span class="n">control</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span></code></pre></div>
-<p>输入与对应输出，
-$$
-|00\rangle\to|\phi^+\rangle,|10\rangle\to|\phi^-\rangle,|01\rangle\to|\psi^+\rangle,|11\rangle\to|\psi^-\rangle
-$$
-<code>CPHASE</code>，即受控相移门，当control qubit和target qubit 都为1态时发生相移</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">gates</span><span class="o">.</span><span class="n">cphase</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span><span class="n">N</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">control</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">target</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="s2">&#34;&#34;&#34;
-</span><span class="s2">=
-</span><span class="s2">&#34;&#34;&#34;</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;PHASEGATE&#34;</span><span class="p">,</span><span class="n">arg_value</span><span class="o">=</span><span class="n">theta</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CNOT&#34;</span><span class="p">,</span><span class="n">control</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;PHASEGATE&#34;</span><span class="p">,</span><span class="n">arg_value</span><span class="o">=-</span><span class="n">theta</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CNOT&#34;</span><span class="p">,</span><span class="n">control</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;PHASEGATE&#34;</span><span class="p">,</span><span class="n">arg_value</span><span class="o">=</span><span class="n">theta</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></code></pre></div>
-<p><code>SWAP</code>，即交换门
-$$
-SWAP|x\rangle|y\rangle=C_1C_2C_1|x\rangle|y\rangle=|y\rangle|x\rangle
-$$</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">gates</span><span class="o">.</span><span class="n">swap</span><span class="p">(</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
-<span class="s2">&#34;&#34;&#34;
-</span><span class="s2">=
-</span><span class="s2">&#34;&#34;&#34;</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CNOT&#34;</span><span class="p">,</span><span class="n">control</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CNOT&#34;</span><span class="p">,</span><span class="n">control</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CNOT&#34;</span><span class="p">,</span><span class="n">control</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span></code></pre></div>
-<p>事实上任意两比特的受控U门(C-U)都可以由单比特门以及<code>CNOT</code>门构成。
-$$
-|c\rangle|t\rangle\to|c\rangle U^{c}|t\rangle
-$$
-任意的单比特操作可以写成
-$$
-U=\phi(\delta)R_z(\alpha)R_y(\theta)R_z(\beta)=\begin{bmatrix}
-   e^{i(\delta-\frac{\alpha+\beta}{2})}\cos\frac{\theta}{2} &amp; -e^{i(\delta-\frac{\alpha-\beta}{2})}\sin\frac{\theta}{2} \newline
-   e^{i(\delta+\frac{\alpha-\beta}{2})}\sin\frac{\theta}{2} &amp; e^{i(\delta+\frac{\alpha+\beta}{2})}\cos\frac{\theta}{2}<br />
-  \end{bmatrix}
-$$
-设
-$$
-I=ABC,U=\phi(\delta)A\sigma_xB\sigma_xC
-$$
-则
-$$
-A=R_z(\alpha)R_y(\theta/2),B=R_y(-\theta/2)R_z(-\frac{\alpha+\beta}{2}),C=R_z(\frac{\beta-\alpha}{2})
-$$
-所以受控U门(C-U)可以写成，上标表示control qubit，下标表示target qubit。
-$$
-CU=\phi^0_1(\delta)A_1C^0_1B_1C^0_1C_1=P_0(\delta)A_1C^0_1B_1C^0_1C_1
-$$
-相位的控制算符</p>
-
-<p><img src="/img/qc_gate_img7.png" alt="img7" /></p>
-
-<p>电路可以表示为</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;RZ&#34;</span><span class="p">,</span><span class="n">arg_value</span><span class="o">=</span><span class="p">(</span><span class="n">beta</span><span class="o">-</span><span class="n">alpha</span><span class="p">)</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CNOT&#34;</span><span class="p">,</span><span class="n">control</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;RZ&#34;</span><span class="p">,</span><span class="n">arg_value</span><span class="o">=-</span><span class="p">(</span><span class="n">beta</span><span class="o">+</span><span class="n">alpha</span><span class="p">)</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;RY&#34;</span><span class="p">,</span><span class="n">arg_value</span><span class="o">=-</span><span class="n">theta</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CNOT&#34;</span><span class="p">,</span><span class="n">control</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;RY&#34;</span><span class="p">,</span><span class="n">arg_value</span><span class="o">=</span><span class="n">theta</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;RZ&#34;</span><span class="p">,</span><span class="n">arg_value</span><span class="o">=</span><span class="n">alpha</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;PHASEGATE&#34;</span><span class="p">,</span><span class="n">arg_value</span><span class="o">=</span><span class="n">delta</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></code></pre></div>
-<h2 id="三量子比特">三量子比特</h2>
-
-<p><code>toffoli</code>，即<code>C2-NOT</code>门。如果两个control qubit都处于|1&gt;态，则对target qubit作用NOT算符。</p>
-
-<p><img src="/img/qc_gate_img8.png" alt="img8" /></p>
-
-<p>这里
-$$
-U=\sigma_x,V=\sqrt{U}=(1-i)(1+i\sigma_x)/2
-$$
-对于一般的算符U，此电路都是成立的。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">gates</span><span class="o">.</span><span class="n">toffoli</span><span class="p">(</span><span class="n">controls</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span><span class="n">target</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span></code></pre></div>
-<p><code>fredkin</code>如果control的目标量子比特处于|1&gt;态，则对targets的目标量子比特作用SWAP算符</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">gates</span><span class="o">.</span><span class="n">fredkin</span><span class="p">(</span><span class="n">control</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span></code></pre></div>
-<p>特别的，当control qubit大于等于三时，即<code>Cn-U,n&gt;2</code>，控制电路</p>
-
-<p><img src="/img/qc_gate_img9.png" alt="img9" /></p>
-
-<h2 id="通用门-universal-quantum-gates">通用门(Universal quantum gates)</h2>
-
-<p>在经典计算中，任何的函数都可以用一组通用门来描述。相应的，在量子计算中任意的幺正算符也可以用一组通用门描述，<code>Hadamard</code>，<code>CNOT</code>，<code>PHASEGATE（pi/4）</code>，<code>PHASEGATE(pi/8)</code></p>
-
-<h2 id="测量-measurement">测量(Measurement)</h2>
-
-<p>不失一般性的，可以假设在量子电路的末端测量未测量的量子比特</p>
-
-<p><img src="/img/qc_gate_img10.png" alt="img10" /></p>
-
-<p>对bell基的测量</p>
-
-<p><img src="/img/qc_gate_img11.png" alt="img11" /></p>
-
-<p>测量与控制算符的对易关系，单线表示量子信息的传递，双线表示经典信息的传递</p>
-
-<p><img src="/img/qc_gate_ing12.png" alt="img12" /></p>
 ]]></content>
 		</item>
 		

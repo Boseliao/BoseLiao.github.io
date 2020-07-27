@@ -7,10 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Sun, 26 Jul 2020 12:15:43 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 27 Jul 2020 10:10:38 +0800</lastBuildDate>
     
 	<atom:link href="https://boseliao.github.io/tags/pygame/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Pygame:Artificial_Intelligence</title>
+      <link>https://boseliao.github.io/posts/pygameartificial_intelligence/</link>
+      <pubDate>Mon, 27 Jul 2020 10:10:38 +0800</pubDate>
+      
+      <guid>https://boseliao.github.io/posts/pygameartificial_intelligence/</guid>
+      <description>游戏中的人工智能是一种错觉（现实生活中也可能如此）。创建这种错觉的代码与前几章中的代码没有太大区别。我们将使用Python字符串、列表、字典等基本工具来构建类，这些类实际上是NPC(nonplayer characters)的大脑。实际上，Python可能是编写AI的最佳语言之一，因为它有大量的内置对象。
+首先我们构造一个游戏世界
+#建立世界类 class World(object): def __init__(self): self.entities = {} self.entity_id = 0 self.background = pygame.surface.Surface(SCREEN_SIZE).convert() self.background.fill((255, 255, 255)) pygame.draw.circle(self.background, (200, 255, 200), NEST_POSITION, int(NEST_SIZE)) #add and remove entity  def add_entity(self, entity): self.entities[self.entity_id] = entity entity.id = self.entity_id self.entity_id += 1 def remove_entity(self, entity): del self.entities[entity.id] #通过id得到实体 def get(self, entity_id): if entity_id in self.entities: return self.entities[entity_id] else: return None #entity process def process(self, time_passed): time_passed_seconds = time_passed / 1000.</description>
+    </item>
     
     <item>
       <title>Pygame:user_control</title>
