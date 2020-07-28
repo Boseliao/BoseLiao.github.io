@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="theme-color" content="#494f5c">
+	<meta name="msapplication-TileColor" content="#494f5c">
+
+<meta itemprop="name" content="Pygame:Sound">
+<meta itemprop="description" content="在Pygame同样定义了特殊的模块pygame.mixer来播放声音效果。
+SCREEN_SIZE = (640, 480) # 重力因子，实际上是单位 像素/平方秒 GRAVITY = 250.0 # 弹力系数，不要超过1! BOUNCINESS = 0.7 import pygame from pygame.locals import * from sys import exit from random import randint from gameobjects.vector2 import Vector2 def stero_pan(x_coord, screen_width): &#34;&#34;&#34;这个函数根据位置决定要播放声音左右声道的音量&#34;&#34;&#34; right_volume = float(x_coord) / screen_width left_volume = 1.0 - right_volume return (left_volume, right_volume) class Ball(): &#34;&#34;&#34;小球类，实际上我们可以使用Sprite类来简化&#34;&#34;&#34; def __init__(self, position, speed, image, bounce_sound): self.position = Vector2(position) self.speed = Vector2(speed) self.image = image self.bounce_sound = bounce_sound self.">
+
+
+<meta itemprop="datePublished" content="2020-07-28T12:39:54&#43;08:00" />
+<meta itemprop="dateModified" content="2020-07-28T12:39:54&#43;08:00" />
+<meta itemprop="wordCount" content="792">
+
+
+
+<meta itemprop="keywords" content="Pygame," />
+<meta property="og:title" content="Pygame:Sound" />
+<meta property="og:description" content="在Pygame同样定义了特殊的模块pygame.mixer来播放声音效果。
+SCREEN_SIZE = (640, 480) # 重力因子，实际上是单位 像素/平方秒 GRAVITY = 250.0 # 弹力系数，不要超过1! BOUNCINESS = 0.7 import pygame from pygame.locals import * from sys import exit from random import randint from gameobjects.vector2 import Vector2 def stero_pan(x_coord, screen_width): &#34;&#34;&#34;这个函数根据位置决定要播放声音左右声道的音量&#34;&#34;&#34; right_volume = float(x_coord) / screen_width left_volume = 1.0 - right_volume return (left_volume, right_volume) class Ball(): &#34;&#34;&#34;小球类，实际上我们可以使用Sprite类来简化&#34;&#34;&#34; def __init__(self, position, speed, image, bounce_sound): self.position = Vector2(position) self.speed = Vector2(speed) self.image = image self.bounce_sound = bounce_sound self." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://boseliao.github.io/posts/pygamesound/" />
+<meta property="article:published_time" content="2020-07-28T12:39:54&#43;08:00"/>
+<meta property="article:modified_time" content="2020-07-28T12:39:54&#43;08:00"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Pygame:Sound"/>
+<meta name="twitter:description" content="在Pygame同样定义了特殊的模块pygame.mixer来播放声音效果。
+SCREEN_SIZE = (640, 480) # 重力因子，实际上是单位 像素/平方秒 GRAVITY = 250.0 # 弹力系数，不要超过1! BOUNCINESS = 0.7 import pygame from pygame.locals import * from sys import exit from random import randint from gameobjects.vector2 import Vector2 def stero_pan(x_coord, screen_width): &#34;&#34;&#34;这个函数根据位置决定要播放声音左右声道的音量&#34;&#34;&#34; right_volume = float(x_coord) / screen_width left_volume = 1.0 - right_volume return (left_volume, right_volume) class Ball(): &#34;&#34;&#34;小球类，实际上我们可以使用Sprite类来简化&#34;&#34;&#34; def __init__(self, position, speed, image, bounce_sound): self.position = Vector2(position) self.speed = Vector2(speed) self.image = image self.bounce_sound = bounce_sound self."/>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="">
+	<link rel="shortcut icon" href="/favicon.ico">
+
+	<title>Pygame:Sound</title>
+	<link rel="stylesheet" href="https://boseliao.github.io/css/style.min.657bcb7af31123e4156b1a3d2ff60a636717e54ead74f882136b5114cf72b55e.css" integrity="sha256-ZXvLevMRI+QVaxo9L/YKY2cX5U6tdPiCE2tRFM9ytV4=" crossorigin="anonymous">
+	
+</head>
+
+<body id="page">
+	
+	<header id="site-header" class="animated slideInUp faster">
+		<div class="hdr-wrapper section-inner">
+			<div class="hdr-left">
+				<div class="site-branding">
+					<a href="https://boseliao.github.io">BoseLiao&#39;s Blog</a>
+				</div>
+				<nav class="site-nav hide-in-mobile">
+					
+				<a href="https://boseliao.github.io/posts/">Posts</a>
+				<a href="https://boseliao.github.io/boseliao">About</a>
+
+				</nav>
+			</div>
+			<div class="hdr-right hdr-icons">
+				<button id="menu-btn" class="hdr-btn" title="Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+			</div>
+		</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+	</header>
+	<div id="mobile-menu" class="animated fast">
+		<ul>
+			<li><a href="https://boseliao.github.io/posts/">Posts</a></li>
+			<li><a href="https://boseliao.github.io/boseliao">About</a></li>
+		</ul>
+	</div>
+
+
+	<main class="site-main section-inner animated fadeIn faster">
+		<article class="thin">
+			<header class="post-header">
+				<div class="post-meta"><span>Jul 28, 2020</span></div>
+				<h1>Pygame:Sound</h1>
+			</header>
+			<div class="content">
+				<p>在Pygame同样定义了特殊的模块<code>pygame.mixer</code>来播放声音效果。</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">SCREEN_SIZE</span> <span class="o">=</span> <span class="p">(</span><span class="mi">640</span><span class="p">,</span> <span class="mi">480</span><span class="p">)</span>
+
+<span class="c1"># 重力因子，实际上是单位 像素/平方秒</span>
+<span class="n">GRAVITY</span> <span class="o">=</span> <span class="mf">250.0</span>
+<span class="c1"># 弹力系数，不要超过1!</span>
+<span class="n">BOUNCINESS</span> <span class="o">=</span> <span class="mf">0.7</span>
+
+<span class="kn">import</span> <span class="nn">pygame</span>
+<span class="kn">from</span> <span class="nn">pygame.locals</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="nb">exit</span>
+<span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">randint</span>
+<span class="kn">from</span> <span class="nn">gameobjects.vector2</span> <span class="kn">import</span> <span class="n">Vector2</span>
+
+<span class="k">def</span> <span class="nf">stero_pan</span><span class="p">(</span><span class="n">x_coord</span><span class="p">,</span> <span class="n">screen_width</span><span class="p">):</span>
+    <span class="s2">&#34;&#34;&#34;这个函数根据位置决定要播放声音左右声道的音量&#34;&#34;&#34;</span>
+    <span class="n">right_volume</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">x_coord</span><span class="p">)</span> <span class="o">/</span> <span class="n">screen_width</span>
+    <span class="n">left_volume</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">right_volume</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">left_volume</span><span class="p">,</span> <span class="n">right_volume</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Ball</span><span class="p">():</span>
+    <span class="s2">&#34;&#34;&#34;小球类，实际上我们可以使用Sprite类来简化&#34;&#34;&#34;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">speed</span><span class="p">,</span> <span class="n">image</span><span class="p">,</span> <span class="n">bounce_sound</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="n">Vector2</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">speed</span> <span class="o">=</span> <span class="n">Vector2</span><span class="p">(</span><span class="n">speed</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">image</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bounce_sound</span> <span class="o">=</span> <span class="n">bounce_sound</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_passed</span><span class="p">):</span>
+        <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">get_size</span><span class="p">()</span>
+        <span class="n">screen_width</span><span class="p">,</span> <span class="n">screen_height</span> <span class="o">=</span> <span class="n">SCREEN_SIZE</span>
+
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span>
+        <span class="n">x</span> <span class="o">-=</span> <span class="n">w</span><span class="o">/</span><span class="mi">2</span>
+        <span class="n">y</span> <span class="o">-=</span> <span class="n">h</span><span class="o">/</span><span class="mi">2</span>
+        <span class="c1"># 是不是要反弹了</span>
+        <span class="n">bounce</span> <span class="o">=</span> <span class="bp">False</span>
+
+        <span class="c1"># 小球碰壁了么？</span>
+        <span class="k">if</span> <span class="n">y</span> <span class="o">+</span> <span class="n">h</span> <span class="o">&gt;=</span> <span class="n">screen_height</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">speed</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">speed</span><span class="o">.</span><span class="n">y</span> <span class="o">*</span> <span class="n">BOUNCINESS</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">screen_height</span> <span class="o">-</span> <span class="n">h</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">-</span> <span class="mf">1.0</span>
+            <span class="n">bounce</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">speed</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">speed</span><span class="o">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">BOUNCINESS</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">w</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">bounce</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="k">elif</span> <span class="n">x</span> <span class="o">+</span> <span class="n">w</span> <span class="o">&gt;=</span> <span class="n">screen_width</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">speed</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">speed</span><span class="o">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">BOUNCINESS</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">screen_width</span> <span class="o">-</span> <span class="n">w</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="n">bounce</span> <span class="o">=</span> <span class="bp">True</span>
+
+        <span class="c1"># 根据时间计算现在的位置，物理好的立刻发现这其实不标准，</span>
+        <span class="c1"># 正规的应该是“s = 1/2*g*t*t”，不过这样省事省时一点，咱只是模拟~</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">speed</span> <span class="o">*</span> <span class="n">time_passed</span>
+        <span class="c1"># 根据重力计算速度</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">speed</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="n">time_passed</span> <span class="o">*</span> <span class="n">GRAVITY</span>
+
+        <span class="k">if</span> <span class="n">bounce</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">play_bounce_sound</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">age</span> <span class="o">+=</span> <span class="n">time_passed</span>
+
+    <span class="k">def</span> <span class="nf">play_bounce_sound</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s2">&#34;&#34;&#34;这个就是播放声音的函数&#34;&#34;&#34;</span>
+        <span class="n">channel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bounce_sound</span><span class="o">.</span><span class="n">play</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">channel</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="c1"># 设置左右声道的音量</span>
+            <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">stero_pan</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">SCREEN_SIZE</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">channel</span><span class="o">.</span><span class="n">set_volume</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">):</span>
+        <span class="c1"># 真有点麻烦了，有爱的，自己用Sprite改写下吧……</span>
+        <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">get_size</span><span class="p">()</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span>
+        <span class="n">x</span> <span class="o">-=</span> <span class="n">w</span><span class="o">/</span><span class="mi">2</span>
+        <span class="n">y</span> <span class="o">-=</span> <span class="n">h</span><span class="o">/</span><span class="mi">2</span>
+        <span class="n">surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">run</span><span class="p">():</span>
+    <span class="c1"># 上一次的内容</span>
+    <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">pre_init</span><span class="p">(</span><span class="mi">44100</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1024</span><span class="o">*</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">pygame</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+    <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">set_num_channels</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+    <span class="n">screen</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">(</span><span class="n">SCREEN_SIZE</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="c1">#    pygame.mouse.set_visible(False)</span>
+    <span class="n">clock</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">Clock</span><span class="p">()</span>
+
+    <span class="n">ball_image</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&#34;ball.png&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">convert_alpha</span><span class="p">()</span>
+    <span class="n">mouse_image</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&#34;mousecursor.png&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">convert_alpha</span><span class="p">()</span>
+
+    <span class="c1"># 加载声音文件</span>
+    <span class="n">bounce_sound</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">Sound</span><span class="p">(</span><span class="s2">&#34;bounce.wav&#34;</span><span class="p">)</span>
+    <span class="n">balls</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="nb">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">QUIT</span><span class="p">:</span>
+                <span class="n">pygame</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+                <span class="nb">exit</span><span class="p">()</span>
+                <span class="k">return</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="nb">type</span> <span class="o">==</span> <span class="n">MOUSEBUTTONDOWN</span><span class="p">:</span>
+                <span class="c1"># 刚刚出来的小球，给一个随机的速度</span>
+                <span class="n">random_speed</span> <span class="o">=</span> <span class="p">(</span> <span class="n">randint</span><span class="p">(</span><span class="o">-</span><span class="mi">400</span><span class="p">,</span> <span class="mi">400</span><span class="p">),</span> <span class="n">randint</span><span class="p">(</span><span class="o">-</span><span class="mi">300</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="p">)</span>
+                <span class="n">new_ball</span> <span class="o">=</span> <span class="n">Ball</span><span class="p">(</span> <span class="n">event</span><span class="o">.</span><span class="n">pos</span><span class="p">,</span>
+                                 <span class="n">random_speed</span><span class="p">,</span>
+                                 <span class="n">ball_image</span><span class="p">,</span>
+                                 <span class="n">bounce_sound</span> <span class="p">)</span>
+                <span class="n">balls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_ball</span><span class="p">)</span>
+
+        <span class="n">time_passed_seconds</span> <span class="o">=</span> <span class="n">clock</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.</span>
+        <span class="n">screen</span><span class="o">.</span><span class="n">fill</span><span class="p">((</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">))</span>
+        <span class="c1"># 为防止小球太多，把超过寿命的小球加入这个“死亡名单”</span>
+        <span class="n">dead_balls</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">ball</span> <span class="ow">in</span> <span class="n">balls</span><span class="p">:</span>
+            <span class="n">ball</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">time_passed_seconds</span><span class="p">)</span>
+            <span class="n">ball</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">screen</span><span class="p">)</span>
+            <span class="c1"># 每个小球的的寿命是10秒</span>
+            <span class="k">if</span> <span class="n">ball</span><span class="o">.</span><span class="n">age</span> <span class="o">&gt;</span> <span class="mf">10.0</span><span class="p">:</span>
+                <span class="n">dead_balls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ball</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">ball</span> <span class="ow">in</span> <span class="n">dead_balls</span><span class="p">:</span>
+            <span class="n">balls</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">ball</span><span class="p">)</span>
+
+        <span class="n">mouse_pos</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">mouse</span><span class="o">.</span><span class="n">get_pos</span><span class="p">()</span>
+        <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">mouse_image</span><span class="p">,</span> <span class="n">mouse_pos</span><span class="p">)</span>
+        <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+    <span class="n">run</span><span class="p">()</span></code></pre></div>
+<p><code>pygame.mixer</code>用于加载和播放声音，参考<a href="https://blog.csdn.net/qq_41556318/article/details/86304765">mixer模块</a>，特别是，创建新的Sound对象，并创建Channel对象控制播放。</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">phaser_sound</span> <span class="o">=</span> <span class="n">Pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">Sound</span><span class="p">(</span><span class="s2">&#34;phaser.ogg&#34;</span><span class="p">)</span>
+<span class="n">channel</span> <span class="o">=</span> <span class="n">phaser_sound</span><span class="o">.</span><span class="n">play</span><span class="p">()</span></code></pre></div>
+<p>一个简单的播放器，</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">SCREEN_SIZE</span> <span class="o">=</span> <span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
+<span class="c1"># 存放音乐文件的位置</span>
+<span class="n">MUSIC_PATH</span> <span class="o">=</span> <span class="s2">&#34;./music&#34;</span>
+
+<span class="kn">import</span> <span class="nn">pygame</span>
+<span class="kn">from</span> <span class="nn">pygame.locals</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="nb">exit</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">os.path</span>
+
+<span class="k">def</span> <span class="nf">get_music</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+
+    <span class="c1"># 从文件夹来读取所有的音乐文件</span>
+    <span class="n">raw_filenames</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+    <span class="n">music_files</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">raw_filenames</span><span class="p">:</span>
+        <span class="c1"># 不是Windows的话，还是去掉mp3吧</span>
+        <span class="k">if</span> <span class="n">filename</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.ogg&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">filename</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.mp3&#39;</span><span class="p">):</span>
+            <span class="n">music_files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">MUSIC_PATH</span><span class="p">,</span> <span class="n">filename</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">music_files</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Button</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="s2">&#34;&#34;&#34;这个类是一个按钮，具有自我渲染和判断是否被按上的功能&#34;&#34;&#34;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image_filename</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="n">position</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">image_filename</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">):</span>
+        <span class="c1"># 家常便饭的代码了</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span>
+        <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">get_size</span><span class="p">()</span>
+        <span class="n">x</span> <span class="o">-=</span> <span class="n">w</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">y</span> <span class="o">-=</span> <span class="n">h</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">is_over</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">):</span>
+        <span class="c1"># 如果point在自身范围内，返回True</span>
+        <span class="n">point_x</span><span class="p">,</span> <span class="n">point_y</span> <span class="o">=</span> <span class="n">point</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span>
+        <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">get_size</span><span class="p">()</span>
+        <span class="n">x</span> <span class="o">-=</span> <span class="n">w</span> <span class="o">/</span><span class="mi">2</span>
+        <span class="n">y</span> <span class="o">-=</span> <span class="n">h</span> <span class="o">/</span> <span class="mi">2</span>
+
+        <span class="n">in_x</span> <span class="o">=</span> <span class="n">point_x</span> <span class="o">&gt;=</span> <span class="n">x</span> <span class="ow">and</span> <span class="n">point_x</span> <span class="o">&lt;</span> <span class="n">x</span> <span class="o">+</span> <span class="n">w</span>
+        <span class="n">in_y</span> <span class="o">=</span> <span class="n">point_y</span> <span class="o">&gt;=</span> <span class="n">y</span> <span class="ow">and</span> <span class="n">point_y</span> <span class="o">&lt;</span> <span class="n">y</span> <span class="o">+</span> <span class="n">h</span>
+        <span class="k">return</span> <span class="n">in_x</span> <span class="ow">and</span> <span class="n">in_y</span>
+
+<span class="k">def</span> <span class="nf">run</span><span class="p">():</span>
+
+    <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">pre_init</span><span class="p">(</span><span class="mi">44100</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1024</span><span class="o">*</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">pygame</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+    <span class="n">screen</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">(</span><span class="n">SCREEN_SIZE</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>     
+
+    <span class="n">default_font</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">get_default_font</span><span class="p">()</span>
+    <span class="n">font</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">SysFont</span><span class="p">(</span><span class="s2">&#34;default_font&#34;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>   
+
+    <span class="n">x</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="mi">240</span>
+    <span class="n">button_width</span> <span class="o">=</span> <span class="mi">150</span>
+    <span class="n">buttons</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">buttons</span><span class="p">[</span><span class="s2">&#34;prev&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="s2">&#34;prev.png&#34;</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+    <span class="n">buttons</span><span class="p">[</span><span class="s2">&#34;pause&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="s2">&#34;pause.png&#34;</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">button_width</span><span class="o">*</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+    <span class="n">buttons</span><span class="p">[</span><span class="s2">&#34;stop&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="s2">&#34;stop.png&#34;</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">button_width</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+    <span class="n">buttons</span><span class="p">[</span><span class="s2">&#34;play&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="s2">&#34;play.png&#34;</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">button_width</span><span class="o">*</span><span class="mi">3</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+    <span class="n">buttons</span><span class="p">[</span><span class="s2">&#34;next&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="s2">&#34;next.png&#34;</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">button_width</span><span class="o">*</span><span class="mi">4</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+
+    <span class="n">music_filenames</span> <span class="o">=</span> <span class="n">get_music</span><span class="p">(</span><span class="n">MUSIC_PATH</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">music_filenames</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&#34;No music files found in &#34;</span><span class="p">,</span> <span class="n">MUSIC_PATH</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="n">white</span> <span class="o">=</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
+    <span class="n">label_surfaces</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># 一系列的文件名render</span>
+    <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">music_filenames</span><span class="p">:</span>
+        <span class="n">txt</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">filename</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&#34;Track:&#34;</span><span class="p">,</span> <span class="n">txt</span><span class="p">)</span>
+        <span class="n">txt</span> <span class="o">=</span> <span class="n">txt</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">surface</span> <span class="o">=</span> <span class="n">font</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">txt</span><span class="p">,</span> <span class="bp">True</span><span class="p">,</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+        <span class="n">label_surfaces</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span>
+
+    <span class="n">current_track</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">max_tracks</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">music_filenames</span><span class="p">)</span>
+    <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">music</span><span class="o">.</span><span class="n">load</span><span class="p">(</span> <span class="n">music_filenames</span><span class="p">[</span><span class="n">current_track</span><span class="p">]</span> <span class="p">)</span>  
+
+    <span class="n">clock</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">Clock</span><span class="p">()</span>
+    <span class="n">playing</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="n">paused</span> <span class="o">=</span> <span class="bp">False</span>
+
+    <span class="c1">#创建用户事件</span>
+    <span class="n">TRACK_END</span> <span class="o">=</span> <span class="n">USEREVENT</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">music</span><span class="o">.</span><span class="n">set_endevent</span><span class="p">(</span><span class="n">TRACK_END</span><span class="p">)</span>
+
+    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+
+        <span class="n">button_pressed</span> <span class="o">=</span> <span class="bp">None</span>
+
+        <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="nb">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">QUIT</span><span class="p">:</span>
+                <span class="n">pygame</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+                <span class="nb">exit</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="nb">type</span> <span class="o">==</span> <span class="n">MOUSEBUTTONDOWN</span><span class="p">:</span>
+
+                <span class="c1"># 判断哪个按钮被按下</span>
+                <span class="k">for</span> <span class="n">button_name</span><span class="p">,</span> <span class="n">button</span> <span class="ow">in</span> <span class="n">buttons</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="n">button</span><span class="o">.</span><span class="n">is_over</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">pos</span><span class="p">):</span>
+                        <span class="k">print</span><span class="p">(</span><span class="n">button_name</span><span class="p">,</span> <span class="s2">&#34;pressed&#34;</span><span class="p">)</span>
+                        <span class="n">button_pressed</span> <span class="o">=</span> <span class="n">button_name</span>
+                        <span class="k">break</span>
+
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="nb">type</span> <span class="o">==</span> <span class="n">TRACK_END</span><span class="p">:</span>
+                <span class="c1"># 如果一曲播放结束，就“模拟”按下&#34;next&#34;</span>
+                <span class="n">button_pressed</span> <span class="o">=</span> <span class="s2">&#34;next&#34;</span>
+
+        <span class="k">if</span> <span class="n">button_pressed</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+
+            <span class="k">if</span> <span class="n">button_pressed</span> <span class="o">==</span> <span class="s2">&#34;next&#34;</span><span class="p">:</span>
+                <span class="n">current_track</span> <span class="o">=</span> <span class="p">(</span><span class="n">current_track</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">max_tracks</span>
+                <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">music</span><span class="o">.</span><span class="n">load</span><span class="p">(</span> <span class="n">music_filenames</span><span class="p">[</span><span class="n">current_track</span><span class="p">]</span> <span class="p">)</span>
+                <span class="k">if</span> <span class="n">playing</span><span class="p">:</span>
+                    <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">music</span><span class="o">.</span><span class="n">play</span><span class="p">()</span>
+
+            <span class="k">elif</span> <span class="n">button_pressed</span> <span class="o">==</span> <span class="s2">&#34;prev&#34;</span><span class="p">:</span>
+
+                <span class="c1"># prev的处理方法：</span>
+                <span class="c1"># 已经播放超过3秒，从头开始，否则就播放上一曲</span>
+                <span class="k">if</span> <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">music</span><span class="o">.</span><span class="n">get_pos</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">3000</span><span class="p">:</span>
+                    <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">music</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+                    <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">music</span><span class="o">.</span><span class="n">play</span><span class="p">()</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">current_track</span> <span class="o">=</span> <span class="p">(</span><span class="n">current_track</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">max_tracks</span>
+                    <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">music</span><span class="o">.</span><span class="n">load</span><span class="p">(</span> <span class="n">music_filenames</span><span class="p">[</span><span class="n">current_track</span><span class="p">]</span> <span class="p">)</span>
+                    <span class="k">if</span> <span class="n">playing</span><span class="p">:</span>
+                        <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">music</span><span class="o">.</span><span class="n">play</span><span class="p">()</span>
+
+            <span class="k">elif</span> <span class="n">button_pressed</span> <span class="o">==</span> <span class="s2">&#34;pause&#34;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">paused</span><span class="p">:</span>
+                    <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">music</span><span class="o">.</span><span class="n">unpause</span><span class="p">()</span>
+                    <span class="n">paused</span> <span class="o">=</span> <span class="bp">False</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">music</span><span class="o">.</span><span class="n">pause</span><span class="p">()</span>
+                    <span class="n">paused</span> <span class="o">=</span> <span class="bp">True</span>
+
+            <span class="k">elif</span> <span class="n">button_pressed</span> <span class="o">==</span> <span class="s2">&#34;stop&#34;</span><span class="p">:</span>
+                <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">music</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+                <span class="n">playing</span> <span class="o">=</span> <span class="bp">False</span>
+
+            <span class="k">elif</span> <span class="n">button_pressed</span> <span class="o">==</span> <span class="s2">&#34;play&#34;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">paused</span><span class="p">:</span>
+                    <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">music</span><span class="o">.</span><span class="n">unpause</span><span class="p">()</span>
+                    <span class="n">paused</span> <span class="o">=</span> <span class="bp">False</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">playing</span><span class="p">:</span>
+                        <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">music</span><span class="o">.</span><span class="n">play</span><span class="p">()</span>
+                        <span class="n">playing</span> <span class="o">=</span> <span class="bp">True</span>
+
+        <span class="n">screen</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">white</span><span class="p">)</span>
+
+        <span class="c1"># 写一下当前歌名</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="n">label_surfaces</span><span class="p">[</span><span class="n">current_track</span><span class="p">]</span>
+        <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">label</span><span class="o">.</span><span class="n">get_size</span><span class="p">()</span>
+        <span class="n">screen_w</span> <span class="o">=</span> <span class="n">SCREEN_SIZE</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="p">((</span><span class="n">screen_w</span> <span class="o">-</span> <span class="n">w</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">450</span><span class="p">))</span>
+
+        <span class="c1"># 画所有按钮</span>
+        <span class="k">for</span> <span class="n">button</span> <span class="ow">in</span> <span class="n">buttons</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">button</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">screen</span><span class="p">)</span>
+
+        <span class="c1"># 因为基本是不动的，这里帧率设的很低</span>
+        <span class="n">clock</span><span class="o">.</span><span class="n">tick</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+        <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+
+    <span class="n">run</span><span class="p">()</span></code></pre></div>
+<p>混音器还有一个特殊的通道用于音乐播放，可通过 <a href="http://www.pygame.org/docs/ref/music.html">pygame.mixer.music </a>模块访问。</p>
+
+			</div>
+			<hr class="post-end">
+			<footer class="post-info">
+				<p>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://boseliao.github.io/tags/pygame">Pygame</a></span>
+				</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>792 Words</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2020-07-28 12:39 &#43;0800</p>
+			</footer>
+		</article>
+		<div class="post-nav thin">
+			<a class="next-post" href="https://boseliao.github.io/posts/pygamemake_game/">
+				<span class="post-nav-label"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>&nbsp;Newer</span><br><span>Pygame:make_game</span>
+			</a>
+			<a class="prev-post" href="https://boseliao.github.io/posts/pygameartificial_intelligence/">
+				<span class="post-nav-label">Older&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span><br><span>Pygame:Artificial_Intelligence</span>
+			</a>
+		</div>
+		<div id="comments" class="thin">
+</div>
+	</main>
+
+	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
+		<p>&copy; 2020 <a href="https://boseliao.github.io">BoseLiao</a> &#183; <a hr#ef="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">All rights reserved</a></p>
+	</footer>
+
+
+
+	<script src="https://boseliao.github.io/js/bundle.min.490e43e5af6db5906f28afa49a4e16bf9f626b758e3fca92f146b870eb94bb37.js" integrity="sha256-SQ5D5a9ttZBvKK+kmk4Wv59ia3WOP8qS8Ua4cOuUuzc=" crossorigin="anonymous"></script>
+	
+
+</body>
+
+</html>

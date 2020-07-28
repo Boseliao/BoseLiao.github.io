@@ -7,8 +7,405 @@
 		<generator>Hugo -- gohugo.io</generator>
 		<language>en-us</language>
 		<copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-		<lastBuildDate>Mon, 27 Jul 2020 10:10:38 +0800</lastBuildDate>
+		<lastBuildDate>Tue, 28 Jul 2020 15:49:35 +0800</lastBuildDate>
 		<atom:link href="https://boseliao.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>Pygame:make_game</title>
+			<link>https://boseliao.github.io/posts/pygamemake_game/</link>
+			<pubDate>Tue, 28 Jul 2020 15:49:35 +0800</pubDate>
+			
+			<guid>https://boseliao.github.io/posts/pygamemake_game/</guid>
+			<description>通过对代码的重构能够使得我们的代码更加具有可读性，方便维护更新。
+import pygame from pygame.sprite import Group from settings import Settings from ship import Ship import game_functions as gf from game_states import GameStates from button import Button from scoreboard import Scoreboard def run_game(): pygame.init() ai_settings = Settings() screen = pygame.display.set_mode((ai_settings.screen_width, ai_settings.screen_height)) pygame.display.set_caption(&amp;#34;alien invasion&amp;#34;) play_button = Button(ai_settings, screen, &amp;#34;Play&amp;#34;) ship = Ship(ai_settings, screen) aliens = Group() bullets = Group() states = GameStates(ai_settings) sb = Scoreboard(ai_settings,screen,states) gf.create_fleet(ai_settings, screen, ship, aliens) while True: gf.</description>
+			<content type="html"><![CDATA[<p>通过对代码的重构能够使得我们的代码更加具有可读性，方便维护更新。</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">pygame</span>
+<span class="kn">from</span> <span class="nn">pygame.sprite</span> <span class="kn">import</span> <span class="n">Group</span>
+
+<span class="kn">from</span> <span class="nn">settings</span> <span class="kn">import</span> <span class="n">Settings</span>
+<span class="kn">from</span> <span class="nn">ship</span> <span class="kn">import</span> <span class="n">Ship</span>
+<span class="kn">import</span> <span class="nn">game_functions</span> <span class="kn">as</span> <span class="nn">gf</span>
+<span class="kn">from</span> <span class="nn">game_states</span> <span class="kn">import</span> <span class="n">GameStates</span>
+<span class="kn">from</span> <span class="nn">button</span> <span class="kn">import</span> <span class="n">Button</span>
+<span class="kn">from</span> <span class="nn">scoreboard</span> <span class="kn">import</span> <span class="n">Scoreboard</span>
+
+<span class="k">def</span> <span class="nf">run_game</span><span class="p">():</span>
+    <span class="n">pygame</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+    
+    <span class="n">ai_settings</span> <span class="o">=</span> <span class="n">Settings</span><span class="p">()</span>
+    <span class="n">screen</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">((</span><span class="n">ai_settings</span><span class="o">.</span><span class="n">screen_width</span><span class="p">,</span>
+                                      <span class="n">ai_settings</span><span class="o">.</span><span class="n">screen_height</span><span class="p">))</span>
+    <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_caption</span><span class="p">(</span><span class="s2">&#34;alien invasion&#34;</span><span class="p">)</span>
+    
+    <span class="n">play_button</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="n">ai_settings</span><span class="p">,</span> <span class="n">screen</span><span class="p">,</span> <span class="s2">&#34;Play&#34;</span><span class="p">)</span>
+    
+    <span class="n">ship</span> <span class="o">=</span> <span class="n">Ship</span><span class="p">(</span><span class="n">ai_settings</span><span class="p">,</span> <span class="n">screen</span><span class="p">)</span>
+    <span class="n">aliens</span> <span class="o">=</span> <span class="n">Group</span><span class="p">()</span>
+    <span class="n">bullets</span> <span class="o">=</span> <span class="n">Group</span><span class="p">()</span>
+    <span class="n">states</span> <span class="o">=</span> <span class="n">GameStates</span><span class="p">(</span><span class="n">ai_settings</span><span class="p">)</span>
+    <span class="n">sb</span> <span class="o">=</span> <span class="n">Scoreboard</span><span class="p">(</span><span class="n">ai_settings</span><span class="p">,</span><span class="n">screen</span><span class="p">,</span><span class="n">states</span><span class="p">)</span>
+    
+    <span class="n">gf</span><span class="o">.</span><span class="n">create_fleet</span><span class="p">(</span><span class="n">ai_settings</span><span class="p">,</span> <span class="n">screen</span><span class="p">,</span> <span class="n">ship</span><span class="p">,</span> <span class="n">aliens</span><span class="p">)</span>
+    
+    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+        
+        <span class="n">gf</span><span class="o">.</span><span class="n">check_events</span><span class="p">(</span><span class="n">ai_settings</span><span class="p">,</span><span class="n">states</span><span class="p">,</span><span class="n">screen</span><span class="p">,</span><span class="n">ship</span><span class="p">,</span><span class="n">bullets</span><span class="p">,</span>
+                        <span class="n">aliens</span><span class="p">,</span><span class="n">play_button</span><span class="p">,</span><span class="n">sb</span><span class="p">)</span>   
+        <span class="k">if</span> <span class="n">states</span><span class="o">.</span><span class="n">game_active</span><span class="p">:</span>
+            
+            <span class="n">ship</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+            <span class="n">gf</span><span class="o">.</span><span class="n">update_bullets</span><span class="p">(</span><span class="n">ai_settings</span><span class="p">,</span> <span class="n">states</span><span class="p">,</span> <span class="n">screen</span><span class="p">,</span> <span class="n">sb</span><span class="p">,</span> <span class="n">ship</span><span class="p">,</span>
+                              <span class="n">aliens</span><span class="p">,</span> <span class="n">bullets</span><span class="p">)</span>
+            <span class="n">gf</span><span class="o">.</span><span class="n">update_aliens</span><span class="p">(</span><span class="n">ai_settings</span><span class="p">,</span> <span class="n">states</span><span class="p">,</span> <span class="n">screen</span><span class="p">,</span> <span class="n">ship</span><span class="p">,</span>
+                             <span class="n">aliens</span><span class="p">,</span> <span class="n">bullets</span><span class="p">,</span> <span class="n">sb</span><span class="p">)</span>
+        
+        <span class="n">gf</span><span class="o">.</span><span class="n">update_screen</span><span class="p">(</span><span class="n">ai_settings</span><span class="p">,</span><span class="n">states</span><span class="p">,</span><span class="n">sb</span><span class="p">,</span><span class="n">screen</span><span class="p">,</span><span class="n">ship</span><span class="p">,</span><span class="n">aliens</span><span class="p">,</span>
+                         <span class="n">bullets</span><span class="p">,</span> <span class="n">play_button</span><span class="p">)</span>
+        
+<span class="n">run_game</span><span class="p">()</span></code></pre></div>
+<p>将事件的捕捉，控制重构成单独定义的函数，以及实体类的定义以及其他功能的添加写成单独的模块将有助于代码的可读性。完整的代码参考<a href="https://github.com/Boseliao/alien_invasion">alien_invasion</a></p>
+
+<p>利用<code>pyinstaller</code>打包游戏</p>
+
+<p>打包命令</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1">#默认选项，除了demo.exe外，还会在在dist中生成很多依赖文件</span>
+<span class="n">pyinstaller</span> <span class="o">-</span><span class="n">D</span> <span class="n">demo</span><span class="o">.</span><span class="n">py</span>
+<span class="c1">#只在dist中生产一个demo.exe文件。</span>
+<span class="n">pyinstaller</span> <span class="o">-</span><span class="n">F</span> <span class="n">demo</span><span class="o">.</span><span class="n">py</span></code></pre></div>
+<p>当需要打包含有图片的资源的时候</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1">#生成demo.spec文本，并对其中的resources进行配置添加</span>
+<span class="n">pyi</span><span class="o">-</span><span class="n">makespec</span> <span class="n">demo</span><span class="o">.</span><span class="n">py</span>
+<span class="c1">#执行打包任务</span>
+<span class="n">pyinstaller</span> <span class="n">demo</span><span class="o">.</span><span class="n">spec</span></code></pre></div>]]></content>
+		</item>
+		
+		<item>
+			<title>Pygame:Sound</title>
+			<link>https://boseliao.github.io/posts/pygamesound/</link>
+			<pubDate>Tue, 28 Jul 2020 12:39:54 +0800</pubDate>
+			
+			<guid>https://boseliao.github.io/posts/pygamesound/</guid>
+			<description>在Pygame同样定义了特殊的模块pygame.mixer来播放声音效果。
+SCREEN_SIZE = (640, 480) # 重力因子，实际上是单位 像素/平方秒 GRAVITY = 250.0 # 弹力系数，不要超过1! BOUNCINESS = 0.7 import pygame from pygame.locals import * from sys import exit from random import randint from gameobjects.vector2 import Vector2 def stero_pan(x_coord, screen_width): &amp;#34;&amp;#34;&amp;#34;这个函数根据位置决定要播放声音左右声道的音量&amp;#34;&amp;#34;&amp;#34; right_volume = float(x_coord) / screen_width left_volume = 1.0 - right_volume return (left_volume, right_volume) class Ball(): &amp;#34;&amp;#34;&amp;#34;小球类，实际上我们可以使用Sprite类来简化&amp;#34;&amp;#34;&amp;#34; def __init__(self, position, speed, image, bounce_sound): self.position = Vector2(position) self.speed = Vector2(speed) self.image = image self.bounce_sound = bounce_sound self.</description>
+			<content type="html"><![CDATA[<p>在Pygame同样定义了特殊的模块<code>pygame.mixer</code>来播放声音效果。</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">SCREEN_SIZE</span> <span class="o">=</span> <span class="p">(</span><span class="mi">640</span><span class="p">,</span> <span class="mi">480</span><span class="p">)</span>
+
+<span class="c1"># 重力因子，实际上是单位 像素/平方秒</span>
+<span class="n">GRAVITY</span> <span class="o">=</span> <span class="mf">250.0</span>
+<span class="c1"># 弹力系数，不要超过1!</span>
+<span class="n">BOUNCINESS</span> <span class="o">=</span> <span class="mf">0.7</span>
+
+<span class="kn">import</span> <span class="nn">pygame</span>
+<span class="kn">from</span> <span class="nn">pygame.locals</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="nb">exit</span>
+<span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">randint</span>
+<span class="kn">from</span> <span class="nn">gameobjects.vector2</span> <span class="kn">import</span> <span class="n">Vector2</span>
+
+<span class="k">def</span> <span class="nf">stero_pan</span><span class="p">(</span><span class="n">x_coord</span><span class="p">,</span> <span class="n">screen_width</span><span class="p">):</span>
+    <span class="s2">&#34;&#34;&#34;这个函数根据位置决定要播放声音左右声道的音量&#34;&#34;&#34;</span>
+    <span class="n">right_volume</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">x_coord</span><span class="p">)</span> <span class="o">/</span> <span class="n">screen_width</span>
+    <span class="n">left_volume</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">right_volume</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">left_volume</span><span class="p">,</span> <span class="n">right_volume</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Ball</span><span class="p">():</span>
+    <span class="s2">&#34;&#34;&#34;小球类，实际上我们可以使用Sprite类来简化&#34;&#34;&#34;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">speed</span><span class="p">,</span> <span class="n">image</span><span class="p">,</span> <span class="n">bounce_sound</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="n">Vector2</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">speed</span> <span class="o">=</span> <span class="n">Vector2</span><span class="p">(</span><span class="n">speed</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">image</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bounce_sound</span> <span class="o">=</span> <span class="n">bounce_sound</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_passed</span><span class="p">):</span>
+        <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">get_size</span><span class="p">()</span>
+        <span class="n">screen_width</span><span class="p">,</span> <span class="n">screen_height</span> <span class="o">=</span> <span class="n">SCREEN_SIZE</span>
+
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span>
+        <span class="n">x</span> <span class="o">-=</span> <span class="n">w</span><span class="o">/</span><span class="mi">2</span>
+        <span class="n">y</span> <span class="o">-=</span> <span class="n">h</span><span class="o">/</span><span class="mi">2</span>
+        <span class="c1"># 是不是要反弹了</span>
+        <span class="n">bounce</span> <span class="o">=</span> <span class="bp">False</span>
+
+        <span class="c1"># 小球碰壁了么？</span>
+        <span class="k">if</span> <span class="n">y</span> <span class="o">+</span> <span class="n">h</span> <span class="o">&gt;=</span> <span class="n">screen_height</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">speed</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">speed</span><span class="o">.</span><span class="n">y</span> <span class="o">*</span> <span class="n">BOUNCINESS</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">screen_height</span> <span class="o">-</span> <span class="n">h</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">-</span> <span class="mf">1.0</span>
+            <span class="n">bounce</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">speed</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">speed</span><span class="o">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">BOUNCINESS</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">w</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">bounce</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="k">elif</span> <span class="n">x</span> <span class="o">+</span> <span class="n">w</span> <span class="o">&gt;=</span> <span class="n">screen_width</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">speed</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">speed</span><span class="o">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">BOUNCINESS</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">screen_width</span> <span class="o">-</span> <span class="n">w</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="n">bounce</span> <span class="o">=</span> <span class="bp">True</span>
+
+        <span class="c1"># 根据时间计算现在的位置，物理好的立刻发现这其实不标准，</span>
+        <span class="c1"># 正规的应该是“s = 1/2*g*t*t”，不过这样省事省时一点，咱只是模拟~</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">speed</span> <span class="o">*</span> <span class="n">time_passed</span>
+        <span class="c1"># 根据重力计算速度</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">speed</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="n">time_passed</span> <span class="o">*</span> <span class="n">GRAVITY</span>
+
+        <span class="k">if</span> <span class="n">bounce</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">play_bounce_sound</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">age</span> <span class="o">+=</span> <span class="n">time_passed</span>
+
+    <span class="k">def</span> <span class="nf">play_bounce_sound</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s2">&#34;&#34;&#34;这个就是播放声音的函数&#34;&#34;&#34;</span>
+        <span class="n">channel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bounce_sound</span><span class="o">.</span><span class="n">play</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">channel</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="c1"># 设置左右声道的音量</span>
+            <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">stero_pan</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">SCREEN_SIZE</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">channel</span><span class="o">.</span><span class="n">set_volume</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">):</span>
+        <span class="c1"># 真有点麻烦了，有爱的，自己用Sprite改写下吧……</span>
+        <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">get_size</span><span class="p">()</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span>
+        <span class="n">x</span> <span class="o">-=</span> <span class="n">w</span><span class="o">/</span><span class="mi">2</span>
+        <span class="n">y</span> <span class="o">-=</span> <span class="n">h</span><span class="o">/</span><span class="mi">2</span>
+        <span class="n">surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">run</span><span class="p">():</span>
+    <span class="c1"># 上一次的内容</span>
+    <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">pre_init</span><span class="p">(</span><span class="mi">44100</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1024</span><span class="o">*</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">pygame</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+    <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">set_num_channels</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+    <span class="n">screen</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">(</span><span class="n">SCREEN_SIZE</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="c1">#    pygame.mouse.set_visible(False)</span>
+    <span class="n">clock</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">Clock</span><span class="p">()</span>
+
+    <span class="n">ball_image</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&#34;ball.png&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">convert_alpha</span><span class="p">()</span>
+    <span class="n">mouse_image</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&#34;mousecursor.png&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">convert_alpha</span><span class="p">()</span>
+
+    <span class="c1"># 加载声音文件</span>
+    <span class="n">bounce_sound</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">Sound</span><span class="p">(</span><span class="s2">&#34;bounce.wav&#34;</span><span class="p">)</span>
+    <span class="n">balls</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="nb">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">QUIT</span><span class="p">:</span>
+                <span class="n">pygame</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+                <span class="nb">exit</span><span class="p">()</span>
+                <span class="k">return</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="nb">type</span> <span class="o">==</span> <span class="n">MOUSEBUTTONDOWN</span><span class="p">:</span>
+                <span class="c1"># 刚刚出来的小球，给一个随机的速度</span>
+                <span class="n">random_speed</span> <span class="o">=</span> <span class="p">(</span> <span class="n">randint</span><span class="p">(</span><span class="o">-</span><span class="mi">400</span><span class="p">,</span> <span class="mi">400</span><span class="p">),</span> <span class="n">randint</span><span class="p">(</span><span class="o">-</span><span class="mi">300</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="p">)</span>
+                <span class="n">new_ball</span> <span class="o">=</span> <span class="n">Ball</span><span class="p">(</span> <span class="n">event</span><span class="o">.</span><span class="n">pos</span><span class="p">,</span>
+                                 <span class="n">random_speed</span><span class="p">,</span>
+                                 <span class="n">ball_image</span><span class="p">,</span>
+                                 <span class="n">bounce_sound</span> <span class="p">)</span>
+                <span class="n">balls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_ball</span><span class="p">)</span>
+
+        <span class="n">time_passed_seconds</span> <span class="o">=</span> <span class="n">clock</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.</span>
+        <span class="n">screen</span><span class="o">.</span><span class="n">fill</span><span class="p">((</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">))</span>
+        <span class="c1"># 为防止小球太多，把超过寿命的小球加入这个“死亡名单”</span>
+        <span class="n">dead_balls</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">ball</span> <span class="ow">in</span> <span class="n">balls</span><span class="p">:</span>
+            <span class="n">ball</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">time_passed_seconds</span><span class="p">)</span>
+            <span class="n">ball</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">screen</span><span class="p">)</span>
+            <span class="c1"># 每个小球的的寿命是10秒</span>
+            <span class="k">if</span> <span class="n">ball</span><span class="o">.</span><span class="n">age</span> <span class="o">&gt;</span> <span class="mf">10.0</span><span class="p">:</span>
+                <span class="n">dead_balls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ball</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">ball</span> <span class="ow">in</span> <span class="n">dead_balls</span><span class="p">:</span>
+            <span class="n">balls</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">ball</span><span class="p">)</span>
+
+        <span class="n">mouse_pos</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">mouse</span><span class="o">.</span><span class="n">get_pos</span><span class="p">()</span>
+        <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">mouse_image</span><span class="p">,</span> <span class="n">mouse_pos</span><span class="p">)</span>
+        <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+    <span class="n">run</span><span class="p">()</span></code></pre></div>
+<p><code>pygame.mixer</code>用于加载和播放声音，参考<a href="https://blog.csdn.net/qq_41556318/article/details/86304765">mixer模块</a>，特别是，创建新的Sound对象，并创建Channel对象控制播放。</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">phaser_sound</span> <span class="o">=</span> <span class="n">Pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">Sound</span><span class="p">(</span><span class="s2">&#34;phaser.ogg&#34;</span><span class="p">)</span>
+<span class="n">channel</span> <span class="o">=</span> <span class="n">phaser_sound</span><span class="o">.</span><span class="n">play</span><span class="p">()</span></code></pre></div>
+<p>一个简单的播放器，</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">SCREEN_SIZE</span> <span class="o">=</span> <span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
+<span class="c1"># 存放音乐文件的位置</span>
+<span class="n">MUSIC_PATH</span> <span class="o">=</span> <span class="s2">&#34;./music&#34;</span>
+
+<span class="kn">import</span> <span class="nn">pygame</span>
+<span class="kn">from</span> <span class="nn">pygame.locals</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="nb">exit</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">os.path</span>
+
+<span class="k">def</span> <span class="nf">get_music</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+
+    <span class="c1"># 从文件夹来读取所有的音乐文件</span>
+    <span class="n">raw_filenames</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+    <span class="n">music_files</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">raw_filenames</span><span class="p">:</span>
+        <span class="c1"># 不是Windows的话，还是去掉mp3吧</span>
+        <span class="k">if</span> <span class="n">filename</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.ogg&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">filename</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.mp3&#39;</span><span class="p">):</span>
+            <span class="n">music_files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">MUSIC_PATH</span><span class="p">,</span> <span class="n">filename</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">music_files</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Button</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="s2">&#34;&#34;&#34;这个类是一个按钮，具有自我渲染和判断是否被按上的功能&#34;&#34;&#34;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image_filename</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="n">position</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">image_filename</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">):</span>
+        <span class="c1"># 家常便饭的代码了</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span>
+        <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">get_size</span><span class="p">()</span>
+        <span class="n">x</span> <span class="o">-=</span> <span class="n">w</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">y</span> <span class="o">-=</span> <span class="n">h</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">is_over</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">):</span>
+        <span class="c1"># 如果point在自身范围内，返回True</span>
+        <span class="n">point_x</span><span class="p">,</span> <span class="n">point_y</span> <span class="o">=</span> <span class="n">point</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span>
+        <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">get_size</span><span class="p">()</span>
+        <span class="n">x</span> <span class="o">-=</span> <span class="n">w</span> <span class="o">/</span><span class="mi">2</span>
+        <span class="n">y</span> <span class="o">-=</span> <span class="n">h</span> <span class="o">/</span> <span class="mi">2</span>
+
+        <span class="n">in_x</span> <span class="o">=</span> <span class="n">point_x</span> <span class="o">&gt;=</span> <span class="n">x</span> <span class="ow">and</span> <span class="n">point_x</span> <span class="o">&lt;</span> <span class="n">x</span> <span class="o">+</span> <span class="n">w</span>
+        <span class="n">in_y</span> <span class="o">=</span> <span class="n">point_y</span> <span class="o">&gt;=</span> <span class="n">y</span> <span class="ow">and</span> <span class="n">point_y</span> <span class="o">&lt;</span> <span class="n">y</span> <span class="o">+</span> <span class="n">h</span>
+        <span class="k">return</span> <span class="n">in_x</span> <span class="ow">and</span> <span class="n">in_y</span>
+
+<span class="k">def</span> <span class="nf">run</span><span class="p">():</span>
+
+    <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">pre_init</span><span class="p">(</span><span class="mi">44100</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1024</span><span class="o">*</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">pygame</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+    <span class="n">screen</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">(</span><span class="n">SCREEN_SIZE</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>     
+
+    <span class="n">default_font</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">get_default_font</span><span class="p">()</span>
+    <span class="n">font</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">SysFont</span><span class="p">(</span><span class="s2">&#34;default_font&#34;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>   
+
+    <span class="n">x</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="mi">240</span>
+    <span class="n">button_width</span> <span class="o">=</span> <span class="mi">150</span>
+    <span class="n">buttons</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">buttons</span><span class="p">[</span><span class="s2">&#34;prev&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="s2">&#34;prev.png&#34;</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+    <span class="n">buttons</span><span class="p">[</span><span class="s2">&#34;pause&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="s2">&#34;pause.png&#34;</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">button_width</span><span class="o">*</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+    <span class="n">buttons</span><span class="p">[</span><span class="s2">&#34;stop&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="s2">&#34;stop.png&#34;</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">button_width</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+    <span class="n">buttons</span><span class="p">[</span><span class="s2">&#34;play&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="s2">&#34;play.png&#34;</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">button_width</span><span class="o">*</span><span class="mi">3</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+    <span class="n">buttons</span><span class="p">[</span><span class="s2">&#34;next&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="s2">&#34;next.png&#34;</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">button_width</span><span class="o">*</span><span class="mi">4</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+
+    <span class="n">music_filenames</span> <span class="o">=</span> <span class="n">get_music</span><span class="p">(</span><span class="n">MUSIC_PATH</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">music_filenames</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&#34;No music files found in &#34;</span><span class="p">,</span> <span class="n">MUSIC_PATH</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="n">white</span> <span class="o">=</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
+    <span class="n">label_surfaces</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># 一系列的文件名render</span>
+    <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">music_filenames</span><span class="p">:</span>
+        <span class="n">txt</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">filename</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&#34;Track:&#34;</span><span class="p">,</span> <span class="n">txt</span><span class="p">)</span>
+        <span class="n">txt</span> <span class="o">=</span> <span class="n">txt</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">surface</span> <span class="o">=</span> <span class="n">font</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">txt</span><span class="p">,</span> <span class="bp">True</span><span class="p">,</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+        <span class="n">label_surfaces</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span>
+
+    <span class="n">current_track</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">max_tracks</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">music_filenames</span><span class="p">)</span>
+    <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">music</span><span class="o">.</span><span class="n">load</span><span class="p">(</span> <span class="n">music_filenames</span><span class="p">[</span><span class="n">current_track</span><span class="p">]</span> <span class="p">)</span>  
+
+    <span class="n">clock</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">Clock</span><span class="p">()</span>
+    <span class="n">playing</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="n">paused</span> <span class="o">=</span> <span class="bp">False</span>
+
+    <span class="c1">#创建用户事件</span>
+    <span class="n">TRACK_END</span> <span class="o">=</span> <span class="n">USEREVENT</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">music</span><span class="o">.</span><span class="n">set_endevent</span><span class="p">(</span><span class="n">TRACK_END</span><span class="p">)</span>
+
+    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+
+        <span class="n">button_pressed</span> <span class="o">=</span> <span class="bp">None</span>
+
+        <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="nb">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">QUIT</span><span class="p">:</span>
+                <span class="n">pygame</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+                <span class="nb">exit</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="nb">type</span> <span class="o">==</span> <span class="n">MOUSEBUTTONDOWN</span><span class="p">:</span>
+
+                <span class="c1"># 判断哪个按钮被按下</span>
+                <span class="k">for</span> <span class="n">button_name</span><span class="p">,</span> <span class="n">button</span> <span class="ow">in</span> <span class="n">buttons</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="n">button</span><span class="o">.</span><span class="n">is_over</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">pos</span><span class="p">):</span>
+                        <span class="k">print</span><span class="p">(</span><span class="n">button_name</span><span class="p">,</span> <span class="s2">&#34;pressed&#34;</span><span class="p">)</span>
+                        <span class="n">button_pressed</span> <span class="o">=</span> <span class="n">button_name</span>
+                        <span class="k">break</span>
+
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="nb">type</span> <span class="o">==</span> <span class="n">TRACK_END</span><span class="p">:</span>
+                <span class="c1"># 如果一曲播放结束，就“模拟”按下&#34;next&#34;</span>
+                <span class="n">button_pressed</span> <span class="o">=</span> <span class="s2">&#34;next&#34;</span>
+
+        <span class="k">if</span> <span class="n">button_pressed</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+
+            <span class="k">if</span> <span class="n">button_pressed</span> <span class="o">==</span> <span class="s2">&#34;next&#34;</span><span class="p">:</span>
+                <span class="n">current_track</span> <span class="o">=</span> <span class="p">(</span><span class="n">current_track</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">max_tracks</span>
+                <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">music</span><span class="o">.</span><span class="n">load</span><span class="p">(</span> <span class="n">music_filenames</span><span class="p">[</span><span class="n">current_track</span><span class="p">]</span> <span class="p">)</span>
+                <span class="k">if</span> <span class="n">playing</span><span class="p">:</span>
+                    <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">music</span><span class="o">.</span><span class="n">play</span><span class="p">()</span>
+
+            <span class="k">elif</span> <span class="n">button_pressed</span> <span class="o">==</span> <span class="s2">&#34;prev&#34;</span><span class="p">:</span>
+
+                <span class="c1"># prev的处理方法：</span>
+                <span class="c1"># 已经播放超过3秒，从头开始，否则就播放上一曲</span>
+                <span class="k">if</span> <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">music</span><span class="o">.</span><span class="n">get_pos</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">3000</span><span class="p">:</span>
+                    <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">music</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+                    <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">music</span><span class="o">.</span><span class="n">play</span><span class="p">()</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">current_track</span> <span class="o">=</span> <span class="p">(</span><span class="n">current_track</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">max_tracks</span>
+                    <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">music</span><span class="o">.</span><span class="n">load</span><span class="p">(</span> <span class="n">music_filenames</span><span class="p">[</span><span class="n">current_track</span><span class="p">]</span> <span class="p">)</span>
+                    <span class="k">if</span> <span class="n">playing</span><span class="p">:</span>
+                        <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">music</span><span class="o">.</span><span class="n">play</span><span class="p">()</span>
+
+            <span class="k">elif</span> <span class="n">button_pressed</span> <span class="o">==</span> <span class="s2">&#34;pause&#34;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">paused</span><span class="p">:</span>
+                    <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">music</span><span class="o">.</span><span class="n">unpause</span><span class="p">()</span>
+                    <span class="n">paused</span> <span class="o">=</span> <span class="bp">False</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">music</span><span class="o">.</span><span class="n">pause</span><span class="p">()</span>
+                    <span class="n">paused</span> <span class="o">=</span> <span class="bp">True</span>
+
+            <span class="k">elif</span> <span class="n">button_pressed</span> <span class="o">==</span> <span class="s2">&#34;stop&#34;</span><span class="p">:</span>
+                <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">music</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+                <span class="n">playing</span> <span class="o">=</span> <span class="bp">False</span>
+
+            <span class="k">elif</span> <span class="n">button_pressed</span> <span class="o">==</span> <span class="s2">&#34;play&#34;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">paused</span><span class="p">:</span>
+                    <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">music</span><span class="o">.</span><span class="n">unpause</span><span class="p">()</span>
+                    <span class="n">paused</span> <span class="o">=</span> <span class="bp">False</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">playing</span><span class="p">:</span>
+                        <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">music</span><span class="o">.</span><span class="n">play</span><span class="p">()</span>
+                        <span class="n">playing</span> <span class="o">=</span> <span class="bp">True</span>
+
+        <span class="n">screen</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">white</span><span class="p">)</span>
+
+        <span class="c1"># 写一下当前歌名</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="n">label_surfaces</span><span class="p">[</span><span class="n">current_track</span><span class="p">]</span>
+        <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">label</span><span class="o">.</span><span class="n">get_size</span><span class="p">()</span>
+        <span class="n">screen_w</span> <span class="o">=</span> <span class="n">SCREEN_SIZE</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="p">((</span><span class="n">screen_w</span> <span class="o">-</span> <span class="n">w</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">450</span><span class="p">))</span>
+
+        <span class="c1"># 画所有按钮</span>
+        <span class="k">for</span> <span class="n">button</span> <span class="ow">in</span> <span class="n">buttons</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">button</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">screen</span><span class="p">)</span>
+
+        <span class="c1"># 因为基本是不动的，这里帧率设的很低</span>
+        <span class="n">clock</span><span class="o">.</span><span class="n">tick</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+        <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+
+    <span class="n">run</span><span class="p">()</span></code></pre></div>
+<p>混音器还有一个特殊的通道用于音乐播放，可通过 <a href="http://www.pygame.org/docs/ref/music.html">pygame.mixer.music </a>模块访问。</p>
+]]></content>
+		</item>
 		
 		<item>
 			<title>Pygame:Artificial_Intelligence</title>
@@ -1295,363 +1692,6 @@ $$</p>
 <span class="n">a_0</span><span class="o">=</span><span class="n">psit</span><span class="o">.</span><span class="n">ptrace</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">a_1</span><span class="o">=</span><span class="n">psit</span><span class="o">.</span><span class="n">ptrace</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">a_1</span><span class="p">,</span><span class="n">a_0</span><span class="p">,</span><span class="n">psit</span><span class="p">)</span></code></pre></div>]]></content>
-		</item>
-		
-		<item>
-			<title>QC:quantum_FourierT</title>
-			<link>https://boseliao.github.io/posts/qcquantum_fouriert/</link>
-			<pubDate>Mon, 08 Jun 2020 17:39:53 +0800</pubDate>
-			
-			<guid>https://boseliao.github.io/posts/qcquantum_fouriert/</guid>
-			<description>在一些数学或计算科学问题中，傅里叶变换是一种非常常用的手段，用于将待解决的问题转换成已知的问题。 $$ \tilde{f}(k)=\frac{1}{\sqrt{N}}\sum_{j=0}^{N-1}\exp(2\pi i\frac{jk}{N})f(j) $$ 相应的量子傅里叶变换是将算符作用到某一态|j&amp;gt;上得到由一组正交归一的基|0&amp;gt;,...,|N-1&amp;gt;线性叠加的态， $$ F|j\rangle=\frac{1}{\sqrt{N}}\sum_{k=0}^{N-1}\exp(2\pi i\frac{jk}{N})|k\rangle $$ 结合上面两个式子， $$ F\sum_{j=0}^{N-1}f(j)|j\rangle=\sum_{k=0}^{N-1}\tilde{f}(k)|k\rangle $$ 显然F的矩阵形式 $$ F_{kj}=\frac{1}{\sqrt{2^n}}\exp(2\pi i\frac{jk}{2^n}) $$ 如果有n个量子比特，则N=2^n，量子态可以写成 $$ |j\rangle=|j_{n-1},\cdots,j_0\rangle;j=j_{n-1}2^{n-1}+\cdots+j_02^0 $$
-$$ |k\rangle=|k_{n-1},\cdots,k_0\rangle;k=k_{n-1}2^{n-1}+\cdots+k_02^0 $$
-所以(2)式可以写成 $$ F|j_{n-1},\cdots,j_0\rangle=\frac{1}{\sqrt{2^n}}\sum_{k_{n-1}=0}^{1}\cdots\sum_{k_0=0}^{1}\exp(2\pi ij\sum_l\frac{2^lk_l}{2^n})|k_{n-1}\cdots k_0\rangle $$
-$$ l\to n-l,=\frac{1}{\sqrt{2^n}}\otimes_{l=1}^{n}\sum_{k_{n-l}=0}^1\exp(2\pi ij\sum_l\frac{2^lk_l}{2^n})|k_{n-l}\rangle_{n-l}=\frac{1}{\sqrt{2^n}}\otimes_{l=1}^{n}\left(|0\rangle_{n-l}+e^{2\pi ij/2^l}|1\rangle_{n-l} \right) $$
-由于 $$ e^{2\pi in}=1,e^{2\pi ij/2^l}=e^{2\pi i0.j_{l-1}\cdots j_0} $$
-电路构造 Hadmard门 $$ H|j_{n-1}\rangle=\frac{1}{\sqrt{2}}\left(|0\rangle+(-1)^{j_{n-1}}|1\rangle \right)=\frac{1}{\sqrt{2}}\left(|0\rangle+e^{2\pi ij_{n-1}/2}|1\rangle \right) $$ C-R_k，受控相移门 $$ R_k=\left[\begin{array}{lr} 1 \quad 0 \newline \newline 0 \quad e^{\frac{2\pi i}{2^k}} \end{array}\right] $$ 量子傅里叶变换电路</description>
-			<content type="html"><![CDATA[
-
-<p>在一些数学或计算科学问题中，傅里叶变换是一种非常常用的手段，用于将待解决的问题转换成已知的问题。
-$$
-\tilde{f}(k)=\frac{1}{\sqrt{N}}\sum_{j=0}^{N-1}\exp(2\pi i\frac{jk}{N})f(j)
-$$
-相应的量子傅里叶变换是将算符作用到某一态<code>|j&gt;</code>上得到由一组正交归一的基<code>|0&gt;,...,|N-1&gt;</code>线性叠加的态，
-$$
-F|j\rangle=\frac{1}{\sqrt{N}}\sum_{k=0}^{N-1}\exp(2\pi i\frac{jk}{N})|k\rangle
-$$
-结合上面两个式子，
-$$
-F\sum_{j=0}^{N-1}f(j)|j\rangle=\sum_{k=0}^{N-1}\tilde{f}(k)|k\rangle
-$$
-显然F的矩阵形式
-$$
-F_{kj}=\frac{1}{\sqrt{2^n}}\exp(2\pi i\frac{jk}{2^n})
-$$
-如果有n个量子比特，则<code>N=2^n</code>，量子态可以写成
-$$
-|j\rangle=|j_{n-1},\cdots,j_0\rangle;j=j_{n-1}2^{n-1}+\cdots+j_02^0
-$$</p>
-
-<p>$$
-|k\rangle=|k_{n-1},\cdots,k_0\rangle;k=k_{n-1}2^{n-1}+\cdots+k_02^0
-$$</p>
-
-<p>所以(2)式可以写成
-$$
-F|j_{n-1},\cdots,j_0\rangle=\frac{1}{\sqrt{2^n}}\sum_{k_{n-1}=0}^{1}\cdots\sum_{k_0=0}^{1}\exp(2\pi ij\sum_l\frac{2^lk_l}{2^n})|k_{n-1}\cdots k_0\rangle
-$$</p>
-
-<p>$$
-l\to n-l,=\frac{1}{\sqrt{2^n}}\otimes_{l=1}^{n}\sum_{k_{n-l}=0}^1\exp(2\pi ij\sum_l\frac{2^lk_l}{2^n})|k_{n-l}\rangle_{n-l}=\frac{1}{\sqrt{2^n}}\otimes_{l=1}^{n}\left(|0\rangle_{n-l}+e^{2\pi ij/2^l}|1\rangle_{n-l} \right)
-$$</p>
-
-<p>由于
-$$
-e^{2\pi in}=1,e^{2\pi ij/2^l}=e^{2\pi i0.j_{l-1}\cdots j_0}
-$$</p>
-
-<h2 id="电路构造">电路构造</h2>
-
-<p><code>Hadmard</code>门
-$$
-H|j_{n-1}\rangle=\frac{1}{\sqrt{2}}\left(|0\rangle+(-1)^{j_{n-1}}|1\rangle \right)=\frac{1}{\sqrt{2}}\left(|0\rangle+e^{2\pi ij_{n-1}/2}|1\rangle \right)
-$$
-<code>C-R_k</code>，受控相移门
-$$
-R_k=\left[\begin{array}{lr}
-1 \quad 0  \newline
-\newline
-0 \quad e^{\frac{2\pi i}{2^k}}
-\end{array}\right]
-$$
-量子傅里叶变换电路</p>
-
-<p><img src="/img/qc_FT.png" alt="img" /></p>
-
-<p>图中输入，从上到下依次为
-$$
-j_{n-1},j_{n-2},\cdots,j_0
-$$
-输出
-$$
-\frac{1}{\sqrt{2^n}}\left(|0\rangle_{n-1}+e^{2\pi i0.j_{n-1}\cdots j_0}|1\rangle_{n-1} \right)\cdots\left(|0\rangle_0+e^{2\pi i0.j_0}|1\rangle_0 \right)
-$$
-对比我们的结果，需要对第<code>i</code>比特和<code>n-1-i</code>比特作用<code>SWAP</code>门。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">qutip</span> <span class="kn">as</span> <span class="nn">qt</span>
-<span class="kn">from</span> <span class="nn">qutip.qip.circuit</span> <span class="kn">import</span> <span class="n">QubitCircuit</span><span class="p">,</span> <span class="n">Gate</span>
-<span class="kn">from</span> <span class="nn">qutip.qip</span> <span class="kn">import</span> <span class="n">gates</span>
-<span class="n">qc</span><span class="o">=</span><span class="n">QubitCircuit</span><span class="p">(</span><span class="n">N</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;SNOT&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CPHASE&#34;</span><span class="p">,</span><span class="n">controls</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">arg_value</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CPHASE&#34;</span><span class="p">,</span><span class="n">controls</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">arg_value</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mf">4.</span><span class="p">)</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CPHASE&#34;</span><span class="p">,</span><span class="n">controls</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">arg_value</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mf">8.</span><span class="p">)</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;SNOT&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CPHASE&#34;</span><span class="p">,</span><span class="n">controls</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">arg_value</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CPHASE&#34;</span><span class="p">,</span><span class="n">controls</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">arg_value</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mf">4.</span><span class="p">)</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;SNOT&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CPHASE&#34;</span><span class="p">,</span><span class="n">controls</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">arg_value</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;SNOT&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
-<span class="n">U_list</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">propagators</span><span class="p">()</span>
-<span class="kn">from</span> <span class="nn">qutip.qip.operations</span> <span class="kn">import</span> <span class="n">gate_sequence_product</span>
-<span class="n">U</span> <span class="o">=</span> <span class="n">gate_sequence_product</span><span class="p">(</span><span class="n">U_list</span><span class="p">)</span>
-<span class="n">j_0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">j_1</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">j_2</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">j_3</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">psi0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">j_0</span><span class="p">,</span><span class="n">j_1</span><span class="p">,</span><span class="n">j_2</span><span class="p">,</span><span class="n">j_3</span><span class="p">)</span>
-<span class="n">psit</span><span class="o">=</span><span class="n">U</span><span class="o">*</span><span class="n">psi0</span>
-<span class="s2">&#34;&#34;&#34;
-</span><span class="s2">output
-</span><span class="s2">&#34;&#34;&#34;</span>
-<span class="n">k_3</span><span class="o">=</span><span class="n">psit</span><span class="o">.</span><span class="n">ptrace</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">k_2</span><span class="o">=</span><span class="n">psit</span><span class="o">.</span><span class="n">ptrace</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">k_1</span><span class="o">=</span><span class="n">psit</span><span class="o">.</span><span class="n">ptrace</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">k_0</span><span class="o">=</span><span class="n">psit</span><span class="o">.</span><span class="n">ptrace</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span></code></pre></div>
-<p>逆傅里叶变换</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">qutip</span> <span class="kn">as</span> <span class="nn">qt</span>
-<span class="kn">from</span> <span class="nn">qutip.qip.circuit</span> <span class="kn">import</span> <span class="n">QubitCircuit</span><span class="p">,</span> <span class="n">Gate</span>
-<span class="kn">from</span> <span class="nn">qutip.qip</span> <span class="kn">import</span> <span class="n">gates</span>
-<span class="n">qc</span><span class="o">=</span><span class="n">QubitCircuit</span><span class="p">(</span><span class="n">N</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;SNOT&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CPHASE&#34;</span><span class="p">,</span><span class="n">controls</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">arg_value</span><span class="o">=-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CPHASE&#34;</span><span class="p">,</span><span class="n">controls</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">arg_value</span><span class="o">=-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mf">4.</span><span class="p">)</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CPHASE&#34;</span><span class="p">,</span><span class="n">controls</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">arg_value</span><span class="o">=-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mf">8.</span><span class="p">)</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;SNOT&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CPHASE&#34;</span><span class="p">,</span><span class="n">controls</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">arg_value</span><span class="o">=-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CPHASE&#34;</span><span class="p">,</span><span class="n">controls</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">arg_value</span><span class="o">=-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mf">4.</span><span class="p">)</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;SNOT&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CPHASE&#34;</span><span class="p">,</span><span class="n">controls</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">arg_value</span><span class="o">=-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;SNOT&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
-<span class="n">U_list</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">propagators</span><span class="p">()</span>
-<span class="kn">from</span> <span class="nn">qutip.qip.operations</span> <span class="kn">import</span> <span class="n">gate_sequence_product</span>
-<span class="n">U</span> <span class="o">=</span> <span class="n">gate_sequence_product</span><span class="p">(</span><span class="n">U_list</span><span class="p">)</span>
-<span class="n">j_0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">j_1</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">j_2</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">j_3</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">psi0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">j_0</span><span class="p">,</span><span class="n">j_1</span><span class="p">,</span><span class="n">j_2</span><span class="p">,</span><span class="n">j_3</span><span class="p">)</span>
-<span class="n">psit</span><span class="o">=</span><span class="n">U</span><span class="o">*</span><span class="n">psi0</span>
-<span class="s2">&#34;&#34;&#34;
-</span><span class="s2">output
-</span><span class="s2">&#34;&#34;&#34;</span>
-<span class="n">k_3</span><span class="o">=</span><span class="n">psit</span><span class="o">.</span><span class="n">ptrace</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">k_2</span><span class="o">=</span><span class="n">psit</span><span class="o">.</span><span class="n">ptrace</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">k_1</span><span class="o">=</span><span class="n">psit</span><span class="o">.</span><span class="n">ptrace</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">k_0</span><span class="o">=</span><span class="n">psit</span><span class="o">.</span><span class="n">ptrace</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span></code></pre></div>]]></content>
-		</item>
-		
-		<item>
-			<title>QC:quantum_algorithm</title>
-			<link>https://boseliao.github.io/posts/qcquantum_algorithm/</link>
-			<pubDate>Tue, 02 Jun 2020 07:46:20 +0800</pubDate>
-			
-			<guid>https://boseliao.github.io/posts/qcquantum_algorithm/</guid>
-			<description>量子并行运算是一些量子算法中最基本的属性。它允许量子计算机对于不同的x能够同时计算f(x)。首先，考虑两个量子比特的幺正操作。 $$ U_f|x,y\rangle=|x,y\oplus f(x)\rangle $$ 其中，第一个寄存器储存自变量的数据，而第二个寄存器储存函数值。容易证明Uf操作总是一个幺正算符。 $$ \langle x\prime,y\prime|U_f|x,y\rangle=\langle x\prime,y\prime|x,y\oplus f(x)\rangle=\delta_{x\prime,x}\delta_{y\prime,y\oplus f(x)}=\delta_{x,x\prime}\delta_{y,y\prime\oplus f(x\prime)} $$
-$$ =(\delta_{x,x\prime}\delta_{y,y\prime\oplus f(x\prime)})^*=(\langle x,y|U_f|x\prime,y\prime\rangle)^* $$
-所以， $$ U_f=U_f^{\dagger} $$ 而 $$ U_f^2|x\rangle|y\rangle=|x\rangle|y\oplus f(x)\oplus f(x)\rangle=|x\rangle|y\rangle $$ 即 $$ U_f^2=1 $$ 任一二进制数可以表示为 $$ x=(x_{n-1},\cdots,x_0) $$ 对应的任一函数可以表示 $$ f(x^{(i)})=1,i=0,\cdots,m;f(x^{(i)})=0,i=m+1,\cdots,n-1 $$ 定义小项函数 $$ f^{(i)}(x)= \left[\begin{array}{lr} 1 \quad (x=x^{(i)}) \newline \newline 0 \quad (x \ne x^{(i)}) \end{array}\right. $$
-则任一函数可以用小项函数来表示 $$ f(x)=f^{(1)}(x)\vee f^{(2)}(x)\vee\cdots f^{(m)}(x) $$ 每个小项函数对应于Cn-NOT操作。
-量子加法器 对量子信息a和b进行加法，其进位储存在c $$ a=(a_{n-1},\cdots,a_0);b=(b_{n-1},\cdots,b_0);c=(c_{n},\cdots,c_0) $$ 量子加法器由两个模块组成，加法模块SUM(ai,bi,ci)和CARRY(ai,bi,ci)， $$ SUM(a_i,b_i,c_i):s_i=a_i\oplus b_i\oplus c_i $$</description>
-			<content type="html"><![CDATA[
-
-<p>量子并行运算是一些量子算法中最基本的属性。它允许量子计算机对于不同的x能够同时计算f(x)。首先，考虑两个量子比特的幺正操作。
-$$
-U_f|x,y\rangle=|x,y\oplus f(x)\rangle
-$$
-其中，第一个寄存器储存自变量的数据，而第二个寄存器储存函数值。容易证明Uf操作总是一个幺正算符。
-$$
-\langle x\prime,y\prime|U_f|x,y\rangle=\langle x\prime,y\prime|x,y\oplus f(x)\rangle=\delta_{x\prime,x}\delta_{y\prime,y\oplus f(x)}=\delta_{x,x\prime}\delta_{y,y\prime\oplus f(x\prime)}
-$$</p>
-
-<p>$$
-=(\delta_{x,x\prime}\delta_{y,y\prime\oplus f(x\prime)})^*=(\langle x,y|U_f|x\prime,y\prime\rangle)^*
-$$</p>
-
-<p>所以，
-$$
-U_f=U_f^{\dagger}
-$$
-而
-$$
-U_f^2|x\rangle|y\rangle=|x\rangle|y\oplus f(x)\oplus f(x)\rangle=|x\rangle|y\rangle
-$$
-即
-$$
-U_f^2=1
-$$
-任一二进制数可以表示为
-$$
-x=(x_{n-1},\cdots,x_0)
-$$
-对应的任一函数可以表示
-$$
-f(x^{(i)})=1,i=0,\cdots,m;f(x^{(i)})=0,i=m+1,\cdots,n-1
-$$
-定义小项函数
-$$
-f^{(i)}(x)=
-\left[\begin{array}{lr}
-1 \quad (x=x^{(i)})  \newline
-\newline
-0 \quad (x \ne x^{(i)})
-\end{array}\right.
-$$</p>
-
-<p>则任一函数可以用小项函数来表示
-$$
-f(x)=f^{(1)}(x)\vee f^{(2)}(x)\vee\cdots f^{(m)}(x)
-$$
-每个小项函数对应于<code>Cn-NOT</code>操作。</p>
-
-<h2 id="量子加法器">量子加法器</h2>
-
-<p>对量子信息a和b进行加法，其进位储存在c
-$$
-a=(a_{n-1},\cdots,a_0);b=(b_{n-1},\cdots,b_0);c=(c_{n},\cdots,c_0)
-$$
-量子加法器由两个模块组成，加法模块SUM(ai,bi,ci)和CARRY(ai,bi,ci)，
-$$
-SUM(a_i,b_i,c_i):s_i=a_i\oplus b_i\oplus c_i
-$$</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">qutip</span> <span class="kn">as</span> <span class="nn">qt</span>
-<span class="kn">from</span> <span class="nn">qutip.qip.circuit</span> <span class="kn">import</span> <span class="n">QubitCircuit</span><span class="p">,</span> <span class="n">Gate</span>
-<span class="kn">from</span> <span class="nn">qutip.qip</span> <span class="kn">import</span> <span class="n">gates</span>
-<span class="n">qc</span><span class="o">=</span><span class="n">QubitCircuit</span><span class="p">(</span><span class="n">N</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CNOT&#34;</span><span class="p">,</span><span class="n">controls</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CNOT&#34;</span><span class="p">,</span><span class="n">controls</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-<span class="n">U_list</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">propagators</span><span class="p">()</span>
-<span class="kn">from</span> <span class="nn">qutip.qip.operations</span> <span class="kn">import</span> <span class="n">gate_sequence_product</span>
-<span class="n">U</span> <span class="o">=</span> <span class="n">gate_sequence_product</span><span class="p">(</span><span class="n">U_list</span><span class="p">)</span>
-<span class="n">c_i</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">a_i</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">b_i</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">psi0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">c_i</span><span class="p">,</span><span class="n">a_i</span><span class="p">,</span><span class="n">b_i</span><span class="p">)</span>
-<span class="n">psit</span><span class="o">=</span><span class="n">U</span><span class="o">*</span><span class="n">psi0</span>
-<span class="s2">&#34;&#34;&#34;
-</span><span class="s2">output
-</span><span class="s2">&#34;&#34;&#34;</span>
-<span class="n">c_i</span><span class="o">=</span><span class="n">psit</span><span class="o">.</span><span class="n">ptrace</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">a_i</span><span class="o">=</span><span class="n">psit</span><span class="o">.</span><span class="n">ptrace</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">s_i</span><span class="o">=</span><span class="n">psit</span><span class="o">.</span><span class="n">ptrace</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">s_i</span><span class="p">)</span></code></pre></div>
-<p>$$
-CARRY(a_i,b_i,c_i):c_{i+1}=(a_i\wedge b_i)\oplus[c_i\wedge(a_i\oplus b_i)]
-$$</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">qc</span><span class="o">=</span><span class="n">QubitCircuit</span><span class="p">(</span><span class="n">N</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;TOFFOLI&#34;</span><span class="p">,</span><span class="n">controls</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;CNOT&#34;</span><span class="p">,</span><span class="n">controls</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;TOFFOLI&#34;</span><span class="p">,</span><span class="n">controls</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
-<span class="n">U_list</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">propagators</span><span class="p">()</span>
-<span class="kn">from</span> <span class="nn">qutip.qip.operations</span> <span class="kn">import</span> <span class="n">gate_sequence_product</span>
-<span class="n">U</span> <span class="o">=</span> <span class="n">gate_sequence_product</span><span class="p">(</span><span class="n">U_list</span><span class="p">)</span>
-<span class="c1">#psi0=(qt.basis(2,0)+qt.basis(2,1))/np.sqrt(2)</span>
-<span class="c1">#psi0=qt.basis(2,1)</span>
-<span class="n">c_i</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">a_i</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">b_i</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">up</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">psi0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">c_i</span><span class="p">,</span><span class="n">a_i</span><span class="p">,</span><span class="n">b_i</span><span class="p">,</span><span class="n">up</span><span class="p">)</span>
-<span class="n">psit</span><span class="o">=</span><span class="n">U</span><span class="o">*</span><span class="n">psi0</span>
-<span class="s2">&#34;&#34;&#34;
-</span><span class="s2">output
-</span><span class="s2">&#34;&#34;&#34;</span>
-<span class="n">c_i</span><span class="o">=</span><span class="n">psit</span><span class="o">.</span><span class="n">ptrace</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">a_i</span><span class="o">=</span><span class="n">psit</span><span class="o">.</span><span class="n">ptrace</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">s_i</span><span class="o">=</span><span class="n">psit</span><span class="o">.</span><span class="n">ptrace</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">c_iplus1</span><span class="o">=</span><span class="n">psit</span><span class="o">.</span><span class="n">ptrace</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span></code></pre></div>
-<p><code>cplus</code>等价于控制电路的<code>CNOT</code>门操作。<code>(a交b)cplus</code>等价于控制电路的<code>C2-NOT</code>门。整个电路由这两个模块组成</p>
-
-<p><img src="/img/qc_algori_img1.png" alt="img1" /></p>
-
-<h2 id="deutsch算法">Deutsch算法</h2>
-
-<p>Deutsch算法是用于判断一个函数是“constant”(f(x)输出恒为0或1)或“balance”(f(x)输出有一半是0，一半是1)。判断的方法是基于如下的思路，
-$$
-U_f|x,y\rangle=|x,y\oplus f(x)\rangle,U_f|x\rangle(|0\rangle-|1\rangle)=(-1)^{f(x)}|x\rangle(|0\rangle-|1\rangle)
-$$</p>
-
-<p>电路</p>
-
-<p><img src="/img/qc_algori_img2.png" alt="img2" /></p>
-
-<p>输出
-$$
-\left[\begin{array}{lr}
-\pm|0\rangle\otimes\frac{1}{\sqrt{2}}(|0\rangle-|1\rangle) \quad (f(x)=constance)  \newline
-\newline
-\pm|1\rangle\otimes\frac{1}{\sqrt{2}}(|0\rangle-|1\rangle) \quad (f(x)=balance)
-\end{array}\right.
-$$
-可见只要测量<code>psi0</code>，就可以判断f(x)的性质。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">qutip</span> <span class="kn">as</span> <span class="nn">qt</span>
-<span class="kn">from</span> <span class="nn">qutip.qip.circuit</span> <span class="kn">import</span> <span class="n">QubitCircuit</span><span class="p">,</span> <span class="n">Gate</span>
-<span class="kn">from</span> <span class="nn">qutip.qip</span> <span class="kn">import</span> <span class="n">gates</span>
-<span class="k">def</span> <span class="nf">user_gate1</span><span class="p">():</span>
-    <span class="s2">&#34;&#34;&#34;
-</span><span class="s2">    define U_f(x):f(0)=1,f(1)=0
-</span><span class="s2">    &#34;&#34;&#34;</span>
-    <span class="n">mat_control0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">Qobj</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mf">0.</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]),</span><span class="n">dims</span><span class="o">=</span><span class="p">[[</span><span class="mi">2</span><span class="p">],[</span><span class="mi">2</span><span class="p">]])</span>
-    <span class="n">mat_control1</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">Qobj</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mf">0.</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]),</span><span class="n">dims</span><span class="o">=</span><span class="p">[[</span><span class="mi">2</span><span class="p">],[</span><span class="mi">2</span><span class="p">]])</span>
-    <span class="n">mat_target0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">Qobj</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mf">1.</span><span class="p">],[</span><span class="mf">1.</span><span class="p">,</span><span class="mi">0</span><span class="p">]]),</span><span class="n">dims</span><span class="o">=</span><span class="p">[[</span><span class="mi">2</span><span class="p">],[</span><span class="mi">2</span><span class="p">]])</span>
-    <span class="n">mat_target1</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">Qobj</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.</span><span class="p">],[</span><span class="mf">0.</span><span class="p">,</span><span class="mi">1</span><span class="p">]]),</span><span class="n">dims</span><span class="o">=</span><span class="p">[[</span><span class="mi">2</span><span class="p">],[</span><span class="mi">2</span><span class="p">]])</span>
-    <span class="n">mat</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">mat_control0</span><span class="p">,</span><span class="n">mat_target0</span><span class="p">)</span><span class="o">+</span><span class="n">qt</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">mat_control1</span><span class="p">,</span><span class="n">mat_target1</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">mat</span>
-<span class="n">qc</span><span class="o">=</span><span class="n">QubitCircuit</span><span class="p">(</span><span class="n">N</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">user_gates</span><span class="o">=</span><span class="p">{</span><span class="s2">&#34;U_f(x)&#34;</span><span class="p">:</span><span class="n">user_gate1</span><span class="p">}</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;SNOT&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;SNOT&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;U_f(x)&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">qc</span><span class="o">.</span><span class="n">add_gate</span><span class="p">(</span><span class="s2">&#34;SNOT&#34;</span><span class="p">,</span><span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">U_list</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">propagators</span><span class="p">()</span>
-<span class="kn">from</span> <span class="nn">qutip.qip.operations</span> <span class="kn">import</span> <span class="n">gate_sequence_product</span>
-<span class="n">U</span> <span class="o">=</span> <span class="n">gate_sequence_product</span><span class="p">(</span><span class="n">U_list</span><span class="p">)</span>
-<span class="n">psi0</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="n">qt</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
-<span class="n">psit</span><span class="o">=</span><span class="n">U</span><span class="o">*</span><span class="n">psi0</span>
-<span class="n">psit0</span><span class="o">=</span><span class="n">psit</span><span class="o">.</span><span class="n">ptrace</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">psit0</span><span class="p">)</span></code></pre></div>
-<p>这种方法相对于经典的方法缩短了一半的步骤。</p>
-
-<h2 id="deutsch-jozsa">Deutsch-Jozsa</h2>
-
-<p>对于n个量子态的函数映射
-$$
-f:\left(0,1\right)^n\to\left(0,1\right)
-$$
-输入储存于量子态|x&gt;中
-$$
-x=\left(x_{n-1},\cdots,x_0 \right)
-$$
-同理
-$$
-U_f|x\rangle(|0\rangle-|1\rangle)=\prod_{i=0}^{n-1}(-1)^{f(x_i)}|x\rangle(|0\rangle-|1\rangle)
-$$
-任意态经过Hadamard门
-$$
-H^{\otimes n}|x\rangle=\frac{1}{\sqrt{2^n}}\sum_{y_{n-1}=0}^1\cdots\sum_{y_0=0}^1(-1)^{\sum_ix_iy_i}|y_{n-1}\cdots y_0\rangle=\frac{1}{\sqrt{2^n}}\sum_y(-1)^y|y\rangle
-$$
-电路与单态的<code>Deutsch</code>算法电路相同，但是对第一个量子态的Hadamard门变成上式中n量子态Hadamard门，输出为，
-$$
-\frac{1}{2^n}\sum_x\sum_y(-1)^{f(x)+xy}|y\rangle\frac{1}{\sqrt{2}}\left(|0\rangle-|1\rangle\right)
-$$
-当f=constance时，
-$$
-\frac{1}{2^n}\sum_x(-1)^{f(x)+xy}|y\rangle=\frac{(-1)^{c}}{2^n}\sum_x(-1)^{xy}|y\rangle=\frac{(-1)^{c}}{2^n}\prod_{i=0}^{n-1}\sum_{x_i=0}^{1}(-1)^{x_iy_i}|y\rangle=\frac{(-1)^{c}}{2^n}\prod_{i=0}^{n-1}\left[1+(-1)^{y_i}\right]
-$$
-显然只有当y=|0&hellip;0&gt;时，该系数才不为零，即只能测到该态。</p>
-
-<p>当f=balance时，考虑y=|0&hellip;0&gt;态的系数
-$$
-\frac{1}{2^n}\sum_x(-1)^{f(x)}|y_0\rangle=\frac{1}{2^n}\left[2^{n-1}(-1)^0+2^{n-1}(-1)^1\right]|y_0\rangle=0|y_0\rangle
-$$
-即无法测到该态</p>
-]]></content>
 		</item>
 		
 	</channel>

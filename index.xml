@@ -7,10 +7,30 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Mon, 27 Jul 2020 10:10:38 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 28 Jul 2020 15:49:35 +0800</lastBuildDate>
     
 	<atom:link href="https://boseliao.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Pygame:make_game</title>
+      <link>https://boseliao.github.io/posts/pygamemake_game/</link>
+      <pubDate>Tue, 28 Jul 2020 15:49:35 +0800</pubDate>
+      
+      <guid>https://boseliao.github.io/posts/pygamemake_game/</guid>
+      <description>通过对代码的重构能够使得我们的代码更加具有可读性，方便维护更新。
+import pygame from pygame.sprite import Group from settings import Settings from ship import Ship import game_functions as gf from game_states import GameStates from button import Button from scoreboard import Scoreboard def run_game(): pygame.init() ai_settings = Settings() screen = pygame.display.set_mode((ai_settings.screen_width, ai_settings.screen_height)) pygame.display.set_caption(&amp;#34;alien invasion&amp;#34;) play_button = Button(ai_settings, screen, &amp;#34;Play&amp;#34;) ship = Ship(ai_settings, screen) aliens = Group() bullets = Group() states = GameStates(ai_settings) sb = Scoreboard(ai_settings,screen,states) gf.create_fleet(ai_settings, screen, ship, aliens) while True: gf.</description>
+    </item>
+    
+    <item>
+      <title>Pygame:Sound</title>
+      <link>https://boseliao.github.io/posts/pygamesound/</link>
+      <pubDate>Tue, 28 Jul 2020 12:39:54 +0800</pubDate>
+      
+      <guid>https://boseliao.github.io/posts/pygamesound/</guid>
+      <description>在Pygame同样定义了特殊的模块pygame.mixer来播放声音效果。
+SCREEN_SIZE = (640, 480) # 重力因子，实际上是单位 像素/平方秒 GRAVITY = 250.0 # 弹力系数，不要超过1! BOUNCINESS = 0.7 import pygame from pygame.locals import * from sys import exit from random import randint from gameobjects.vector2 import Vector2 def stero_pan(x_coord, screen_width): &amp;#34;&amp;#34;&amp;#34;这个函数根据位置决定要播放声音左右声道的音量&amp;#34;&amp;#34;&amp;#34; right_volume = float(x_coord) / screen_width left_volume = 1.0 - right_volume return (left_volume, right_volume) class Ball(): &amp;#34;&amp;#34;&amp;#34;小球类，实际上我们可以使用Sprite类来简化&amp;#34;&amp;#34;&amp;#34; def __init__(self, position, speed, image, bounce_sound): self.position = Vector2(position) self.speed = Vector2(speed) self.image = image self.bounce_sound = bounce_sound self.</description>
+    </item>
     
     <item>
       <title>Pygame:Artificial_Intelligence</title>
@@ -111,33 +131,6 @@ order founding 利用量子傅里叶算法以及量子相位估计算法实现r=
 $$ \to C-U^{2^j}\to\frac{1}{\sqrt{2^n}}\left(|0\rangle+e^{i2^{n-1}\phi}|1\rangle \right)\cdots\left(|0\rangle+e^{i\phi}|1\rangle \right)|u\rangle=\frac{1}{\sqrt{2^n}}\sum_{y=0}^{2^n-1}e^{i\phi y}|y\rangle |u\rangle $$
 这里输出第一组寄存器中的\phi依赖于测量态的概率，但我们测量到的是态而非概率幅度，利用傅里叶变换可以将概率幅度存储的相位存储到量子态中。量子傅里叶逆变换为 $$ QFT^{-1}|y\rangle=\frac{1}{\sqrt{2^n}}\sum_{x=0}^{2^{n}-1}\exp(-2\pi i\frac{xy}{2^n})|x\rangle $$ 将\phi写成 $$ \phi=2\pi\left(\frac{a}{2^n}+\delta \right),\quad a=a_{n-1}\cdots a_0,0&amp;lt;\delta|u&amp;gt;，可以得到本征值 $$ \phi=\frac{2\pi a}{2^n} $$ 当\delta不等于0时，则测到态|a&amp;gt;|u&amp;gt;的概率幅 $$ C_a=\frac{1}{2^n}\sum_{y=0}^{2^n-1}e^{2\pi i\delta y}&amp;gt;\frac{2}{\pi} $$
 import numpy as np import matplotlib.pyplot as plt import qutip as qt from qutip.qip.circuit import QubitCircuit, Gate from qutip.qip import gates def user_gate1(): &amp;#34;&amp;#34;&amp;#34; define C-U:control-qubit=0,u=1;conrol-qubit=1,u=[[1.,0.],[0.,-1.]] &amp;#34;&amp;#34;&amp;#34; mat_control0=qt.</description>
-    </item>
-    
-    <item>
-      <title>QC:quantum_FourierT</title>
-      <link>https://boseliao.github.io/posts/qcquantum_fouriert/</link>
-      <pubDate>Mon, 08 Jun 2020 17:39:53 +0800</pubDate>
-      
-      <guid>https://boseliao.github.io/posts/qcquantum_fouriert/</guid>
-      <description>在一些数学或计算科学问题中，傅里叶变换是一种非常常用的手段，用于将待解决的问题转换成已知的问题。 $$ \tilde{f}(k)=\frac{1}{\sqrt{N}}\sum_{j=0}^{N-1}\exp(2\pi i\frac{jk}{N})f(j) $$ 相应的量子傅里叶变换是将算符作用到某一态|j&amp;gt;上得到由一组正交归一的基|0&amp;gt;,...,|N-1&amp;gt;线性叠加的态， $$ F|j\rangle=\frac{1}{\sqrt{N}}\sum_{k=0}^{N-1}\exp(2\pi i\frac{jk}{N})|k\rangle $$ 结合上面两个式子， $$ F\sum_{j=0}^{N-1}f(j)|j\rangle=\sum_{k=0}^{N-1}\tilde{f}(k)|k\rangle $$ 显然F的矩阵形式 $$ F_{kj}=\frac{1}{\sqrt{2^n}}\exp(2\pi i\frac{jk}{2^n}) $$ 如果有n个量子比特，则N=2^n，量子态可以写成 $$ |j\rangle=|j_{n-1},\cdots,j_0\rangle;j=j_{n-1}2^{n-1}+\cdots+j_02^0 $$
-$$ |k\rangle=|k_{n-1},\cdots,k_0\rangle;k=k_{n-1}2^{n-1}+\cdots+k_02^0 $$
-所以(2)式可以写成 $$ F|j_{n-1},\cdots,j_0\rangle=\frac{1}{\sqrt{2^n}}\sum_{k_{n-1}=0}^{1}\cdots\sum_{k_0=0}^{1}\exp(2\pi ij\sum_l\frac{2^lk_l}{2^n})|k_{n-1}\cdots k_0\rangle $$
-$$ l\to n-l,=\frac{1}{\sqrt{2^n}}\otimes_{l=1}^{n}\sum_{k_{n-l}=0}^1\exp(2\pi ij\sum_l\frac{2^lk_l}{2^n})|k_{n-l}\rangle_{n-l}=\frac{1}{\sqrt{2^n}}\otimes_{l=1}^{n}\left(|0\rangle_{n-l}+e^{2\pi ij/2^l}|1\rangle_{n-l} \right) $$
-由于 $$ e^{2\pi in}=1,e^{2\pi ij/2^l}=e^{2\pi i0.j_{l-1}\cdots j_0} $$
-电路构造 Hadmard门 $$ H|j_{n-1}\rangle=\frac{1}{\sqrt{2}}\left(|0\rangle+(-1)^{j_{n-1}}|1\rangle \right)=\frac{1}{\sqrt{2}}\left(|0\rangle+e^{2\pi ij_{n-1}/2}|1\rangle \right) $$ C-R_k，受控相移门 $$ R_k=\left[\begin{array}{lr} 1 \quad 0 \newline \newline 0 \quad e^{\frac{2\pi i}{2^k}} \end{array}\right] $$ 量子傅里叶变换电路</description>
-    </item>
-    
-    <item>
-      <title>QC:quantum_algorithm</title>
-      <link>https://boseliao.github.io/posts/qcquantum_algorithm/</link>
-      <pubDate>Tue, 02 Jun 2020 07:46:20 +0800</pubDate>
-      
-      <guid>https://boseliao.github.io/posts/qcquantum_algorithm/</guid>
-      <description>量子并行运算是一些量子算法中最基本的属性。它允许量子计算机对于不同的x能够同时计算f(x)。首先，考虑两个量子比特的幺正操作。 $$ U_f|x,y\rangle=|x,y\oplus f(x)\rangle $$ 其中，第一个寄存器储存自变量的数据，而第二个寄存器储存函数值。容易证明Uf操作总是一个幺正算符。 $$ \langle x\prime,y\prime|U_f|x,y\rangle=\langle x\prime,y\prime|x,y\oplus f(x)\rangle=\delta_{x\prime,x}\delta_{y\prime,y\oplus f(x)}=\delta_{x,x\prime}\delta_{y,y\prime\oplus f(x\prime)} $$
-$$ =(\delta_{x,x\prime}\delta_{y,y\prime\oplus f(x\prime)})^*=(\langle x,y|U_f|x\prime,y\prime\rangle)^* $$
-所以， $$ U_f=U_f^{\dagger} $$ 而 $$ U_f^2|x\rangle|y\rangle=|x\rangle|y\oplus f(x)\oplus f(x)\rangle=|x\rangle|y\rangle $$ 即 $$ U_f^2=1 $$ 任一二进制数可以表示为 $$ x=(x_{n-1},\cdots,x_0) $$ 对应的任一函数可以表示 $$ f(x^{(i)})=1,i=0,\cdots,m;f(x^{(i)})=0,i=m+1,\cdots,n-1 $$ 定义小项函数 $$ f^{(i)}(x)= \left[\begin{array}{lr} 1 \quad (x=x^{(i)}) \newline \newline 0 \quad (x \ne x^{(i)}) \end{array}\right. $$
-则任一函数可以用小项函数来表示 $$ f(x)=f^{(1)}(x)\vee f^{(2)}(x)\vee\cdots f^{(m)}(x) $$ 每个小项函数对应于Cn-NOT操作。
-量子加法器 对量子信息a和b进行加法，其进位储存在c $$ a=(a_{n-1},\cdots,a_0);b=(b_{n-1},\cdots,b_0);c=(c_{n},\cdots,c_0) $$ 量子加法器由两个模块组成，加法模块SUM(ai,bi,ci)和CARRY(ai,bi,ci)， $$ SUM(a_i,b_i,c_i):s_i=a_i\oplus b_i\oplus c_i $$</description>
     </item>
     
   </channel>

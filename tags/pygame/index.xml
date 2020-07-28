@@ -7,10 +7,30 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Mon, 27 Jul 2020 10:10:38 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 28 Jul 2020 15:49:35 +0800</lastBuildDate>
     
 	<atom:link href="https://boseliao.github.io/tags/pygame/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Pygame:make_game</title>
+      <link>https://boseliao.github.io/posts/pygamemake_game/</link>
+      <pubDate>Tue, 28 Jul 2020 15:49:35 +0800</pubDate>
+      
+      <guid>https://boseliao.github.io/posts/pygamemake_game/</guid>
+      <description>通过对代码的重构能够使得我们的代码更加具有可读性，方便维护更新。
+import pygame from pygame.sprite import Group from settings import Settings from ship import Ship import game_functions as gf from game_states import GameStates from button import Button from scoreboard import Scoreboard def run_game(): pygame.init() ai_settings = Settings() screen = pygame.display.set_mode((ai_settings.screen_width, ai_settings.screen_height)) pygame.display.set_caption(&amp;#34;alien invasion&amp;#34;) play_button = Button(ai_settings, screen, &amp;#34;Play&amp;#34;) ship = Ship(ai_settings, screen) aliens = Group() bullets = Group() states = GameStates(ai_settings) sb = Scoreboard(ai_settings,screen,states) gf.create_fleet(ai_settings, screen, ship, aliens) while True: gf.</description>
+    </item>
+    
+    <item>
+      <title>Pygame:Sound</title>
+      <link>https://boseliao.github.io/posts/pygamesound/</link>
+      <pubDate>Tue, 28 Jul 2020 12:39:54 +0800</pubDate>
+      
+      <guid>https://boseliao.github.io/posts/pygamesound/</guid>
+      <description>在Pygame同样定义了特殊的模块pygame.mixer来播放声音效果。
+SCREEN_SIZE = (640, 480) # 重力因子，实际上是单位 像素/平方秒 GRAVITY = 250.0 # 弹力系数，不要超过1! BOUNCINESS = 0.7 import pygame from pygame.locals import * from sys import exit from random import randint from gameobjects.vector2 import Vector2 def stero_pan(x_coord, screen_width): &amp;#34;&amp;#34;&amp;#34;这个函数根据位置决定要播放声音左右声道的音量&amp;#34;&amp;#34;&amp;#34; right_volume = float(x_coord) / screen_width left_volume = 1.0 - right_volume return (left_volume, right_volume) class Ball(): &amp;#34;&amp;#34;&amp;#34;小球类，实际上我们可以使用Sprite类来简化&amp;#34;&amp;#34;&amp;#34; def __init__(self, position, speed, image, bounce_sound): self.position = Vector2(position) self.speed = Vector2(speed) self.image = image self.bounce_sound = bounce_sound self.</description>
+    </item>
     
     <item>
       <title>Pygame:Artificial_Intelligence</title>

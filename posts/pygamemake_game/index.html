@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="theme-color" content="#494f5c">
+	<meta name="msapplication-TileColor" content="#494f5c">
+
+<meta itemprop="name" content="Pygame:make_game">
+<meta itemprop="description" content="通过对代码的重构能够使得我们的代码更加具有可读性，方便维护更新。
+import pygame from pygame.sprite import Group from settings import Settings from ship import Ship import game_functions as gf from game_states import GameStates from button import Button from scoreboard import Scoreboard def run_game(): pygame.init() ai_settings = Settings() screen = pygame.display.set_mode((ai_settings.screen_width, ai_settings.screen_height)) pygame.display.set_caption(&#34;alien invasion&#34;) play_button = Button(ai_settings, screen, &#34;Play&#34;) ship = Ship(ai_settings, screen) aliens = Group() bullets = Group() states = GameStates(ai_settings) sb = Scoreboard(ai_settings,screen,states) gf.create_fleet(ai_settings, screen, ship, aliens) while True: gf.">
+
+
+<meta itemprop="datePublished" content="2020-07-28T15:49:35&#43;08:00" />
+<meta itemprop="dateModified" content="2020-07-28T15:49:35&#43;08:00" />
+<meta itemprop="wordCount" content="111">
+
+
+
+<meta itemprop="keywords" content="Pygame," />
+<meta property="og:title" content="Pygame:make_game" />
+<meta property="og:description" content="通过对代码的重构能够使得我们的代码更加具有可读性，方便维护更新。
+import pygame from pygame.sprite import Group from settings import Settings from ship import Ship import game_functions as gf from game_states import GameStates from button import Button from scoreboard import Scoreboard def run_game(): pygame.init() ai_settings = Settings() screen = pygame.display.set_mode((ai_settings.screen_width, ai_settings.screen_height)) pygame.display.set_caption(&#34;alien invasion&#34;) play_button = Button(ai_settings, screen, &#34;Play&#34;) ship = Ship(ai_settings, screen) aliens = Group() bullets = Group() states = GameStates(ai_settings) sb = Scoreboard(ai_settings,screen,states) gf.create_fleet(ai_settings, screen, ship, aliens) while True: gf." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://boseliao.github.io/posts/pygamemake_game/" />
+<meta property="article:published_time" content="2020-07-28T15:49:35&#43;08:00"/>
+<meta property="article:modified_time" content="2020-07-28T15:49:35&#43;08:00"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Pygame:make_game"/>
+<meta name="twitter:description" content="通过对代码的重构能够使得我们的代码更加具有可读性，方便维护更新。
+import pygame from pygame.sprite import Group from settings import Settings from ship import Ship import game_functions as gf from game_states import GameStates from button import Button from scoreboard import Scoreboard def run_game(): pygame.init() ai_settings = Settings() screen = pygame.display.set_mode((ai_settings.screen_width, ai_settings.screen_height)) pygame.display.set_caption(&#34;alien invasion&#34;) play_button = Button(ai_settings, screen, &#34;Play&#34;) ship = Ship(ai_settings, screen) aliens = Group() bullets = Group() states = GameStates(ai_settings) sb = Scoreboard(ai_settings,screen,states) gf.create_fleet(ai_settings, screen, ship, aliens) while True: gf."/>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="">
+	<link rel="shortcut icon" href="/favicon.ico">
+
+	<title>Pygame:make_game</title>
+	<link rel="stylesheet" href="https://boseliao.github.io/css/style.min.657bcb7af31123e4156b1a3d2ff60a636717e54ead74f882136b5114cf72b55e.css" integrity="sha256-ZXvLevMRI+QVaxo9L/YKY2cX5U6tdPiCE2tRFM9ytV4=" crossorigin="anonymous">
+	
+</head>
+
+<body id="page">
+	
+	<header id="site-header" class="animated slideInUp faster">
+		<div class="hdr-wrapper section-inner">
+			<div class="hdr-left">
+				<div class="site-branding">
+					<a href="https://boseliao.github.io">BoseLiao&#39;s Blog</a>
+				</div>
+				<nav class="site-nav hide-in-mobile">
+					
+				<a href="https://boseliao.github.io/posts/">Posts</a>
+				<a href="https://boseliao.github.io/boseliao">About</a>
+
+				</nav>
+			</div>
+			<div class="hdr-right hdr-icons">
+				<button id="menu-btn" class="hdr-btn" title="Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+			</div>
+		</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+	</header>
+	<div id="mobile-menu" class="animated fast">
+		<ul>
+			<li><a href="https://boseliao.github.io/posts/">Posts</a></li>
+			<li><a href="https://boseliao.github.io/boseliao">About</a></li>
+		</ul>
+	</div>
+
+
+	<main class="site-main section-inner animated fadeIn faster">
+		<article class="thin">
+			<header class="post-header">
+				<div class="post-meta"><span>Jul 28, 2020</span></div>
+				<h1>Pygame:make_game</h1>
+			</header>
+			<div class="content">
+				<p>通过对代码的重构能够使得我们的代码更加具有可读性，方便维护更新。</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">pygame</span>
+<span class="kn">from</span> <span class="nn">pygame.sprite</span> <span class="kn">import</span> <span class="n">Group</span>
+
+<span class="kn">from</span> <span class="nn">settings</span> <span class="kn">import</span> <span class="n">Settings</span>
+<span class="kn">from</span> <span class="nn">ship</span> <span class="kn">import</span> <span class="n">Ship</span>
+<span class="kn">import</span> <span class="nn">game_functions</span> <span class="kn">as</span> <span class="nn">gf</span>
+<span class="kn">from</span> <span class="nn">game_states</span> <span class="kn">import</span> <span class="n">GameStates</span>
+<span class="kn">from</span> <span class="nn">button</span> <span class="kn">import</span> <span class="n">Button</span>
+<span class="kn">from</span> <span class="nn">scoreboard</span> <span class="kn">import</span> <span class="n">Scoreboard</span>
+
+<span class="k">def</span> <span class="nf">run_game</span><span class="p">():</span>
+    <span class="n">pygame</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+    
+    <span class="n">ai_settings</span> <span class="o">=</span> <span class="n">Settings</span><span class="p">()</span>
+    <span class="n">screen</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">((</span><span class="n">ai_settings</span><span class="o">.</span><span class="n">screen_width</span><span class="p">,</span>
+                                      <span class="n">ai_settings</span><span class="o">.</span><span class="n">screen_height</span><span class="p">))</span>
+    <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_caption</span><span class="p">(</span><span class="s2">&#34;alien invasion&#34;</span><span class="p">)</span>
+    
+    <span class="n">play_button</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="n">ai_settings</span><span class="p">,</span> <span class="n">screen</span><span class="p">,</span> <span class="s2">&#34;Play&#34;</span><span class="p">)</span>
+    
+    <span class="n">ship</span> <span class="o">=</span> <span class="n">Ship</span><span class="p">(</span><span class="n">ai_settings</span><span class="p">,</span> <span class="n">screen</span><span class="p">)</span>
+    <span class="n">aliens</span> <span class="o">=</span> <span class="n">Group</span><span class="p">()</span>
+    <span class="n">bullets</span> <span class="o">=</span> <span class="n">Group</span><span class="p">()</span>
+    <span class="n">states</span> <span class="o">=</span> <span class="n">GameStates</span><span class="p">(</span><span class="n">ai_settings</span><span class="p">)</span>
+    <span class="n">sb</span> <span class="o">=</span> <span class="n">Scoreboard</span><span class="p">(</span><span class="n">ai_settings</span><span class="p">,</span><span class="n">screen</span><span class="p">,</span><span class="n">states</span><span class="p">)</span>
+    
+    <span class="n">gf</span><span class="o">.</span><span class="n">create_fleet</span><span class="p">(</span><span class="n">ai_settings</span><span class="p">,</span> <span class="n">screen</span><span class="p">,</span> <span class="n">ship</span><span class="p">,</span> <span class="n">aliens</span><span class="p">)</span>
+    
+    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+        
+        <span class="n">gf</span><span class="o">.</span><span class="n">check_events</span><span class="p">(</span><span class="n">ai_settings</span><span class="p">,</span><span class="n">states</span><span class="p">,</span><span class="n">screen</span><span class="p">,</span><span class="n">ship</span><span class="p">,</span><span class="n">bullets</span><span class="p">,</span>
+                        <span class="n">aliens</span><span class="p">,</span><span class="n">play_button</span><span class="p">,</span><span class="n">sb</span><span class="p">)</span>   
+        <span class="k">if</span> <span class="n">states</span><span class="o">.</span><span class="n">game_active</span><span class="p">:</span>
+            
+            <span class="n">ship</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+            <span class="n">gf</span><span class="o">.</span><span class="n">update_bullets</span><span class="p">(</span><span class="n">ai_settings</span><span class="p">,</span> <span class="n">states</span><span class="p">,</span> <span class="n">screen</span><span class="p">,</span> <span class="n">sb</span><span class="p">,</span> <span class="n">ship</span><span class="p">,</span>
+                              <span class="n">aliens</span><span class="p">,</span> <span class="n">bullets</span><span class="p">)</span>
+            <span class="n">gf</span><span class="o">.</span><span class="n">update_aliens</span><span class="p">(</span><span class="n">ai_settings</span><span class="p">,</span> <span class="n">states</span><span class="p">,</span> <span class="n">screen</span><span class="p">,</span> <span class="n">ship</span><span class="p">,</span>
+                             <span class="n">aliens</span><span class="p">,</span> <span class="n">bullets</span><span class="p">,</span> <span class="n">sb</span><span class="p">)</span>
+        
+        <span class="n">gf</span><span class="o">.</span><span class="n">update_screen</span><span class="p">(</span><span class="n">ai_settings</span><span class="p">,</span><span class="n">states</span><span class="p">,</span><span class="n">sb</span><span class="p">,</span><span class="n">screen</span><span class="p">,</span><span class="n">ship</span><span class="p">,</span><span class="n">aliens</span><span class="p">,</span>
+                         <span class="n">bullets</span><span class="p">,</span> <span class="n">play_button</span><span class="p">)</span>
+        
+<span class="n">run_game</span><span class="p">()</span></code></pre></div>
+<p>将事件的捕捉，控制重构成单独定义的函数，以及实体类的定义以及其他功能的添加写成单独的模块将有助于代码的可读性。完整的代码参考<a href="https://github.com/Boseliao/alien_invasion">alien_invasion</a></p>
+
+<p>利用<code>pyinstaller</code>打包游戏</p>
+
+<p>打包命令</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1">#默认选项，除了demo.exe外，还会在在dist中生成很多依赖文件</span>
+<span class="n">pyinstaller</span> <span class="o">-</span><span class="n">D</span> <span class="n">demo</span><span class="o">.</span><span class="n">py</span>
+<span class="c1">#只在dist中生产一个demo.exe文件。</span>
+<span class="n">pyinstaller</span> <span class="o">-</span><span class="n">F</span> <span class="n">demo</span><span class="o">.</span><span class="n">py</span></code></pre></div>
+<p>当需要打包含有图片的资源的时候</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1">#生成demo.spec文本，并对其中的resources进行配置添加</span>
+<span class="n">pyi</span><span class="o">-</span><span class="n">makespec</span> <span class="n">demo</span><span class="o">.</span><span class="n">py</span>
+<span class="c1">#执行打包任务</span>
+<span class="n">pyinstaller</span> <span class="n">demo</span><span class="o">.</span><span class="n">spec</span></code></pre></div>
+			</div>
+			<hr class="post-end">
+			<footer class="post-info">
+				<p>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://boseliao.github.io/tags/pygame">Pygame</a></span>
+				</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>111 Words</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2020-07-28 15:49 &#43;0800</p>
+			</footer>
+		</article>
+		<div class="post-nav thin">
+			<a class="prev-post" href="https://boseliao.github.io/posts/pygamesound/">
+				<span class="post-nav-label">Older&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span><br><span>Pygame:Sound</span>
+			</a>
+		</div>
+		<div id="comments" class="thin">
+</div>
+	</main>
+
+	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
+		<p>&copy; 2020 <a href="https://boseliao.github.io">BoseLiao</a> &#183; <a hr#ef="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">All rights reserved</a></p>
+	</footer>
+
+
+
+	<script src="https://boseliao.github.io/js/bundle.min.490e43e5af6db5906f28afa49a4e16bf9f626b758e3fca92f146b870eb94bb37.js" integrity="sha256-SQ5D5a9ttZBvKK+kmk4Wv59ia3WOP8qS8Ua4cOuUuzc=" crossorigin="anonymous"></script>
+	
+
+</body>
+
+</html>
